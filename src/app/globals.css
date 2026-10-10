@@ -135,6 +135,17 @@
   --ease-ios: cubic-bezier(0.32, 0.72, 0, 1);
 }
 
+/* Niche pages (and their portaled sheets) carry per-theme accents computed
+   from the palette; this picks the right pair for the active theme. */
+[data-niche] {
+  --niche-accent: var(--niche-accent-light);
+  --niche-accent-foreground: var(--niche-accent-fg-light);
+}
+.dark [data-niche] {
+  --niche-accent: var(--niche-accent-dark);
+  --niche-accent-foreground: var(--niche-accent-fg-dark);
+}
+
 /* ── utilities ───────────────────────────────────────────── */
 
 @utility glass {
