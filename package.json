@@ -18,7 +18,8 @@
     "seed:niches": "tsx scripts/seed-niches.ts",
     "generate:niche": "tsx scripts/generate-niche.ts",
     "trends:refresh": "tsx scripts/trends-refresh.ts",
-    "trends:upsert": "tsx scripts/trends-upsert.ts"
+    "trends:upsert": "tsx scripts/trends-upsert.ts",
+    "db:status": "tsx scripts/db-status.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.133.0",

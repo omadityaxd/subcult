@@ -20,7 +20,7 @@ import { env } from "@/lib/env"
 import { googleNews, youtube } from "@/lib/links"
 import { NICHE_PRESETS, type NichePreset, findSeedProfileByName } from "@/lib/niches/catalog"
 import { isNew } from "@/lib/niches/lifecycle"
-import { type NicheMeta, lookupNicheProfile } from "@/lib/niches/lookup"
+import { type NicheMeta, type NicheSource, lookupNicheProfile } from "@/lib/niches/lookup"
 import { nicheTheme } from "@/lib/niches/theme"
 
 export function generateStaticParams() {
@@ -61,10 +61,18 @@ async function NicheContent({ params }: Pick<PageProps<"/n/[slug]">, "params">) 
   const lookup = await lookupNicheProfile(slug)
   if (lookup.status === "missing") notFound()
   if (lookup.status === "unavailable") return <NicheUnavailable />
-  return <NicheWorld profile={lookup.profile} meta={lookup.meta} />
+  return <NicheWorld profile={lookup.profile} meta={lookup.meta} source={lookup.source} />
 }
 
-function NicheWorld({ profile, meta }: { profile: NicheProfile; meta: NicheMeta | null }) {
+function NicheWorld({
+  profile,
+  meta,
+  source,
+}: {
+  profile: NicheProfile
+  meta: NicheMeta | null
+  source: NicheSource
+}) {
   const badge = trendBadge(meta)
   const theme = nicheTheme(profile.palette)
   const related = profile.relatedNiches
@@ -80,7 +88,7 @@ function NicheWorld({ profile, meta }: { profile: NicheProfile; meta: NicheMeta 
   const shopConfig = { amazonDomain: env.AMAZON_DOMAIN, amazonTag: env.AMAZON_AFFILIATE_TAG }
 
   return (
-    <div data-niche="" style={theme.style}>
+    <div data-niche="" data-niche-source={source} style={theme.style}>
       <NicheNavBar name={profile.name} emoji={profile.emoji} />
       <NicheHero profile={profile} themeStyle={theme.style} badge={badge} />
       <NicheTabs

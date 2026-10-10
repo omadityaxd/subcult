@@ -18,6 +18,14 @@ export const log = {
 
 export type Logger = typeof log
 
-export function errorMessage(error: unknown): string {
-  return error instanceof Error ? error.message : String(error)
+const MAX_CAUSE_DEPTH = 3
+
+/**
+ * Message plus its `cause` chain: wrappers like Drizzle's "Failed query"
+ * hide the real reason (auth, network, timeout) in `cause`.
+ */
+export function errorMessage(error: unknown, depth = 0): string {
+  if (!(error instanceof Error)) return String(error)
+  if (error.cause === undefined || depth >= MAX_CAUSE_DEPTH) return error.message
+  return `${error.message} ← ${errorMessage(error.cause, depth + 1)}`
 }
