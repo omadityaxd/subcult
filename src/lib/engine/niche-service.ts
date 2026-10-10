@@ -2,6 +2,7 @@ import { type Logger, errorMessage } from "@/lib/log"
 import type { GenerationResult } from "./generate"
 import type { NicheProfile } from "./profile-schema"
 import { parseNicheInput } from "./slug"
+import { type UsageEntry, type UsageLog, usageFromStats } from "./usage"
 
 export const GENERATED_BY = ["seed", "user", "anon"] as const
 export type GeneratedBy = (typeof GENERATED_BY)[number]
@@ -36,21 +37,32 @@ export type NicheLookup =
   | { status: "invalid-input"; reason: string }
   | { status: "rejected"; reason: string }
   | { status: "rate-limited"; reason: string }
+  | { status: "capped"; reason: string }
   | { status: "unavailable"; reason: string }
   | { status: "failed"; reason: string }
+
+/** Budget decision before spending tokens: per-identifier limit vs global daily cap. */
+export type GenerationPermit = "ok" | "rate-limited" | "capped"
 
 export interface NicheServiceDeps {
   repo: NicheRepository
   /** null when no LLM is configured: cached niches still resolve. */
   generate: NicheGenerator | null
   logger: Logger
+  /** Token ledger; optional so the engine runs without a usage table (tests, scripts). */
+  usage?: UsageLog
 }
 
 export interface GetOrCreateOptions {
   generatedBy: GeneratedBy
-  /** Consulted only on a cache miss, right before spending tokens (rate limiting). */
-  allowGeneration?: () => Promise<boolean>
+  /** Consulted only on a cache miss, right before spending tokens. */
+  checkBudget?: () => Promise<GenerationPermit>
 }
+
+const PERMIT_DENIALS = {
+  "rate-limited": "you've summoned a lot of niches today. come back tomorrow 🌙",
+  capped: "the vibe machine is resting 😴 try a preset niche while it recharges",
+} as const
 
 export interface NicheService {
   getOrCreate(rawName: unknown, options: GetOrCreateOptions): Promise<NicheLookup>
@@ -60,32 +72,56 @@ export interface NicheService {
  * Cache-first niche resolution: Postgres is the cache and the LLM runs at most
  * once per slug. Concurrent requests for the same new slug share one generation.
  */
-export function createNicheService({ repo, generate, logger }: NicheServiceDeps): NicheService {
+export function createNicheService({
+  repo,
+  generate,
+  logger,
+  usage,
+}: NicheServiceDeps): NicheService {
   const inFlight = new Map<string, Promise<NicheLookup>>()
+
+  /** Ledger writes must never break a user request; failures are logged, not thrown. */
+  async function recordUsage(entry: UsageEntry): Promise<void> {
+    if (!usage) return
+    try {
+      await usage.record(entry)
+    } catch (error) {
+      logger.error("usage.record.error", { subject: entry.subject, error: errorMessage(error) })
+    }
+  }
 
   async function generateAndStore(
     niche: { name: string; slug: string },
-    { generatedBy, allowGeneration }: GetOrCreateOptions,
+    { generatedBy, checkBudget }: GetOrCreateOptions,
   ): Promise<NicheLookup> {
     if (!generate) {
       return { status: "unavailable", reason: "new niches are offline rn. try one from explore!" }
     }
-    if (allowGeneration && !(await allowGeneration())) {
-      return {
-        status: "rate-limited",
-        reason: "you've summoned a lot of niches today. come back tomorrow 🌙",
-      }
-    }
+    const permit = checkBudget ? await checkBudget() : "ok"
+    if (permit !== "ok") return { status: permit, reason: PERMIT_DENIALS[permit] }
 
+    const startedAt = Date.now()
     let result: GenerationResult
     try {
       result = await generate(niche)
     } catch (error) {
       logger.error("niche.generate.error", { slug: niche.slug, error: errorMessage(error) })
+      await recordUsage({
+        purpose: "niche-generation",
+        subject: niche.slug,
+        model: "unknown",
+        status: "error",
+        inputTokens: 0,
+        outputTokens: 0,
+        attempts: 0,
+        costUsd: 0,
+        durationMs: Date.now() - startedAt,
+      })
       return { status: "failed", reason: "the vibe machine hiccuped. try again in a sec" }
     }
 
     const { stats } = result
+    await recordUsage(usageFromStats("niche-generation", niche.slug, result.status, stats))
     logger.info("niche.generate", {
       slug: niche.slug,
       status: result.status,

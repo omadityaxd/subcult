@@ -1,5 +1,20 @@
 import { describe, expect, it } from "vitest"
-import { mapWithConcurrency } from "./concurrency"
+import { TimeoutError, mapWithConcurrency, withTimeout } from "./concurrency"
+
+describe("withTimeout", () => {
+  it("resolves when the promise wins", async () => {
+    await expect(withTimeout(Promise.resolve("ok"), 50)).resolves.toBe("ok")
+  })
+
+  it("rejects with TimeoutError when the clock wins", async () => {
+    const never = new Promise<never>(() => undefined)
+    await expect(withTimeout(never, 5, "db")).rejects.toBeInstanceOf(TimeoutError)
+  })
+
+  it("passes through the original rejection", async () => {
+    await expect(withTimeout(Promise.reject(new Error("boom")), 50)).rejects.toThrow("boom")
+  })
+})
 
 const tick = () => new Promise((resolve) => setTimeout(resolve, 1))
 

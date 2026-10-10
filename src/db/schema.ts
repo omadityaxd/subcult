@@ -1,8 +1,19 @@
 import { sql } from "drizzle-orm"
-import { index, integer, jsonb, pgPolicy, pgTable, text, timestamp } from "drizzle-orm/pg-core"
+import {
+  bigint,
+  doublePrecision,
+  index,
+  integer,
+  jsonb,
+  pgPolicy,
+  pgTable,
+  text,
+  timestamp,
+} from "drizzle-orm/pg-core"
 import { anonRole, authenticatedRole } from "drizzle-orm/supabase"
 import type { GeneratedBy } from "../lib/engine/niche-service"
 import type { NicheProfile } from "../lib/engine/profile-schema"
+import type { UsagePurpose, UsageStatus } from "../lib/engine/usage"
 
 /**
  * One row per niche, keyed by normalized slug. Profiles are written once
@@ -34,3 +45,27 @@ export const niches = pgTable(
 
 export type NicheRow = typeof niches.$inferSelect
 export type NewNicheRow = typeof niches.$inferInsert
+
+/**
+ * Token + cost ledger, one row per LLM job. Drives the global daily cap, the
+ * trend-run budget and /admin/usage. RLS on with no policies: server-only.
+ */
+export const llmUsage = pgTable(
+  "llm_usage",
+  {
+    id: bigint("id", { mode: "number" }).primaryKey().generatedAlwaysAsIdentity(),
+    purpose: text("purpose").$type<UsagePurpose>().notNull(),
+    subject: text("subject").notNull(),
+    model: text("model").notNull(),
+    status: text("status").$type<UsageStatus>().notNull(),
+    inputTokens: integer("input_tokens").notNull(),
+    outputTokens: integer("output_tokens").notNull(),
+    attempts: integer("attempts").notNull(),
+    costUsd: doublePrecision("cost_usd"),
+    durationMs: integer("duration_ms").notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (table) => [index("llm_usage_purpose_created_at_idx").on(table.purpose, table.createdAt.desc())],
+).enableRLS()
+
+export type LlmUsageRow = typeof llmUsage.$inferSelect

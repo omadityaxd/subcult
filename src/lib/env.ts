@@ -40,6 +40,15 @@ const serverEnvSchema = z.object({
       .default("amazon.com"),
   ),
   NEXT_PUBLIC_SITE_URL: optionalUrl,
+  /** Global ceiling on new LLM niche generations per UTC day (on top of per-IP limits). */
+  LLM_DAILY_GENERATION_CAP: z.preprocess(
+    (value) => (typeof value === "string" && value.trim() === "" ? undefined : value),
+    z.coerce.number().int().min(0).default(30),
+  ),
+  /** Password for /admin (HTTP Basic auth). Admin is disabled (404) when unset. */
+  ADMIN_SECRET: optional,
+  /** Vercel sends `Authorization: Bearer $CRON_SECRET` to cron routes. */
+  CRON_SECRET: optional,
 })
 
 export type ServerEnv = z.infer<typeof serverEnvSchema>

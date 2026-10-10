@@ -7,6 +7,7 @@ import { LargeTitle } from "@/components/shell/large-title"
 import { Screen } from "@/components/shell/screen"
 import { Skeleton } from "@/components/ui/skeleton"
 import { NICHE_PRESETS, findSeedProfile } from "@/lib/niches/catalog"
+import { lookupNicheProfile } from "@/lib/niches/lookup"
 
 export function generateStaticParams() {
   return NICHE_PRESETS.map(({ slug }) => ({ slug }))
@@ -33,8 +34,20 @@ export default function NichePage({ params }: PageProps<"/n/[slug]">) {
 
 async function NicheContent({ params }: Pick<PageProps<"/n/[slug]">, "params">) {
   const { slug } = await params
-  const niche = findSeedProfile(slug)
-  if (!niche) notFound()
+  const lookup = await lookupNicheProfile(slug)
+  if (lookup.status === "missing") notFound()
+  if (lookup.status === "unavailable") {
+    return (
+      <div className="px-4 pt-(--nav-bar-height)">
+        <EmptyState
+          emoji="😵‍💫"
+          title="the vibe vault is napping"
+          body="we can't reach this niche right now. the presets on explore still work."
+        />
+      </div>
+    )
+  }
+  const niche = lookup.profile
 
   return (
     <>

@@ -8,6 +8,7 @@ import {
   createNicheService,
 } from "./niche-service"
 import { makeDraft } from "./test-fixtures"
+import type { UsageLog } from "./usage"
 
 const silentLogger: Logger = { info: vi.fn(), warn: vi.fn(), error: vi.fn() }
 
@@ -94,15 +95,86 @@ describe("nicheService.getOrCreate", () => {
     expect(b.status).toBe("found")
   })
 
-  it("checks the rate limit only on a cache miss", async () => {
-    const allowGeneration = vi.fn(async () => false)
-    const generate = vi.fn(okGenerator)
-    const service = createNicheService({ repo: memoryRepo(), generate, logger: silentLogger })
+  it.each(["rate-limited", "capped"] as const)(
+    "stops before spending tokens when the budget says %s",
+    async (permit) => {
+      const checkBudget = vi.fn(async () => permit)
+      const generate = vi.fn(okGenerator)
+      const service = createNicheService({ repo: memoryRepo(), generate, logger: silentLogger })
 
-    const result = await service.getOrCreate("new vibe", { generatedBy: "anon", allowGeneration })
+      const result = await service.getOrCreate("new vibe", { generatedBy: "anon", checkBudget })
 
-    expect(result.status).toBe("rate-limited")
-    expect(generate).not.toHaveBeenCalled()
+      expect(result.status).toBe(permit)
+      expect(generate).not.toHaveBeenCalled()
+    },
+  )
+
+  it("never consults the budget for cache hits", async () => {
+    const repo = memoryRepo()
+    const service = createNicheService({ repo, generate: okGenerator, logger: silentLogger })
+    await service.getOrCreate("goth", { generatedBy: "anon" })
+    const checkBudget = vi.fn(async () => "capped" as const)
+
+    const result = await service.getOrCreate("goth", { generatedBy: "anon", checkBudget })
+
+    expect(result).toMatchObject({ status: "found", source: "cache" })
+    expect(checkBudget).not.toHaveBeenCalled()
+  })
+
+  it("records every generation (and failures) in the usage ledger", async () => {
+    const usage: UsageLog = {
+      record: vi.fn(async () => undefined),
+      countSince: vi.fn(async () => 0),
+      costSince: vi.fn(async () => 0),
+    }
+    const ok = createNicheService({
+      repo: memoryRepo(),
+      generate: okGenerator,
+      logger: silentLogger,
+      usage,
+    })
+    const broken = createNicheService({
+      repo: memoryRepo(),
+      generate: async () => {
+        throw new Error("boom")
+      },
+      logger: silentLogger,
+      usage,
+    })
+
+    await ok.getOrCreate("new vibe", { generatedBy: "anon" })
+    await broken.getOrCreate("other vibe", { generatedBy: "anon" })
+
+    expect(usage.record).toHaveBeenCalledWith(
+      expect.objectContaining({
+        purpose: "niche-generation",
+        subject: "new-vibe",
+        status: "ok",
+        inputTokens: 100,
+        outputTokens: 200,
+        costUsd: 0.00011,
+      }),
+    )
+    expect(usage.record).toHaveBeenCalledWith(
+      expect.objectContaining({ subject: "other-vibe", status: "error" }),
+    )
+  })
+
+  it("still answers when the usage ledger is down", async () => {
+    const usage: UsageLog = {
+      record: async () => {
+        throw new Error("db down")
+      },
+      countSince: async () => 0,
+      costSince: async () => 0,
+    }
+    const service = createNicheService({
+      repo: memoryRepo(),
+      generate: okGenerator,
+      logger: silentLogger,
+      usage,
+    })
+    expect((await service.getOrCreate("new vibe", { generatedBy: "anon" })).status).toBe("found")
   })
 
   it.each<[GenerationResult, string]>([

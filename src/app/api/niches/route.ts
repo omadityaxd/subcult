@@ -1,7 +1,9 @@
 import { z } from "zod"
-import { getNicheService } from "@/lib/engine/server"
+import type { NicheProfile } from "@/lib/engine/profile-schema"
+import { checkGenerationBudget, getNicheService } from "@/lib/engine/server"
+import { parseNicheInput } from "@/lib/engine/slug"
 import { errorMessage, log } from "@/lib/log"
-import { getNicheGenerationLimiter } from "@/lib/rate-limit"
+import { findSeedProfile } from "@/lib/niches/catalog"
 import { apiError, apiOk, clientIp } from "@/lib/request"
 
 const bodySchema = z.object({ name: z.string().max(200) })
@@ -11,57 +13,70 @@ export interface ResolvedNiche {
   name: string
   emoji: string
   tagline: string
-  source: "cache" | "generated"
+  source: "seed" | "cache" | "generated"
 }
 
+/** Stable error codes the client branches on. */
+export type NicheApiErrorCode =
+  "invalid-input" | "rejected" | "rate-limited" | "capped" | "unavailable" | "failed"
+
+const toResolved = (profile: NicheProfile, source: ResolvedNiche["source"]): ResolvedNiche => ({
+  slug: profile.slug,
+  name: profile.name,
+  emoji: profile.emoji,
+  tagline: profile.tagline,
+  source,
+})
+
 /**
- * POST /api/niches { name } → resolves any typed vibe to a niche, generating
- * (and caching forever) on first sight. Generation is rate-limited per IP;
- * cache hits are free.
+ * POST /api/niches { name } → resolves any typed vibe to a niche. Order:
+ * bundled seed catalog (free, no DB) → Postgres cache → Claude generation,
+ * which is gated by the global daily cap and a per-IP limit.
  */
 export async function POST(request: Request): Promise<Response> {
   let body: z.infer<typeof bodySchema>
   try {
     body = bodySchema.parse(await request.json())
   } catch {
-    return apiError("send { name: string }", 400)
+    return apiError("send { name: string }", 400, "invalid-input")
   }
 
+  const input = parseNicheInput(body.name)
+  if (!input.ok) return apiError(input.reason, 400, "invalid-input")
+
+  const seed = findSeedProfile(input.slug)
+  if (seed) return apiOk(toResolved(seed, "seed"))
+
   const service = getNicheService()
-  if (!service) return apiError("niches are offline rn. try again soon", 503)
+  if (!service) return apiError("new niches are offline rn. try a preset!", 503, "unavailable")
 
   const ip = clientIp(request.headers)
   try {
-    const result = await service.getOrCreate(body.name, {
+    const result = await service.getOrCreate(input.name, {
       generatedBy: "anon",
-      allowGeneration: async () => (await getNicheGenerationLimiter().limit(`ip:${ip}`)).success,
+      checkBudget: () => checkGenerationBudget(`ip:${ip}`),
     })
 
     switch (result.status) {
-      case "found": {
-        const { profile } = result.niche
-        const data: ResolvedNiche = {
-          slug: profile.slug,
-          name: profile.name,
-          emoji: profile.emoji,
-          tagline: profile.tagline,
-          source: result.source,
-        }
-        return apiOk(data, result.source === "generated" ? 201 : 200)
-      }
+      case "found":
+        return apiOk(
+          toResolved(result.niche.profile, result.source),
+          result.source === "generated" ? 201 : 200,
+        )
       case "invalid-input":
-        return apiError(result.reason, 400)
+        return apiError(result.reason, 400, result.status)
       case "rejected":
-        return apiError(result.reason, 422)
+        return apiError(result.reason, 422, result.status)
       case "rate-limited":
-        return apiError(result.reason, 429)
+      case "capped":
+        return apiError(result.reason, 429, result.status)
       case "unavailable":
-        return apiError(result.reason, 503)
+        return apiError(result.reason, 503, result.status)
       case "failed":
-        return apiError(result.reason, 502)
+        return apiError(result.reason, 502, result.status)
     }
   } catch (error) {
     log.error("api.niches.error", { error: errorMessage(error) })
-    return apiError("something broke on our end. try again?", 500)
+    return apiError("something broke on our end. try again?", 500, "failed")
   }
 }

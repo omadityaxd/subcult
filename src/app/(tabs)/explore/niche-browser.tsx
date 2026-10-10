@@ -3,9 +3,9 @@
 import { Search } from "lucide-react"
 import Link from "next/link"
 import { useDeferredValue, useState } from "react"
-import { EmptyState } from "@/components/shell/empty-state"
 import { Pressable } from "@/components/shell/pressable"
 import type { NichePreset } from "@/lib/niches/catalog"
+import { SummonNiche } from "./summon-niche"
 
 interface NicheBrowserProps {
   presets: readonly NichePreset[]
@@ -59,12 +59,7 @@ export function NicheBrowser({ presets }: NicheBrowserProps) {
           ))}
         </ul>
       ) : (
-        <EmptyState
-          className="mt-5"
-          emoji="🔭"
-          title={`"${deferredQuery.trim()}" isn't on the map yet`}
-          body="soon you'll be able to summon any niche into existence. for now, try one of ours."
-        />
+        <SummonNiche key={needle} query={deferredQuery.trim()} presets={presets} />
       )}
     </div>
   )

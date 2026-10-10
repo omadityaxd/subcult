@@ -1,11 +1,21 @@
 import { describe, expect, it } from "vitest"
-import { addUsage, estimateCostUsd, formatUsd } from "./pricing"
+import { addCost, addUsage, estimateCostUsd, formatUsd } from "./pricing"
 
 describe("estimateCostUsd", () => {
-  it("prices haiku 5.5 per million tokens", () => {
+  it("prices a typical haiku 5.5 request at $0.10 / $0.50 per MTok", () => {
+    // 2K in / 3K out: 2000 * 0.10 / 1M + 3000 * 0.50 / 1M
     expect(
-      estimateCostUsd("claude-haiku-5-5", { inputTokens: 1_000_000, outputTokens: 1_000_000 }),
-    ).toBeCloseTo(0.6, 6)
+      estimateCostUsd("claude-haiku-5-5", { inputTokens: 2_000, outputTokens: 3_000 }),
+    ).toBeCloseTo(0.0017, 8)
+  })
+
+  it("switches the whole request to the long-context rate above 100K prompt tokens", () => {
+    expect(
+      estimateCostUsd("claude-haiku-5-5", { inputTokens: 100_000, outputTokens: 0 }),
+    ).toBeCloseTo(0.01, 8)
+    expect(
+      estimateCostUsd("claude-haiku-5-5", { inputTokens: 200_000, outputTokens: 1_000 }),
+    ).toBeCloseTo(0.1 + 0.0025, 8)
   })
 
   it("returns null for unknown models", () => {
@@ -13,14 +23,16 @@ describe("estimateCostUsd", () => {
   })
 })
 
-describe("addUsage", () => {
+describe("addUsage / addCost", () => {
   it("sums both counters", () => {
     expect(
       addUsage({ inputTokens: 1, outputTokens: 2 }, { inputTokens: 3, outputTokens: 4 }),
-    ).toEqual({
-      inputTokens: 4,
-      outputTokens: 6,
-    })
+    ).toEqual({ inputTokens: 4, outputTokens: 6 })
+  })
+
+  it("propagates unknown costs", () => {
+    expect(addCost(0.1, 0.2)).toBeCloseTo(0.3, 10)
+    expect(addCost(0.1, null)).toBeNull()
   })
 })
 

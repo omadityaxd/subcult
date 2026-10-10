@@ -1,7 +1,7 @@
 import type Anthropic from "@anthropic-ai/sdk"
 import { zodOutputFormat } from "@anthropic-ai/sdk/helpers/zod"
 import { z } from "zod"
-import { addUsage, estimateCostUsd, type TokenUsage, ZERO_USAGE } from "./pricing"
+import { addCost, addUsage, estimateCostUsd, type TokenUsage, ZERO_USAGE } from "./pricing"
 import {
   type NicheProfile,
   type NicheProfileDraft,
@@ -62,6 +62,7 @@ export async function generateNicheProfile(
 ): Promise<GenerationResult> {
   const startedAt = Date.now()
   let usage = ZERO_USAGE
+  let costUsd: number | null = 0
   let messages: Anthropic.MessageParam[] = [
     { role: "user", content: buildNicheUserPrompt(niche.name) },
   ]
@@ -75,15 +76,17 @@ export async function generateNicheProfile(
       messages,
       output_config: { format: OUTPUT_FORMAT, effort: "medium" },
     })
-    usage = addUsage(usage, {
+    const requestUsage = {
       inputTokens: response.usage.input_tokens,
       outputTokens: response.usage.output_tokens,
-    })
+    }
+    usage = addUsage(usage, requestUsage)
+    costUsd = addCost(costUsd, estimateCostUsd(model, requestUsage))
     const stats = (): GenerationStats => ({
       model,
       usage,
       attempts: attempt,
-      costUsd: estimateCostUsd(model, usage),
+      costUsd,
       durationMs: Date.now() - startedAt,
     })
 
