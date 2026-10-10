@@ -20,7 +20,7 @@ export function EmptyState({ emoji, title, body, action, className }: EmptyState
       <span aria-hidden className="text-5xl">
         {emoji}
       </span>
-      <p className="mt-4 font-display text-xl font-semibold">{title}</p>
+      <p className="font-display mt-4 text-xl font-semibold">{title}</p>
       {body ? <p className="mt-1.5 max-w-xs text-[15px] text-muted-foreground">{body}</p> : null}
       {action ? <div className="mt-5">{action}</div> : null}
     </div>

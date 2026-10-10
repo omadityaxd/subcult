@@ -1,7 +1,7 @@
 "use client"
 
 import { motion, type HTMLMotionProps } from "motion/react"
-import { PRESS_SCALE, springs } from "@/lib/motion"
+import { PRESS_SCALE, springs } from "@/lib/design/tokens"
 import { cn } from "@/lib/utils"
 
 interface PressableProps extends HTMLMotionProps<"div"> {

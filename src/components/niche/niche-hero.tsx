@@ -41,7 +41,7 @@ export function NicheHero({ profile, themeStyle, badge }: NicheHeroProps) {
             {badge}
           </span>
         ) : null}
-        <h1 className="mt-5 font-display text-[42px] leading-[0.95] font-extrabold tracking-tight">
+        <h1 className="font-display mt-5 text-[42px] leading-[0.95] font-extrabold tracking-tight">
           {profile.name}
         </h1>
         <p className="mt-3 text-[17px] leading-snug text-foreground/85">{profile.tagline}</p>

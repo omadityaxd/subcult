@@ -2,7 +2,7 @@
 
 import { ArrowUpRight, ShoppingBag } from "lucide-react"
 import { type CSSProperties, useState } from "react"
-import { Sheet } from "@/components/ui/sheet"
+import { ResponsiveSheet } from "@/components/ds/responsive-sheet"
 import type { NicheBrand } from "@/lib/engine/profile-schema"
 import { type ShopConfig, storeLinks } from "@/lib/links"
 import { SectionHeading } from "../link-card"
@@ -85,7 +85,7 @@ export function DripSection({ brands, shopKeywords, shopConfig, themeStyle }: Dr
         </ul>
       </section>
 
-      <Sheet
+      <ResponsiveSheet
         open={target !== null}
         onOpenChange={(open) => {
           if (!open) setTarget(null)
@@ -115,7 +115,7 @@ export function DripSection({ brands, shopKeywords, shopConfig, themeStyle }: Dr
             ))}
           </ul>
         ) : null}
-      </Sheet>
+      </ResponsiveSheet>
     </div>
   )
 }

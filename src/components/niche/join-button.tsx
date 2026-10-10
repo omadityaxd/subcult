@@ -2,7 +2,7 @@
 
 import { Plus } from "lucide-react"
 import { type CSSProperties, useState } from "react"
-import { Sheet } from "@/components/ui/sheet"
+import { ResponsiveSheet } from "@/components/ds/responsive-sheet"
 
 interface JoinButtonProps {
   name: string
@@ -23,7 +23,7 @@ export function JoinButton({ name, themeStyle }: JoinButtonProps) {
         <Plus aria-hidden className="size-4" strokeWidth={2.6} />
         add to my niches
       </button>
-      <Sheet
+      <ResponsiveSheet
         open={open}
         onOpenChange={setOpen}
         title={`join ${name}`}
@@ -41,7 +41,7 @@ export function JoinButton({ name, themeStyle }: JoinButtonProps) {
         >
           ok, bet
         </button>
-      </Sheet>
+      </ResponsiveSheet>
     </>
   )
 }

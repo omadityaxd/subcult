@@ -56,7 +56,7 @@ export function MoodboardSection({ profile }: { profile: MoodboardProfile }) {
       </section>
 
       <section aria-label="Vibe words">
-        <p className="flex flex-wrap gap-x-3 gap-y-1 font-display text-[28px] leading-tight font-bold">
+        <p className="font-display flex flex-wrap gap-x-3 gap-y-1 text-[28px] leading-tight font-bold">
           {profile.vibeWords.map((word, index) => (
             <span key={word} className={index % 3 === 0 ? "text-niche" : undefined}>
               {word}

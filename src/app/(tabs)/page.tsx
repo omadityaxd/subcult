@@ -58,16 +58,16 @@ function VibeCheckCard() {
       <Link
         href="/vibe-check"
         transitionTypes={["nav-forward"]}
-        className="relative block overflow-hidden rounded-3xl bg-brand-gradient p-5 text-white"
+        className="bg-brand-gradient relative block overflow-hidden rounded-3xl p-5 text-white"
       >
         <div
           aria-hidden
-          className="absolute -top-10 -right-6 size-40 rounded-full bg-brand-lime/40 blur-2xl"
+          className="bg-brand-lime/40 absolute -top-10 -right-6 size-40 rounded-full blur-2xl"
         />
         <p className="relative text-[13px] font-semibold tracking-widest uppercase opacity-80">
           30 sec · 12 swipes
         </p>
-        <p className="relative mt-2 font-display text-[28px] leading-tight font-bold">
+        <p className="font-display relative mt-2 text-[28px] leading-tight font-bold">
           what&apos;s your niche, actually?
         </p>
         <p className="relative mt-1 text-[15px] opacity-90">

@@ -4,89 +4,92 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* ────────────────────────────────────────────────────────────
-   Design tokens
-   Dark is the default (html.dark). Surfaces follow iOS's grouped
-   hierarchy: background → card (grouped) → elevated.
-   Niche pages override the --niche-* tokens at runtime from the
-   niche palette; everything accent-colored reads from them.
-   ──────────────────────────────────────────────────────────── */
+/* ════════════════════════════════════════════════════════════
+   subcult design tokens: the single source of truth.
+   Monochrome, editorial, calm. Color comes from imagery and from
+   each niche's palette (--niche-*), used sparingly as an accent.
+   JS-side motion tokens live in src/lib/design/tokens.ts.
+   ════════════════════════════════════════════════════════════ */
 
 :root {
-  --radius: 1rem;
-
-  --brand-lime: #c6ff3d;
-  --brand-violet: #8b5cf6;
-  --brand-pink: #ff2e88;
-  --brand-gradient: linear-gradient(
-    135deg,
-    var(--brand-violet) 0%,
-    var(--brand-pink) 55%,
-    #ff9f1c 100%
-  );
-
-  --niche-1: var(--brand-violet);
-  --niche-2: var(--brand-pink);
-  --niche-3: #ff9f1c;
-  --niche-accent: var(--accent);
-  --niche-accent-foreground: var(--accent-foreground);
-
-  --tab-bar-height: 3.5rem;
-  --nav-bar-height: 2.75rem;
-  --column-width: 30rem;
-
   /* light */
-  --background: #f2f2f7;
-  --foreground: #0b0a10;
+  --background: #fafaf9;
+  --foreground: #0a0a0a;
   --card: #ffffff;
-  --card-foreground: #0b0a10;
+  --card-foreground: #0a0a0a;
   --elevated: #ffffff;
   --popover: #ffffff;
-  --popover-foreground: #0b0a10;
-  --primary: #0b0a10;
-  --primary-foreground: #ffffff;
-  --secondary: #e5e5ea;
-  --secondary-foreground: #0b0a10;
-  --muted: #e5e5ea;
-  --muted-foreground: #5d5d66;
-  --accent: #6d28d9;
-  --accent-foreground: #ffffff;
-  --destructive: #d70015;
-  --border: rgb(60 60 67 / 0.14);
-  --input: rgb(60 60 67 / 0.12);
-  --ring: #6d28d9;
-  --glass: rgb(249 249 251 / 0.72);
-  --chart-1: var(--brand-violet);
-  --chart-2: var(--brand-pink);
-  --chart-3: #ff9f1c;
-  --chart-4: var(--brand-lime);
-  --chart-5: #38bdf8;
+  --popover-foreground: #0a0a0a;
+  --primary: #0a0a0a;
+  --primary-foreground: #fafaf9;
+  --secondary: #f0f0ee;
+  --secondary-foreground: #0a0a0a;
+  --muted: #f0f0ee;
+  --muted-foreground: #6b6b6b;
+  --subtle-foreground: #9a9a98;
+  --accent: #0a0a0a;
+  --accent-foreground: #fafaf9;
+  --destructive: #d92d20;
+  --border: rgb(10 10 10 / 0.08);
+  --border-strong: rgb(10 10 10 / 0.14);
+  --input: rgb(10 10 10 / 0.06);
+  --ring: #0a0a0a;
+  --glass: rgb(250 250 249 / 0.78);
+  --scrim: 10 10 10;
+  --shadow-color: 0 0 0;
+
+  /* niche accent defaults (overridden per niche page) */
+  --niche-accent: var(--accent);
+  --niche-accent-foreground: var(--accent-foreground);
+  --niche-glow: transparent;
+
+  /* layout */
+  --tab-bar-height: 3.25rem;
+  --nav-bar-height: 3rem;
+  --rail-width: 4.5rem;
+  --sidebar-width: 15.25rem;
+  --content-max: 75rem;
+  --gutter: 1rem;
+
+  /* base radius used by shadcn primitives */
+  --radius: 1rem;
 }
 
 .dark {
-  --background: #0b0a10;
-  --foreground: #f5f5f7;
-  --card: #17161e;
-  --card-foreground: #f5f5f7;
-  --elevated: #201f29;
-  --popover: #201f29;
-  --popover-foreground: #f5f5f7;
-  --primary: #f5f5f7;
-  --primary-foreground: #0b0a10;
-  --secondary: #2a2933;
-  --secondary-foreground: #f5f5f7;
-  --muted: #2a2933;
-  --muted-foreground: #a1a1aa;
-  --accent: var(--brand-lime);
-  --accent-foreground: #0b0a10;
-  --destructive: #ff453a;
-  --border: rgb(255 255 255 / 0.09);
-  --input: rgb(255 255 255 / 0.12);
-  --ring: var(--brand-lime);
-  --glass: rgb(16 15 22 / 0.7);
+  --background: #0a0a0a;
+  --foreground: #f5f5f4;
+  --card: #141414;
+  --card-foreground: #f5f5f4;
+  --elevated: #1a1a1a;
+  --popover: #1a1a1a;
+  --popover-foreground: #f5f5f4;
+  --primary: #f5f5f4;
+  --primary-foreground: #0a0a0a;
+  --secondary: #1f1f1f;
+  --secondary-foreground: #f5f5f4;
+  --muted: #1c1c1c;
+  --muted-foreground: #a1a1a1;
+  --subtle-foreground: #6b6b6b;
+  --accent: #f5f5f4;
+  --accent-foreground: #0a0a0a;
+  --destructive: #ff5f57;
+  --border: rgb(255 255 255 / 0.08);
+  --border-strong: rgb(255 255 255 / 0.14);
+  --input: rgb(255 255 255 / 0.08);
+  --ring: #f5f5f4;
+  --glass: rgb(10 10 10 / 0.72);
+  --scrim: 0 0 0;
+  --shadow-color: 0 0 0;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --gutter: 2rem;
+  }
 }
 
 @theme inline {
+  /* color */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -100,58 +103,89 @@
   --color-secondary-foreground: var(--secondary-foreground);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
+  --color-subtle: var(--subtle-foreground);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
   --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
   --color-input: var(--input);
   --color-ring: var(--ring);
   --color-glass: var(--glass);
   --color-niche: var(--niche-accent);
   --color-niche-foreground: var(--niche-accent-foreground);
-  --color-brand-lime: var(--brand-lime);
-  --color-brand-violet: var(--brand-violet);
-  --color-brand-pink: var(--brand-pink);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
 
+  /* type families */
   --font-sans:
-    -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", system-ui, "Segoe UI",
-    Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-  --font-display: var(--font-bricolage), var(--font-sans);
-  --font-heading: var(--font-display);
+    var(--font-geist), -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-serif: var(--font-instrument-serif), "Iowan Old Style", Georgia, serif;
+  --font-heading: var(--font-serif);
 
-  --radius-sm: calc(var(--radius) * 0.5);
-  --radius-md: calc(var(--radius) * 0.75);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.25);
-  --radius-2xl: calc(var(--radius) * 1.5);
-  --radius-3xl: calc(var(--radius) * 2);
-  --radius-4xl: calc(var(--radius) * 2.5);
+  /* type scale (size / line-height / tracking) */
+  --text-display: clamp(2.75rem, 5.5vw + 1rem, 5rem);
+  --text-display--line-height: 0.92;
+  --text-display--letter-spacing: -0.025em;
+  --text-title-1: clamp(2rem, 2.5vw + 1.25rem, 2.75rem);
+  --text-title-1--line-height: 1;
+  --text-title-1--letter-spacing: -0.025em;
+  --text-title-2: 1.75rem;
+  --text-title-2--line-height: 1.1;
+  --text-title-2--letter-spacing: -0.02em;
+  --text-title-3: 1.25rem;
+  --text-title-3--line-height: 1.25;
+  --text-title-3--letter-spacing: -0.015em;
+  --text-headline: 1.0625rem;
+  --text-headline--line-height: 1.35;
+  --text-headline--letter-spacing: -0.01em;
+  --text-body: 0.9375rem;
+  --text-body--line-height: 1.55;
+  --text-callout: 0.875rem;
+  --text-callout--line-height: 1.45;
+  --text-footnote: 0.8125rem;
+  --text-footnote--line-height: 1.4;
+  --text-caption: 0.75rem;
+  --text-caption--line-height: 1.35;
+  --text-caption--letter-spacing: 0.01em;
+  --text-overline: 0.6875rem;
+  --text-overline--line-height: 1.2;
+  --text-overline--letter-spacing: 0.12em;
 
+  /* radius */
+  --radius-xs: 0.5rem;
+  --radius-sm: 0.625rem;
+  --radius-md: 0.875rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.25rem;
+  --radius-2xl: 1.5rem;
+  --radius-3xl: 1.75rem;
+  --radius-4xl: 2.25rem;
+
+  /* elevation */
+  --shadow-card:
+    0 1px 2px rgb(var(--shadow-color) / 0.06), 0 12px 32px -16px rgb(var(--shadow-color) / 0.28);
+  --shadow-pop:
+    0 2px 8px rgb(var(--shadow-color) / 0.12), 0 32px 80px -20px rgb(var(--shadow-color) / 0.55);
+  --shadow-hairline: 0 0 0 1px var(--border);
+
+  /* motion */
   --ease-ios: cubic-bezier(0.32, 0.72, 0, 1);
-}
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fast: 150ms;
+  --duration-base: 240ms;
+  --duration-slow: 420ms;
 
-/* Niche pages (and their portaled sheets) carry per-theme accents computed
-   from the palette; this picks the right pair for the active theme. */
-[data-niche] {
-  --niche-accent: var(--niche-accent-light);
-  --niche-accent-foreground: var(--niche-accent-fg-light);
-}
-.dark [data-niche] {
-  --niche-accent: var(--niche-accent-dark);
-  --niche-accent-foreground: var(--niche-accent-fg-dark);
+  /* keyframes exposed as utilities */
+  --animate-shimmer: shimmer 1.6s var(--ease-ios) infinite;
+  --animate-fade-in: fade-in var(--duration-slow) var(--ease-out-expo) both;
 }
 
 /* ── utilities ───────────────────────────────────────────── */
 
 @utility glass {
   background-color: var(--glass);
-  backdrop-filter: saturate(180%) blur(20px);
-  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(24px);
+  -webkit-backdrop-filter: saturate(180%) blur(24px);
 }
 
 @utility hairline-t {
@@ -170,13 +204,19 @@
   padding-bottom: env(safe-area-inset-bottom);
 }
 
-/* Space reserved under scrolling content so the tab bar never covers it. */
+/* Space under scrolling content so the mobile tab bar never covers it. */
 @utility pb-tab-bar {
-  padding-bottom: calc(var(--tab-bar-height) + env(safe-area-inset-bottom) + 1.5rem);
+  padding-bottom: calc(var(--tab-bar-height) + env(safe-area-inset-bottom) + 2rem);
+  @media (min-width: 768px) {
+    padding-bottom: 4rem;
+  }
 }
 
-@utility bg-brand-gradient {
-  background-image: var(--brand-gradient);
+@utility container-page {
+  width: 100%;
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
 }
 
 @utility no-scrollbar {
@@ -184,6 +224,51 @@
   &::-webkit-scrollbar {
     display: none;
   }
+}
+
+/* Film grain: one cached SVG noise tile, blended over covers. */
+@utility grain {
+  position: relative;
+  isolation: isolate;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 0.9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    opacity: 0.22;
+    mix-blend-mode: overlay;
+    border-radius: inherit;
+  }
+}
+
+/* Shimmer skeleton surface. */
+@utility shimmer {
+  background-color: var(--muted);
+  background-image: linear-gradient(
+    100deg,
+    transparent 20%,
+    rgb(255 255 255 / 0.06) 40%,
+    rgb(255 255 255 / 0.1) 50%,
+    transparent 70%
+  );
+  background-size: 200% 100%;
+  animation: var(--animate-shimmer);
+}
+
+@utility text-balance {
+  text-wrap: balance;
+}
+
+/* Niche pages (and their portaled sheets) carry per-theme accents computed
+   from the palette; this picks the right pair for the active theme. */
+[data-niche] {
+  --niche-accent: var(--niche-accent-light);
+  --niche-accent-foreground: var(--niche-accent-fg-light);
+}
+.dark [data-niche] {
+  --niche-accent: var(--niche-accent-dark);
+  --niche-accent-foreground: var(--niche-accent-fg-dark);
 }
 
 @layer base {
@@ -195,23 +280,51 @@
     -webkit-text-size-adjust: 100%;
     -webkit-tap-highlight-color: transparent;
     color-scheme: dark;
+    text-rendering: optimizeLegibility;
   }
   html:not(.dark) {
     color-scheme: light;
   }
   body {
-    @apply bg-background text-foreground antialiased;
+    @apply bg-background text-body text-foreground antialiased;
     overscroll-behavior-y: none;
+    font-feature-settings: "ss01", "cv11";
   }
   :focus-visible {
     outline: 2px solid var(--ring);
     outline-offset: 2px;
+    border-radius: 6px;
+  }
+  ::selection {
+    background: var(--foreground);
+    color: var(--background);
+  }
+}
+
+@keyframes shimmer {
+  from {
+    background-position: 150% 0;
+  }
+  to {
+    background-position: -50% 0;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
   }
 }
 
 /* ── view transitions (route navigation) ─────────────────────
    Pages opt in via <PageTransition>; links tag direction with
    transitionTypes={["nav-forward" | "nav-back" | "tab-switch"]}.
+   Covers morph between card and hero via a shared name.
    ──────────────────────────────────────────────────────────── */
 
 ::view-transition {
@@ -219,25 +332,22 @@
 }
 
 ::view-transition-old(.nav-forward) {
-  --slide-offset: -30%;
-  animation:
-    380ms var(--ease-ios) both slide reverse,
-    380ms var(--ease-ios) both dim;
+  animation: 200ms var(--ease-ios) both fade reverse;
 }
 ::view-transition-new(.nav-forward) {
-  --slide-offset: 100%;
-  animation: 380ms var(--ease-ios) both slide;
+  --slide-offset: 24px;
+  animation:
+    260ms var(--ease-out-expo) 60ms both fade,
+    380ms var(--ease-out-expo) both slide;
 }
 ::view-transition-old(.nav-back) {
-  --slide-offset: 100%;
-  animation: 340ms var(--ease-ios) both slide reverse;
-  z-index: 1;
+  animation: 180ms var(--ease-ios) both fade reverse;
 }
 ::view-transition-new(.nav-back) {
-  --slide-offset: -30%;
+  --slide-offset: -24px;
   animation:
-    340ms var(--ease-ios) both slide,
-    340ms var(--ease-ios) both dim reverse;
+    240ms var(--ease-out-expo) 40ms both fade,
+    360ms var(--ease-out-expo) both slide;
 }
 
 ::view-transition-old(.tab-switch) {
@@ -247,15 +357,23 @@
   animation: 180ms ease-out 60ms both fade;
 }
 
-/* Chrome that must stay pinned while pages slide underneath. */
-::view-transition-group(tab-bar) {
+::view-transition-group(.cover-morph) {
+  animation-duration: 420ms;
+  animation-timing-function: var(--ease-out-expo);
+}
+
+/* Chrome that stays pinned while pages change underneath. */
+::view-transition-group(tab-bar),
+::view-transition-group(sidebar) {
   animation: none;
   z-index: 100;
 }
-::view-transition-old(tab-bar) {
+::view-transition-old(tab-bar),
+::view-transition-old(sidebar) {
   display: none;
 }
-::view-transition-new(tab-bar) {
+::view-transition-new(tab-bar),
+::view-transition-new(sidebar) {
   animation: none;
 }
 
@@ -277,20 +395,15 @@
   }
 }
 
-@keyframes dim {
-  from {
-    filter: brightness(1);
-  }
-  to {
-    filter: brightness(0.7);
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   ::view-transition-old(*),
   ::view-transition-new(*),
   ::view-transition-group(*) {
     animation-duration: 0s !important;
     animation-delay: 0s !important;
+  }
+  .shimmer,
+  [class*="animate-"] {
+    animation: none !important;
   }
 }

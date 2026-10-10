@@ -54,7 +54,7 @@ export async function TrendingRow() {
                   ) : null}
                 </span>
                 <span>
-                  <span className="block font-display text-[18px] leading-tight font-bold">
+                  <span className="font-display block text-[18px] leading-tight font-bold">
                     {card.name}
                   </span>
                   <span className="mt-0.5 line-clamp-2 block text-[13px] opacity-85">

@@ -3,7 +3,7 @@
 import { Moon, Sun } from "lucide-react"
 import { motion } from "motion/react"
 import { useSyncExternalStore } from "react"
-import { springs } from "@/lib/motion"
+import { springs } from "@/lib/design/tokens"
 import { THEME_STORAGE_KEY, type ThemeMode } from "@/lib/theme"
 import { cn } from "@/lib/utils"
 

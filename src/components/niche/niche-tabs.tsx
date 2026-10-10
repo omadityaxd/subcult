@@ -2,7 +2,7 @@
 
 import { motion } from "motion/react"
 import { type KeyboardEvent, type ReactNode, useId, useRef, useState } from "react"
-import { springs } from "@/lib/motion"
+import { springs } from "@/lib/design/tokens"
 import { cn } from "@/lib/utils"
 
 export const NICHE_TABS = [

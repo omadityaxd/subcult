@@ -1,14 +1,22 @@
 import type { Metadata, Viewport } from "next"
-import { Bricolage_Grotesque } from "next/font/google"
+import { Geist, Instrument_Serif } from "next/font/google"
 import { MotionProvider } from "@/components/providers/motion-provider"
 import { AppFrame } from "@/components/shell/app-frame"
 import { siteUrl } from "@/lib/env"
 import { THEME_BOOT_SCRIPT } from "@/lib/theme"
 import "./globals.css"
 
-const display = Bricolage_Grotesque({
-  variable: "--font-bricolage",
+const sans = Geist({
+  variable: "--font-geist",
   subsets: ["latin"],
+  display: "swap",
+})
+
+const serif = Instrument_Serif({
+  variable: "--font-instrument-serif",
+  subsets: ["latin"],
+  weight: "400",
+  style: ["normal", "italic"],
   display: "swap",
 })
 
@@ -33,12 +41,12 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  themeColor: "#0b0a10",
+  themeColor: "#0a0a0a",
 }
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`dark ${display.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`dark ${sans.variable} ${serif.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: THEME_BOOT_SCRIPT }} />
       </head>

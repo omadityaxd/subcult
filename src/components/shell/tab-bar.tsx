@@ -5,7 +5,7 @@ import { motion } from "motion/react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import type { MouseEvent } from "react"
-import { springs } from "@/lib/motion"
+import { springs } from "@/lib/design/tokens"
 import { cn } from "@/lib/utils"
 
 interface Tab {
