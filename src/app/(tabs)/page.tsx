@@ -1,81 +1,82 @@
-import { ArrowRight } from "lucide-react"
-import Link from "next/link"
-import { EmptyState } from "@/components/shell/empty-state"
-import { LargeTitle } from "@/components/shell/large-title"
-import { Pressable } from "@/components/shell/pressable"
+import { Search } from "lucide-react"
+import { connection } from "next/server"
+import { Suspense } from "react"
+import { SectionHeader } from "@/components/ds/section-header"
+import { InfiniteFeed } from "@/components/home/infinite-feed"
+import { StoriesRow } from "@/components/home/stories-row"
+import { VibeCheckCard } from "@/components/home/vibe-check-card"
+import { FeedSkeleton } from "@/components/niche/feed/live-panels"
+import { PullToRefresh } from "@/components/shell/pull-to-refresh"
 import { Screen } from "@/components/shell/screen"
-import { NICHE_PRESETS } from "@/lib/niches/catalog"
+import { SearchButton } from "@/components/shell/search-button"
+import { Skeleton } from "@/components/ui/skeleton"
+import { featuredOrder } from "@/lib/feed/featured"
+import { getHomePage } from "@/lib/feed/home"
 
-const TRENDING = NICHE_PRESETS.slice(0, 10)
+const STORY_COUNT = 12
 
 export default function ForYouPage() {
   return (
     <Screen>
-      <LargeTitle title="for you" subtitle="your niches, one feed" />
-      <div className="space-y-8 px-4">
-        <VibeCheckCard />
+      <PullToRefresh>
+        <header className="container-page flex items-center justify-between pt-[calc(env(safe-area-inset-top)+1rem)] pb-2 md:hidden">
+          <span className="font-serif text-[30px] leading-none italic">subcult</span>
+          <SearchButton>
+            <Search aria-hidden className="size-[22px]" strokeWidth={1.5} />
+          </SearchButton>
+        </header>
 
-        <section aria-labelledby="trending-heading">
-          <h2 id="trending-heading" className="mb-3 text-[20px] font-semibold tracking-tight">
-            trending niches 🔥
-          </h2>
-          <ul className="-mx-4 no-scrollbar flex gap-2 overflow-x-auto px-4 pb-1">
-            {TRENDING.map((niche) => (
-              <li key={niche.slug} className="shrink-0">
-                <Pressable scale={0.94}>
-                  <Link
-                    href={`/n/${niche.slug}`}
-                    transitionTypes={["nav-forward"]}
-                    className="flex items-center gap-1.5 rounded-full bg-card px-4 py-2.5 text-[15px] font-medium"
-                  >
-                    <span aria-hidden>{niche.emoji}</span>
-                    {niche.name}
-                  </Link>
-                </Pressable>
-              </li>
-            ))}
-          </ul>
-        </section>
+        <div className="container-page pt-4 md:pt-12">
+          <h1 className="sr-only md:not-sr-only md:mb-8 md:font-serif md:text-title-1 md:italic">
+            For you
+          </h1>
+          <Suspense fallback={<StoriesSkeleton />}>
+            <Stories />
+          </Suspense>
 
-        <section aria-labelledby="feed-heading">
-          <h2 id="feed-heading" className="mb-3 text-[20px] font-semibold tracking-tight">
-            your feed
-          </h2>
-          <EmptyState
-            title="it's giving… nothing yet"
-            body="join a niche and this fills up with sounds, tea, fits and the group chat energy."
-          />
-        </section>
-      </div>
+          <div className="mt-8 md:mt-10">
+            <VibeCheckCard />
+          </div>
+
+          <section className="mt-12">
+            <SectionHeader overline="Across the niches" title="Latest" />
+            <Suspense fallback={<FeedSkeleton count={6} />}>
+              <HomeFeed />
+            </Suspense>
+          </section>
+        </div>
+      </PullToRefresh>
     </Screen>
   )
 }
 
-function VibeCheckCard() {
+async function Stories() {
+  await connection()
+  const now = new Date()
   return (
-    <Pressable>
-      <Link
-        href="/vibe-check"
-        transitionTypes={["nav-forward"]}
-        className="bg-brand-gradient relative block overflow-hidden rounded-3xl p-5 text-white"
-      >
-        <div
-          aria-hidden
-          className="bg-brand-lime/40 absolute -top-10 -right-6 size-40 rounded-full blur-2xl"
-        />
-        <p className="relative text-[13px] font-semibold tracking-widest uppercase opacity-80">
-          30 sec · 12 swipes
-        </p>
-        <p className="font-display relative mt-2 text-[28px] leading-tight font-bold">
-          what&apos;s your niche, actually?
-        </p>
-        <p className="relative mt-1 text-[15px] opacity-90">
-          swipe on vibes. we&apos;ll tell you exactly how deep you are in.
-        </p>
-        <span className="relative mt-5 inline-flex items-center gap-1.5 rounded-full bg-white px-4 py-2 text-[15px] font-semibold text-black">
-          take the vibe check <ArrowRight aria-hidden className="size-4" />
-        </span>
-      </Link>
-    </Pressable>
+    <StoriesRow
+      niches={featuredOrder(now).slice(0, STORY_COUNT)}
+      day={now.toISOString().slice(0, 10)}
+    />
+  )
+}
+
+async function HomeFeed() {
+  await connection()
+  const now = new Date()
+  const first = await getHomePage(0, now)
+  return <InfiniteFeed initial={first} now={now.getTime()} />
+}
+
+function StoriesSkeleton() {
+  return (
+    <div aria-hidden className="flex gap-4 overflow-hidden pb-2">
+      {Array.from({ length: 8 }, (_, i) => (
+        <div key={i} className="w-[4.5rem] shrink-0">
+          <Skeleton className="size-[4.5rem] rounded-full" />
+          <Skeleton className="mx-auto mt-2 h-3 w-12" />
+        </div>
+      ))}
+    </div>
   )
 }
