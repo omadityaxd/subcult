@@ -1,0 +1,106 @@
+{
+  "slug": "goth",
+  "schemaVersion": 1,
+  "name": "goth",
+  "emoji": "🦇",
+  "tagline": "it's not a phase, it's a 45-year-old subculture with better boots than you",
+  "description": "Born from late-70s post-punk: The Cure, Siouxsie and Bauhaus, dark clubs and darker eyeliner. Today it spans trad goth, romantic goth, darkwave and whimsigoth. Black is a lifestyle, sunlight is optional and a good platform boot is a sacred object.",
+  "palette": ["#050505", "#1c1420", "#3d1f3a", "#7d6b80", "#d9d4dc"],
+  "vibeWords": ["dark", "romantic", "post-punk", "velvet", "candlelit", "mysterious", "black lace"],
+  "artists": [
+    {
+      "name": "The Cure",
+      "why": "the eternal goth gateway"
+    },
+    {
+      "name": "Siouxsie and the Banshees",
+      "why": "the blueprint for goth style"
+    },
+    {
+      "name": "Bauhaus",
+      "why": "'Bela Lugosi's Dead', where it all began"
+    },
+    {
+      "name": "Joy Division",
+      "why": "bleak, foundational post-punk"
+    },
+    {
+      "name": "The Sisters of Mercy",
+      "why": "booming gothic rock"
+    },
+    {
+      "name": "Type O Negative",
+      "why": "doomy, romantic goth metal"
+    },
+    {
+      "name": "Cocteau Twins",
+      "why": "ethereal, otherworldly vocals"
+    },
+    {
+      "name": "Lebanon Hanover",
+      "why": "modern cold-wave melancholy"
+    },
+    {
+      "name": "Drab Majesty",
+      "why": "dreamy modern darkwave"
+    },
+    {
+      "name": "Boy Harsher",
+      "why": "dark, sweaty synth-wave"
+    }
+  ],
+  "spotifyQueries": ["goth classics", "darkwave", "post-punk essentials", "goth club"],
+  "subreddits": ["GothStyle", "goth", "postpunk", "darkwave"],
+  "newsQueries": ["goth subculture", "darkwave album"],
+  "youtubeQueries": [
+    "goth makeup tutorial",
+    "trad goth outfit",
+    "history of goth subculture",
+    "darkwave mix"
+  ],
+  "brands": [
+    {
+      "name": "Killstar",
+      "priceTier": "$$",
+      "why": "witchy, occult-inspired staples"
+    },
+    {
+      "name": "Demonia",
+      "priceTier": "$$",
+      "why": "the platform boots"
+    },
+    {
+      "name": "Dr. Martens",
+      "priceTier": "$$",
+      "why": "classic black boots"
+    },
+    {
+      "name": "Dolls Kill",
+      "priceTier": "$$",
+      "why": "dramatic going-out fits"
+    },
+    {
+      "name": "Rick Owens",
+      "priceTier": "$$$",
+      "why": "high-fashion dark drape"
+    },
+    {
+      "name": "Ann Demeulemeester",
+      "priceTier": "$$$",
+      "why": "romantic, poetic dark tailoring"
+    }
+  ],
+  "shopKeywords": [
+    "platform boots",
+    "black lace dress",
+    "velvet blazer",
+    "silver rings",
+    "fishnet tights",
+    "black lipstick",
+    "corset top"
+  ],
+  "pinterestQueries": ["goth aesthetic", "trad goth fashion", "romantic goth outfit"],
+  "instagramHashtags": ["goth", "gothstyle", "gothfashion", "darkwave", "postpunk"],
+  "tiktokQueries": ["goth", "goth makeup", "goth outfit"],
+  "relatedNiches": ["grunge", "shoegaze", "dark academia", "techwear"]
+}

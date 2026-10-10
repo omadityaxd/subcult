@@ -1,0 +1,121 @@
+{
+  "slug": "old-money",
+  "schemaVersion": 1,
+  "name": "old money",
+  "emoji": "⛵",
+  "tagline": "quiet luxury, loud trust fund",
+  "description": "An aesthetic built around inherited-wealth restraint: cashmere, linen, loafers, tennis whites and zero visible logos. It borrows from Ivy League campuses, Mediterranean summers and country clubs. The joke is that it's mostly worn by people renting the look one sale at a time.",
+  "palette": ["#1d2a3a", "#4a5d6e", "#8c7b65", "#d9cbb3", "#f6f2ea"],
+  "vibeWords": [
+    "understated",
+    "tailored",
+    "classic",
+    "linen",
+    "preppy",
+    "neutral",
+    "polished",
+    "timeless"
+  ],
+  "artists": [
+    {
+      "name": "Frank Sinatra",
+      "why": "yacht-deck crooning"
+    },
+    {
+      "name": "Chet Baker",
+      "why": "cool jazz for a slow lunch"
+    },
+    {
+      "name": "Nat King Cole",
+      "why": "velvet voice, velvet blazer"
+    },
+    {
+      "name": "Ella Fitzgerald",
+      "why": "country-club ballroom elegance"
+    },
+    {
+      "name": "Dean Martin",
+      "why": "martini-glass charm"
+    },
+    {
+      "name": "Bill Evans",
+      "why": "piano for the library wing"
+    },
+    {
+      "name": "Miles Davis",
+      "why": "Kind of Blue, kind of expensive"
+    },
+    {
+      "name": "Lana Del Rey",
+      "why": "Riviera melancholy for the modern heiress"
+    },
+    {
+      "name": "Norah Jones",
+      "why": "soft jazz for the summer house"
+    }
+  ],
+  "spotifyQueries": [
+    "old money aesthetic",
+    "cocktail jazz",
+    "riviera summer playlist",
+    "classic crooners"
+  ],
+  "subreddits": ["malefashionadvice", "femalefashionadvice", "goodyearwelt"],
+  "newsQueries": ["quiet luxury trend", "old money aesthetic fashion"],
+  "youtubeQueries": [
+    "old money outfit ideas",
+    "quiet luxury explained",
+    "old money aesthetic men",
+    "capsule wardrobe old money"
+  ],
+  "brands": [
+    {
+      "name": "Ralph Lauren",
+      "priceTier": "$$$",
+      "why": "the patron saint of the aesthetic"
+    },
+    {
+      "name": "Loro Piana",
+      "priceTier": "$$$",
+      "why": "the actual quiet-luxury endgame"
+    },
+    {
+      "name": "Brunello Cucinelli",
+      "priceTier": "$$$",
+      "why": "cashmere that whispers"
+    },
+    {
+      "name": "Brooks Brothers",
+      "priceTier": "$$$",
+      "why": "oxford shirts and navy blazers"
+    },
+    {
+      "name": "J.Crew",
+      "priceTier": "$$",
+      "why": "attainable preppy basics"
+    },
+    {
+      "name": "Lacoste",
+      "priceTier": "$$",
+      "why": "tennis-club polos"
+    },
+    {
+      "name": "Uniqlo",
+      "priceTier": "$",
+      "why": "linen and cashmere on a budget"
+    }
+  ],
+  "shopKeywords": [
+    "linen shirt",
+    "cashmere sweater",
+    "penny loafers",
+    "pleated chinos",
+    "cable knit vest",
+    "tennis skirt",
+    "navy blazer"
+  ],
+  "pinterestQueries": ["old money aesthetic", "old money outfits", "quiet luxury style"],
+  "instagramHashtags": ["oldmoney", "oldmoneyaesthetic", "quietluxury", "preppystyle"],
+  "tiktokQueries": ["old money aesthetic", "quiet luxury", "old money outfit"],
+  "relatedNiches": ["dark academia", "f1", "coquette", "coastal cowboy"]
+}

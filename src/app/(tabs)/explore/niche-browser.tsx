@@ -5,16 +5,18 @@ import Link from "next/link"
 import { useDeferredValue, useState } from "react"
 import { EmptyState } from "@/components/shell/empty-state"
 import { Pressable } from "@/components/shell/pressable"
-import { NICHE_PRESETS } from "@/lib/niches/presets"
+import type { NichePreset } from "@/lib/niches/catalog"
 
-/** Search + grid over the preset catalog. Typing an unknown vibe will trigger generation (Phase 2). */
-export function NicheBrowser() {
+interface NicheBrowserProps {
+  presets: readonly NichePreset[]
+}
+
+/** Search + grid over the niche catalog (presets arrive as props to keep profiles server-side). */
+export function NicheBrowser({ presets }: NicheBrowserProps) {
   const [query, setQuery] = useState("")
   const deferredQuery = useDeferredValue(query)
   const needle = deferredQuery.trim().toLowerCase()
-  const results = needle
-    ? NICHE_PRESETS.filter((niche) => niche.name.includes(needle))
-    : NICHE_PRESETS
+  const results = needle ? presets.filter((niche) => niche.name.includes(needle)) : presets
 
   return (
     <div className="px-4">

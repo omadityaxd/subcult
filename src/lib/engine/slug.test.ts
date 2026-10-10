@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest"
-import { NICHE_PRESETS } from "@/lib/niches/presets"
+import { NICHE_PRESETS } from "@/lib/niches/catalog"
 import { normalizeNicheName, parseNicheInput, toNicheSlug } from "./slug"
 
 describe("toNicheSlug", () => {

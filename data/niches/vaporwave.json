@@ -1,0 +1,105 @@
+{
+  "slug": "vaporwave",
+  "schemaVersion": 1,
+  "name": "vaporwave",
+  "emoji": "🌴",
+  "tagline": "a mall food court at 3am, but make it art",
+  "description": "An internet-born microgenre and art style built from slowed-down 80s muzak, smooth jazz and corporate nostalgia. Think Greek busts, Windows 95, pastel sunsets and Japanese text. It's half parody of consumer culture, half genuinely beautiful, and fully online.",
+  "palette": ["#1a0f3c", "#5b3fa4", "#ff71ce", "#01cdfe", "#fffb96"],
+  "vibeWords": [
+    "pastel",
+    "nostalgic",
+    "ironic",
+    "slowed down",
+    "retro tech",
+    "dreamy",
+    "mall",
+    "glitch"
+  ],
+  "artists": [
+    {
+      "name": "Macintosh Plus",
+      "why": "Floral Shoppe, the genre's founding text"
+    },
+    {
+      "name": "Vektroid",
+      "why": "the producer behind Macintosh Plus"
+    },
+    {
+      "name": "Saint Pepsi",
+      "why": "upbeat future-funk vaporwave"
+    },
+    {
+      "name": "Blank Banshee",
+      "why": "glitchy, bass-heavy vaporwave"
+    },
+    {
+      "name": "2814",
+      "why": "ambient, rain-soaked city soundscapes"
+    },
+    {
+      "name": "Luxury Elite",
+      "why": "smooth, sample-based mallsoft"
+    },
+    {
+      "name": "Windows 96",
+      "why": "nostalgic computer-age vaporwave"
+    },
+    {
+      "name": "HOME",
+      "why": "warm chillsynth like 'Resonance'"
+    },
+    {
+      "name": "Death's Dynamic Shroud",
+      "why": "experimental vaporwave collages"
+    }
+  ],
+  "spotifyQueries": ["vaporwave", "future funk", "mallsoft", "vaporwave essentials"],
+  "subreddits": ["Vaporwave", "VaporwaveAesthetics", "outrun"],
+  "newsQueries": ["vaporwave music", "vaporwave aesthetic"],
+  "youtubeQueries": [
+    "vaporwave mix",
+    "what is vaporwave",
+    "future funk mix",
+    "vaporwave art tutorial"
+  ],
+  "brands": [
+    {
+      "name": "Fila",
+      "priceTier": "$",
+      "why": "retro windbreakers and logos"
+    },
+    {
+      "name": "Champion",
+      "priceTier": "$",
+      "why": "throwback sweats"
+    },
+    {
+      "name": "Ellesse",
+      "priceTier": "$",
+      "why": "pastel 80s sportswear"
+    },
+    {
+      "name": "Reyn Spooner",
+      "priceTier": "$$",
+      "why": "Hawaiian shirts for the beach mall"
+    },
+    {
+      "name": "Uniqlo",
+      "priceTier": "$",
+      "why": "graphic UT tees"
+    }
+  ],
+  "shopKeywords": [
+    "retro windbreaker",
+    "hawaiian shirt",
+    "greek bust statue",
+    "pastel neon sign",
+    "crt monitor",
+    "palm tree decor"
+  ],
+  "pinterestQueries": ["vaporwave aesthetic", "vaporwave art", "retro 80s aesthetic"],
+  "instagramHashtags": ["vaporwave", "vaporwaveaesthetic", "futurefunk", "retrowave"],
+  "tiktokQueries": ["vaporwave", "vaporwave aesthetic", "future funk"],
+  "relatedNiches": ["city pop", "cyberpunk", "y2k", "lo-fi"]
+}

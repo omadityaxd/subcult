@@ -1,0 +1,102 @@
+{
+  "slug": "coastal-cowboy",
+  "schemaVersion": 1,
+  "name": "coastal cowboy",
+  "emoji": "🤠",
+  "tagline": "has never touched a horse but the boots are broken in",
+  "description": "The western revival, by way of the beach: cowboy boots, denim, turquoise and a hat that has seen exactly zero ranches. Fueled by Cowboy Carter, Orville Peck and country going pop, it mixes rodeo grit with summer softness. Yeehaw, but make it a vacation.",
+  "palette": ["#3b2416", "#8b5a2b", "#c9a46c", "#7fb3c4", "#f5ecdc"],
+  "vibeWords": ["western", "sun-washed", "denim", "turquoise", "rodeo", "breezy", "boots"],
+  "artists": [
+    {
+      "name": "Orville Peck",
+      "why": "the masked queer cowboy crooner"
+    },
+    {
+      "name": "Beyoncé",
+      "why": "Cowboy Carter took country mainstream"
+    },
+    {
+      "name": "Kacey Musgraves",
+      "why": "dreamy, sparkly modern country"
+    },
+    {
+      "name": "Zach Bryan",
+      "why": "raw, campfire country storytelling"
+    },
+    {
+      "name": "Shaboozey",
+      "why": "'A Bar Song (Tipsy)', a crossover monster"
+    },
+    {
+      "name": "Chappell Roan",
+      "why": "'Pink Pony Club' cowgirl glitter"
+    },
+    {
+      "name": "Dolly Parton",
+      "why": "the eternal queen"
+    },
+    {
+      "name": "Willie Nelson",
+      "why": "the outlaw-country legend"
+    },
+    {
+      "name": "Lainey Wilson",
+      "why": "bell-bottom country cool"
+    }
+  ],
+  "spotifyQueries": ["country pop", "western road trip", "outlaw country", "cowgirl playlist"],
+  "subreddits": ["CountryMusic", "Boots", "femalefashionadvice"],
+  "newsQueries": ["western fashion trend", "country music crossover"],
+  "youtubeQueries": [
+    "western outfit ideas",
+    "how to style cowboy boots",
+    "coastal cowgirl aesthetic",
+    "country music mix"
+  ],
+  "brands": [
+    {
+      "name": "Ariat",
+      "priceTier": "$$",
+      "why": "real-deal western boots"
+    },
+    {
+      "name": "Tecovas",
+      "priceTier": "$$",
+      "why": "handmade cowboy boots"
+    },
+    {
+      "name": "Lucchese",
+      "priceTier": "$$$",
+      "why": "heirloom-level boots"
+    },
+    {
+      "name": "Wrangler",
+      "priceTier": "$",
+      "why": "the classic western denim"
+    },
+    {
+      "name": "Levi's",
+      "priceTier": "$$",
+      "why": "denim jackets and 501s"
+    },
+    {
+      "name": "Boot Barn",
+      "priceTier": "$$",
+      "why": "one-stop western shop"
+    }
+  ],
+  "shopKeywords": [
+    "cowboy boots",
+    "cowboy hat",
+    "turquoise jewelry",
+    "denim shirt",
+    "western belt buckle",
+    "bandana",
+    "linen maxi skirt"
+  ],
+  "pinterestQueries": ["coastal cowgirl aesthetic", "western outfits", "cowboy boots outfit"],
+  "instagramHashtags": ["coastalcowgirl", "westernfashion", "cowboyboots", "westernstyle"],
+  "tiktokQueries": ["coastal cowgirl", "western outfit", "cowboy boots outfit"],
+  "relatedNiches": ["cottagecore", "old money", "gorpcore", "coquette"]
+}

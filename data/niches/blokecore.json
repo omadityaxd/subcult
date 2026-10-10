@@ -1,0 +1,97 @@
+{
+  "slug": "blokecore",
+  "schemaVersion": 1,
+  "name": "blokecore",
+  "emoji": "⚽",
+  "tagline": "retro football shirt, sambas, jeans. the pint is implied",
+  "description": "Football terrace culture turned streetwear: vintage 90s kits, adidas Sambas, track jackets and straight-leg denim. It borrows from British lads in the stands and Britpop's swagger. Bonus points if the shirt is from a club you can't name a single player from.",
+  "palette": ["#0f1e3c", "#1d4e89", "#d7263d", "#f4d35e", "#f7f5f0"],
+  "vibeWords": ["terrace", "retro", "sporty", "laddish", "90s", "matchday", "britpop"],
+  "artists": [
+    {
+      "name": "Oasis",
+      "why": "the Britpop terrace anthem factory"
+    },
+    {
+      "name": "Blur",
+      "why": "Parklife, the other side of Britpop"
+    },
+    {
+      "name": "The Stone Roses",
+      "why": "baggy Madchester swagger"
+    },
+    {
+      "name": "The Lightning Seeds",
+      "why": "'Three Lions', the eternal chant"
+    },
+    {
+      "name": "The Streets",
+      "why": "everyday British lad poetry"
+    },
+    {
+      "name": "Kasabian",
+      "why": "stadium indie for matchdays"
+    },
+    {
+      "name": "The Libertines",
+      "why": "scrappy London indie"
+    },
+    {
+      "name": "Pulp",
+      "why": "'Common People', sung by every pub"
+    }
+  ],
+  "spotifyQueries": ["britpop", "football anthems", "terrace chants", "90s indie britain"],
+  "subreddits": ["soccer", "soccerjerseys", "malefashionadvice"],
+  "newsQueries": ["blokecore trend", "retro football shirts"],
+  "youtubeQueries": [
+    "blokecore outfit ideas",
+    "retro football shirt collection",
+    "terrace culture documentary",
+    "how to style football shirts"
+  ],
+  "brands": [
+    {
+      "name": "adidas",
+      "priceTier": "$$",
+      "why": "Sambas and three-stripe track tops"
+    },
+    {
+      "name": "Umbro",
+      "priceTier": "$",
+      "why": "the 90s kit maker"
+    },
+    {
+      "name": "Kappa",
+      "priceTier": "$",
+      "why": "omini logo track pants"
+    },
+    {
+      "name": "Classic Football Shirts",
+      "priceTier": "$$",
+      "why": "the vintage kit archive"
+    },
+    {
+      "name": "Stone Island",
+      "priceTier": "$$$",
+      "why": "the terrace-culture badge"
+    },
+    {
+      "name": "Puma",
+      "priceTier": "$$",
+      "why": "retro football boots and shirts"
+    }
+  ],
+  "shopKeywords": [
+    "retro football shirt",
+    "adidas samba",
+    "track jacket",
+    "straight leg jeans",
+    "football scarf",
+    "bucket hat"
+  ],
+  "pinterestQueries": ["blokecore outfit", "blokecore aesthetic", "retro football shirt style"],
+  "instagramHashtags": ["blokecore", "footballshirt", "vintagefootball", "terracefashion"],
+  "tiktokQueries": ["blokecore", "football shirt outfit", "retro kit"],
+  "relatedNiches": ["sneakerheads", "f1", "gym rat", "indie sleaze"]
+}

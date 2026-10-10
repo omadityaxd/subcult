@@ -6,7 +6,7 @@ import { EmptyState } from "@/components/shell/empty-state"
 import { LargeTitle } from "@/components/shell/large-title"
 import { Screen } from "@/components/shell/screen"
 import { Skeleton } from "@/components/ui/skeleton"
-import { NICHE_PRESETS, findPreset } from "@/lib/niches/presets"
+import { NICHE_PRESETS, findSeedProfile } from "@/lib/niches/catalog"
 
 export function generateStaticParams() {
   return NICHE_PRESETS.map(({ slug }) => ({ slug }))
@@ -14,7 +14,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: PageProps<"/n/[slug]">): Promise<Metadata> {
   const { slug } = await params
-  return { title: findPreset(slug)?.name ?? "niche" }
+  return { title: findSeedProfile(slug)?.name ?? "niche" }
 }
 
 /**
@@ -33,7 +33,7 @@ export default function NichePage({ params }: PageProps<"/n/[slug]">) {
 
 async function NicheContent({ params }: Pick<PageProps<"/n/[slug]">, "params">) {
   const { slug } = await params
-  const niche = findPreset(slug)
+  const niche = findSeedProfile(slug)
   if (!niche) notFound()
 
   return (

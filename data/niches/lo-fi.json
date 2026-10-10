@@ -1,0 +1,106 @@
+{
+  "slug": "lo-fi",
+  "schemaVersion": 1,
+  "name": "lo-fi",
+  "emoji": "🎧",
+  "tagline": "beats to study, relax and avoid your actual assignment to",
+  "description": "Lo-fi hip hop: dusty drums, jazzy chords, vinyl crackle and the eternal girl studying by the window on a 24/7 stream. It traces back to J Dilla and Nujabes. It's the soundtrack of late-night cram sessions, rainy cafés and the feeling of being productive.",
+  "palette": ["#1b1a2e", "#3a3a5e", "#7b6f9e", "#f4b183", "#fcefe3"],
+  "vibeWords": ["chill", "cozy", "jazzy", "rainy", "nostalgic", "late-night", "vinyl crackle"],
+  "artists": [
+    {
+      "name": "Nujabes",
+      "why": "the father of the whole sound"
+    },
+    {
+      "name": "J Dilla",
+      "why": "off-kilter drums every beatmaker studies"
+    },
+    {
+      "name": "Jinsang",
+      "why": "warm, melodic, cozy beats"
+    },
+    {
+      "name": "Tomppabeats",
+      "why": "short, nostalgic sketches"
+    },
+    {
+      "name": "idealism",
+      "why": "dreamy piano lo-fi"
+    },
+    {
+      "name": "potsu",
+      "why": "jazzy, bouncy lo-fi"
+    },
+    {
+      "name": "Kupla",
+      "why": "soft, ambient lo-fi"
+    },
+    {
+      "name": "Philanthrope",
+      "why": "smooth, jazzy chill hop"
+    },
+    {
+      "name": "eevee",
+      "why": "mellow, intimate beats"
+    },
+    {
+      "name": "Saib",
+      "why": "warm guitar loops"
+    }
+  ],
+  "spotifyQueries": ["lofi hip hop", "lofi beats to study", "jazzy lofi", "chillhop"],
+  "subreddits": ["LofiHipHop", "Nujabes", "makinghiphop"],
+  "newsQueries": ["lofi hip hop", "Lofi Girl"],
+  "youtubeQueries": [
+    "lofi hip hop radio",
+    "lofi study mix",
+    "how to make lofi beats",
+    "rainy lofi"
+  ],
+  "brands": [
+    {
+      "name": "Uniqlo",
+      "priceTier": "$",
+      "why": "comfy basics for long sessions"
+    },
+    {
+      "name": "Muji",
+      "priceTier": "$$",
+      "why": "minimal stationery and desk calm"
+    },
+    {
+      "name": "Audio-Technica",
+      "priceTier": "$$",
+      "why": "studio headphones and turntables"
+    },
+    {
+      "name": "Sony",
+      "priceTier": "$$",
+      "why": "noise-cancelling headphones"
+    },
+    {
+      "name": "Carhartt WIP",
+      "priceTier": "$$",
+      "why": "cosy hoodies and beanies"
+    },
+    {
+      "name": "IKEA",
+      "priceTier": "$",
+      "why": "desk lamps and cosy room setups"
+    }
+  ],
+  "shopKeywords": [
+    "wireless headphones",
+    "desk lamp",
+    "vinyl record player",
+    "mechanical keyboard",
+    "oversized hoodie",
+    "fairy lights",
+    "study planner"
+  ],
+  "pinterestQueries": ["lofi aesthetic", "cozy study desk setup", "lofi room"],
+  "instagramHashtags": ["lofi", "lofihiphop", "chillhop", "studygram", "desksetup"],
+  "tiktokQueries": ["lofi beats", "study with me", "desk setup"],
+  "relatedNiches": ["anime", "underground rap", "dark academia", "bedroom pop"]
+}

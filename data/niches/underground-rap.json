@@ -1,0 +1,128 @@
+{
+  "slug": "underground-rap",
+  "schemaVersion": 1,
+  "name": "underground rap",
+  "emoji": "🎤",
+  "tagline": "your favorite rapper's favorite rapper's favorite rapper",
+  "description": "Rap that lives under the algorithm: dusty loops, dense bars and tapes dropped on Bandcamp at 2am. It runs on MF DOOM's lineage, Griselda grit and the hazy New York scene. Fans own vinyl of albums with 4,000 monthly listeners and will absolutely bring it up.",
+  "palette": ["#0e0d0b", "#2b2620", "#5a4a36", "#b08d57", "#e8dcc4"],
+  "vibeWords": ["grimy", "DIY", "late-night", "lyrical", "dusty loops", "smoky", "cassette"],
+  "artists": [
+    {
+      "name": "MF DOOM",
+      "why": "the masked blueprint every underground head studies"
+    },
+    {
+      "name": "Earl Sweatshirt",
+      "why": "murky, abstract bars that rewired a generation"
+    },
+    {
+      "name": "MIKE",
+      "why": "hazy NYC loops and diary-entry verses"
+    },
+    {
+      "name": "billy woods",
+      "why": "dense, literary, zero hooks required"
+    },
+    {
+      "name": "Navy Blue",
+      "why": "skater-turned-poet over warm soul samples"
+    },
+    {
+      "name": "Westside Gunn",
+      "why": "Griselda's art-world grime and ad-libs"
+    },
+    {
+      "name": "Boldy James",
+      "why": "cold, calm, cinematic storytelling"
+    },
+    {
+      "name": "Mach-Hommy",
+      "why": "mysterious, expensive and worth it"
+    },
+    {
+      "name": "JPEGMAFIA",
+      "why": "glitchy, chaotic, self-produced noise rap"
+    },
+    {
+      "name": "Pink Siifu",
+      "why": "genre-melting soul, punk and rap"
+    },
+    {
+      "name": "Danny Brown",
+      "why": "unhinged flows over the strangest beats alive"
+    },
+    {
+      "name": "Ka",
+      "why": "whisper-quiet Brooklyn lyricism"
+    }
+  ],
+  "spotifyQueries": [
+    "underground hip hop",
+    "abstract hip hop",
+    "boom bap 2020s",
+    "griselda essentials",
+    "soul sample rap"
+  ],
+  "subreddits": ["hiphopheads", "undergroundhiphop", "makinghiphop"],
+  "newsQueries": [
+    "underground hip hop album",
+    "billy woods",
+    "Earl Sweatshirt",
+    "Griselda Records"
+  ],
+  "youtubeQueries": [
+    "underground hip hop mix",
+    "boom bap freestyle",
+    "MIKE live performance",
+    "Earl Sweatshirt live"
+  ],
+  "brands": [
+    {
+      "name": "Carhartt WIP",
+      "priceTier": "$$",
+      "why": "work jackets that survive every cypher"
+    },
+    {
+      "name": "Dickies",
+      "priceTier": "$",
+      "why": "874s, the eternal uniform"
+    },
+    {
+      "name": "Stüssy",
+      "priceTier": "$$",
+      "why": "OG streetwear with real hip hop roots"
+    },
+    {
+      "name": "Champion",
+      "priceTier": "$",
+      "why": "reverse weave hoodies for the studio"
+    },
+    {
+      "name": "Nike",
+      "priceTier": "$$",
+      "why": "Air Force 1s, obviously"
+    },
+    {
+      "name": "Brain Dead",
+      "priceTier": "$$$",
+      "why": "art-school streetwear for weirdo rap fans"
+    }
+  ],
+  "shopKeywords": [
+    "baggy carpenter jeans",
+    "vintage rap tee",
+    "work jacket",
+    "ribbed beanie",
+    "cargo pants",
+    "suede skate shoes"
+  ],
+  "pinterestQueries": [
+    "underground rapper aesthetic",
+    "90s boom bap fashion",
+    "rap album cover art"
+  ],
+  "instagramHashtags": ["undergroundhiphop", "boombap", "hiphopculture", "abstracthiphop"],
+  "tiktokQueries": ["underground rap recommendations", "boom bap", "underrated rappers"],
+  "relatedNiches": ["skater", "lo-fi", "sneakerheads", "jersey club"]
+}

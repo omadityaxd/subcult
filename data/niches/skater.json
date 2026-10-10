@@ -1,0 +1,103 @@
+{
+  "slug": "skater",
+  "schemaVersion": 1,
+  "name": "skater",
+  "emoji": "🛹",
+  "tagline": "fell 40 times for one clip and posted the 41st like it was easy",
+  "description": "Skate culture is DIY at its core: street spots, grainy VX1000 footage, homemade zines and shoes destroyed by griptape. The fashion (baggy pants, suede kicks, logo tees) went global, but the scene still runs on crews, local shops and the one guy filming everything.",
+  "palette": ["#111111", "#3b3b3b", "#c1272d", "#e2c044", "#f4f1ea"],
+  "vibeWords": ["DIY", "gritty", "street", "baggy", "rebellious", "crew", "VHS", "sun-faded"],
+  "artists": [
+    {
+      "name": "Black Flag",
+      "why": "hardcore punk from the original skate era"
+    },
+    {
+      "name": "Bad Brains",
+      "why": "DC hardcore, a skate video staple"
+    },
+    {
+      "name": "Minor Threat",
+      "why": "fast, short, straight-edge punk"
+    },
+    {
+      "name": "Descendents",
+      "why": "pop-punk for session breaks"
+    },
+    {
+      "name": "A Tribe Called Quest",
+      "why": "jazzy rap from 90s skate parts"
+    },
+    {
+      "name": "Mac DeMarco",
+      "why": "slacker rock that sounds like a skate trip"
+    },
+    {
+      "name": "Sublime",
+      "why": "sunny SoCal skate-park ska punk"
+    },
+    {
+      "name": "Nujabes",
+      "why": "chill beats for late-night spot hunting"
+    }
+  ],
+  "spotifyQueries": ["skate video soundtrack", "skate punk", "90s skate rap", "skatepark playlist"],
+  "subreddits": ["skateboarding", "NewSkaters", "longboarding"],
+  "newsQueries": ["skateboarding", "Thrasher magazine"],
+  "youtubeQueries": [
+    "skate video full part",
+    "how to kickflip",
+    "street skating",
+    "thrasher full part"
+  ],
+  "brands": [
+    {
+      "name": "Vans",
+      "priceTier": "$",
+      "why": "the original skate shoe"
+    },
+    {
+      "name": "Thrasher",
+      "priceTier": "$$",
+      "why": "the flame logo you have to earn"
+    },
+    {
+      "name": "Nike SB",
+      "priceTier": "$$",
+      "why": "Dunks and pro models"
+    },
+    {
+      "name": "Palace",
+      "priceTier": "$$$",
+      "why": "London skate brand with a tri-ferg"
+    },
+    {
+      "name": "Santa Cruz",
+      "priceTier": "$$",
+      "why": "the screaming hand"
+    },
+    {
+      "name": "Dickies",
+      "priceTier": "$",
+      "why": "pants built for slams"
+    },
+    {
+      "name": "HUF",
+      "priceTier": "$$",
+      "why": "skate-born streetwear"
+    }
+  ],
+  "shopKeywords": [
+    "skateboard deck",
+    "baggy work pants",
+    "suede skate shoes",
+    "graphic tee",
+    "beanie",
+    "skateboard wax",
+    "skate tool"
+  ],
+  "pinterestQueries": ["skater aesthetic", "skater outfits", "skatepark photography"],
+  "instagramHashtags": ["skateboarding", "skatelife", "skate", "thrasher"],
+  "tiktokQueries": ["skateboarding", "skate tricks", "skater outfit"],
+  "relatedNiches": ["underground rap", "grunge", "midwest emo", "sneakerheads"]
+}

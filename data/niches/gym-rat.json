@@ -1,0 +1,98 @@
+{
+  "slug": "gym-rat",
+  "schemaVersion": 1,
+  "name": "gym rat",
+  "emoji": "🏋️",
+  "tagline": "skipped the party for leg day and has zero regrets (has some regrets)",
+  "description": "Lifting culture as a lifestyle: progressive overload, macro tracking, pump covers and the 5am alarm. It spans powerlifters, bodybuilders and casual lifters chasing PRs. The gym is part workout, part therapy, part content studio.",
+  "palette": ["#0c0c0c", "#262626", "#b31b1b", "#f2c14e", "#f2f2f2"],
+  "vibeWords": ["disciplined", "intense", "sweaty", "PR", "grind", "pump", "consistency"],
+  "artists": [
+    {
+      "name": "Eminem",
+      "why": "'Till I Collapse', the gym national anthem"
+    },
+    {
+      "name": "Linkin Park",
+      "why": "nu-metal energy for heavy sets"
+    },
+    {
+      "name": "Travis Scott",
+      "why": "high-octane trap for the pump"
+    },
+    {
+      "name": "Kordhell",
+      "why": "'Murder In My Mind' phonk"
+    },
+    {
+      "name": "DVRST",
+      "why": "'Close Eyes', peak gym phonk"
+    },
+    {
+      "name": "INTERWORLD",
+      "why": "'METAMORPHOSIS' for montage edits"
+    },
+    {
+      "name": "Hensonn",
+      "why": "'Sahara', the phonk staple"
+    },
+    {
+      "name": "Metro Boomin",
+      "why": "menacing beats for PR attempts"
+    }
+  ],
+  "spotifyQueries": ["gym phonk", "workout motivation", "beast mode", "heavy lifting playlist"],
+  "subreddits": ["Fitness", "GYM", "bodybuilding", "weightroom", "powerlifting"],
+  "newsQueries": ["fitness trends", "powerlifting news"],
+  "youtubeQueries": [
+    "push pull legs routine",
+    "beginner gym workout",
+    "high protein meal prep",
+    "gym motivation"
+  ],
+  "brands": [
+    {
+      "name": "Gymshark",
+      "priceTier": "$$",
+      "why": "the lifting-influencer uniform"
+    },
+    {
+      "name": "Nike",
+      "priceTier": "$$",
+      "why": "Metcons and training gear"
+    },
+    {
+      "name": "Under Armour",
+      "priceTier": "$$",
+      "why": "compression and performance wear"
+    },
+    {
+      "name": "Lululemon",
+      "priceTier": "$$$",
+      "why": "premium training basics"
+    },
+    {
+      "name": "Optimum Nutrition",
+      "priceTier": "$$",
+      "why": "Gold Standard whey"
+    },
+    {
+      "name": "Decathlon",
+      "priceTier": "$",
+      "why": "budget gear and home equipment"
+    }
+  ],
+  "shopKeywords": [
+    "lifting belt",
+    "whey protein",
+    "gym stringer",
+    "lifting straps",
+    "shaker bottle",
+    "training shoes",
+    "oversized pump cover"
+  ],
+  "pinterestQueries": ["gym aesthetic", "gym outfit ideas", "home gym setup"],
+  "instagramHashtags": ["gymrat", "gymmotivation", "fitness", "powerlifting", "bodybuilding"],
+  "tiktokQueries": ["gymtok", "gym motivation", "high protein recipes"],
+  "relatedNiches": ["sneakerheads", "anime", "blokecore", "f1"]
+}

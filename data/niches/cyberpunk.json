@@ -1,0 +1,116 @@
+{
+  "slug": "cyberpunk",
+  "schemaVersion": 1,
+  "name": "cyberpunk",
+  "emoji": "🌃",
+  "tagline": "neon rain, megacorp dystopia, and a backlit keyboard doing most of the work",
+  "description": "High tech, low life: rain-slick neon cities, chrome implants and corporations that own everything. It runs from Blade Runner and Ghost in the Shell to Cyberpunk 2077. Fans live in RGB-lit rooms, wear a lot of black and have strong opinions about which dystopia is the most realistic.",
+  "palette": ["#05010f", "#1b0b3a", "#ff2a6d", "#05d9e8", "#d1f7ff"],
+  "vibeWords": [
+    "neon",
+    "dystopian",
+    "chrome",
+    "rainy",
+    "glitchy",
+    "futuristic",
+    "RGB",
+    "night city"
+  ],
+  "artists": [
+    {
+      "name": "Vangelis",
+      "why": "the Blade Runner score is the genre's DNA"
+    },
+    {
+      "name": "Kenji Kawai",
+      "why": "the Ghost in the Shell soundtrack"
+    },
+    {
+      "name": "Marcin Przybyłowicz",
+      "why": "the Cyberpunk 2077 score"
+    },
+    {
+      "name": "Grimes",
+      "why": "'Delicate Weapon' from Cyberpunk 2077"
+    },
+    {
+      "name": "Perturbator",
+      "why": "dark, driving synthwave"
+    },
+    {
+      "name": "Kavinsky",
+      "why": "'Nightcall' for neon night drives"
+    },
+    {
+      "name": "GUNSHIP",
+      "why": "cinematic retro-future synth rock"
+    },
+    {
+      "name": "Carpenter Brut",
+      "why": "violent, pulsing darksynth"
+    },
+    {
+      "name": "Daniel Deluxe",
+      "why": "moody synth for dystopian streets"
+    }
+  ],
+  "spotifyQueries": [
+    "cyberpunk playlist",
+    "darksynth",
+    "blade runner soundtrack",
+    "cyberpunk 2077 soundtrack"
+  ],
+  "subreddits": ["Cyberpunk", "cyberpunkgame", "outrun"],
+  "newsQueries": ["cyberpunk game", "Cyberpunk 2077", "cyberpunk anime"],
+  "youtubeQueries": [
+    "cyberpunk ambience",
+    "cyberpunk explained",
+    "cyberpunk room setup",
+    "darksynth mix"
+  ],
+  "brands": [
+    {
+      "name": "Razer",
+      "priceTier": "$$",
+      "why": "RGB everything for the battlestation"
+    },
+    {
+      "name": "Logitech G",
+      "priceTier": "$$",
+      "why": "gaming peripherals that glow"
+    },
+    {
+      "name": "Nike ACG",
+      "priceTier": "$$",
+      "why": "techy outerwear for the night city"
+    },
+    {
+      "name": "Oakley",
+      "priceTier": "$$",
+      "why": "shield shades with visor energy"
+    },
+    {
+      "name": "Diesel",
+      "priceTier": "$$$",
+      "why": "chrome and leather with attitude"
+    },
+    {
+      "name": "Uniqlo",
+      "priceTier": "$",
+      "why": "black base layers"
+    }
+  ],
+  "shopKeywords": [
+    "led strip lights",
+    "rgb mechanical keyboard",
+    "holographic jacket",
+    "visor sunglasses",
+    "black tactical jacket",
+    "neon sign",
+    "cyberpunk poster"
+  ],
+  "pinterestQueries": ["cyberpunk aesthetic", "cyberpunk city art", "cyberpunk room"],
+  "instagramHashtags": ["cyberpunk", "cyberpunkaesthetic", "neonlights", "synthwave", "nightcity"],
+  "tiktokQueries": ["cyberpunk aesthetic", "cyberpunk edit", "rgb room setup"],
+  "relatedNiches": ["techwear", "vaporwave", "anime", "rave"]
+}

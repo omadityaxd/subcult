@@ -1,0 +1,100 @@
+{
+  "slug": "shoegaze",
+  "schemaVersion": 1,
+  "name": "shoegaze",
+  "emoji": "🌫️",
+  "tagline": "the vocals are in there somewhere. we think",
+  "description": "Wall-of-sound guitars, buried vocals and enough reverb to fill a cathedral. Named after bands staring at their effects pedals, it started in late-80s UK and now has a massive online revival. It's music that feels like a blurry photo of a memory.",
+  "palette": ["#1d1b26", "#46405e", "#8f84b6", "#e4b7c9", "#f6eef2"],
+  "vibeWords": ["dreamy", "hazy", "reverb", "loud", "blurry", "ethereal", "fuzzy"],
+  "artists": [
+    {
+      "name": "My Bloody Valentine",
+      "why": "Loveless, the holy text"
+    },
+    {
+      "name": "Slowdive",
+      "why": "gorgeous, glacial dream walls"
+    },
+    {
+      "name": "Ride",
+      "why": "Oxford's swirling guitar heroes"
+    },
+    {
+      "name": "Cocteau Twins",
+      "why": "the ethereal precursor"
+    },
+    {
+      "name": "Lush",
+      "why": "bright, poppy shoegaze"
+    },
+    {
+      "name": "Swervedriver",
+      "why": "heavy, driving shoegaze"
+    },
+    {
+      "name": "DIIV",
+      "why": "modern revival flagbearers"
+    },
+    {
+      "name": "Duster",
+      "why": "lo-fi space-rock cult favourite"
+    },
+    {
+      "name": "Hum",
+      "why": "heavy space-rock riffs"
+    },
+    {
+      "name": "Parannoul",
+      "why": "Korean bedroom shoegaze phenomenon"
+    }
+  ],
+  "spotifyQueries": ["shoegaze", "dream pop", "shoegaze revival", "nugaze"],
+  "subreddits": ["shoegaze", "dreampop", "indieheads"],
+  "newsQueries": ["shoegaze revival", "Slowdive"],
+  "youtubeQueries": [
+    "shoegaze guitar tone",
+    "my bloody valentine live",
+    "shoegaze mix",
+    "how to sound like shoegaze"
+  ],
+  "brands": [
+    {
+      "name": "Uniqlo",
+      "priceTier": "$",
+      "why": "oversized sweaters"
+    },
+    {
+      "name": "Our Legacy",
+      "priceTier": "$$$",
+      "why": "slouchy Scandinavian minimalism"
+    },
+    {
+      "name": "Dr. Martens",
+      "priceTier": "$$",
+      "why": "stomping on pedals in style"
+    },
+    {
+      "name": "Levi's",
+      "priceTier": "$$",
+      "why": "baggy jeans"
+    },
+    {
+      "name": "Carhartt WIP",
+      "priceTier": "$$",
+      "why": "beanies and work jackets"
+    }
+  ],
+  "shopKeywords": [
+    "mohair cardigan",
+    "oversized sweater",
+    "baggy jeans",
+    "guitar effects pedal",
+    "band tee",
+    "striped long sleeve"
+  ],
+  "pinterestQueries": ["shoegaze aesthetic", "dreamy album covers", "shoegaze outfit"],
+  "instagramHashtags": ["shoegaze", "dreampop", "nugaze", "pedalboard"],
+  "tiktokQueries": ["shoegaze", "shoegaze guitar", "dream pop"],
+  "relatedNiches": ["midwest emo", "grunge", "goth", "bedroom pop"]
+}

@@ -1,0 +1,116 @@
+{
+  "slug": "techwear",
+  "schemaVersion": 1,
+  "name": "techwear",
+  "emoji": "🥷",
+  "tagline": "dressed for a cyberpunk heist, going to a 9am lecture",
+  "description": "Function-first, all-black urban gear: waterproof shells, strapped cargo pants, modular bags and a lot of buckles. It borrows from military and outdoor tech, filtered through sci-fi. The best fits look like they could survive acid rain in Neo-Tokyo.",
+  "palette": ["#070809", "#1a1d21", "#3a3f45", "#7b8794", "#d6dbe0"],
+  "vibeWords": [
+    "functional",
+    "all-black",
+    "modular",
+    "futuristic",
+    "tactical",
+    "urban",
+    "waterproof"
+  ],
+  "artists": [
+    {
+      "name": "Gesaffelstein",
+      "why": "dark, industrial techno minimalism"
+    },
+    {
+      "name": "Burial",
+      "why": "rainy, ghostly city music"
+    },
+    {
+      "name": "Nine Inch Nails",
+      "why": "industrial grit"
+    },
+    {
+      "name": "Perturbator",
+      "why": "cyberpunk synthwave"
+    },
+    {
+      "name": "Carpenter Brut",
+      "why": "aggressive retro-futurist synth"
+    },
+    {
+      "name": "Vangelis",
+      "why": "the Blade Runner soundtrack"
+    },
+    {
+      "name": "Daft Punk",
+      "why": "Tron: Legacy energy"
+    },
+    {
+      "name": "Lorn",
+      "why": "heavy, cinematic electronic bass"
+    }
+  ],
+  "spotifyQueries": [
+    "cyberpunk playlist",
+    "darksynth",
+    "industrial techno",
+    "blade runner ambient"
+  ],
+  "subreddits": ["techwearclothing", "techwear", "malefashionadvice"],
+  "newsQueries": ["techwear fashion", "Acronym jacket"],
+  "youtubeQueries": [
+    "techwear outfit",
+    "techwear explained",
+    "techwear on a budget",
+    "acronym jacket review"
+  ],
+  "brands": [
+    {
+      "name": "Acronym",
+      "priceTier": "$$$",
+      "why": "the grail of the entire scene"
+    },
+    {
+      "name": "Arc'teryx Veilance",
+      "priceTier": "$$$",
+      "why": "minimal, city-tuned technical wear"
+    },
+    {
+      "name": "Nike ACG",
+      "priceTier": "$$",
+      "why": "outdoor-tech Nike"
+    },
+    {
+      "name": "Stone Island",
+      "priceTier": "$$$",
+      "why": "fabric research and the compass badge"
+    },
+    {
+      "name": "Guerrilla Group",
+      "priceTier": "$$$",
+      "why": "Taiwanese tactical silhouettes"
+    },
+    {
+      "name": "Decathlon",
+      "priceTier": "$",
+      "why": "functional basics for the budget build"
+    },
+    {
+      "name": "Uniqlo",
+      "priceTier": "$",
+      "why": "black base layers"
+    }
+  ],
+  "shopKeywords": [
+    "black cargo pants",
+    "waterproof shell jacket",
+    "sling bag",
+    "tactical vest",
+    "black trail shoes",
+    "neck gaiter",
+    "utility belt"
+  ],
+  "pinterestQueries": ["techwear outfits", "techwear aesthetic", "cyberpunk fashion"],
+  "instagramHashtags": ["techwear", "techwearfashion", "darkwear", "urbanninja"],
+  "tiktokQueries": ["techwear", "techwear outfit", "darkwear"],
+  "relatedNiches": ["gorpcore", "cyberpunk", "sneakerheads", "anime"]
+}

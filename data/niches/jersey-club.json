@@ -1,0 +1,92 @@
+{
+  "slug": "jersey-club",
+  "schemaVersion": 1,
+  "name": "jersey club",
+  "emoji": "🔊",
+  "tagline": "bed squeaks are now percussion and we have to accept that",
+  "description": "A Newark-born dance music with chopped vocals, frantic triplet kicks and the infamous bed-squeak sample. It grew from local club nights and dance crews, then hit the mainstream through drill, K-pop and TikTok. If you can't keep still, it's working.",
+  "palette": ["#0a0a12", "#1f2a5a", "#ff3c38", "#ffd23f", "#f7f7f7"],
+  "vibeWords": ["bouncy", "frantic", "danceable", "chopped vocals", "club", "energetic", "Newark"],
+  "artists": [
+    {
+      "name": "DJ Tameil",
+      "why": "a founding Jersey club producer"
+    },
+    {
+      "name": "UNIIQU3",
+      "why": "the Queen of Jersey Club"
+    },
+    {
+      "name": "Cookiee Kawaii",
+      "why": "viral club bounce"
+    },
+    {
+      "name": "Bandmanrill",
+      "why": "Jersey drill-meets-club pioneer"
+    },
+    {
+      "name": "DJ Sliink",
+      "why": "pushing the sound to big stages"
+    },
+    {
+      "name": "DJ Smallz 732",
+      "why": "relentless remix machine"
+    },
+    {
+      "name": "Lil Uzi Vert",
+      "why": "'Just Wanna Rock' took it mainstream"
+    },
+    {
+      "name": "NewJeans",
+      "why": "brought club rhythms to K-pop"
+    }
+  ],
+  "spotifyQueries": ["jersey club", "jersey club remix", "club music newark", "jersey drill"],
+  "subreddits": ["electronicmusic", "hiphopheads", "DJs"],
+  "newsQueries": ["jersey club music", "Jersey club trend"],
+  "youtubeQueries": [
+    "jersey club mix",
+    "jersey club dance",
+    "how to make jersey club",
+    "jersey club remix"
+  ],
+  "brands": [
+    {
+      "name": "Nike",
+      "priceTier": "$$",
+      "why": "AF1s for the dance circle"
+    },
+    {
+      "name": "Jordan Brand",
+      "priceTier": "$$$",
+      "why": "classic Jordans"
+    },
+    {
+      "name": "adidas",
+      "priceTier": "$$",
+      "why": "tracksuits for club nights"
+    },
+    {
+      "name": "Champion",
+      "priceTier": "$",
+      "why": "hoodies and sweats"
+    },
+    {
+      "name": "Telfar",
+      "priceTier": "$$",
+      "why": "the shopping bag everyone carries"
+    }
+  ],
+  "shopKeywords": [
+    "dance sneakers",
+    "track pants",
+    "oversized tee",
+    "fitted cap",
+    "bandana",
+    "crossbody bag"
+  ],
+  "pinterestQueries": ["jersey club aesthetic", "club dance outfit"],
+  "instagramHashtags": ["jerseyclub", "jerseyclubmusic", "clubmusic", "newark"],
+  "tiktokQueries": ["jersey club", "jersey club dance", "jersey club remix"],
+  "relatedNiches": ["hyperpop", "k-pop", "underground rap", "afrobeats"]
+}

@@ -4,7 +4,7 @@ import { EmptyState } from "@/components/shell/empty-state"
 import { LargeTitle } from "@/components/shell/large-title"
 import { Pressable } from "@/components/shell/pressable"
 import { Screen } from "@/components/shell/screen"
-import { NICHE_PRESETS } from "@/lib/niches/presets"
+import { NICHE_PRESETS } from "@/lib/niches/catalog"
 
 const TRENDING = NICHE_PRESETS.slice(0, 10)
 

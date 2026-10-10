@@ -1,0 +1,108 @@
+{
+  "slug": "sneakerheads",
+  "schemaVersion": 1,
+  "name": "sneakerheads",
+  "emoji": "👟",
+  "tagline": "took an L on the drop, took a bigger L on resale",
+  "description": "Sneaker culture: raffles, release calendars, deadstock grails and the eternal debate over whether to actually wear them. It sits where basketball, hip hop and streetwear meet. Every collector has a holy grail pair and a box tower that's slowly taking over the room.",
+  "palette": ["#0d0d0d", "#2a2a2a", "#f15a24", "#e5e5e5", "#ffffff"],
+  "vibeWords": ["hype", "deadstock", "collector", "streetwear", "drops", "rotation", "grails"],
+  "artists": [
+    {
+      "name": "Run-DMC",
+      "why": "'My Adidas', the original sneaker anthem"
+    },
+    {
+      "name": "Nelly",
+      "why": "'Air Force Ones', a whole song about it"
+    },
+    {
+      "name": "Travis Scott",
+      "why": "reverse-swoosh Jordan collabs"
+    },
+    {
+      "name": "Pharrell Williams",
+      "why": "adidas collabs and BBC"
+    },
+    {
+      "name": "Kendrick Lamar",
+      "why": "Nike Cortez energy"
+    },
+    {
+      "name": "Tyler, The Creator",
+      "why": "GOLF le FLEUR* Converse"
+    },
+    {
+      "name": "Bad Bunny",
+      "why": "adidas collab heat"
+    },
+    {
+      "name": "Drake",
+      "why": "NOCTA with Nike"
+    }
+  ],
+  "spotifyQueries": [
+    "sneakerhead playlist",
+    "hype streetwear rap",
+    "hip hop classics",
+    "trap workout"
+  ],
+  "subreddits": ["Sneakers", "Jordans", "Nike"],
+  "newsQueries": ["sneaker release", "Jordan release dates", "Nike SNKRS"],
+  "youtubeQueries": [
+    "sneaker unboxing",
+    "on feet sneaker review",
+    "sneaker collection tour",
+    "how to clean sneakers"
+  ],
+  "brands": [
+    {
+      "name": "Nike",
+      "priceTier": "$$",
+      "why": "Dunks, AF1s and endless collabs"
+    },
+    {
+      "name": "Jordan Brand",
+      "priceTier": "$$$",
+      "why": "the grail factory"
+    },
+    {
+      "name": "adidas",
+      "priceTier": "$$",
+      "why": "Sambas, Gazelles and Superstars"
+    },
+    {
+      "name": "New Balance",
+      "priceTier": "$$",
+      "why": "dad shoes turned grails"
+    },
+    {
+      "name": "ASICS",
+      "priceTier": "$$",
+      "why": "Gel silhouettes everyone wants now"
+    },
+    {
+      "name": "Kith",
+      "priceTier": "$$$",
+      "why": "boutique collabs and drops"
+    },
+    {
+      "name": "Converse",
+      "priceTier": "$",
+      "why": "Chucks, the entry point"
+    }
+  ],
+  "shopKeywords": [
+    "air jordan 1",
+    "nike dunk low",
+    "adidas samba",
+    "new balance 550",
+    "sneaker cleaner kit",
+    "sneaker storage box",
+    "crease protectors"
+  ],
+  "pinterestQueries": ["sneaker collection", "sneaker outfit ideas", "sneaker photography"],
+  "instagramHashtags": ["sneakerhead", "sneakers", "kotd", "jordans", "sneakercollection"],
+  "tiktokQueries": ["sneaker unboxing", "sneakerhead", "sneaker restoration"],
+  "relatedNiches": ["skater", "gym rat", "underground rap", "techwear"]
+}

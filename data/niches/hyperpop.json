@@ -1,0 +1,100 @@
+{
+  "slug": "hyperpop",
+  "schemaVersion": 1,
+  "name": "hyperpop",
+  "emoji": "💥",
+  "tagline": "the music equivalent of 47 browser tabs and a sugar rush",
+  "description": "Maximalist internet pop: pitched-up vocals, crushed bass, glitchy synths and hooks that hit like an energy drink. Pioneered by PC Music and SOPHIE, then blown up by 100 gecs and a generation of bedroom producers. Chaotic, queer, euphoric and very online.",
+  "palette": ["#16002b", "#5a00b5", "#ff2e88", "#00f0ff", "#f5ff7a"],
+  "vibeWords": ["glitchy", "maximalist", "chaotic", "euphoric", "online", "pitched-up", "neon"],
+  "artists": [
+    {
+      "name": "100 gecs",
+      "why": "the chaotic face of the genre"
+    },
+    {
+      "name": "SOPHIE",
+      "why": "the visionary sound designer behind it all"
+    },
+    {
+      "name": "Charli XCX",
+      "why": "PC Music pop's crossover star"
+    },
+    {
+      "name": "A. G. Cook",
+      "why": "PC Music founder and producer"
+    },
+    {
+      "name": "Dorian Electra",
+      "why": "theatrical, genderbending hyperpop"
+    },
+    {
+      "name": "glaive",
+      "why": "emo-tinged bedroom hyperpop"
+    },
+    {
+      "name": "ericdoa",
+      "why": "punk-pop hyperpop crossover"
+    },
+    {
+      "name": "underscores",
+      "why": "inventive genre-hopping pop"
+    },
+    {
+      "name": "Kim Petras",
+      "why": "bubblegum hyperpop bangers"
+    },
+    {
+      "name": "Danny L Harle",
+      "why": "euphoric, trance-pop production"
+    }
+  ],
+  "spotifyQueries": ["hyperpop", "pc music", "glitchcore", "digicore"],
+  "subreddits": ["hyperpop", "100gecs", "charlixcx"],
+  "newsQueries": ["hyperpop", "Charli XCX", "100 gecs"],
+  "youtubeQueries": [
+    "hyperpop mix",
+    "what is hyperpop",
+    "hyperpop production tutorial",
+    "100 gecs live"
+  ],
+  "brands": [
+    {
+      "name": "Dolls Kill",
+      "priceTier": "$$",
+      "why": "chaotic party-girl clothes"
+    },
+    {
+      "name": "Jaded London",
+      "priceTier": "$$",
+      "why": "loud club fits"
+    },
+    {
+      "name": "Diesel",
+      "priceTier": "$$$",
+      "why": "y2k-revival maximalism"
+    },
+    {
+      "name": "Demonia",
+      "priceTier": "$$",
+      "why": "platform boots for the mosh"
+    },
+    {
+      "name": "Urban Outfitters",
+      "priceTier": "$$",
+      "why": "graphic tees and accessories"
+    }
+  ],
+  "shopKeywords": [
+    "platform boots",
+    "neon mesh top",
+    "chunky jewelry",
+    "colorful hair dye",
+    "holographic jacket",
+    "graphic baby tee"
+  ],
+  "pinterestQueries": ["hyperpop aesthetic", "hyperpop outfits", "glitchcore aesthetic"],
+  "instagramHashtags": ["hyperpop", "pcmusic", "glitchcore", "brat"],
+  "tiktokQueries": ["hyperpop", "glitchcore", "brat summer"],
+  "relatedNiches": ["y2k", "jersey club", "k-pop", "rave"]
+}

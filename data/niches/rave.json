@@ -1,0 +1,99 @@
+{
+  "slug": "rave",
+  "schemaVersion": 1,
+  "name": "rave",
+  "emoji": "🪩",
+  "tagline": "the sun is up, the bpm is not slowing down, and neither are you",
+  "description": "Electronic dance culture from warehouse techno to festival main stages: house, techno, drum and bass and everything in between. It runs on PLUR, all-night sets, earplugs and the friend who knows every track ID. The afters are a sacred institution.",
+  "palette": ["#07070d", "#1c1c3a", "#7b2ff7", "#00e5a8", "#f2f2ff"],
+  "vibeWords": ["euphoric", "sweaty", "strobes", "PLUR", "warehouse", "all-night", "bass"],
+  "artists": [
+    {
+      "name": "Fred again..",
+      "why": "emotional, voice-memo-built dance music"
+    },
+    {
+      "name": "Peggy Gou",
+      "why": "playful house with K-pop sparkle"
+    },
+    {
+      "name": "Four Tet",
+      "why": "warm, intricate club experiments"
+    },
+    {
+      "name": "Charlotte de Witte",
+      "why": "relentless, dark techno"
+    },
+    {
+      "name": "Amelie Lens",
+      "why": "high-energy Belgian techno"
+    },
+    {
+      "name": "The Chemical Brothers",
+      "why": "big beat legends"
+    },
+    {
+      "name": "Daft Punk",
+      "why": "French house royalty"
+    },
+    {
+      "name": "Underworld",
+      "why": "'Born Slippy', the rave hymn"
+    },
+    {
+      "name": "Disclosure",
+      "why": "UK garage-house crossover"
+    },
+    {
+      "name": "Overmono",
+      "why": "UK bass and breakbeat"
+    },
+    {
+      "name": "Skrillex",
+      "why": "the bass-music shapeshifter"
+    }
+  ],
+  "spotifyQueries": ["techno bunker", "house music hits", "rave classics", "drum and bass"],
+  "subreddits": ["aves", "Techno", "House", "electronicmusic"],
+  "newsQueries": ["rave culture", "techno festival lineup", "Boiler Room"],
+  "youtubeQueries": ["boiler room set", "techno mix", "rave outfit ideas", "festival vlog"],
+  "brands": [
+    {
+      "name": "iHeartRaves",
+      "priceTier": "$",
+      "why": "festival fits and accessories"
+    },
+    {
+      "name": "Loop",
+      "priceTier": "$$",
+      "why": "earplugs so you can hear tomorrow"
+    },
+    {
+      "name": "Oakley",
+      "priceTier": "$$",
+      "why": "shield sunglasses for sunrise sets"
+    },
+    {
+      "name": "Salomon",
+      "priceTier": "$$",
+      "why": "dance-all-night techno shoes"
+    },
+    {
+      "name": "Nike",
+      "priceTier": "$$",
+      "why": "comfortable rave sneakers"
+    }
+  ],
+  "shopKeywords": [
+    "concert earplugs",
+    "mesh top",
+    "hydration pack",
+    "cargo pants",
+    "folding hand fan",
+    "festival sunglasses"
+  ],
+  "pinterestQueries": ["rave outfits", "techno rave aesthetic", "festival outfit ideas"],
+  "instagramHashtags": ["rave", "techno", "housemusic", "ravefashion", "boilerroom"],
+  "tiktokQueries": ["rave outfit", "techno", "festival"],
+  "relatedNiches": ["hyperpop", "indie sleaze", "afrobeats", "cyberpunk"]
+}

@@ -1,0 +1,116 @@
+{
+  "slug": "dark-academia",
+  "schemaVersion": 1,
+  "name": "dark academia",
+  "emoji": "📚",
+  "tagline": "has never finished the secret history but owns three copies",
+  "description": "A romanticized fantasy of old libraries, Greek tragedy and candlelit essay crises. Tweed, turtlenecks and oxford shoes meet classical music and annotated paperbacks. It's studying as a lifestyle, preferably in the rain, preferably in a library that smells like 1890.",
+  "palette": ["#1b1612", "#3d2b1f", "#6b4f3a", "#a68a64", "#e6dccb"],
+  "vibeWords": [
+    "moody",
+    "scholarly",
+    "candlelit",
+    "tweed",
+    "literary",
+    "melancholic",
+    "rainy",
+    "vintage"
+  ],
+  "artists": [
+    {
+      "name": "Hozier",
+      "why": "gothic love songs that read like poetry"
+    },
+    {
+      "name": "Frédéric Chopin",
+      "why": "nocturnes for 3am essay writing"
+    },
+    {
+      "name": "Claude Debussy",
+      "why": "Clair de Lune, the unofficial anthem"
+    },
+    {
+      "name": "Max Richter",
+      "why": "neo-classical study soundtracks"
+    },
+    {
+      "name": "Ólafur Arnalds",
+      "why": "piano and strings for staring out windows"
+    },
+    {
+      "name": "Ludovico Einaudi",
+      "why": "minimal piano for long library sessions"
+    },
+    {
+      "name": "Florence + The Machine",
+      "why": "dramatic, literary, theatrical"
+    },
+    {
+      "name": "Phoebe Bridgers",
+      "why": "sad-poet energy for the modern scholar"
+    },
+    {
+      "name": "Antonio Vivaldi",
+      "why": "The Four Seasons, for every season of grind"
+    }
+  ],
+  "spotifyQueries": [
+    "dark academia playlist",
+    "classical study music",
+    "melancholic piano",
+    "dark academia classical"
+  ],
+  "subreddits": ["DarkAcademia", "books", "classicalmusic", "Poetry"],
+  "newsQueries": ["dark academia books", "dark academia fashion"],
+  "youtubeQueries": [
+    "dark academia playlist",
+    "dark academia outfit ideas",
+    "study with me library",
+    "dark academia book recommendations"
+  ],
+  "brands": [
+    {
+      "name": "Ralph Lauren",
+      "priceTier": "$$$",
+      "why": "cable knits and old-library tailoring"
+    },
+    {
+      "name": "Barbour",
+      "priceTier": "$$$",
+      "why": "waxed jackets for walks across the quad"
+    },
+    {
+      "name": "Dr. Martens",
+      "priceTier": "$$",
+      "why": "oxfords and loafers that survive campus"
+    },
+    {
+      "name": "Massimo Dutti",
+      "priceTier": "$$",
+      "why": "wool coats and soft tailoring"
+    },
+    {
+      "name": "Uniqlo",
+      "priceTier": "$",
+      "why": "merino turtlenecks on a budget"
+    },
+    {
+      "name": "Zara",
+      "priceTier": "$",
+      "why": "blazers and pleated trousers"
+    }
+  ],
+  "shopKeywords": [
+    "tweed blazer",
+    "wool turtleneck",
+    "pleated trousers",
+    "oxford shoes",
+    "plaid skirt",
+    "leather satchel",
+    "cable knit sweater"
+  ],
+  "pinterestQueries": ["dark academia aesthetic", "dark academia outfits", "old library aesthetic"],
+  "instagramHashtags": ["darkacademia", "darkacademiaaesthetic", "bookstagram", "studygram"],
+  "tiktokQueries": ["dark academia", "dark academia books", "dark academia outfit"],
+  "relatedNiches": ["old money", "cottagecore", "indie sleaze", "coquette"]
+}

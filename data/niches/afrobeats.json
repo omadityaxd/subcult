@@ -1,0 +1,100 @@
+{
+  "slug": "afrobeats",
+  "schemaVersion": 1,
+  "name": "afrobeats",
+  "emoji": "🌍",
+  "tagline": "lagos to the world, and your hips have no say in it",
+  "description": "West African pop that's taken over global playlists: highlife rhythms, dancehall swing and smooth R&B melodies. Nigeria and Ghana lead the sound, with Amapiano bleeding in from South Africa. It owns every wedding, club and summer playlist it touches.",
+  "palette": ["#1a120b", "#3c2a21", "#d4a017", "#2e8b57", "#f5efe0"],
+  "vibeWords": ["groovy", "sunny", "danceable", "smooth", "celebratory", "rhythmic", "Lagos"],
+  "artists": [
+    {
+      "name": "Burna Boy",
+      "why": "the African Giant himself"
+    },
+    {
+      "name": "Wizkid",
+      "why": "'Essence' and global crossover"
+    },
+    {
+      "name": "Davido",
+      "why": "stadium-sized hits"
+    },
+    {
+      "name": "Tems",
+      "why": "silky, soulful vocals"
+    },
+    {
+      "name": "Rema",
+      "why": "'Calm Down', a global smash"
+    },
+    {
+      "name": "Ayra Starr",
+      "why": "the genre's new-gen star"
+    },
+    {
+      "name": "Asake",
+      "why": "Amapiano-fused street pop"
+    },
+    {
+      "name": "Tiwa Savage",
+      "why": "the queen of Afrobeats"
+    },
+    {
+      "name": "Fela Kuti",
+      "why": "the Afrobeat pioneer before the s"
+    },
+    {
+      "name": "CKay",
+      "why": "'Love Nwantiti', a TikTok monster"
+    }
+  ],
+  "spotifyQueries": ["afrobeats hits", "naija hits", "amapiano", "afro pop party"],
+  "subreddits": ["afrobeat", "Music", "popheads"],
+  "newsQueries": ["Afrobeats", "Burna Boy", "Afrobeats grammy"],
+  "youtubeQueries": [
+    "afrobeats mix",
+    "afrobeats dance tutorial",
+    "amapiano mix",
+    "afrobeats live performance"
+  ],
+  "brands": [
+    {
+      "name": "Orange Culture",
+      "priceTier": "$$$",
+      "why": "Lagos-born gender-fluid fashion"
+    },
+    {
+      "name": "Kenneth Ize",
+      "priceTier": "$$$",
+      "why": "handwoven Nigerian textiles"
+    },
+    {
+      "name": "Daily Paper",
+      "priceTier": "$$",
+      "why": "African-heritage streetwear"
+    },
+    {
+      "name": "adidas",
+      "priceTier": "$$",
+      "why": "tracksuits and terrace classics"
+    },
+    {
+      "name": "Puma",
+      "priceTier": "$$",
+      "why": "sporty party fits"
+    }
+  ],
+  "shopKeywords": [
+    "printed shirt",
+    "linen co-ord set",
+    "bucket hat",
+    "gold chain",
+    "slides sandals",
+    "ankara print"
+  ],
+  "pinterestQueries": ["afrobeats concert outfit", "african print fashion", "afro party aesthetic"],
+  "instagramHashtags": ["afrobeats", "naijamusic", "amapiano", "afrobeat"],
+  "tiktokQueries": ["afrobeats dance", "amapiano dance", "afrobeats"],
+  "relatedNiches": ["jersey club", "hyperpop", "underground rap", "rave"]
+}

@@ -1,0 +1,105 @@
+{
+  "slug": "anime",
+  "schemaVersion": 1,
+  "name": "anime",
+  "emoji": "🍥",
+  "tagline": "'just one episode' — 74 episodes ago",
+  "description": "Anime fandom covers everything from shonen battle epics to slice-of-life comfort shows. It comes with its own ecosystem: openings on repeat, figure shelves, manga hauls, conventions and cosplay. Crunchyroll queue length is a personality trait.",
+  "palette": ["#14121f", "#2f2a4f", "#ff5f6d", "#ffc371", "#fdf6f0"],
+  "vibeWords": ["epic", "colorful", "nostalgic", "binge", "shonen", "cosplay", "openings"],
+  "artists": [
+    {
+      "name": "LiSA",
+      "why": "Demon Slayer's iconic openings"
+    },
+    {
+      "name": "YOASOBI",
+      "why": "'Idol' from Oshi no Ko"
+    },
+    {
+      "name": "Kenshi Yonezu",
+      "why": "'Kick Back' from Chainsaw Man"
+    },
+    {
+      "name": "Aimer",
+      "why": "dramatic anime ballads"
+    },
+    {
+      "name": "King Gnu",
+      "why": "Jujutsu Kaisen openings"
+    },
+    {
+      "name": "RADWIMPS",
+      "why": "Your Name and Makoto Shinkai films"
+    },
+    {
+      "name": "Hiroyuki Sawano",
+      "why": "hype scores for Attack on Titan"
+    },
+    {
+      "name": "Yoko Kanno",
+      "why": "Cowboy Bebop's jazz score"
+    },
+    {
+      "name": "Joe Hisaishi",
+      "why": "the Studio Ghibli sound"
+    },
+    {
+      "name": "Ado",
+      "why": "One Piece Film: Red vocals"
+    },
+    {
+      "name": "Linked Horizon",
+      "why": "Attack on Titan's legendary openings"
+    }
+  ],
+  "spotifyQueries": ["anime openings", "anime hits", "studio ghibli soundtrack", "anime lofi"],
+  "subreddits": ["anime", "Animesuggest", "manga", "AnimeFigures"],
+  "newsQueries": ["anime news", "new anime season", "Crunchyroll"],
+  "youtubeQueries": [
+    "anime openings compilation",
+    "anime recommendations",
+    "best anime of the season",
+    "anime figure unboxing"
+  ],
+  "brands": [
+    {
+      "name": "Uniqlo",
+      "priceTier": "$",
+      "why": "UT anime graphic tees"
+    },
+    {
+      "name": "Crunchyroll Store",
+      "priceTier": "$$",
+      "why": "official merch and Blu-rays"
+    },
+    {
+      "name": "Hot Topic",
+      "priceTier": "$",
+      "why": "licensed anime merch at the mall"
+    },
+    {
+      "name": "Good Smile Company",
+      "priceTier": "$$$",
+      "why": "Nendoroids and scale figures"
+    },
+    {
+      "name": "Bandai",
+      "priceTier": "$$",
+      "why": "Gunpla and collectibles"
+    }
+  ],
+  "shopKeywords": [
+    "anime graphic tee",
+    "anime figure",
+    "manga box set",
+    "anime hoodie",
+    "anime poster",
+    "cosplay wig",
+    "gunpla kit"
+  ],
+  "pinterestQueries": ["anime aesthetic", "anime room decor", "anime wallpaper"],
+  "instagramHashtags": ["anime", "animeart", "manga", "cosplay", "otaku"],
+  "tiktokQueries": ["anime edits", "anime recommendations", "cosplay"],
+  "relatedNiches": ["lo-fi", "k-pop", "techwear", "city pop"]
+}

@@ -1,0 +1,113 @@
+{
+  "slug": "midwest-emo",
+  "schemaVersion": 1,
+  "name": "midwest emo",
+  "emoji": "🎸",
+  "tagline": "twinkly guitars, odd time signatures and feelings you can't name",
+  "description": "A late-90s emo strand from the American Midwest built on noodly, twinkling guitar, math-rock rhythms and confessional lyrics. American Football's house is basically a pilgrimage site. Its revival brought in a new wave of bands and a lot of people tuning guitars to open chords.",
+  "palette": ["#1a1d24", "#36404f", "#6f8aa6", "#e0b872", "#f3efe6"],
+  "vibeWords": [
+    "twinkly",
+    "confessional",
+    "math rock",
+    "nostalgic",
+    "suburban",
+    "earnest",
+    "open tunings"
+  ],
+  "artists": [
+    {
+      "name": "American Football",
+      "why": "the house, the album, the genre"
+    },
+    {
+      "name": "Cap'n Jazz",
+      "why": "chaotic Kinsella origin story"
+    },
+    {
+      "name": "The Promise Ring",
+      "why": "poppy, heart-on-sleeve 90s emo"
+    },
+    {
+      "name": "Mineral",
+      "why": "slow-burning, cathartic crescendos"
+    },
+    {
+      "name": "Owen",
+      "why": "Mike Kinsella's quiet solo heartbreak"
+    },
+    {
+      "name": "Algernon Cadwallader",
+      "why": "the revival's yelpy twinkle kings"
+    },
+    {
+      "name": "Snowing",
+      "why": "short, loud, and very sad"
+    },
+    {
+      "name": "Modern Baseball",
+      "why": "relatable college-dorm emo"
+    },
+    {
+      "name": "TTNG",
+      "why": "math-rock time-signature wizardry"
+    },
+    {
+      "name": "The Hotelier",
+      "why": "huge, gut-punch emo anthems"
+    }
+  ],
+  "spotifyQueries": ["midwest emo", "emo revival", "twinkly emo", "math rock emo"],
+  "subreddits": ["Emo", "MidwestEmo", "indieheads", "mathrock"],
+  "newsQueries": ["midwest emo", "emo revival band"],
+  "youtubeQueries": [
+    "midwest emo guitar",
+    "american football live",
+    "midwest emo explained",
+    "twinkly guitar tutorial"
+  ],
+  "brands": [
+    {
+      "name": "Vans",
+      "priceTier": "$",
+      "why": "beat-up slip-ons for basement shows"
+    },
+    {
+      "name": "Converse",
+      "priceTier": "$",
+      "why": "Chucks with marker doodles"
+    },
+    {
+      "name": "Dickies",
+      "priceTier": "$",
+      "why": "work pants for loading gear"
+    },
+    {
+      "name": "Champion",
+      "priceTier": "$",
+      "why": "plain hoodies, peak comfort"
+    },
+    {
+      "name": "Levi's",
+      "priceTier": "$$",
+      "why": "thrifted denim"
+    },
+    {
+      "name": "Uniqlo",
+      "priceTier": "$",
+      "why": "striped long sleeves"
+    }
+  ],
+  "shopKeywords": [
+    "striped long sleeve",
+    "band tee",
+    "cardigan",
+    "corduroy pants",
+    "tote bag",
+    "canvas sneakers"
+  ],
+  "pinterestQueries": ["midwest emo aesthetic", "emo band posters", "american football house"],
+  "instagramHashtags": ["midwestemo", "emorevival", "mathrock", "twinkledaddies"],
+  "tiktokQueries": ["midwest emo", "twinkly guitar", "emo revival"],
+  "relatedNiches": ["shoegaze", "grunge", "skater", "bedroom pop"]
+}

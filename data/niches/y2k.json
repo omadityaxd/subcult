@@ -1,0 +1,115 @@
+{
+  "slug": "y2k",
+  "schemaVersion": 1,
+  "name": "y2k",
+  "emoji": "💿",
+  "tagline": "the year 2000 called. it wants its butterfly clips back. we said no",
+  "description": "The early-2000s pop fantasy, revived: low-rise everything, chrome, baby tees, flip phones and glossy pop. It's futurism as imagined by a millennium that thought the internet would be sparkly. Built on nostalgia for an era half its fans were too young to experience.",
+  "palette": ["#2a1b3d", "#6c4ab6", "#ff6fb5", "#9be7ff", "#f1f1f6"],
+  "vibeWords": [
+    "glossy",
+    "chrome",
+    "pink",
+    "playful",
+    "low-rise",
+    "sparkly",
+    "nostalgic",
+    "futuristic"
+  ],
+  "artists": [
+    {
+      "name": "Britney Spears",
+      "why": "the reigning icon of the era"
+    },
+    {
+      "name": "Christina Aguilera",
+      "why": "Stripped-era vocals and chaps"
+    },
+    {
+      "name": "Destiny's Child",
+      "why": "girl-group harmonies and matching outfits"
+    },
+    {
+      "name": "Aaliyah",
+      "why": "effortless R&B cool"
+    },
+    {
+      "name": "NSYNC",
+      "why": "frosted tips and boy band choreo"
+    },
+    {
+      "name": "Gwen Stefani",
+      "why": "Harajuku pop and Hollaback energy"
+    },
+    {
+      "name": "Avril Lavigne",
+      "why": "the skater-pop-punk side of y2k"
+    },
+    {
+      "name": "Nelly Furtado",
+      "why": "Loose-era club pop"
+    },
+    {
+      "name": "PinkPantheress",
+      "why": "y2k garage revived for gen z"
+    },
+    {
+      "name": "The Pussycat Dolls",
+      "why": "peak 2005 club glitter"
+    }
+  ],
+  "spotifyQueries": [
+    "y2k hits",
+    "2000s pop throwback",
+    "early 2000s r&b",
+    "y2k aesthetic playlist"
+  ],
+  "subreddits": ["2000s", "nostalgia", "femalefashionadvice"],
+  "newsQueries": ["y2k fashion trend", "2000s fashion comeback"],
+  "youtubeQueries": ["y2k outfit ideas", "2000s pop mix", "y2k fashion history", "y2k thrift haul"],
+  "brands": [
+    {
+      "name": "Juicy Couture",
+      "priceTier": "$$",
+      "why": "the velour tracksuit, reborn"
+    },
+    {
+      "name": "Ed Hardy",
+      "priceTier": "$$",
+      "why": "rhinestone tattoo tees, ironically or not"
+    },
+    {
+      "name": "Von Dutch",
+      "priceTier": "$$",
+      "why": "the trucker hat of the decade"
+    },
+    {
+      "name": "Diesel",
+      "priceTier": "$$$",
+      "why": "low-rise denim and the D logo"
+    },
+    {
+      "name": "Steve Madden",
+      "priceTier": "$$",
+      "why": "platform sandals and chunky heels"
+    },
+    {
+      "name": "Fila",
+      "priceTier": "$",
+      "why": "chunky Disruptors and track jackets"
+    }
+  ],
+  "shopKeywords": [
+    "baby tee",
+    "low rise jeans",
+    "butterfly clips",
+    "velour tracksuit",
+    "platform sandals",
+    "tinted sunglasses",
+    "rhinestone top"
+  ],
+  "pinterestQueries": ["y2k aesthetic", "y2k outfits", "2000s fashion"],
+  "instagramHashtags": ["y2k", "y2kaesthetic", "y2kfashion", "2000sfashion"],
+  "tiktokQueries": ["y2k outfit", "y2k aesthetic", "2000s throwback"],
+  "relatedNiches": ["coquette", "hyperpop", "indie sleaze", "k-pop"]
+}

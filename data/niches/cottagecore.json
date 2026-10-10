@@ -1,0 +1,103 @@
+{
+  "slug": "cottagecore",
+  "schemaVersion": 1,
+  "name": "cottagecore",
+  "emoji": "🌾",
+  "tagline": "has never milked a cow but knows exactly what dress to wear while doing it",
+  "description": "A soft, pastoral fantasy of rural life: baking bread, wildflower picking, linen dresses and a garden full of herbs. It took off during lockdown as an escape from screens, which it mostly lives on. Peak cottagecore is a picnic basket, a sourdough starter and zero emails.",
+  "palette": ["#3f4a2f", "#7a8b5a", "#c9a96e", "#ead9b8", "#fbf6ec"],
+  "vibeWords": ["pastoral", "soft", "floral", "homemade", "slow living", "linen", "golden hour"],
+  "artists": [
+    {
+      "name": "Taylor Swift",
+      "why": "folklore and evermore are the canon"
+    },
+    {
+      "name": "Fleet Foxes",
+      "why": "harmonies for walking through meadows"
+    },
+    {
+      "name": "Joni Mitchell",
+      "why": "the original cottage songwriter"
+    },
+    {
+      "name": "Nick Drake",
+      "why": "gentle guitar for rainy kitchens"
+    },
+    {
+      "name": "Adrianne Lenker",
+      "why": "intimate folk recorded in a cabin"
+    },
+    {
+      "name": "Sufjan Stevens",
+      "why": "banjo and heartbreak"
+    },
+    {
+      "name": "Joe Hisaishi",
+      "why": "Studio Ghibli scores, the countryside dream"
+    },
+    {
+      "name": "Novo Amor",
+      "why": "misty pastoral ballads"
+    }
+  ],
+  "spotifyQueries": [
+    "cottagecore playlist",
+    "folk for baking",
+    "pastoral indie folk",
+    "studio ghibli piano"
+  ],
+  "subreddits": ["cottagecore", "gardening", "Breadit", "sewing"],
+  "newsQueries": ["cottagecore trend", "slow living trend"],
+  "youtubeQueries": [
+    "cottagecore vlog",
+    "cottagecore outfit ideas",
+    "slow living countryside",
+    "sourdough for beginners"
+  ],
+  "brands": [
+    {
+      "name": "Free People",
+      "priceTier": "$$",
+      "why": "flowy prairie dresses"
+    },
+    {
+      "name": "DÔEN",
+      "priceTier": "$$$",
+      "why": "the vintage-inspired cottage dress"
+    },
+    {
+      "name": "Christy Dawn",
+      "priceTier": "$$$",
+      "why": "deadstock floral dresses"
+    },
+    {
+      "name": "Lirika Matoshi",
+      "priceTier": "$$$",
+      "why": "the viral strawberry dress"
+    },
+    {
+      "name": "Anthropologie",
+      "priceTier": "$$",
+      "why": "embroidered blouses and ceramics"
+    },
+    {
+      "name": "H&M",
+      "priceTier": "$",
+      "why": "budget puff-sleeve dresses"
+    }
+  ],
+  "shopKeywords": [
+    "puff sleeve dress",
+    "linen apron",
+    "straw hat",
+    "wicker basket",
+    "embroidered blouse",
+    "mary jane flats",
+    "floral midi dress"
+  ],
+  "pinterestQueries": ["cottagecore aesthetic", "cottagecore outfits", "cottage garden"],
+  "instagramHashtags": ["cottagecore", "cottagecoreaesthetic", "slowliving", "cottagestyle"],
+  "tiktokQueries": ["cottagecore", "cottagecore outfit", "slow living"],
+  "relatedNiches": ["dark academia", "coquette", "gorpcore", "coastal cowboy"]
+}

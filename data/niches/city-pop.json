@@ -1,0 +1,97 @@
+{
+  "slug": "city-pop",
+  "schemaVersion": 1,
+  "name": "city pop",
+  "emoji": "🌆",
+  "tagline": "plastic love on loop, cruising a tokyo you've only seen on youtube",
+  "description": "Glossy late-70s and 80s Japanese pop full of funk bass, jazzy chords and night-drive optimism. YouTube's algorithm revived it decades later through tracks like Plastic Love. It sounds like a sunset over a city in an economic boom, and it's a gold mine for samplers.",
+  "palette": ["#14213d", "#3a4f8a", "#fca311", "#f28fad", "#fbeee0"],
+  "vibeWords": ["funky", "glossy", "night drive", "sunset", "retro", "breezy", "80s Tokyo"],
+  "artists": [
+    {
+      "name": "Mariya Takeuchi",
+      "why": "'Plastic Love', the song that started the revival"
+    },
+    {
+      "name": "Tatsuro Yamashita",
+      "why": "the king of city pop"
+    },
+    {
+      "name": "Miki Matsubara",
+      "why": "'Mayonaka no Door', a viral classic"
+    },
+    {
+      "name": "Anri",
+      "why": "sunny, summery 80s anthems"
+    },
+    {
+      "name": "Taeko Ohnuki",
+      "why": "sophisticated, jazzy pop"
+    },
+    {
+      "name": "Toshiki Kadomatsu",
+      "why": "slick funk-pop production"
+    },
+    {
+      "name": "Junko Ohashi",
+      "why": "powerful, groovy vocals"
+    },
+    {
+      "name": "Momoko Kikuchi",
+      "why": "idol-pop meets city pop"
+    }
+  ],
+  "spotifyQueries": ["city pop", "japanese city pop 80s", "plastic love", "city pop essentials"],
+  "subreddits": ["citypop", "japanesemusic", "vinyl"],
+  "newsQueries": ["city pop revival", "Japanese city pop"],
+  "youtubeQueries": [
+    "city pop mix",
+    "city pop explained",
+    "japanese 80s pop",
+    "plastic love history"
+  ],
+  "brands": [
+    {
+      "name": "BEAMS",
+      "priceTier": "$$$",
+      "why": "Tokyo's iconic select shop"
+    },
+    {
+      "name": "Onitsuka Tiger",
+      "priceTier": "$$",
+      "why": "retro Japanese sneakers"
+    },
+    {
+      "name": "Seiko",
+      "priceTier": "$$",
+      "why": "vintage-feel Japanese watches"
+    },
+    {
+      "name": "Uniqlo",
+      "priceTier": "$",
+      "why": "clean Japanese basics"
+    },
+    {
+      "name": "Muji",
+      "priceTier": "$$",
+      "why": "minimalist everything"
+    },
+    {
+      "name": "Ray-Ban",
+      "priceTier": "$$",
+      "why": "sunglasses for the night drive"
+    }
+  ],
+  "shopKeywords": [
+    "city pop vinyl",
+    "retro sunglasses",
+    "linen blazer",
+    "vintage watch",
+    "pastel shirt",
+    "cassette player"
+  ],
+  "pinterestQueries": ["city pop aesthetic", "80s japan aesthetic", "city pop album art"],
+  "instagramHashtags": ["citypop", "japanesecitypop", "80sjapan", "vinylcollection"],
+  "tiktokQueries": ["city pop", "plastic love", "80s japan aesthetic"],
+  "relatedNiches": ["vaporwave", "anime", "lo-fi", "k-pop"]
+}

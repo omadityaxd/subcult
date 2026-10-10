@@ -1,0 +1,102 @@
+{
+  "slug": "grunge",
+  "schemaVersion": 1,
+  "name": "grunge",
+  "emoji": "🖤",
+  "tagline": "flannel, feedback and fundamentally not caring (about how much you care)",
+  "description": "Born in early-90s Seattle: distorted guitars, raw vocals and anti-fashion that accidentally became fashion. Flannel shirts, ripped denim and combat boots were the look. The modern revival is equal parts thrift haul and Nirvana tee worn by people who've actually listened to Bleach.",
+  "palette": ["#151515", "#2f2a26", "#5b3a29", "#8a7e6b", "#d8d2c4"],
+  "vibeWords": ["distorted", "raw", "flannel", "thrifted", "moody", "ripped", "90s", "rainy"],
+  "artists": [
+    {
+      "name": "Nirvana",
+      "why": "the genre's defining band"
+    },
+    {
+      "name": "Soundgarden",
+      "why": "heavy, sludgy riffs"
+    },
+    {
+      "name": "Alice in Chains",
+      "why": "dark, harmonised grunge"
+    },
+    {
+      "name": "Pearl Jam",
+      "why": "big, earnest anthems"
+    },
+    {
+      "name": "Hole",
+      "why": "Courtney Love's furious edge"
+    },
+    {
+      "name": "Mudhoney",
+      "why": "Sub Pop's fuzzy pioneers"
+    },
+    {
+      "name": "The Smashing Pumpkins",
+      "why": "dreamy-heavy 90s alt"
+    },
+    {
+      "name": "Sonic Youth",
+      "why": "noise-rock godparents"
+    },
+    {
+      "name": "Melvins",
+      "why": "the slow, heavy forefathers"
+    }
+  ],
+  "spotifyQueries": ["90s grunge", "grunge essentials", "seattle sound", "90s alternative rock"],
+  "subreddits": ["grunge", "90sAlternative", "Nirvana"],
+  "newsQueries": ["grunge revival", "grunge fashion"],
+  "youtubeQueries": [
+    "grunge outfit ideas",
+    "nirvana live",
+    "history of grunge",
+    "90s grunge playlist"
+  ],
+  "brands": [
+    {
+      "name": "Dr. Martens",
+      "priceTier": "$$",
+      "why": "the boots, non-negotiable"
+    },
+    {
+      "name": "Levi's",
+      "priceTier": "$$",
+      "why": "ripped 501s"
+    },
+    {
+      "name": "Converse",
+      "priceTier": "$",
+      "why": "worn-out Chucks"
+    },
+    {
+      "name": "Pendleton",
+      "priceTier": "$$$",
+      "why": "heritage wool flannels"
+    },
+    {
+      "name": "Carhartt",
+      "priceTier": "$$",
+      "why": "beat-up work jackets"
+    },
+    {
+      "name": "Uniqlo",
+      "priceTier": "$",
+      "why": "budget flannel shirts"
+    }
+  ],
+  "shopKeywords": [
+    "flannel shirt",
+    "ripped jeans",
+    "combat boots",
+    "band tee",
+    "oversized cardigan",
+    "beanie",
+    "thermal long sleeve"
+  ],
+  "pinterestQueries": ["grunge aesthetic", "90s grunge outfits", "grunge fashion"],
+  "instagramHashtags": ["grunge", "grungeaesthetic", "90sgrunge", "grungestyle"],
+  "tiktokQueries": ["grunge outfit", "grunge aesthetic", "90s grunge"],
+  "relatedNiches": ["indie sleaze", "shoegaze", "skater", "goth"]
+}

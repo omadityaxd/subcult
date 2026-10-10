@@ -1,0 +1,101 @@
+{
+  "slug": "k-pop",
+  "schemaVersion": 1,
+  "name": "k-pop",
+  "emoji": "💜",
+  "tagline": "has a lightstick, a bias, a bias wrecker and no free weekends",
+  "description": "Korean pop's global fandom: precision choreography, constant comebacks, photocard trading and streaming parties. Fandoms are organised like small nations. The visuals, fashion and concept albums are as much the art as the music.",
+  "palette": ["#1a1035", "#5b2a86", "#d16ba5", "#86a8e7", "#f5f3ff"],
+  "vibeWords": ["choreo", "glossy", "concept", "colorful", "fandom", "comeback", "polished"],
+  "artists": [
+    {
+      "name": "BTS",
+      "why": "the group that took K-pop global"
+    },
+    {
+      "name": "BLACKPINK",
+      "why": "girl-crush stadium pop"
+    },
+    {
+      "name": "NewJeans",
+      "why": "y2k-soft, jersey-club-flavoured pop"
+    },
+    {
+      "name": "Stray Kids",
+      "why": "loud, self-produced noise music"
+    },
+    {
+      "name": "SEVENTEEN",
+      "why": "13 members, perfect sync"
+    },
+    {
+      "name": "TWICE",
+      "why": "bubbly pop perfection"
+    },
+    {
+      "name": "aespa",
+      "why": "metaverse-concept girl group"
+    },
+    {
+      "name": "LE SSERAFIM",
+      "why": "fearless, athletic choreo"
+    },
+    {
+      "name": "ATEEZ",
+      "why": "pirate-concept performance kings"
+    },
+    {
+      "name": "BIGBANG",
+      "why": "the 2nd-gen blueprint"
+    }
+  ],
+  "spotifyQueries": ["k-pop hits", "k-pop dance", "k-pop girl groups", "k-pop boy groups"],
+  "subreddits": ["kpop", "kpoopheads", "bangtan", "BlackPink"],
+  "newsQueries": ["K-pop comeback", "K-pop news", "BTS"],
+  "youtubeQueries": ["k-pop dance practice", "k-pop mv", "k-pop dance cover", "k-pop variety show"],
+  "brands": [
+    {
+      "name": "Weverse Shop",
+      "priceTier": "$$",
+      "why": "official albums and merch"
+    },
+    {
+      "name": "Gentle Monster",
+      "priceTier": "$$$",
+      "why": "the sunglasses idols wear"
+    },
+    {
+      "name": "Ader Error",
+      "priceTier": "$$$",
+      "why": "Seoul's artsy streetwear"
+    },
+    {
+      "name": "Stylenanda",
+      "priceTier": "$$",
+      "why": "Korean street style and 3CE makeup"
+    },
+    {
+      "name": "Olive Young",
+      "priceTier": "$$",
+      "why": "K-beauty everything"
+    },
+    {
+      "name": "Musinsa Standard",
+      "priceTier": "$",
+      "why": "Korean basics on a budget"
+    }
+  ],
+  "shopKeywords": [
+    "k-pop album",
+    "photocard binder",
+    "lightstick",
+    "oversized cardigan",
+    "pleated skirt",
+    "korean skincare set",
+    "bucket hat"
+  ],
+  "pinterestQueries": ["kpop outfits", "kpop aesthetic", "korean street fashion"],
+  "instagramHashtags": ["kpop", "kpopfashion", "kpopcover", "photocard"],
+  "tiktokQueries": ["kpop dance challenge", "kpop outfit", "photocard collection"],
+  "relatedNiches": ["y2k", "anime", "coquette", "jersey club"]
+}

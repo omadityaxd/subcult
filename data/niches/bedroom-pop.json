@@ -1,0 +1,100 @@
+{
+  "slug": "bedroom-pop",
+  "schemaVersion": 1,
+  "name": "bedroom pop",
+  "emoji": "🛏️",
+  "tagline": "recorded in a closet, streamed by millions, still lives with their parents",
+  "description": "DIY pop made on laptops and cheap mics, often literally in a bedroom. Soft vocals, jangly guitars and lo-fi charm took artists from SoundCloud uploads to sold-out tours. It sounds like a diary entry set to a drum machine, which it usually is.",
+  "palette": ["#2b2d42", "#5c6f8f", "#f7a399", "#fbe7c6", "#fffaf2"],
+  "vibeWords": ["soft", "DIY", "dreamy", "intimate", "jangly", "lo-fi", "diary"],
+  "artists": [
+    {
+      "name": "Clairo",
+      "why": "'Pretty Girl' put the genre on the map"
+    },
+    {
+      "name": "Rex Orange County",
+      "why": "warm, jazzy heartfelt pop"
+    },
+    {
+      "name": "Steve Lacy",
+      "why": "funky iPhone-produced grooves"
+    },
+    {
+      "name": "beabadoobee",
+      "why": "fuzzy 90s-tinged indie pop"
+    },
+    {
+      "name": "Cuco",
+      "why": "dreamy bilingual love songs"
+    },
+    {
+      "name": "Boy Pablo",
+      "why": "jangly Norwegian indie pop"
+    },
+    {
+      "name": "Gus Dapperton",
+      "why": "quirky, colourful synth pop"
+    },
+    {
+      "name": "girl in red",
+      "why": "raw, queer bedroom anthems"
+    },
+    {
+      "name": "Men I Trust",
+      "why": "silky, mellow indie groove"
+    },
+    {
+      "name": "mxmtoon",
+      "why": "ukulele-and-diary pop"
+    }
+  ],
+  "spotifyQueries": ["bedroom pop", "indie bedroom pop", "soft indie", "lofi indie pop"],
+  "subreddits": ["indieheads", "ifyoulikeblank", "WeAreTheMusicMakers"],
+  "newsQueries": ["bedroom pop", "Clairo", "girl in red"],
+  "youtubeQueries": [
+    "bedroom pop playlist",
+    "how to make bedroom pop",
+    "bedroom studio setup",
+    "clairo live"
+  ],
+  "brands": [
+    {
+      "name": "Urban Outfitters",
+      "priceTier": "$$",
+      "why": "vinyl, posters and soft fits"
+    },
+    {
+      "name": "Converse",
+      "priceTier": "$",
+      "why": "beat-up Chucks"
+    },
+    {
+      "name": "Uniqlo",
+      "priceTier": "$",
+      "why": "striped tees and cardigans"
+    },
+    {
+      "name": "Polaroid",
+      "priceTier": "$$",
+      "why": "instant cameras for album-cover shots"
+    },
+    {
+      "name": "Levi's",
+      "priceTier": "$$",
+      "why": "thrifted denim"
+    }
+  ],
+  "shopKeywords": [
+    "usb microphone",
+    "instant camera",
+    "fairy lights",
+    "knit cardigan",
+    "striped tee",
+    "midi keyboard"
+  ],
+  "pinterestQueries": ["bedroom pop aesthetic", "indie bedroom decor", "bedroom studio setup"],
+  "instagramHashtags": ["bedroompop", "indiepop", "homestudio", "indiemusic"],
+  "tiktokQueries": ["bedroom pop", "indie pop", "bedroom studio"],
+  "relatedNiches": ["lo-fi", "midwest emo", "coquette", "shoegaze"]
+}

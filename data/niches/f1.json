@@ -1,0 +1,98 @@
+{
+  "slug": "f1",
+  "schemaVersion": 1,
+  "name": "f1",
+  "emoji": "🏎️",
+  "tagline": "learned what an undercut is for a man who will never know her name",
+  "description": "Formula 1 fandom, supercharged by Drive to Survive and the F1 movie. Half strategy nerds arguing tyre compounds, half F1 girlies running driver edits and team-colour fits. Race weekends are a whole personality, especially when the race starts at 3am your time.",
+  "palette": ["#0a0a0f", "#1e1e2a", "#e10600", "#c9c9d1", "#f7f7fa"],
+  "vibeWords": ["fast", "glossy", "competitive", "paddock", "team colors", "dramatic", "race day"],
+  "artists": [
+    {
+      "name": "Brian Tyler",
+      "why": "composed the official F1 theme"
+    },
+    {
+      "name": "Hans Zimmer",
+      "why": "scored F1: The Movie"
+    },
+    {
+      "name": "Fleetwood Mac",
+      "why": "The Chain's bassline is the classic F1 theme"
+    },
+    {
+      "name": "Ed Sheeran",
+      "why": "'Drive' from the F1 movie album"
+    },
+    {
+      "name": "Tate McRae",
+      "why": "'Just Keep Watching' from the F1 album"
+    },
+    {
+      "name": "Rosé",
+      "why": "'Messy' from the F1 album"
+    },
+    {
+      "name": "Doja Cat",
+      "why": "featured on 'Lose My Mind' for the F1 album"
+    },
+    {
+      "name": "Don Toliver",
+      "why": "'Lose My Mind' from the F1 album"
+    }
+  ],
+  "spotifyQueries": ["f1 the album", "race day playlist", "f1 theme", "driving songs"],
+  "subreddits": ["formula1", "F1Technical", "formuladank"],
+  "newsQueries": ["Formula 1", "F1 grand prix results", "F1 driver news"],
+  "youtubeQueries": [
+    "f1 highlights",
+    "f1 onboard",
+    "f1 strategy explained",
+    "f1 driver interviews"
+  ],
+  "brands": [
+    {
+      "name": "Puma",
+      "priceTier": "$$",
+      "why": "team kits and paddock sneakers"
+    },
+    {
+      "name": "Tommy Hilfiger",
+      "priceTier": "$$",
+      "why": "preppy team-partner merch"
+    },
+    {
+      "name": "Oakley",
+      "priceTier": "$$",
+      "why": "sporty wraparound shades"
+    },
+    {
+      "name": "Ray-Ban",
+      "priceTier": "$$",
+      "why": "aviators with paddock energy"
+    },
+    {
+      "name": "TAG Heuer",
+      "priceTier": "$$$",
+      "why": "motorsport watches with racing heritage"
+    },
+    {
+      "name": "F1 Store",
+      "priceTier": "$$",
+      "why": "official team merch in one place"
+    }
+  ],
+  "shopKeywords": [
+    "f1 team jersey",
+    "racing jacket",
+    "f1 cap",
+    "aviator sunglasses",
+    "motorsport sneakers",
+    "f1 lego car",
+    "race day tee"
+  ],
+  "pinterestQueries": ["f1 aesthetic", "f1 outfit ideas", "f1 paddock style"],
+  "instagramHashtags": ["f1", "formula1", "f1fans", "f1paddock", "f1girlies"],
+  "tiktokQueries": ["f1 edits", "f1 girlies", "f1 race day outfit"],
+  "relatedNiches": ["old money", "sneakerheads", "techwear", "blokecore"]
+}

@@ -1,0 +1,115 @@
+{
+  "slug": "indie-sleaze",
+  "schemaVersion": 1,
+  "name": "indie sleaze",
+  "emoji": "📸",
+  "tagline": "flash photography, smudged eyeliner, and a hangover from 2009",
+  "description": "The messy 2006-2012 party era: skinny jeans, American Apparel, point-and-shoot flash photos and dance-punk at 3am. Blogs, Tumblr and blurry nightlife snaps defined it. Its return means everyone is suddenly very into disposable cameras and very not into sleeping.",
+  "palette": ["#0b0b0f", "#2e2a35", "#8c1c2b", "#d4c5a9", "#f5f1ea"],
+  "vibeWords": [
+    "messy",
+    "flash",
+    "party",
+    "grungy",
+    "tumblr",
+    "blurry",
+    "hedonistic",
+    "skinny jeans"
+  ],
+  "artists": [
+    {
+      "name": "The Strokes",
+      "why": "the leather-jacket blueprint"
+    },
+    {
+      "name": "Yeah Yeah Yeahs",
+      "why": "Karen O's chaotic glam"
+    },
+    {
+      "name": "MGMT",
+      "why": "festival-era psychedelic synth pop"
+    },
+    {
+      "name": "LCD Soundsystem",
+      "why": "dance-punk for losing your friends at the club"
+    },
+    {
+      "name": "Arctic Monkeys",
+      "why": "Sheffield indie swagger"
+    },
+    {
+      "name": "Justice",
+      "why": "French electro with a cross logo"
+    },
+    {
+      "name": "Crystal Castles",
+      "why": "glitchy, abrasive party chaos"
+    },
+    {
+      "name": "Bloc Party",
+      "why": "nervy, danceable post-punk revival"
+    },
+    {
+      "name": "The Kills",
+      "why": "scuzzy, sexy garage rock"
+    },
+    {
+      "name": "Uffie",
+      "why": "Ed Banger's party-girl electro"
+    }
+  ],
+  "spotifyQueries": ["indie sleaze", "2000s indie party", "dance punk", "blog house"],
+  "subreddits": ["indieheads", "LetsTalkMusic", "malefashionadvice"],
+  "newsQueries": ["indie sleaze revival", "indie sleaze fashion"],
+  "youtubeQueries": [
+    "indie sleaze playlist",
+    "indie sleaze outfits",
+    "blog house mix",
+    "indie sleaze explained"
+  ],
+  "brands": [
+    {
+      "name": "American Apparel",
+      "priceTier": "$$",
+      "why": "the unofficial uniform of the era"
+    },
+    {
+      "name": "Dr. Martens",
+      "priceTier": "$$",
+      "why": "scuffed boots for sticky floors"
+    },
+    {
+      "name": "Levi's",
+      "priceTier": "$$",
+      "why": "skinny black jeans"
+    },
+    {
+      "name": "Ray-Ban",
+      "priceTier": "$$",
+      "why": "Wayfarers at night, naturally"
+    },
+    {
+      "name": "Converse",
+      "priceTier": "$",
+      "why": "trashed Chuck Taylors"
+    },
+    {
+      "name": "AllSaints",
+      "priceTier": "$$$",
+      "why": "leather jackets with a lived-in look"
+    }
+  ],
+  "shopKeywords": [
+    "skinny black jeans",
+    "leather jacket",
+    "disposable camera",
+    "band tee",
+    "fishnet tights",
+    "studded belt",
+    "metallic leggings"
+  ],
+  "pinterestQueries": ["indie sleaze aesthetic", "indie sleaze party", "2010 tumblr fashion"],
+  "instagramHashtags": ["indiesleaze", "indiesleazeisback", "2000sindie", "flashphotography"],
+  "tiktokQueries": ["indie sleaze", "indie sleaze outfit", "blog house"],
+  "relatedNiches": ["grunge", "y2k", "shoegaze", "rave"]
+}

@@ -1,0 +1,112 @@
+{
+  "slug": "coquette",
+  "schemaVersion": 1,
+  "name": "coquette",
+  "emoji": "🎀",
+  "tagline": "bows on everything, including her emotional baggage",
+  "description": "Hyper-feminine and a little melancholic: ribbons, lace, ballet flats, pearls and Lana Del Rey on repeat. It mixes vintage romance and doll-like softness with a knowing wink. If it can hold a bow, it will.",
+  "palette": ["#4a2c35", "#a8606f", "#e8a5b5", "#f6d6dc", "#fff7f8"],
+  "vibeWords": ["bows", "lace", "romantic", "soft", "pink", "vintage", "dreamy", "dainty"],
+  "artists": [
+    {
+      "name": "Lana Del Rey",
+      "why": "the patron saint of coquette"
+    },
+    {
+      "name": "Laufey",
+      "why": "jazz-pop for a lace-and-pearls afternoon"
+    },
+    {
+      "name": "Sabrina Carpenter",
+      "why": "flirty, cheeky pop"
+    },
+    {
+      "name": "Melanie Martinez",
+      "why": "doll-like dark pop"
+    },
+    {
+      "name": "Mitski",
+      "why": "heartbreak in a slip dress"
+    },
+    {
+      "name": "The Marías",
+      "why": "dreamy bilingual bedroom pop"
+    },
+    {
+      "name": "Cigarettes After Sex",
+      "why": "slow, hazy romance"
+    },
+    {
+      "name": "Olivia Rodrigo",
+      "why": "diary-entry pop"
+    },
+    {
+      "name": "Clairo",
+      "why": "soft, intimate indie"
+    }
+  ],
+  "spotifyQueries": [
+    "coquette playlist",
+    "lana del rey vibes",
+    "soft girl pop",
+    "romantic jazz pop"
+  ],
+  "subreddits": ["femalefashionadvice", "lanadelrey", "OUTFITS"],
+  "newsQueries": ["coquette aesthetic", "bow trend fashion"],
+  "youtubeQueries": [
+    "coquette outfit ideas",
+    "coquette aesthetic explained",
+    "coquette room decor",
+    "coquette makeup tutorial"
+  ],
+  "brands": [
+    {
+      "name": "Sandy Liang",
+      "priceTier": "$$$",
+      "why": "bows, Mary Janes and downtown girlhood"
+    },
+    {
+      "name": "LoveShackFancy",
+      "priceTier": "$$$",
+      "why": "frilly florals at max sweetness"
+    },
+    {
+      "name": "Miu Miu",
+      "priceTier": "$$$",
+      "why": "ballet flats and runway coquette"
+    },
+    {
+      "name": "Simone Rocha",
+      "priceTier": "$$$",
+      "why": "pearls, tulle and romance"
+    },
+    {
+      "name": "Brandy Melville",
+      "priceTier": "$",
+      "why": "baby tees and little skirts"
+    },
+    {
+      "name": "Urban Outfitters",
+      "priceTier": "$$",
+      "why": "slip dresses and lace tops"
+    },
+    {
+      "name": "H&M",
+      "priceTier": "$",
+      "why": "budget ribbons and ruffles"
+    }
+  ],
+  "shopKeywords": [
+    "hair bows",
+    "lace top",
+    "ballet flats",
+    "pearl necklace",
+    "slip dress",
+    "mary jane shoes",
+    "ruffle socks"
+  ],
+  "pinterestQueries": ["coquette aesthetic", "coquette outfits", "coquette room"],
+  "instagramHashtags": ["coquette", "coquetteaesthetic", "softgirl", "balletcore"],
+  "tiktokQueries": ["coquette", "coquette outfit", "coquette makeup"],
+  "relatedNiches": ["y2k", "dark academia", "old money", "bedroom pop"]
+}
