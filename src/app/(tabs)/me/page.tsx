@@ -5,6 +5,8 @@ import { Cover } from "@/components/ds/cover"
 import { SectionHeader } from "@/components/ds/section-header"
 import { FollowingRail } from "@/components/me/following-rail"
 import { SavedGrid } from "@/components/me/saved-grid"
+import { VibeResultCard } from "@/components/me/vibe-result-card"
+import { NICHE_PRESETS } from "@/lib/niches/catalog"
 import { LargeTitle } from "@/components/shell/large-title"
 import { Screen } from "@/components/shell/screen"
 import { ThemeToggle } from "@/components/shell/theme-toggle"
@@ -14,6 +16,9 @@ export const metadata: Metadata = { title: "Me" }
 const CARD_PALETTE = ["#101014", "#24324a", "#5b7fa6", "#c9a27e", "#efe6da"]
 
 export default function MePage() {
+  const cardNiches = Object.fromEntries(
+    NICHE_PRESETS.map((preset) => [preset.slug, { name: preset.name, palette: preset.palette }]),
+  )
   return (
     <Screen>
       <LargeTitle overline="Browsing as a guest" title="Me" />
@@ -30,7 +35,7 @@ export default function MePage() {
           </div>
         </section>
 
-        <NicheCardTeaser />
+        <VibeResultCard niches={cardNiches} fallback={<NicheCardTeaser />} />
 
         <FollowingRail />
 

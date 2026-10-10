@@ -1,0 +1,111 @@
+{
+  "niches": {
+    "new-gen-underground-rap": "You heard it on a leak before it hit Spotify, and you will tell everyone.",
+    "rage": "Your resting heart rate is a synth lead. Earplugs are for other people.",
+    "jerk": "Piano loop, blown-out 808, and you're already bouncing. Can't help it.",
+    "soundcloud-rap": "Part of you still lives in 2017, red dreads and all. Respect.",
+    "plugg": "You like your beats spacious and your synths twinkly. Very save-screen core.",
+    "pluggnb": "Plugg drums, R&B feelings. You've definitely sent a 3am text to this.",
+    "dark-plugg": "You found plugg and turned the lights off. The 808 is screaming and so are you.",
+    "tread": "Anything under 160 BPM feels like a nap to you.",
+    "cloud-rap": "Hazy, reverb-soaked and a little sad. Your walks home are cinematic.",
+    "experimental-rap": "If a song makes sense on first listen, you've already skipped it.",
+    "trap": "The 808 is the main character and you're the narrator.",
+    "digicore": "Made on Discord, mixed on a laptop, cried about in the group chat.",
+    "sigilkore": "Occult symbols, Memphis samples, infinite reverb. Your cover art has a sigil.",
+    "glitchcore": "Your edits have 40 transitions and every one of them slaps.",
+    "deftones-core": "White Pony is a comfort album and your hoodie is load-bearing.",
+    "nu-gaze": "You need your riffs heavy and your vocals buried in fog.",
+    "vamp": "All black, leather flares, silver on every finger. You might sleep in a coffin.",
+    "graphic-gothic-streetwear": "Tribal print long sleeve, a cross on everything, zero subtlety.",
+    "dark-streetwear": "Every piece you own is black and somehow they're all different.",
+    "dark-avant-garde": "Draped, deconstructed and a little monastic. Your boots cost more than rent.",
+    "archive-fashion": "It's not used, it's from the 2002 runway, actually.",
+    "underground-graphic-streetwear": "Your fit is the drop, and the drop sold out in four minutes.",
+    "diy-reworked": "Why buy it distressed when you can destroy it yourself?",
+    "mcbling-revival": "Velour, rhinestones and paparazzi energy. Zero irony, all sparkle.",
+    "underground-sneaker-culture": "If people have heard of your shoes, you're already over them.",
+    "underground-rap": "Your favorite rapper's favorite rapper's favorite rapper lives in your headphones.",
+    "gorpcore": "Dressed for a summit, headed to the bodega.",
+    "dark-academia": "You've never finished the reading but you own three editions of it.",
+    "y2k": "The year 2000 called and you picked up immediately.",
+    "indie-sleaze": "Flash photography, skinny jeans, one more song and then we leave (we don't).",
+    "old-money": "Quiet luxury, loud yacht energy.",
+    "cottagecore": "You'd rather be baking bread in a meadow, and honestly, valid.",
+    "midwest-emo": "Twinkly guitars and feelings you'll process in a basement show.",
+    "skater": "Scabs, Thrasher and a VHS camera. Your knees have stories.",
+    "f1": "You know tyre strategy better than your own schedule.",
+    "k-pop": "You know the choreo, the comeback date and the lightstick model.",
+    "techwear": "Every jacket has eleven pockets and you use all of them.",
+    "coquette": "Bows on everything. Soft, pink and slightly devastating.",
+    "grunge": "Flannel, fuzz and a deep need to be left alone.",
+    "sneakerheads": "Your closet is a shoe wall and your phone is full of release alarms.",
+    "anime": "You judge a show by its opening and you're always right.",
+    "lo-fi": "Beats to study to, and you have never studied once.",
+    "gym-rat": "Phonk in your ears, PRs on your mind, rest day is a myth.",
+    "hyperpop": "Maximal everything. Your playlist sounds like a sugar rush.",
+    "goth": "Black lace, velvet and a playlist that's mostly The Cure.",
+    "jersey-club": "Bed squeaks, chopped samples and footwork you can't stop.",
+    "shoegaze": "The vocals are in there somewhere. You're fine with that.",
+    "afrobeats": "Log drums and good energy: you're always the reason the party starts.",
+    "cyberpunk": "Neon rain, chrome and a soft spot for dystopia.",
+    "vaporwave": "Mall music from a future that never happened.",
+    "city-pop": "Sunset drives in Tokyo, 1984, in your head.",
+    "coastal-cowboy": "Boots on the boardwalk. Yeehaw, but make it beachy.",
+    "bedroom-pop": "Recorded in your room, felt in everyone's.",
+    "blokecore": "Retro football kits and terrace chants as a lifestyle.",
+    "rave": "4am, strobe lights, a bottle of water and zero regrets."
+  },
+  "combos": [
+    {
+      "pair": ["rage", "vamp"],
+      "text": "You don't just listen to rage, you dress for it. Opium would approve."
+    },
+    {
+      "pair": ["new-gen-underground-rap", "vamp"],
+      "text": "The music and the wardrobe match perfectly. Very YVL of you."
+    },
+    {
+      "pair": ["plugg", "pluggnb"],
+      "text": "Plugg by day, pluggnb after midnight. A balanced diet."
+    },
+    {
+      "pair": ["cloud-rap", "archive-fashion"],
+      "text": "Drain Gang on the headphones, runway lore in the closet."
+    },
+    {
+      "pair": ["deftones-core", "nu-gaze"],
+      "text": "You're the reason the Deftones revival happened, honestly."
+    },
+    {
+      "pair": ["digicore", "hyperpop"],
+      "text": "You live where the internet makes music. Pitched-up and proud."
+    },
+    {
+      "pair": ["y2k", "mcbling-revival"],
+      "text": "Chrome and rhinestones: you're the whole 2000s in one fit."
+    },
+    {
+      "pair": ["dark-avant-garde", "archive-fashion"],
+      "text": "Your wardrobe is basically a museum with a Rick Owens wing."
+    },
+    {
+      "pair": ["rage", "jerk"],
+      "text": "Rage in the pit, jerk on the walk home. The full underground diet."
+    },
+    {
+      "pair": ["glitchcore", "hyperpop"],
+      "text": "Maximum saturation, maximum BPM. Your screen time is iconic."
+    }
+  ],
+  "branchCombos": {
+    "underground-music+underground-fashion": "You don't just listen to {a}, you dress like {b}.",
+    "underground-fashion+underground-music": "Dressed in {a}, soundtracked by {b}. Fully committed.",
+    "underground-music+underground-music": "{a} and {b} on rotation. Your algorithm is scared of you.",
+    "underground-fashion+underground-fashion": "{a} with a side of {b}. Your closet has range.",
+    "underground-internet+underground-music": "Internet-born and underground-raised: {a} meets {b}.",
+    "underground-music+underground-internet": "{a} on the speakers, {b} in the group chat.",
+    "alt-metal-revival+any": "Heavy riffs with a twist of {b}. Unexpected, and it works."
+  },
+  "fallback": "{a} first, {b} close behind. Niche, but make it you."
+}

@@ -1,0 +1,156 @@
+[
+  {
+    "id": "pit",
+    "prompt": "The synth is clipping and you're in the pit.",
+    "image": { "kind": "artist", "slug": "ken-carson" },
+    "weights": {
+      "rage": 3,
+      "new-gen-underground-rap": 2,
+      "dark-plugg": 2,
+      "soundcloud-rap": 1,
+      "tread": 1,
+      "vamp": 1,
+      "rave": 1
+    }
+  },
+  {
+    "id": "leather",
+    "prompt": "Leather flares, silver crosses, all black. Daily.",
+    "image": { "kind": "niche", "slug": "vamp" },
+    "weights": {
+      "vamp": 3,
+      "graphic-gothic-streetwear": 2,
+      "goth": 2,
+      "dark-streetwear": 1,
+      "dark-avant-garde": 1
+    }
+  },
+  {
+    "id": "leaks",
+    "prompt": "Half your playlist is leaks from a Discord server.",
+    "image": { "kind": "artist", "slug": "nettspend" },
+    "weights": {
+      "jerk": 3,
+      "new-gen-underground-rap": 2,
+      "digicore": 2,
+      "sigilkore": 1,
+      "plugg": 1,
+      "soundcloud-rap": 1
+    }
+  },
+  {
+    "id": "boots",
+    "prompt": "A $1,400 boot is a personality and you have one.",
+    "image": { "kind": "niche", "slug": "dark-avant-garde" },
+    "weights": {
+      "dark-avant-garde": 3,
+      "underground-sneaker-culture": 2,
+      "archive-fashion": 2,
+      "dark-streetwear": 1,
+      "techwear": 1,
+      "vamp": 1
+    }
+  },
+  {
+    "id": "three-am",
+    "prompt": "Soft synths, sad melodies, texting someone at 3am.",
+    "image": { "kind": "artist", "slug": "summrs" },
+    "weights": {
+      "pluggnb": 3,
+      "plugg": 2,
+      "bedroom-pop": 2,
+      "dark-plugg": 1,
+      "lo-fi": 1,
+      "city-pop": 1
+    }
+  },
+  {
+    "id": "white-pony",
+    "prompt": "Drop-tuned guitars, hoodie up, White Pony on repeat.",
+    "image": { "kind": "artist", "slug": "deftones" },
+    "weights": {
+      "deftones-core": 3,
+      "nu-gaze": 3,
+      "shoegaze": 2,
+      "grunge": 2,
+      "midwest-emo": 1,
+      "goth": 1
+    }
+  },
+  {
+    "id": "tabs",
+    "prompt": "Pitched-up vocals, glitchy edits, 40 tabs open.",
+    "image": { "kind": "artist", "slug": "100-gecs" },
+    "weights": {
+      "hyperpop": 3,
+      "glitchcore": 3,
+      "digicore": 2,
+      "y2k": 1,
+      "anime": 1,
+      "cyberpunk": 1
+    }
+  },
+  {
+    "id": "runway",
+    "prompt": "You know which runway season your thrifted jacket is from.",
+    "image": { "kind": "niche", "slug": "archive-fashion" },
+    "weights": {
+      "archive-fashion": 3,
+      "diy-reworked": 2,
+      "dark-avant-garde": 1,
+      "indie-sleaze": 1,
+      "underground-sneaker-culture": 1,
+      "old-money": 1
+    }
+  },
+  {
+    "id": "velour",
+    "prompt": "Velour tracksuit, rhinestones, flip phone for the aesthetic.",
+    "image": { "kind": "artist", "slug": "paris-hilton" },
+    "weights": {
+      "mcbling-revival": 3,
+      "y2k": 3,
+      "coquette": 2,
+      "graphic-gothic-streetwear": 1,
+      "k-pop": 1
+    }
+  },
+  {
+    "id": "haze",
+    "prompt": "Reverb, haze, an iced tea and a long walk at night.",
+    "image": { "kind": "artist", "slug": "bladee" },
+    "weights": {
+      "cloud-rap": 3,
+      "sigilkore": 2,
+      "tread": 2,
+      "vaporwave": 2,
+      "archive-fashion": 1,
+      "lo-fi": 1
+    }
+  },
+  {
+    "id": "noise",
+    "prompt": "Noise, distortion, dense bars. The weirder the better.",
+    "image": { "kind": "artist", "slug": "jpegmafia" },
+    "weights": {
+      "experimental-rap": 3,
+      "underground-rap": 3,
+      "trap": 1,
+      "cyberpunk": 1,
+      "jersey-club": 1
+    }
+  },
+  {
+    "id": "drop",
+    "prompt": "Puff print, flames, sold out in four minutes. You got one.",
+    "image": { "kind": "niche", "slug": "underground-graphic-streetwear" },
+    "weights": {
+      "underground-graphic-streetwear": 3,
+      "diy-reworked": 1,
+      "sneakerheads": 2,
+      "trap": 2,
+      "dark-streetwear": 1,
+      "skater": 1
+    }
+  }
+]

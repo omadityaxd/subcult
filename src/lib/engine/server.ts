@@ -13,7 +13,7 @@ import {
   type NicheService,
   createNicheService,
 } from "./niche-service"
-import { type UsageLog, startOfUtcDay } from "./usage"
+import { DAILY_CAPPED_PURPOSES, type UsageLog, startOfUtcDay } from "./usage"
 
 /** Request-path budget: fail fast instead of holding a serverless function open. */
 const LLM_TIMEOUT_MS = 60_000
@@ -59,14 +59,19 @@ export function getNicheService(): NicheService | null {
 
 /**
  * Two layers of spend protection, cheapest first: the global daily cap
- * (LLM_DAILY_GENERATION_CAP, counted from llm_usage) and then the per-identifier
+ * (LLM_DAILY_GENERATION_CAP, counted from llm_usage across niche generations
+ * and vibe-check blurbs) and then the per-identifier
  * sliding window. Fails closed if the ledger can't be read.
  */
 export async function checkGenerationBudget(identifier: string): Promise<GenerationPermit> {
   const usage = getUsageLog()
   if (!usage) return "capped"
   try {
-    const usedToday = await usage.countSince("niche-generation", startOfUtcDay())
+    const since = startOfUtcDay()
+    const counts = await Promise.all(
+      DAILY_CAPPED_PURPOSES.map((purpose) => usage.countSince(purpose, since)),
+    )
+    const usedToday = counts.reduce((sum, count) => sum + count, 0)
     if (usedToday >= env.LLM_DAILY_GENERATION_CAP) return "capped"
   } catch (error) {
     log.error("budget.check.error", { error: errorMessage(error) })
