@@ -21,14 +21,10 @@ import { Screen } from "@/components/shell/screen"
 import { Skeleton } from "@/components/ui/skeleton"
 import type { NicheProfile } from "@/lib/engine/profile-schema"
 import { env } from "@/lib/env"
-import { NICHE_PRESETS, type NichePreset, findSeedProfileByName } from "@/lib/niches/catalog"
+import { type NichePreset, findSeedProfileByName } from "@/lib/niches/catalog"
 import { isNew } from "@/lib/niches/lifecycle"
 import { type NicheMeta, type NicheSource, lookupNicheProfile } from "@/lib/niches/lookup"
 import { nicheTheme } from "@/lib/niches/theme"
-
-export function generateStaticParams() {
-  return NICHE_PRESETS.map(({ slug }) => ({ slug }))
-}
 
 export async function generateMetadata({ params }: PageProps<"/n/[slug]">): Promise<Metadata> {
   const { slug } = await params

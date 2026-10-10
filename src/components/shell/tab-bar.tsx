@@ -26,9 +26,16 @@ const TABS: readonly Tab[] = [
   { href: "/me", label: "me", icon: CircleUser, isActive: (p) => p.startsWith("/me") },
 ]
 
+/** Reads the URL, so it must sit inside <Suspense> on dynamic routes. */
 export function TabBar() {
-  const pathname = usePathname()
+  return <TabBarView pathname={usePathname()} />
+}
 
+/**
+ * Presentational bar. With `pathname={null}` it's the static Suspense
+ * fallback: identical layout, no active tab, swapped for TabBar on hydration.
+ */
+export function TabBarView({ pathname }: { pathname: string | null }) {
   return (
     <nav
       aria-label="Main"
@@ -38,7 +45,11 @@ export function TabBar() {
       <ul className="grid h-(--tab-bar-height) grid-cols-3">
         {TABS.map((tab) => (
           <li key={tab.href}>
-            <TabLink tab={tab} active={tab.isActive(pathname)} isRoot={pathname === tab.href} />
+            <TabLink
+              tab={tab}
+              active={pathname !== null && tab.isActive(pathname)}
+              isRoot={pathname === tab.href}
+            />
           </li>
         ))}
       </ul>

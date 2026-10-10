@@ -7,7 +7,7 @@ import type { FeedItem, FeedSource, Fetcher } from "./types"
 
 /** Per-fetcher budget: a slow source is dropped, never waited on. */
 export const FETCHER_TIMEOUT_MS = 4_000
-const CACHE_VERSION = "v2" // bump when fetcher output changes (v2: artist tracks, no Shorts)
+const CACHE_VERSION = "v3" // bump when fetcher output changes (v3: artist tracks, no Shorts, artist subtitle)
 
 export type SourceState = "ok" | "stale" | "disabled" | "error"
 

@@ -1,4 +1,5 @@
 import "server-only"
+import { cache } from "react"
 import { getDb } from "@/db"
 import { createNicheRepository } from "@/db/niche-repository"
 import { withTimeout } from "@/lib/concurrency"
@@ -37,11 +38,16 @@ const metaOf = (stored: StoredNiche): NicheMeta => ({
 })
 
 /**
+ * Memoized per request (React cache) so generateMetadata and the page share
+ * one query.
+ *
  * Postgres is the source of truth; the curated seed JSON bundled with the app
  * is the fallback when the database is unset, unreachable, slow, or not yet
  * seeded. So seeds always render, and DB edits (re-seeds, hiding) take effect.
  */
-export async function lookupNicheProfile(slug: string): Promise<NicheProfileLookup> {
+export const lookupNicheProfile = cache(lookupNicheProfileUncached)
+
+async function lookupNicheProfileUncached(slug: string): Promise<NicheProfileLookup> {
   const seed = findSeedProfile(slug)
   const fallback = (): NicheProfileLookup =>
     seed

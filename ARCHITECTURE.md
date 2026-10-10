@@ -92,3 +92,44 @@ flowchart LR
 - **No key, no problem:** without `ANTHROPIC_API_KEY` the cron route no-ops. The
   `/refresh-trends` Claude Code command does the same job by hand (web research → validated
   `data/trends/*.json` → `pnpm trends:upsert`).
+
+## Live feeds, caching and ranking
+
+Each niche page fans out to every configured source in parallel (`Promise.allSettled`), each
+behind a 4s timeout and a Redis cache. A failing, slow or unconfigured source is reported and
+skipped; the page always renders, and every tab falls back to curated deep links.
+
+| Source  | API                                  | Fresh | Stale-if-error | Notes                                   |
+| ------- | ------------------------------------ | ----- | -------------- | --------------------------------------- |
+| News    | Google News RSS (no key)             | 1h    | 24h            | last 14 days                            |
+| Spotify | Client Credentials + `/search` (≤10) | 24h   | 7d             | playlists by query, tracks by artist    |
+| YouTube | Data API v3 `search`                 | 6h    | 3d             | 4-20 min only (no Shorts), daily budget |
+
+**Cache:** Upstash Redis, key `subcult:feed:v3:<source>:<slug>`, value `{ value, fetchedAt }`.
+Fresh entries are served directly; expired ones are refetched; if the refetch fails the stale copy
+is served instead. A broken cache behaves like a miss, never an error. Without Redis, an in-memory
+cache stands in.
+
+**YouTube quota:** search costs 100 of 10,000 daily units, so a shared Redis counter caps feed
+searches at 80/day. Past the cap the fetcher stops and the stale cache covers the gap.
+
+**Ranking:** `score = relevance × recencyDecay × sourceWeight × (1 + feedbackBoost)`
+
+- relevance = 0.4 + 0.6 × min(1, keyword hits / 2), with keywords from the niche's name, vibe
+  words, artists and brands. News and videos with zero hits are demoted to 0.15.
+- recencyDecay = 0.5 ^ (age / half-life): news 48h, video 7d; Spotify items are timeless (0.7).
+- sourceWeight: Spotify 1.0, YouTube 0.9, news 0.8.
+- feedbackBoost ∈ [-1, 1] from saves and "not my vibe" (Phase 6); −1 removes an item.
+
+The For You feed interleaves sources so no source appears more than twice in a row.
+
+## Database connections
+
+- `DATABASE_URL` is Supabase's transaction pooler (port 6543) with `prepare: false`;
+  migrations use `DIRECT_URL` (session pooler, 5432).
+- Pool of 3 connections per instance: postgres.js pipelines queries beyond the pool size, and a
+  burst of ~5 pipelined queries on a cold single connection hangs behind the transaction pooler
+  (reproduced). Three real connections avoid it.
+- Niche pages render per request (not prerendered at build), with the profile lookup memoized per
+  request and a 2.5s DB timeout before falling back to the bundled seed JSON.
+- Functions run in `bom1` (Mumbai), next to the Supabase and Upstash instances.
