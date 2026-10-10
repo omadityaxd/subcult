@@ -1,26 +1,285 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ────────────────────────────────────────────────────────────
+   Design tokens
+   Dark is the default (html.dark). Surfaces follow iOS's grouped
+   hierarchy: background → card (grouped) → elevated.
+   Niche pages override the --niche-* tokens at runtime from the
+   niche palette; everything accent-colored reads from them.
+   ──────────────────────────────────────────────────────────── */
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --radius: 1rem;
+
+  --brand-lime: #c6ff3d;
+  --brand-violet: #8b5cf6;
+  --brand-pink: #ff2e88;
+  --brand-gradient: linear-gradient(
+    135deg,
+    var(--brand-violet) 0%,
+    var(--brand-pink) 55%,
+    #ff9f1c 100%
+  );
+
+  --niche-1: var(--brand-violet);
+  --niche-2: var(--brand-pink);
+  --niche-3: #ff9f1c;
+  --niche-accent: var(--accent);
+  --niche-accent-foreground: var(--accent-foreground);
+
+  --tab-bar-height: 3.5rem;
+  --nav-bar-height: 2.75rem;
+  --column-width: 30rem;
+
+  /* light */
+  --background: #f2f2f7;
+  --foreground: #0b0a10;
+  --card: #ffffff;
+  --card-foreground: #0b0a10;
+  --elevated: #ffffff;
+  --popover: #ffffff;
+  --popover-foreground: #0b0a10;
+  --primary: #0b0a10;
+  --primary-foreground: #ffffff;
+  --secondary: #e5e5ea;
+  --secondary-foreground: #0b0a10;
+  --muted: #e5e5ea;
+  --muted-foreground: #5d5d66;
+  --accent: #6d28d9;
+  --accent-foreground: #ffffff;
+  --destructive: #d70015;
+  --border: rgb(60 60 67 / 0.14);
+  --input: rgb(60 60 67 / 0.12);
+  --ring: #6d28d9;
+  --glass: rgb(249 249 251 / 0.72);
+  --chart-1: var(--brand-violet);
+  --chart-2: var(--brand-pink);
+  --chart-3: #ff9f1c;
+  --chart-4: var(--brand-lime);
+  --chart-5: #38bdf8;
+}
+
+.dark {
+  --background: #0b0a10;
+  --foreground: #f5f5f7;
+  --card: #17161e;
+  --card-foreground: #f5f5f7;
+  --elevated: #201f29;
+  --popover: #201f29;
+  --popover-foreground: #f5f5f7;
+  --primary: #f5f5f7;
+  --primary-foreground: #0b0a10;
+  --secondary: #2a2933;
+  --secondary-foreground: #f5f5f7;
+  --muted: #2a2933;
+  --muted-foreground: #a1a1aa;
+  --accent: var(--brand-lime);
+  --accent-foreground: #0b0a10;
+  --destructive: #ff453a;
+  --border: rgb(255 255 255 / 0.09);
+  --input: rgb(255 255 255 / 0.12);
+  --ring: var(--brand-lime);
+  --glass: rgb(16 15 22 / 0.7);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-elevated: var(--elevated);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-glass: var(--glass);
+  --color-niche: var(--niche-accent);
+  --color-niche-foreground: var(--niche-accent-foreground);
+  --color-brand-lime: var(--brand-lime);
+  --color-brand-violet: var(--brand-violet);
+  --color-brand-pink: var(--brand-pink);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  --font-sans:
+    -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", system-ui, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  --font-display: var(--font-bricolage), var(--font-sans);
+  --font-heading: var(--font-display);
+
+  --radius-sm: calc(var(--radius) * 0.5);
+  --radius-md: calc(var(--radius) * 0.75);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.25);
+  --radius-2xl: calc(var(--radius) * 1.5);
+  --radius-3xl: calc(var(--radius) * 2);
+  --radius-4xl: calc(var(--radius) * 2.5);
+
+  --ease-ios: cubic-bezier(0.32, 0.72, 0, 1);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ── utilities ───────────────────────────────────────────── */
+
+@utility glass {
+  background-color: var(--glass);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+}
+
+@utility hairline-t {
+  box-shadow: inset 0 0.5px 0 var(--border);
+}
+
+@utility hairline-b {
+  box-shadow: inset 0 -0.5px 0 var(--border);
+}
+
+@utility pt-safe {
+  padding-top: env(safe-area-inset-top);
+}
+
+@utility pb-safe {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Space reserved under scrolling content so the tab bar never covers it. */
+@utility pb-tab-bar {
+  padding-bottom: calc(var(--tab-bar-height) + env(safe-area-inset-bottom) + 1.5rem);
+}
+
+@utility bg-brand-gradient {
+  background-image: var(--brand-gradient);
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  * {
+    @apply border-border outline-ring/60;
+  }
+  html {
+    @apply font-sans;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+    color-scheme: dark;
+  }
+  html:not(.dark) {
+    color-scheme: light;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    overscroll-behavior-y: none;
+  }
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+}
+
+/* ── view transitions (route navigation) ─────────────────────
+   Pages opt in via <PageTransition>; links tag direction with
+   transitionTypes={["nav-forward" | "nav-back" | "tab-switch"]}.
+   ──────────────────────────────────────────────────────────── */
+
+::view-transition {
+  pointer-events: none;
+}
+
+::view-transition-old(.nav-forward) {
+  --slide-offset: -30%;
+  animation:
+    380ms var(--ease-ios) both slide reverse,
+    380ms var(--ease-ios) both dim;
+}
+::view-transition-new(.nav-forward) {
+  --slide-offset: 100%;
+  animation: 380ms var(--ease-ios) both slide;
+}
+::view-transition-old(.nav-back) {
+  --slide-offset: 100%;
+  animation: 340ms var(--ease-ios) both slide reverse;
+  z-index: 1;
+}
+::view-transition-new(.nav-back) {
+  --slide-offset: -30%;
+  animation:
+    340ms var(--ease-ios) both slide,
+    340ms var(--ease-ios) both dim reverse;
+}
+
+::view-transition-old(.tab-switch) {
+  animation: 120ms ease-out both fade reverse;
+}
+::view-transition-new(.tab-switch) {
+  animation: 180ms ease-out 60ms both fade;
+}
+
+/* Chrome that must stay pinned while pages slide underneath. */
+::view-transition-group(tab-bar) {
+  animation: none;
+  z-index: 100;
+}
+::view-transition-old(tab-bar) {
+  display: none;
+}
+::view-transition-new(tab-bar) {
+  animation: none;
+}
+
+@keyframes slide {
+  from {
+    translate: var(--slide-offset) 0;
+  }
+  to {
+    translate: 0 0;
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes dim {
+  from {
+    filter: brightness(1);
+  }
+  to {
+    filter: brightness(0.7);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+  }
 }
