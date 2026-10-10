@@ -8,8 +8,8 @@ import { THEME_STORAGE_KEY, type ThemeMode } from "@/lib/theme"
 import { cn } from "@/lib/utils"
 
 const OPTIONS: readonly { mode: ThemeMode; label: string; icon: typeof Moon }[] = [
-  { mode: "dark", label: "dark", icon: Moon },
-  { mode: "light", label: "light", icon: Sun },
+  { mode: "dark", label: "Dark", icon: Moon },
+  { mode: "light", label: "Light", icon: Sun },
 ]
 
 function subscribe(onChange: () => void): () => void {
@@ -58,7 +58,7 @@ export function ThemeToggle() {
                 className="absolute inset-0 rounded-full bg-elevated shadow-sm"
               />
             ) : null}
-            <Icon aria-hidden className="relative size-3.5" />
+            <Icon aria-hidden className="relative size-3.5" strokeWidth={1.5} />
             <span className="relative">{label}</span>
           </button>
         )

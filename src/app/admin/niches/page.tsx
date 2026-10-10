@@ -61,7 +61,7 @@ function NicheRow({ niche }: { niche: ManagedNiche }) {
     <li className="flex items-center justify-between gap-3 px-4 py-3">
       <div className="min-w-0">
         <Link href={`/n/${niche.slug}`} className="block truncate text-[15px] font-medium">
-          {niche.emoji} {niche.name}
+          {niche.name}
         </Link>
         <p className="text-[12px] text-muted-foreground">
           {niche.kind} · by {niche.generatedBy} · {niche.publishedAt.toISOString().slice(0, 10)}
