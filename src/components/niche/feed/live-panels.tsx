@@ -4,14 +4,11 @@ import { MediaImage } from "@/components/ds/media-image"
 import { SectionHeader } from "@/components/ds/section-header"
 import { Skeleton } from "@/components/ui/skeleton"
 import type { NicheProfile } from "@/lib/engine/profile-schema"
-import { env } from "@/lib/env"
 import { type NicheFeed, buildNicheFeed } from "@/lib/feed/feed"
-import { createFeedDeps } from "@/lib/feed/server"
+import { appFeedDeps } from "@/lib/feed/app-deps"
 import type { FeedItem } from "@/lib/feed/types"
 import { googleNews, spotify, youtube } from "@/lib/links"
-import { log } from "@/lib/log"
-import { TAXONOMY, artistSpotifyId } from "@/lib/niches/catalog"
-import { getRedis } from "@/lib/redis"
+import { TAXONOMY } from "@/lib/niches/catalog"
 import { tagFeedItems } from "@/lib/taxonomy/tagging"
 import { cn } from "@/lib/utils"
 import { LinkList } from "../link-card"
@@ -23,17 +20,7 @@ import { TaggedFeed } from "./tagged-feed"
 /** One feed build per request, shared by every tab, the hero and the rail. */
 export const getNicheFeed = cache(async (profile: NicheProfile): Promise<NicheFeed> => {
   await connection()
-  return buildNicheFeed(
-    profile,
-    createFeedDeps({
-      spotifyClientId: env.SPOTIFY_CLIENT_ID,
-      spotifyClientSecret: env.SPOTIFY_CLIENT_SECRET,
-      youtubeApiKey: env.YOUTUBE_API_KEY,
-      artistIdFor: artistSpotifyId,
-      redis: getRedis(),
-      logger: log,
-    }),
-  )
+  return buildNicheFeed(profile, appFeedDeps())
 })
 
 /** Masonry: 1 column on phones, 2 on tablets, 3 on wide screens. */

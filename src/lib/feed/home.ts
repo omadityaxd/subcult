@@ -1,12 +1,9 @@
 import "server-only"
-import { env } from "@/lib/env"
-import { log } from "@/lib/log"
-import { getRedis } from "@/lib/redis"
-import { artistSpotifyId, nicheImage } from "@/lib/niches/catalog"
+import { nicheImage } from "@/lib/niches/catalog"
 import { lookupNicheProfile } from "@/lib/niches/lookup"
 import { buildNicheFeed } from "./feed"
 import { featuredOrder, type HomeNiche } from "./featured"
-import { createFeedDeps } from "./server"
+import { appFeedDeps } from "./app-deps"
 import type { FeedItem } from "./types"
 
 export interface HomePage {
@@ -18,22 +15,11 @@ export interface HomePage {
 const ITEMS_PER_NICHE = 8
 const STORY_ITEMS = 10
 
-function feedDeps() {
-  return createFeedDeps({
-    spotifyClientId: env.SPOTIFY_CLIENT_ID,
-    spotifyClientSecret: env.SPOTIFY_CLIENT_SECRET,
-    youtubeApiKey: env.YOUTUBE_API_KEY,
-    artistIdFor: artistSpotifyId,
-    redis: getRedis(),
-    logger: log,
-  })
-}
-
 async function feedFor(slug: string): Promise<{ niche: HomeNiche; items: FeedItem[] } | null> {
   const lookup = await lookupNicheProfile(slug)
   if (lookup.status !== "found") return null
   const { profile } = lookup
-  const feed = await buildNicheFeed(profile, feedDeps())
+  const feed = await buildNicheFeed(profile, appFeedDeps())
   return {
     niche: {
       slug: profile.slug,

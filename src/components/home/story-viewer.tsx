@@ -1,6 +1,6 @@
 "use client"
 
-import { ArrowUpRight, X } from "lucide-react"
+import { ArrowUpRight, Volume2, VolumeX, X } from "lucide-react"
 import { motion, type PanInfo, useReducedMotion } from "motion/react"
 import Link from "next/link"
 import { useCallback, useEffect, useRef, useState } from "react"
@@ -8,11 +8,14 @@ import { createPortal } from "react-dom"
 import { Cover } from "@/components/ds/cover"
 import { MediaImage } from "@/components/ds/media-image"
 import { NicheAvatar } from "@/components/ds/niche-avatar"
+import { getAudioEngine, useAudioState } from "@/lib/audio/use-audio"
 import { STORY_ITEM_MS, gestures, springs } from "@/lib/design/tokens"
 import type { HomeNiche } from "@/lib/feed/featured"
 import type { FeedItem } from "@/lib/feed/types"
 import type { ApiResponse } from "@/lib/request"
 import { cn } from "@/lib/utils"
+import { MusicSticker } from "./music-sticker"
+import { useStoryMusic } from "./use-story-music"
 
 const OPEN_LABEL: Record<FeedItem["source"], string> = {
   spotify: "Listen on Spotify",
@@ -37,6 +40,7 @@ export function StoryViewer({ niches, startIndex, onSeen, onClose }: StoryViewer
   const [items, setItems] = useState<Record<string, FeedItem[]>>({})
   const [paused, setPaused] = useState(false)
   const [progress, setProgress] = useState(0)
+  const progressRef = useRef(0)
   const holdTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const held = useRef(false)
   const reduceMotion = useReducedMotion()
@@ -44,6 +48,8 @@ export function StoryViewer({ niches, startIndex, onSeen, onClose }: StoryViewer
   const niche = niches[nicheIndex]
   const frames = items[niche.slug]
   const current = frames?.[frame]
+  const music = useStoryMusic(niche.slug, paused)
+  const audio = useAudioState()
 
   // Load (and remember) the current niche's frames.
   useEffect(() => {
@@ -66,8 +72,11 @@ export function StoryViewer({ niches, startIndex, onSeen, onClose }: StoryViewer
   useEffect(() => onSeen(niche.slug), [niche.slug, onSeen])
 
   const next = useCallback(() => {
+    // Still loading this niche: wait for its frames instead of skipping it.
+    if (!frames) return
+    progressRef.current = 0
     setProgress(0)
-    if (frames && frame < frames.length - 1) setFrame((f) => f + 1)
+    if (frame < frames.length - 1) setFrame((f) => f + 1)
     else if (nicheIndex < niches.length - 1) {
       setNicheIndex((i) => i + 1)
       setFrame(0)
@@ -75,6 +84,7 @@ export function StoryViewer({ niches, startIndex, onSeen, onClose }: StoryViewer
   }, [frame, frames, nicheIndex, niches.length, onClose])
 
   const previous = useCallback(() => {
+    progressRef.current = 0
     setProgress(0)
     if (frame > 0) setFrame((f) => f - 1)
     else if (nicheIndex > 0) {
@@ -83,22 +93,21 @@ export function StoryViewer({ niches, startIndex, onSeen, onClose }: StoryViewer
     }
   }, [frame, nicheIndex])
 
-  // Frame timer (rAF so it pauses cleanly and stays smooth).
+  // Frame timer (rAF so it pauses cleanly and stays smooth). Progress lives in
+  // a ref and next() runs from the loop, never inside a state updater, which
+  // React may call twice (that used to skip a whole niche).
   useEffect(() => {
     if (!frames || frames.length === 0 || paused) return
     let raf = 0
     let last = performance.now()
     const tick = (time: number) => {
-      const delta = time - last
+      progressRef.current += (time - last) / STORY_ITEM_MS
       last = time
-      setProgress((value) => {
-        const nextValue = value + delta / STORY_ITEM_MS
-        if (nextValue >= 1) {
-          queueMicrotask(next)
-          return 1
-        }
-        return nextValue
-      })
+      if (progressRef.current >= 1) {
+        next()
+        return
+      }
+      setProgress(progressRef.current)
       raf = requestAnimationFrame(tick)
     }
     raf = requestAnimationFrame(tick)
@@ -198,6 +207,21 @@ export function StoryViewer({ niches, startIndex, onSeen, onClose }: StoryViewer
             />
             <span className="truncate font-serif text-title-3 italic">{niche.name}</span>
           </Link>
+          {music ? (
+            <button
+              type="button"
+              onClick={() => getAudioEngine().setMuted(!audio.muted)}
+              aria-label={audio.muted ? "Unmute" : "Mute"}
+              aria-pressed={audio.muted}
+              className="grid size-10 place-items-center rounded-full hover:bg-white/10"
+            >
+              {audio.muted ? (
+                <VolumeX aria-hidden className="size-5" strokeWidth={1.5} />
+              ) : (
+                <Volume2 aria-hidden className="size-5" strokeWidth={1.5} />
+              )}
+            </button>
+          ) : null}
           <button
             type="button"
             onClick={onClose}
@@ -262,7 +286,8 @@ export function StoryViewer({ niches, startIndex, onSeen, onClose }: StoryViewer
         </div>
 
         {current ? (
-          <div className="relative z-30 px-6 pb-[calc(env(safe-area-inset-bottom)+1.5rem)]">
+          <div className="relative z-30 space-y-3 px-6 pb-[calc(env(safe-area-inset-bottom)+1.5rem)]">
+            {music ? <MusicSticker music={music} playing={audio.playing && !audio.muted} /> : null}
             <a
               href={current.url}
               target="_blank"

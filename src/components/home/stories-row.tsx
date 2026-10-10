@@ -2,6 +2,7 @@
 
 import { useState, useSyncExternalStore } from "react"
 import { NicheAvatar } from "@/components/ds/niche-avatar"
+import { getAudioEngine } from "@/lib/audio/use-audio"
 import type { HomeNiche } from "@/lib/feed/featured"
 import { StoryViewer } from "./story-viewer"
 
@@ -57,7 +58,11 @@ export function StoriesRow({ niches, day }: { niches: readonly HomeNiche[]; day:
           <li key={niche.slug} className="w-[4.5rem] shrink-0">
             <button
               type="button"
-              onClick={() => setOpenAt(index)}
+              onClick={() => {
+                // Inside the tap, so iOS lets the story's music start once it loads.
+                getAudioEngine().unlock()
+                setOpenAt(index)
+              }}
               className="group block w-full text-center"
               aria-label={`${niche.name} story`}
             >

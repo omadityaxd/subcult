@@ -7,7 +7,7 @@ import nicheCurations from "../../../data/taxonomy/niches.json"
 import tags from "../../../data/taxonomy/tags.json"
 import { type NicheProfile, nicheProfileSchema } from "@/lib/engine/profile-schema"
 import { type Taxonomy, buildTaxonomy } from "@/lib/taxonomy/graph"
-import { taxonomyFilesSchema } from "@/lib/taxonomy/schema"
+import { type Artist, taxonomyFilesSchema } from "@/lib/taxonomy/schema"
 import { SEED_FILES } from "./seed-files"
 
 /**
@@ -62,31 +62,41 @@ export interface NichePreset {
 }
 
 /**
- * Each niche's stand-in photo (avatars, card covers): its first verified
- * artist with a photo that no earlier niche has claimed, so a grid never
- * repeats the same face. Featured niches pick first. Falls back to the first
- * photo if every one is taken, and to null (generative cover) if none exist.
+ * Each niche's lead artist (its photo on avatars and covers, its song in
+ * stories): the first verified, pictured artist no earlier niche has claimed,
+ * so grids never repeat a face and sister niches don't share a soundtrack.
+ * Featured niches pick first; falls back to the first pictured artist.
  */
-const NICHE_IMAGES: ReadonlyMap<string, string | null> = (() => {
+const NICHE_LEADS: ReadonlyMap<string, Artist | null> = (() => {
   const featured = new Map(TAXONOMY.featured().map((slug, index) => [slug, index]))
   const order = [...SEED_PROFILES].sort(
     (a, b) => (featured.get(a.slug) ?? Infinity) - (featured.get(b.slug) ?? Infinity),
   )
   const used = new Set<string>()
-  const images = new Map<string, string | null>()
+  const leads = new Map<string, Artist | null>()
   for (const { slug } of order) {
-    const photos = TAXONOMY.artistsOf(slug).flatMap((artist) =>
-      artist.imageUrl ? [artist.imageUrl] : [],
-    )
-    const pick = photos.find((url) => !used.has(url)) ?? photos[0] ?? null
-    if (pick) used.add(pick)
-    images.set(slug, pick)
+    const pictured = TAXONOMY.artistsOf(slug).filter((artist) => artist.imageUrl)
+    const pick = pictured.find((artist) => !used.has(artist.slug)) ?? pictured[0] ?? null
+    if (pick) used.add(pick.slug)
+    leads.set(slug, pick)
   }
-  return images
+  return leads
 })()
 
+/** The niche's face: its first verified, pictured artist no earlier niche claimed. */
+export function nicheLeadArtist(slug: string): Artist | null {
+  return NICHE_LEADS.get(slug) ?? null
+}
+
+/** The niche's verified artists with its lead (see nicheLeadArtist) first. */
+export function nicheArtistsLeadFirst(slug: string): Artist[] {
+  const lead = nicheLeadArtist(slug)
+  const rest = TAXONOMY.artistsOf(slug).filter((artist) => artist.slug !== lead?.slug)
+  return lead ? [lead, ...rest] : rest
+}
+
 export function nicheImage(slug: string): string | null {
-  return NICHE_IMAGES.get(slug) ?? null
+  return nicheLeadArtist(slug)?.imageUrl ?? null
 }
 
 export function toPreset({ slug, name, emoji, tagline, palette }: NicheProfile): NichePreset {
