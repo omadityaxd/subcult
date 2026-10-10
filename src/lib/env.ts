@@ -17,8 +17,9 @@ const optionalUrl = z.preprocess(
 const serverEnvSchema = z.object({
   ANTHROPIC_API_KEY: optional,
   NEXT_PUBLIC_SUPABASE_URL: optionalUrl,
-  NEXT_PUBLIC_SUPABASE_ANON_KEY: optional,
-  SUPABASE_SERVICE_ROLE_KEY: optional,
+  NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: optional,
+  /** Server-only Supabase secret key (replaces the legacy service_role key). */
+  SUPABASE_SECRET_KEY: optional,
   DATABASE_URL: optional,
   /** Session pooler / direct connection, used only by drizzle-kit migrations. */
   DIRECT_URL: optional,
@@ -27,11 +28,17 @@ const serverEnvSchema = z.object({
   SPOTIFY_CLIENT_ID: optional,
   SPOTIFY_CLIENT_SECRET: optional,
   YOUTUBE_API_KEY: optional,
-  REDDIT_CLIENT_ID: optional,
-  REDDIT_CLIENT_SECRET: optional,
   NEXT_PUBLIC_POSTHOG_KEY: optional,
   NEXT_PUBLIC_POSTHOG_HOST: optionalUrl,
   AMAZON_AFFILIATE_TAG: optional,
+  /** Storefront for Amazon search links, e.g. amazon.in. */
+  AMAZON_DOMAIN: z.preprocess(
+    (value) => (typeof value === "string" && value.trim() === "" ? undefined : value),
+    z
+      .string()
+      .regex(/^amazon.[a-z.]{2,10}$/, "must look like amazon.com or amazon.in")
+      .default("amazon.com"),
+  ),
   NEXT_PUBLIC_SITE_URL: optionalUrl,
 })
 
@@ -51,11 +58,10 @@ export const env: ServerEnv = parseEnv()
 export const features = {
   llm: Boolean(env.ANTHROPIC_API_KEY),
   database: Boolean(env.DATABASE_URL),
-  auth: Boolean(env.NEXT_PUBLIC_SUPABASE_URL && env.NEXT_PUBLIC_SUPABASE_ANON_KEY),
+  auth: Boolean(env.NEXT_PUBLIC_SUPABASE_URL && env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY),
   cache: Boolean(env.UPSTASH_REDIS_REST_URL && env.UPSTASH_REDIS_REST_TOKEN),
   spotify: Boolean(env.SPOTIFY_CLIENT_ID && env.SPOTIFY_CLIENT_SECRET),
   youtube: Boolean(env.YOUTUBE_API_KEY),
-  redditOAuth: Boolean(env.REDDIT_CLIENT_ID && env.REDDIT_CLIENT_SECRET),
   analytics: Boolean(env.NEXT_PUBLIC_POSTHOG_KEY),
 } as const
 
