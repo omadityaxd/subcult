@@ -25,6 +25,8 @@ export interface NicheFeed {
   /** Per-source lists (ranked) for the Sounds / Tea / Watch tabs. */
   bySource: Partial<Record<FeedSource, FeedItem[]>>
   statuses: SourceStatus[]
+  /** When this feed was assembled (epoch ms); render relative ages against it. */
+  generatedAt: number
 }
 
 export interface FeedDeps {
@@ -98,5 +100,5 @@ export async function buildNicheFeed(profile: NicheProfile, deps: FeedDeps): Pro
   const bySource: NicheFeed["bySource"] = {}
   for (const item of ranked) (bySource[item.source] ??= []).push(item)
 
-  return { items: interleave(ranked), bySource, statuses }
+  return { items: interleave(ranked), bySource, statuses, generatedAt: now.getTime() }
 }

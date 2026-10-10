@@ -1,50 +1,55 @@
-import { ArrowUpRight, Flame, Search } from "lucide-react"
+import { ArrowUpRight } from "lucide-react"
+import { SectionHeader } from "@/components/ds/section-header"
 import type { NicheProfile } from "@/lib/engine/profile-schema"
 import { reddit } from "@/lib/links"
-import { SectionHeading } from "../link-card"
+
+const linkClass =
+  "inline-flex h-9 items-center gap-1.5 rounded-full border border-border-strong px-4 text-footnote font-medium transition-colors hover:bg-muted"
 
 /**
- * Subreddit cards with one-tap jumps to the week's top posts and to an
- * in-sub search for this niche. Deep links only: no Reddit API involved.
+ * Where the scene talks: each subreddit with one-tap jumps to the week's top
+ * posts and an in-sub search. Deep links only, no Reddit API.
  */
 export function CommunitySection({ profile }: { profile: NicheProfile }) {
   return (
     <section>
-      <SectionHeading>where the group chat lives</SectionHeading>
-      <p className="-mt-1 mb-4 text-[15px] text-muted-foreground">
-        the subreddits that actually get it. tap in, lurk responsibly.
-      </p>
-      <ul className="space-y-3">
+      <SectionHeader overline="Lurk responsibly" title="Community" />
+      <ul className="divide-y divide-border border-y border-border">
         {profile.subreddits.map((subreddit) => (
-          <li key={subreddit} className="rounded-2xl bg-card p-4">
+          <li
+            key={subreddit}
+            className="flex flex-wrap items-center justify-between gap-3 py-5 md:px-2"
+          >
             <a
               href={reddit.home(subreddit)}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-between"
+              className="group flex items-center gap-1 font-serif text-title-3 italic"
             >
-              <span className="text-[17px] font-semibold">r/{subreddit}</span>
-              <ArrowUpRight aria-hidden className="size-4 text-muted-foreground" />
+              r/{subreddit}
+              <ArrowUpRight
+                aria-hidden
+                strokeWidth={1.5}
+                className="size-4 text-muted-foreground transition-transform group-hover:-translate-y-0.5"
+              />
               <span className="sr-only">(opens in a new tab)</span>
             </a>
-            <div className="mt-3 grid grid-cols-2 gap-2">
+            <div className="flex gap-2">
               <a
                 href={reddit.topThisWeek(subreddit)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-1.5 rounded-full bg-niche/15 py-2 text-[14px] font-medium text-niche transition-transform active:scale-95"
+                className={linkClass}
               >
-                <Flame aria-hidden className="size-4" />
-                top this week
+                Top this week
               </a>
               <a
                 href={reddit.searchWithin(subreddit, profile.name)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-1.5 rounded-full bg-muted py-2 text-[14px] font-medium transition-transform active:scale-95"
+                className={linkClass}
               >
-                <Search aria-hidden className="size-4" />
-                search the sub
+                Search the sub
               </a>
             </div>
           </li>

@@ -1,11 +1,11 @@
 "use client"
 
-import { ArrowUpRight, ShoppingBag } from "lucide-react"
+import { ArrowUpRight, Plus } from "lucide-react"
 import { type CSSProperties, useState } from "react"
 import { ResponsiveSheet } from "@/components/ds/responsive-sheet"
+import { SectionHeader } from "@/components/ds/section-header"
 import type { NicheBrand } from "@/lib/engine/profile-schema"
 import { type ShopConfig, storeLinks } from "@/lib/links"
-import { SectionHeading } from "../link-card"
 
 interface DripSectionProps {
   brands: readonly NicheBrand[]
@@ -16,45 +16,37 @@ interface DripSectionProps {
 
 type ShopTarget = { query: string; title: string; description: string }
 
-const TIER_LABEL = { $: "budget", $$: "mid", $$$: "splurge" } as const
+const TIER_LABEL = { $: "Budget", $$: "Mid", $$$: "Splurge" } as const
 
-/** Brand cards + "fit inspo" pieces; tapping either opens a sheet of store searches. */
+/** Brands and pieces; tapping either opens store searches (sheet on phones, modal on desktop). */
 export function DripSection({ brands, shopKeywords, shopConfig, themeStyle }: DripSectionProps) {
   const [target, setTarget] = useState<ShopTarget | null>(null)
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       <section>
-        <SectionHeading>the brands</SectionHeading>
-        <ul className="grid grid-cols-2 gap-3">
+        <SectionHeader overline="Who makes the look" title="Brands" />
+        <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3">
           {brands.map((brand) => (
             <li key={brand.name}>
               <button
                 type="button"
                 onClick={() =>
-                  setTarget({
-                    query: brand.name,
-                    title: brand.name,
-                    description: brand.why,
-                  })
+                  setTarget({ query: brand.name, title: brand.name, description: brand.why })
                 }
-                className="flex h-full w-full flex-col rounded-2xl bg-card p-4 text-left transition-transform active:scale-[0.97]"
+                className="flex h-full w-full flex-col rounded-2xl border border-border bg-card p-5 text-left transition-[transform,background-color] duration-200 hover:bg-muted active:scale-[0.98]"
               >
-                <span className="flex items-start justify-between gap-2">
-                  <span className="font-display text-[17px] leading-tight font-semibold">
-                    {brand.name}
-                  </span>
+                <span className="flex items-baseline justify-between gap-3">
+                  <span className="font-serif text-title-3 italic">{brand.name}</span>
                   <span
-                    className="shrink-0 rounded-full bg-niche/15 px-2 py-0.5 text-[12px] font-semibold text-niche"
+                    className="text-footnote text-muted-foreground tabular-nums"
                     title={TIER_LABEL[brand.priceTier]}
                   >
                     {brand.priceTier}
                     <span className="sr-only"> ({TIER_LABEL[brand.priceTier]})</span>
                   </span>
                 </span>
-                <span className="mt-2 line-clamp-3 text-[13px] text-muted-foreground">
-                  {brand.why}
-                </span>
+                <span className="mt-2 text-callout text-muted-foreground">{brand.why}</span>
               </button>
             </li>
           ))}
@@ -62,7 +54,7 @@ export function DripSection({ brands, shopKeywords, shopConfig, themeStyle }: Dr
       </section>
 
       <section>
-        <SectionHeading>fit inspo 🛍️</SectionHeading>
+        <SectionHeader title="The pieces" />
         <ul className="flex flex-wrap gap-2">
           {shopKeywords.map((keyword) => (
             <li key={keyword}>
@@ -71,13 +63,13 @@ export function DripSection({ brands, shopKeywords, shopConfig, themeStyle }: Dr
                 onClick={() =>
                   setTarget({
                     query: keyword,
-                    title: `where to cop: ${keyword}`,
-                    description: "new, secondhand or vintage. your call.",
+                    title: keyword,
+                    description: "New, secondhand or vintage. Your call.",
                   })
                 }
-                className="flex items-center gap-1.5 rounded-full bg-card px-4 py-2.5 text-[15px] font-medium transition-transform active:scale-95"
+                className="inline-flex h-10 items-center gap-2 rounded-full border border-border-strong px-4 text-callout font-medium transition-colors first-letter:uppercase hover:bg-muted"
               >
-                <ShoppingBag aria-hidden className="size-4 text-niche" />
+                <Plus aria-hidden className="size-4 text-muted-foreground" strokeWidth={1.5} />
                 {keyword}
               </button>
             </li>
@@ -95,20 +87,24 @@ export function DripSection({ brands, shopKeywords, shopConfig, themeStyle }: Dr
         themeStyle={themeStyle}
       >
         {target ? (
-          <ul className="space-y-2">
+          <ul className="divide-y divide-border">
             {storeLinks(target.query, shopConfig).map((store) => (
               <li key={store.id}>
                 <a
                   href={store.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-between rounded-2xl bg-card px-4 py-3 transition-transform active:scale-[0.98]"
+                  className="group flex items-center justify-between gap-4 py-3.5"
                 >
                   <span>
-                    <span className="block text-[16px] font-semibold">{store.label}</span>
-                    <span className="block text-[13px] text-muted-foreground">{store.blurb}</span>
+                    <span className="block text-headline font-semibold">{store.label}</span>
+                    <span className="block text-footnote text-muted-foreground">{store.blurb}</span>
                   </span>
-                  <ArrowUpRight aria-hidden className="size-4 text-muted-foreground" />
+                  <ArrowUpRight
+                    aria-hidden
+                    strokeWidth={1.5}
+                    className="size-[18px] text-muted-foreground transition-transform group-hover:-translate-y-0.5"
+                  />
                   <span className="sr-only">(opens in a new tab)</span>
                 </a>
               </li>

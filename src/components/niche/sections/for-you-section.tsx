@@ -1,10 +1,9 @@
-import { Mic2, Newspaper } from "lucide-react"
 import Link from "next/link"
+import { NicheAvatar } from "@/components/ds/niche-avatar"
 import type { NicheProfile } from "@/lib/engine/profile-schema"
 import type { NichePreset } from "@/lib/niches/catalog"
 import type { TrendSource } from "@/lib/niches/lifecycle"
-import { spotify } from "@/lib/links"
-import { LinkCard, SectionHeading } from "../link-card"
+import { LinkList } from "../link-card"
 
 interface ForYouSectionProps {
   profile: NicheProfile
@@ -13,74 +12,91 @@ interface ForYouSectionProps {
   sources: readonly TrendSource[]
 }
 
-const STARTER_ARTISTS = 3
+const hostOf = (url: string) => {
+  try {
+    return new URL(url).hostname.replace(/^www\./, "")
+  } catch {
+    return undefined
+  }
+}
 
-/** The niche at a glance: what it is, its vibe, where to start, where to go next. */
+/** About the niche. On desktop, related niches live in the right rail instead. */
 export function ForYouSection({ profile, related, sources }: ForYouSectionProps) {
   return (
-    <div className="space-y-8">
-      <section>
-        <p className="text-[17px] leading-relaxed">{profile.description}</p>
-        <ul aria-label="Vibe words" className="mt-4 flex flex-wrap gap-2">
-          {profile.vibeWords.map((word) => (
-            <li key={word} className="rounded-full bg-niche/15 px-3 py-1 text-[14px] text-niche">
-              {word}
-            </li>
-          ))}
-        </ul>
+    <div className="space-y-10">
+      <section className="lg:hidden">
+        <p className="text-body leading-relaxed text-pretty text-muted-foreground">
+          {profile.description}
+        </p>
       </section>
 
       {sources.length > 0 ? (
         <section>
-          <SectionHeading>why it&apos;s trending 📈</SectionHeading>
-          <div className="space-y-2">
-            {sources.map((source) => (
-              <LinkCard
-                key={source.url}
-                href={source.url}
-                title={source.title}
-                subtitle={new URL(source.url).hostname.replace(/^www./, "")}
-                icon={<Newspaper aria-hidden className="size-5" />}
-              />
-            ))}
-          </div>
+          <p className="mb-3 text-overline font-medium text-muted-foreground uppercase">
+            Why it&apos;s trending
+          </p>
+          <LinkList
+            links={sources.map((source) => ({
+              title: source.title,
+              href: source.url,
+              meta: hostOf(source.url),
+            }))}
+          />
         </section>
       ) : null}
 
-      <section>
-        <SectionHeading>start here 🎧</SectionHeading>
-        <div className="space-y-2">
-          {profile.artists.slice(0, STARTER_ARTISTS).map((artist) => (
-            <LinkCard
-              key={artist.name}
-              href={spotify.artistSearch(artist.name)}
-              title={artist.name}
-              subtitle={artist.why}
-              icon={<Mic2 aria-hidden className="size-5" />}
-            />
-          ))}
-        </div>
-      </section>
-
       {related.length > 0 ? (
-        <section>
-          <SectionHeading>you might also be into</SectionHeading>
-          <ul className="-mx-4 no-scrollbar flex gap-2 overflow-x-auto px-4 pb-1">
-            {related.map((niche) => (
-              <li key={niche.slug} className="shrink-0">
-                <Link
-                  href={`/n/${niche.slug}`}
-                  transitionTypes={["nav-forward"]}
-                  className="flex items-center gap-1.5 rounded-full bg-card px-4 py-2.5 text-[15px] font-medium transition-transform active:scale-95"
-                >
-                  <span aria-hidden>{niche.emoji}</span>
-                  {niche.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
+        <section className="lg:hidden">
+          <p className="mb-3 text-overline font-medium text-muted-foreground uppercase">
+            You might also be into
+          </p>
+          <RelatedNiches related={related} />
         </section>
       ) : null}
     </div>
+  )
+}
+
+export function RelatedNiches({
+  related,
+  vertical,
+}: {
+  related: readonly NichePreset[]
+  vertical?: boolean
+}) {
+  return (
+    <ul
+      className={
+        vertical
+          ? "space-y-3"
+          : "-mx-(--gutter) no-scrollbar flex gap-4 overflow-x-auto px-(--gutter)"
+      }
+    >
+      {related.map((niche) => (
+        <li key={niche.slug} className={vertical ? undefined : "w-20 shrink-0"}>
+          <Link
+            href={`/n/${niche.slug}`}
+            transitionTypes={["nav-forward"]}
+            className={vertical ? "group flex items-center gap-3" : "group block text-center"}
+          >
+            <NicheAvatar
+              slug={niche.slug}
+              name={niche.name}
+              palette={niche.palette}
+              size={vertical ? "sm" : "md"}
+            />
+            <span
+              className={
+                vertical
+                  ? "font-serif text-title-3 italic group-hover:underline"
+                  : "mt-2 block truncate text-footnote font-medium"
+              }
+            >
+              {niche.name}
+            </span>
+          </Link>
+        </li>
+      ))}
+    </ul>
   )
 }

@@ -1,18 +1,25 @@
 "use client"
 
-import { motion } from "motion/react"
-import { type KeyboardEvent, type ReactNode, useId, useRef, useState } from "react"
-import { springs } from "@/lib/design/tokens"
+import { motion, type PanInfo } from "motion/react"
+import {
+  type KeyboardEvent,
+  type PointerEvent,
+  type ReactNode,
+  useId,
+  useRef,
+  useState,
+} from "react"
+import { gestures, springs } from "@/lib/design/tokens"
 import { cn } from "@/lib/utils"
 
 export const NICHE_TABS = [
-  { id: "for-you", label: "for you" },
-  { id: "sounds", label: "sounds" },
-  { id: "tea", label: "tea" },
-  { id: "community", label: "community" },
-  { id: "watch", label: "watch" },
-  { id: "drip", label: "drip" },
-  { id: "moodboard", label: "moodboard" },
+  { id: "for-you", label: "For you" },
+  { id: "sounds", label: "Sounds" },
+  { id: "tea", label: "Tea" },
+  { id: "community", label: "Community" },
+  { id: "watch", label: "Watch" },
+  { id: "drip", label: "Drip" },
+  { id: "moodboard", label: "Moodboard" },
 ] as const
 
 export type NicheTabId = (typeof NICHE_TABS)[number]["id"]
@@ -21,46 +28,62 @@ interface NicheTabsProps {
   panels: Record<NicheTabId, ReactNode>
 }
 
-/** iOS segmented control (scrollable) pinned under the nav bar, plus its panels. */
+/**
+ * Sticky underline segmented control + panels. On touch screens a horizontal
+ * swipe on the content moves between tabs; vertical scrolling is untouched.
+ */
 export function NicheTabs({ panels }: NicheTabsProps) {
   const [active, setActive] = useState<NicheTabId>("for-you")
   const baseId = useId()
   const tabRefs = useRef<Map<NicheTabId, HTMLButtonElement>>(new Map())
   const stickyRef = useRef<HTMLDivElement>(null)
+  const pointerType = useRef<string>("mouse")
 
   function select(id: NicheTabId) {
     setActive(id)
     tabRefs.current
       .get(id)
       ?.scrollIntoView({ inline: "center", block: "nearest", behavior: "smooth" })
-    // If the user switched tabs while scrolled deep, bring the new panel's top into view.
     const bar = stickyRef.current
     if (bar && bar.getBoundingClientRect().top <= parseFloat(getComputedStyle(bar).top) + 1) {
       bar.scrollIntoView({ block: "start", behavior: "smooth" })
     }
   }
 
-  function onKeyDown(event: KeyboardEvent<HTMLDivElement>) {
+  function step(direction: 1 | -1) {
     const index = NICHE_TABS.findIndex((tab) => tab.id === active)
-    const step = event.key === "ArrowRight" ? 1 : event.key === "ArrowLeft" ? -1 : 0
-    if (step === 0) return
+    const next = NICHE_TABS[index + direction]
+    if (next) select(next.id)
+  }
+
+  function onKeyDown(event: KeyboardEvent<HTMLDivElement>) {
+    const direction = event.key === "ArrowRight" ? 1 : event.key === "ArrowLeft" ? -1 : 0
+    if (direction === 0) return
     event.preventDefault()
-    const next = NICHE_TABS[(index + step + NICHE_TABS.length) % NICHE_TABS.length].id
+    const index = NICHE_TABS.findIndex((tab) => tab.id === active)
+    const next = NICHE_TABS[(index + direction + NICHE_TABS.length) % NICHE_TABS.length].id
     select(next)
     tabRefs.current.get(next)?.focus()
+  }
+
+  function onPanEnd(_event: unknown, info: PanInfo) {
+    if (pointerType.current !== "touch") return
+    const { x, y } = info.offset
+    if (Math.abs(x) < gestures.swipeTabPx || Math.abs(y) > Math.abs(x) * 0.6) return
+    step(x < 0 ? 1 : -1)
   }
 
   return (
     <>
       <div
         ref={stickyRef}
-        className="sticky top-[calc(var(--nav-bar-height)+env(safe-area-inset-top))] z-20 glass hairline-b"
+        className="sticky top-0 z-20 -mx-(--gutter) bg-background/85 pt-safe backdrop-blur-xl lg:mx-0"
       >
         <div
           role="tablist"
           aria-label="Niche sections"
           onKeyDown={onKeyDown}
-          className="no-scrollbar flex gap-1 overflow-x-auto px-4 py-2"
+          className="no-scrollbar flex gap-6 overflow-x-auto border-b border-border px-(--gutter) lg:px-0"
         >
           {NICHE_TABS.map((tab) => {
             const selected = tab.id === active
@@ -79,19 +102,19 @@ export function NicheTabs({ panels }: NicheTabsProps) {
                 tabIndex={selected ? 0 : -1}
                 onClick={() => select(tab.id)}
                 className={cn(
-                  "relative shrink-0 rounded-full px-4 py-1.5 text-[15px] font-medium transition-colors",
-                  selected ? "text-niche-foreground" : "text-muted-foreground",
+                  "relative shrink-0 py-3.5 text-callout font-medium transition-colors",
+                  selected ? "text-foreground" : "text-muted-foreground hover:text-foreground",
                 )}
               >
+                {tab.label}
                 {selected ? (
                   <motion.span
-                    layoutId="niche-tab-pill"
+                    layoutId="niche-tab-underline"
                     transition={springs.snappy}
                     aria-hidden
-                    className="absolute inset-0 rounded-full bg-niche"
+                    className="absolute inset-x-0 -bottom-px h-0.5 rounded-full bg-niche"
                   />
                 ) : null}
-                <span className="relative">{tab.label}</span>
               </button>
             )
           })}
@@ -106,7 +129,12 @@ export function NicheTabs({ panels }: NicheTabsProps) {
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={springs.gentle}
-        className="px-4 pt-5"
+        onPointerDown={(event: PointerEvent) => {
+          pointerType.current = event.pointerType
+        }}
+        onPanEnd={onPanEnd}
+        style={{ touchAction: "pan-y" }}
+        className="pt-8"
       >
         {panels[active]}
       </motion.div>

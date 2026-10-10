@@ -2,6 +2,7 @@
 
 import { Plus } from "lucide-react"
 import { type CSSProperties, useState } from "react"
+import { Button } from "@/components/ds/button"
 import { ResponsiveSheet } from "@/components/ds/responsive-sheet"
 
 interface JoinButtonProps {
@@ -9,38 +10,33 @@ interface JoinButtonProps {
   themeStyle: CSSProperties
 }
 
-/** "add to my niches". Joining needs an account, so for now it opens the sign-in sheet. */
+/** "Join" needs an account, so for now it opens the sign-in sheet (accounts land in Phase 6). */
 export function JoinButton({ name, themeStyle }: JoinButtonProps) {
   const [open, setOpen] = useState(false)
-
   return (
     <>
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="inline-flex items-center gap-1.5 rounded-full bg-niche px-5 py-2.5 text-[15px] font-semibold text-niche-foreground shadow-lg transition-transform active:scale-95"
+        className="inline-flex h-11 items-center gap-2 rounded-full bg-white px-6 text-callout font-semibold text-black transition-transform hover:bg-white/90 active:scale-[0.97]"
       >
-        <Plus aria-hidden className="size-4" strokeWidth={2.6} />
-        add to my niches
+        <Plus aria-hidden className="size-4" strokeWidth={2} />
+        Join
       </button>
       <ResponsiveSheet
         open={open}
         onOpenChange={setOpen}
-        title={`join ${name}`}
-        description="sign in to save niches, keep your feed and get your own niche card."
+        title={`Join ${name}`}
+        description="Sign in to keep your niches, your saves and your niche card on every device."
         themeStyle={themeStyle}
       >
-        <p className="rounded-2xl bg-card p-4 text-[15px] text-muted-foreground">
-          one tap with google or a magic link. accounts are dropping very soon. until then, browse
-          like nobody&apos;s watching 👀
+        <p className="text-callout text-muted-foreground">
+          One tap with Google or a magic link. Accounts are landing very soon. Until then, browse
+          like nobody&apos;s watching.
         </p>
-        <button
-          type="button"
-          onClick={() => setOpen(false)}
-          className="mt-4 w-full rounded-full bg-niche py-3 text-[17px] font-semibold text-niche-foreground active:scale-[0.98]"
-        >
-          ok, bet
-        </button>
+        <Button className="mt-6 w-full" size="lg" onClick={() => setOpen(false)}>
+          Got it
+        </Button>
       </ResponsiveSheet>
     </>
   )

@@ -1,42 +1,31 @@
-import { ListMusic, Mic2 } from "lucide-react"
+import { SectionHeader } from "@/components/ds/section-header"
 import type { NicheProfile } from "@/lib/engine/profile-schema"
 import { spotify } from "@/lib/links"
-import { LinkCard, SectionHeading } from "../link-card"
+import { LinkList } from "../link-card"
 
-/**
- * Artists and playlists from the profile, deep-linked to Spotify search.
- * This is also the no-keys fallback; live Spotify results layer on in Phase 4.
- */
+/** No-keys fallback: curated artists and playlist searches, deep-linked to Spotify. */
 export function SoundsSection({ profile }: { profile: NicheProfile }) {
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       <section>
-        <SectionHeading>the artists</SectionHeading>
-        <div className="space-y-2">
-          {profile.artists.map((artist) => (
-            <LinkCard
-              key={artist.name}
-              href={spotify.artistSearch(artist.name)}
-              title={artist.name}
-              subtitle={artist.why}
-              icon={<Mic2 aria-hidden className="size-5" />}
-            />
-          ))}
-        </div>
+        <SectionHeader overline="The canon" title="Artists" />
+        <LinkList
+          links={profile.artists.map((artist) => ({
+            title: artist.name,
+            href: spotify.artistSearch(artist.name),
+            meta: artist.why,
+          }))}
+        />
       </section>
-
       <section>
-        <SectionHeading>playlists to dig through</SectionHeading>
-        <div className="grid grid-cols-2 gap-2">
-          {profile.spotifyQueries.map((query) => (
-            <LinkCard
-              key={query}
-              href={spotify.playlistSearch(query)}
-              title={query}
-              icon={<ListMusic aria-hidden className="size-5" />}
-            />
-          ))}
-        </div>
+        <SectionHeader title="Playlists to dig through" />
+        <LinkList
+          links={profile.spotifyQueries.map((query) => ({
+            title: query,
+            href: spotify.playlistSearch(query),
+            meta: "Spotify playlists",
+          }))}
+        />
       </section>
     </div>
   )
