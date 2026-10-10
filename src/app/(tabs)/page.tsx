@@ -42,7 +42,6 @@ export default function ForYouPage() {
             your feed
           </h2>
           <EmptyState
-            emoji="🦗"
             title="it's giving… nothing yet"
             body="join a niche and this fills up with sounds, tea, fits and the group chat energy."
           />

@@ -12,7 +12,6 @@ export default function MePage() {
       <LargeTitle title="me" />
       <div className="space-y-8 px-4">
         <EmptyState
-          emoji="👻"
           title="browsing as a guest"
           body="signing in (soon) lets you save stuff, join niches and get your own niche card."
         />

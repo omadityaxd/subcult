@@ -1,10 +1,21 @@
 "use client"
 
-import { Sparkles } from "lucide-react"
+import {
+  CloudOff,
+  Hourglass,
+  type LucideIcon,
+  MoonStar,
+  PenLine,
+  SearchX,
+  TriangleAlert,
+  Wand2,
+} from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 import type { NicheApiErrorCode, ResolvedNiche } from "@/app/api/niches/route"
+import { Button } from "@/components/ds/button"
+import { NicheAvatar } from "@/components/ds/niche-avatar"
 import { EmptyState } from "@/components/shell/empty-state"
 import { Skeleton } from "@/components/ui/skeleton"
 import type { NichePreset } from "@/lib/niches/catalog"
@@ -20,28 +31,28 @@ interface SummonNicheProps {
   presets: readonly NichePreset[]
 }
 
-const ERROR_EMOJI: Record<NicheApiErrorCode, string> = {
-  capped: "😴",
-  "rate-limited": "🌙",
-  unavailable: "🔌",
-  rejected: "🤔",
-  "invalid-input": "✏️",
-  failed: "💥",
+const ERROR_ICON: Record<NicheApiErrorCode, LucideIcon> = {
+  capped: MoonStar,
+  "rate-limited": Hourglass,
+  unavailable: CloudOff,
+  rejected: SearchX,
+  "invalid-input": PenLine,
+  failed: TriangleAlert,
 }
 
 const ERROR_TITLE: Record<NicheApiErrorCode, string> = {
-  capped: "the vibe machine is resting",
-  "rate-limited": "easy there, niche collector",
-  unavailable: "new niches are offline rn",
-  rejected: "that one's not giving niche",
-  "invalid-input": "hmm, try that again",
-  failed: "the vibe machine hiccuped",
+  capped: "The vibe machine is resting",
+  "rate-limited": "Easy there, niche collector",
+  unavailable: "New niches are offline right now",
+  rejected: "That one's not giving niche",
+  "invalid-input": "Try that again",
+  failed: "The vibe machine hiccuped",
 }
 
 /** Codes where pointing at existing niches is the best next step. */
 const SUGGEST_PRESETS = new Set<NicheApiErrorCode>(["capped", "rate-limited", "unavailable"])
 
-/** Deterministic "random" picks so suggestions vary by query but not per render. */
+/** Deterministic picks so suggestions vary by query but not per render. */
 function pickSuggestions(query: string, presets: readonly NichePreset[], count = 3) {
   const seed = [...query].reduce((sum, char) => sum + char.charCodeAt(0), 0)
   return Array.from({ length: Math.min(count, presets.length) }, (_, i) => {
@@ -71,39 +82,36 @@ export function SummonNiche({ query, presets }: SummonNicheProps) {
       const code = (body.code ?? "failed") as NicheApiErrorCode
       setState({ kind: "error", code, message: body.error })
     } catch {
-      setState({ kind: "error", code: "failed", message: "check your connection and try again" })
+      setState({ kind: "error", code: "failed", message: "Check your connection and try again." })
     }
   }
 
   if (state.kind === "loading") {
     return (
-      <div role="status" aria-live="polite" className="mt-5 rounded-3xl bg-card p-6">
-        <p className="font-display text-xl font-semibold">cooking up “{query}” 🍳</p>
-        <p className="mt-1 text-[15px] text-muted-foreground">
-          finding the artists, the fits and the lore. ~10 seconds.
+      <div role="status" aria-live="polite" className="mx-auto max-w-md py-12 text-center">
+        <p className="font-serif text-title-2 italic">Mapping “{query}”</p>
+        <p className="mt-2 text-callout text-muted-foreground">
+          Finding the artists, the fits and the lore. About ten seconds.
         </p>
-        <div className="mt-5 space-y-3">
-          <Skeleton className="h-6 w-2/3 rounded-lg" />
-          <Skeleton className="h-4 w-full rounded-lg" />
-          <Skeleton className="h-4 w-5/6 rounded-lg" />
+        <div className="mt-8 grid grid-cols-2 gap-3">
+          <Skeleton className="aspect-[4/5] rounded-2xl" />
+          <Skeleton className="aspect-[4/5] rounded-2xl" />
         </div>
       </div>
     )
   }
 
   if (state.kind === "error") {
-    const showSuggestions = SUGGEST_PRESETS.has(state.code)
     return (
       <EmptyState
-        className="mt-5"
-        emoji={ERROR_EMOJI[state.code]}
+        icon={ERROR_ICON[state.code]}
         title={ERROR_TITLE[state.code]}
         body={state.message}
         action={
-          showSuggestions ? (
+          SUGGEST_PRESETS.has(state.code) ? (
             <Suggestions presets={pickSuggestions(query, presets)} />
           ) : state.code === "failed" ? (
-            <SummonButton onClick={summon}>try again</SummonButton>
+            <Button onClick={summon}>Try again</Button>
           ) : null
         }
       />
@@ -112,25 +120,15 @@ export function SummonNiche({ query, presets }: SummonNicheProps) {
 
   return (
     <EmptyState
-      className="mt-5"
-      emoji="🔭"
+      icon={Wand2}
       title={`“${query}” isn't on the map yet`}
-      body="want us to cook it up? we'll map the sounds, fits and lore in about 10 seconds."
-      action={<SummonButton onClick={summon}>summon it</SummonButton>}
+      body="Want us to map it? We'll find the sounds, the fits and the lore."
+      action={
+        <Button onClick={summon}>
+          <Wand2 aria-hidden /> Summon it
+        </Button>
+      }
     />
-  )
-}
-
-function SummonButton({ onClick, children }: { onClick: () => void; children: string }) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className="inline-flex items-center gap-1.5 rounded-full bg-accent px-5 py-2.5 text-[15px] font-semibold text-accent-foreground active:scale-95"
-    >
-      <Sparkles aria-hidden className="size-4" />
-      {children}
-    </button>
   )
 }
 
@@ -142,9 +140,9 @@ function Suggestions({ presets }: { presets: readonly NichePreset[] }) {
           <Link
             href={`/n/${preset.slug}`}
             transitionTypes={["nav-forward"]}
-            className="flex items-center gap-1.5 rounded-full bg-muted px-4 py-2 text-[15px] font-medium"
+            className="flex items-center gap-2 rounded-full bg-muted py-1 pr-4 pl-1 text-callout font-medium transition-colors hover:bg-border-strong"
           >
-            <span aria-hidden>{preset.emoji}</span>
+            <NicheAvatar slug={preset.slug} name={preset.name} palette={preset.palette} size="sm" />
             {preset.name}
           </Link>
         </li>

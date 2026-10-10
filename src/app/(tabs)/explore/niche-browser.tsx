@@ -1,9 +1,9 @@
 "use client"
 
 import { Search } from "lucide-react"
-import Link from "next/link"
 import { useDeferredValue, useState } from "react"
-import { Pressable } from "@/components/shell/pressable"
+import { NicheCard } from "@/components/niche/niche-card"
+import { OPEN_SEARCH_EVENT } from "@/components/shell/nav"
 import type { NichePreset } from "@/lib/niches/catalog"
 import { SummonNiche } from "./summon-niche"
 
@@ -11,7 +11,7 @@ interface NicheBrowserProps {
   presets: readonly NichePreset[]
 }
 
-/** Search + grid over the niche catalog (presets arrive as props to keep profiles server-side). */
+/** Filterable grid of every niche: 2 columns on phones, 3 on tablets, 4 on desktop. */
 export function NicheBrowser({ presets }: NicheBrowserProps) {
   const [query, setQuery] = useState("")
   const deferredQuery = useDeferredValue(query)
@@ -19,48 +19,54 @@ export function NicheBrowser({ presets }: NicheBrowserProps) {
   const results = needle ? presets.filter((niche) => niche.name.includes(needle)) : presets
 
   return (
-    <div className="px-4">
-      <label className="relative block">
-        <span className="sr-only">Search niches</span>
-        <Search
-          aria-hidden
-          className="pointer-events-none absolute top-1/2 left-3 size-[18px] -translate-y-1/2 text-muted-foreground"
-        />
-        <input
-          type="search"
-          value={query}
-          onChange={(event) => setQuery(event.target.value)}
-          placeholder="search any vibe…"
-          autoComplete="off"
-          enterKeyHint="search"
-          className="h-10 w-full rounded-xl bg-muted pr-3 pl-10 text-[17px] placeholder:text-muted-foreground focus-visible:outline-2"
-        />
-      </label>
+    <section aria-labelledby="all-niches" className="container-page">
+      <div className="sticky top-[calc(var(--nav-bar-height)+env(safe-area-inset-top))] z-20 -mx-(--gutter) bg-background/85 px-(--gutter) py-3 backdrop-blur-xl md:top-0">
+        <label className="relative block">
+          <span className="sr-only">Search niches</span>
+          <Search
+            aria-hidden
+            strokeWidth={1.5}
+            className="pointer-events-none absolute top-1/2 left-4 size-[18px] -translate-y-1/2 text-muted-foreground"
+          />
+          <input
+            type="search"
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+            placeholder="Search any vibe"
+            autoComplete="off"
+            enterKeyHint="search"
+            className="h-12 w-full rounded-full bg-muted pr-16 pl-11 text-body placeholder:text-subtle focus-visible:outline-2"
+          />
+          <button
+            type="button"
+            onClick={() => window.dispatchEvent(new Event(OPEN_SEARCH_EVENT))}
+            className="absolute top-1/2 right-3 hidden -translate-y-1/2 rounded-md border border-border px-1.5 text-caption text-muted-foreground md:block"
+          >
+            ⌘K
+          </button>
+        </label>
+      </div>
+
+      <h2
+        id="all-niches"
+        className="mt-6 mb-4 text-overline font-medium text-muted-foreground uppercase"
+      >
+        {needle
+          ? `${results.length} result${results.length === 1 ? "" : "s"}`
+          : `All niches · ${presets.length}`}
+      </h2>
 
       {results.length > 0 ? (
-        <ul className="mt-5 grid grid-cols-2 gap-3">
+        <ul className="grid grid-cols-2 gap-x-3 gap-y-6 md:grid-cols-3 md:gap-x-5 md:gap-y-8 lg:grid-cols-4">
           {results.map((niche) => (
             <li key={niche.slug}>
-              <Pressable>
-                <Link
-                  href={`/n/${niche.slug}`}
-                  transitionTypes={["nav-forward"]}
-                  className="flex aspect-[4/3] flex-col justify-between rounded-2xl bg-card p-4"
-                >
-                  <span aria-hidden className="text-3xl">
-                    {niche.emoji}
-                  </span>
-                  <span className="font-display text-[17px] leading-tight font-semibold">
-                    {niche.name}
-                  </span>
-                </Link>
-              </Pressable>
+              <NicheCard niche={niche} />
             </li>
           ))}
         </ul>
       ) : (
         <SummonNiche key={needle} query={deferredQuery.trim()} presets={presets} />
       )}
-    </div>
+    </section>
   )
 }

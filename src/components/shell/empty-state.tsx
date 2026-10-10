@@ -1,28 +1,29 @@
+import type { LucideIcon } from "lucide-react"
 import type { ReactNode } from "react"
 import { cn } from "@/lib/utils"
 
 interface EmptyStateProps {
-  emoji: string
+  icon?: LucideIcon
   title: string
   body?: string
   action?: ReactNode
   className?: string
 }
 
-export function EmptyState({ emoji, title, body, action, className }: EmptyStateProps) {
+/** Calm, editorial empty/error state: thin icon, serif title, one line of copy. */
+export function EmptyState({ icon: Icon, title, body, action, className }: EmptyStateProps) {
   return (
-    <div
-      className={cn(
-        "flex flex-col items-center rounded-3xl bg-card px-6 py-10 text-center",
-        className,
-      )}
-    >
-      <span aria-hidden className="text-5xl">
-        {emoji}
-      </span>
-      <p className="font-display mt-4 text-xl font-semibold">{title}</p>
-      {body ? <p className="mt-1.5 max-w-xs text-[15px] text-muted-foreground">{body}</p> : null}
-      {action ? <div className="mt-5">{action}</div> : null}
+    <div className={cn("flex flex-col items-center px-6 py-16 text-center", className)}>
+      {Icon ? (
+        <span className="mb-5 grid size-14 place-items-center rounded-full border border-border-strong text-muted-foreground">
+          <Icon aria-hidden className="size-6" strokeWidth={1.5} />
+        </span>
+      ) : null}
+      <p className="max-w-sm font-serif text-title-2 text-balance italic">{title}</p>
+      {body ? (
+        <p className="mt-2 max-w-sm text-callout text-balance text-muted-foreground">{body}</p>
+      ) : null}
+      {action ? <div className="mt-6">{action}</div> : null}
     </div>
   )
 }

@@ -1,16 +1,15 @@
-import Link from "next/link"
 import { connection } from "next/server"
+import { NicheCard } from "@/components/niche/niche-card"
 import { Skeleton } from "@/components/ui/skeleton"
 import { getDb } from "@/db"
 import { type TrendingCard, listActiveTrending } from "@/db/trend-repository"
 import { withTimeout } from "@/lib/concurrency"
-import { readableTextColor } from "@/lib/color"
 import { errorMessage, log } from "@/lib/log"
 import { isNew } from "@/lib/niches/lifecycle"
 
 const TIMEOUT_MS = 2_000
 
-/** "🔥 trending now": active trends from the trend engine. Renders nothing if there are none. */
+/** "Trending now": active trends from the trend engine. Renders nothing if there are none. */
 export async function TrendingRow() {
   await connection()
   const db = getDb()
@@ -27,44 +26,16 @@ export async function TrendingRow() {
   if (cards.length === 0) return null
 
   return (
-    <section aria-labelledby="trending-now" className="mb-6">
-      <h2 id="trending-now" className="mb-3 px-4 text-[20px] font-semibold tracking-tight">
-        🔥 trending now
+    <section aria-labelledby="trending-now" className="container-page mb-8">
+      <h2 id="trending-now" className="mb-4 font-serif text-title-2 italic">
+        Trending now
       </h2>
-      <ul className="no-scrollbar flex gap-3 overflow-x-auto px-4 pb-1">
-        {cards.map((card) => {
-          const [, c2, c3] = card.palette
-          const ink = readableTextColor(c2)
-          return (
-            <li key={card.slug} className="w-56 shrink-0">
-              <Link
-                href={`/n/${card.slug}`}
-                transitionTypes={["nav-forward"]}
-                className="relative flex aspect-[4/3] flex-col justify-between overflow-hidden rounded-2xl p-4 transition-transform active:scale-[0.97]"
-                style={{ backgroundImage: `linear-gradient(150deg, ${c2}, ${c3})`, color: ink }}
-              >
-                <span className="flex items-start justify-between">
-                  <span aria-hidden className="text-3xl">
-                    {card.emoji}
-                  </span>
-                  {isNew(card.publishedAt, now) ? (
-                    <span className="rounded-full bg-black/80 px-2 py-0.5 text-[12px] font-semibold text-white">
-                      🔥 new
-                    </span>
-                  ) : null}
-                </span>
-                <span>
-                  <span className="font-display block text-[18px] leading-tight font-bold">
-                    {card.name}
-                  </span>
-                  <span className="mt-0.5 line-clamp-2 block text-[13px] opacity-85">
-                    {card.tagline}
-                  </span>
-                </span>
-              </Link>
-            </li>
-          )
-        })}
+      <ul className="-mx-(--gutter) no-scrollbar flex snap-x gap-3 overflow-x-auto px-(--gutter) pb-1 md:gap-5">
+        {cards.map((card) => (
+          <li key={card.slug} className="w-[72vw] max-w-80 shrink-0 snap-start">
+            <NicheCard niche={card} shape="wide" isNew={isNew(card.publishedAt, now)} />
+          </li>
+        ))}
       </ul>
     </section>
   )
@@ -72,9 +43,9 @@ export async function TrendingRow() {
 
 export function TrendingRowSkeleton() {
   return (
-    <div aria-hidden className="mb-6 flex gap-3 overflow-hidden px-4">
-      <Skeleton className="aspect-[4/3] w-56 shrink-0 rounded-2xl" />
-      <Skeleton className="aspect-[4/3] w-56 shrink-0 rounded-2xl" />
+    <div aria-hidden className="container-page mb-8 flex gap-3 overflow-hidden">
+      <Skeleton className="aspect-[16/10] w-[72vw] max-w-80 shrink-0 rounded-2xl" />
+      <Skeleton className="aspect-[16/10] w-[72vw] max-w-80 shrink-0 rounded-2xl" />
     </div>
   )
 }

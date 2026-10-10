@@ -156,7 +156,6 @@ function NicheUnavailable() {
       </div>
       <div className="px-4 pt-4">
         <EmptyState
-          emoji="😵‍💫"
           title="the vibe vault is napping"
           body="we can't reach this niche right now. the presets on explore still work."
         />

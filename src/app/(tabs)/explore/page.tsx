@@ -6,12 +6,12 @@ import { NICHE_PRESETS } from "@/lib/niches/catalog"
 import { NicheBrowser } from "./niche-browser"
 import { TrendingRow, TrendingRowSkeleton } from "./trending-row"
 
-export const metadata: Metadata = { title: "explore" }
+export const metadata: Metadata = { title: "Explore" }
 
 export default function ExplorePage() {
   return (
     <Screen>
-      <LargeTitle title="explore" subtitle="every corner of the internet, sorted by vibe" />
+      <LargeTitle overline="Every corner, sorted by vibe" title="Explore" />
       <Suspense fallback={<TrendingRowSkeleton />}>
         <TrendingRow />
       </Suspense>

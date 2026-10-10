@@ -7,7 +7,7 @@ export default function NotFound() {
     <Screen withTabBar={false} className="flex items-center px-4">
       <EmptyState
         className="w-full"
-        emoji="🫠"
+
         title="this page is not giving"
         body="either it never existed or it was too niche even for us."
         action={

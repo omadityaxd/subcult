@@ -23,7 +23,7 @@ export default function VibeCheckPage() {
       <div className="flex flex-1 items-center px-4">
         <EmptyState
           className="w-full"
-          emoji="🍳"
+
           title="the vibe check is cooking"
           body="12 swipe cards, one brutally accurate niche mix. almost ready."
         />
