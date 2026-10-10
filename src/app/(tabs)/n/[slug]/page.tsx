@@ -1,7 +1,13 @@
-import { Clapperboard, Newspaper } from "lucide-react"
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { Suspense } from "react"
+import {
+  FeedSkeleton,
+  LiveForYou,
+  LiveSounds,
+  LiveTea,
+  LiveWatch,
+} from "@/components/niche/feed/live-panels"
 import { NicheHero } from "@/components/niche/niche-hero"
 import { NicheNavBar } from "@/components/niche/niche-nav-bar"
 import { NicheTabs } from "@/components/niche/niche-tabs"
@@ -9,15 +15,12 @@ import { CommunitySection } from "@/components/niche/sections/community-section"
 import { DripSection } from "@/components/niche/sections/drip-section"
 import { ForYouSection } from "@/components/niche/sections/for-you-section"
 import { MoodboardSection } from "@/components/niche/sections/moodboard-section"
-import { SearchLinksSection } from "@/components/niche/sections/search-links-section"
-import { SoundsSection } from "@/components/niche/sections/sounds-section"
 import { BackButton } from "@/components/shell/back-button"
 import { EmptyState } from "@/components/shell/empty-state"
 import { Screen } from "@/components/shell/screen"
 import { Skeleton } from "@/components/ui/skeleton"
 import type { NicheProfile } from "@/lib/engine/profile-schema"
 import { env } from "@/lib/env"
-import { googleNews, youtube } from "@/lib/links"
 import { NICHE_PRESETS, type NichePreset, findSeedProfileByName } from "@/lib/niches/catalog"
 import { isNew } from "@/lib/niches/lifecycle"
 import { type NicheMeta, type NicheSource, lookupNicheProfile } from "@/lib/niches/lookup"
@@ -94,27 +97,28 @@ function NicheWorld({
       <NicheTabs
         panels={{
           "for-you": (
-            <ForYouSection profile={profile} related={related} sources={meta?.sources ?? []} />
+            <>
+              <ForYouSection profile={profile} related={related} sources={meta?.sources ?? []} />
+              <Suspense fallback={<FeedSkeleton />}>
+                <LiveForYou profile={profile} />
+              </Suspense>
+            </>
           ),
-          sounds: <SoundsSection profile={profile} />,
+          sounds: (
+            <Suspense fallback={<FeedSkeleton count={4} />}>
+              <LiveSounds profile={profile} />
+            </Suspense>
+          ),
           tea: (
-            <SearchLinksSection
-              heading="the tea ☕"
-              intro="what the internet's saying about the scene right now."
-              queries={profile.newsQueries}
-              toUrl={googleNews.search}
-              icon={<Newspaper aria-hidden className="size-5" />}
-            />
+            <Suspense fallback={<FeedSkeleton count={4} />}>
+              <LiveTea profile={profile} />
+            </Suspense>
           ),
           community: <CommunitySection profile={profile} />,
           watch: (
-            <SearchLinksSection
-              heading="watch"
-              intro="fresh uploads, deep dives and full parts."
-              queries={profile.youtubeQueries}
-              toUrl={youtube.search}
-              icon={<Clapperboard aria-hidden className="size-5" />}
-            />
+            <Suspense fallback={<FeedSkeleton count={3} />}>
+              <LiveWatch profile={profile} />
+            </Suspense>
           ),
           drip: (
             <DripSection

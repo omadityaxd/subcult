@@ -15,6 +15,8 @@ interface YoutubeSearchOptions {
   publishedAfter?: Date
   maxResults?: number
   order?: "date" | "relevance" | "viewCount"
+  /** "medium" = 4-20 min: excludes Shorts, which dominate unfiltered results. */
+  videoDuration?: "any" | "short" | "medium" | "long"
   timeoutMs?: number
   fetchImpl?: typeof fetch
 }
@@ -47,6 +49,7 @@ export async function searchYoutube(
     publishedAfter,
     maxResults = 8,
     order = "date",
+    videoDuration = "any",
     timeoutMs = 6_000,
     fetchImpl = fetch,
   }: YoutubeSearchOptions,
@@ -60,6 +63,7 @@ export async function searchYoutube(
     key: apiKey,
   })
   if (publishedAfter) params.set("publishedAfter", publishedAfter.toISOString())
+  if (videoDuration !== "any") params.set("videoDuration", videoDuration)
 
   const response = await fetchImpl(`https://www.googleapis.com/youtube/v3/search?${params}`, {
     signal: AbortSignal.timeout(timeoutMs),
