@@ -26,7 +26,7 @@ export function NicheHero({ profile, themeStyle, badge, mosaic }: NicheHeroProps
         palette={profile.palette}
         seed={profile.slug}
         transitionName={`cover-${profile.slug}`}
-        className="relative h-[78svh] max-h-[680px] min-h-[520px] md:h-[440px] md:min-h-0 md:rounded-3xl lg:h-[480px]"
+        className="relative h-[66svh] max-h-[580px] min-h-[480px] md:h-[440px] md:min-h-0 md:rounded-3xl lg:h-[480px]"
       >
         <div
           aria-hidden
@@ -43,7 +43,7 @@ export function NicheHero({ profile, themeStyle, badge, mosaic }: NicheHeroProps
         </Link>
 
         {mosaic ? (
-          <div className="absolute top-[calc(env(safe-area-inset-top)+4.5rem)] right-4 w-[52%] max-w-64 md:top-1/2 md:right-10 md:w-[34%] md:max-w-sm md:-translate-y-1/2">
+          <div className="absolute top-[calc(env(safe-area-inset-top)+4.5rem)] right-4 w-[58%] max-w-72 md:top-1/2 md:right-10 md:w-[34%] md:max-w-sm md:-translate-y-1/2">
             {mosaic}
           </div>
         ) : null}

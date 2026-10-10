@@ -185,7 +185,6 @@
 @utility glass {
   background-color: var(--glass);
   backdrop-filter: saturate(180%) blur(24px);
-  -webkit-backdrop-filter: saturate(180%) blur(24px);
 }
 
 @utility hairline-t {

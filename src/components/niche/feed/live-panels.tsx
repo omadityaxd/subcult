@@ -201,13 +201,14 @@ export async function HeroMosaic({ profile }: { profile: NicheProfile }) {
     .slice(0, 6)
   if (art.length < 3) return null
   return (
-    <ul aria-hidden className="grid grid-cols-3 gap-2 md:gap-3">
+    <ul aria-hidden className="grid grid-cols-3 gap-x-2 gap-y-5 md:gap-x-3 md:gap-y-8">
       {art.map((item, index) => (
         <li
           key={item.id}
           className={cn(
             "relative aspect-square overflow-hidden rounded-xl shadow-pop md:rounded-2xl",
-            index % 2 === 1 && "translate-y-3 md:translate-y-5",
+            // Stagger the middle column; the row gap leaves room so tiles never touch.
+            index % 3 === 1 && "translate-y-3 md:translate-y-5",
           )}
         >
           <MediaImage src={item.imageUrl ?? ""} alt="" sizes="160px" />
