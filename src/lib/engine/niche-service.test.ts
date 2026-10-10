@@ -33,6 +33,12 @@ function memoryRepo(seed: StoredNiche[] = []): NicheRepository {
         profile: niche.profile,
         generatedBy: niche.generatedBy,
         createdAt: new Date(0),
+        kind: "evergreen",
+        status: "active",
+        trendScore: null,
+        sources: [],
+        publishedAt: new Date(0),
+        expiresAt: null,
       }
       rows.set(row.slug, row)
       return row

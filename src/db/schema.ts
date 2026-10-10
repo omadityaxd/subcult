@@ -7,6 +7,7 @@ import {
   jsonb,
   pgPolicy,
   pgTable,
+  real,
   text,
   timestamp,
 } from "drizzle-orm/pg-core"
@@ -14,6 +15,7 @@ import { anonRole, authenticatedRole } from "drizzle-orm/supabase"
 import type { GeneratedBy } from "../lib/engine/niche-service"
 import type { NicheProfile } from "../lib/engine/profile-schema"
 import type { UsagePurpose, UsageStatus } from "../lib/engine/usage"
+import type { NicheKind, NicheStatus, TrendSource } from "../lib/niches/lifecycle"
 
 /**
  * One row per niche, keyed by normalized slug. Profiles are written once
@@ -32,9 +34,22 @@ export const niches = pgTable(
     inputTokens: integer("input_tokens").notNull().default(0),
     outputTokens: integer("output_tokens").notNull().default(0),
     createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    // Lifecycle (trend engine). Seeds and user niches are evergreen and never expire.
+    kind: text("kind").$type<NicheKind>().notNull().default("evergreen"),
+    status: text("status").$type<NicheStatus>().notNull().default("active"),
+    trendScore: real("trend_score"),
+    sources: jsonb("sources").$type<TrendSource[]>().notNull().default([]),
+    publishedAt: timestamp("published_at", { withTimezone: true }).notNull().defaultNow(),
+    expiresAt: timestamp("expires_at", { withTimezone: true }),
+    refreshedAt: timestamp("refreshed_at", { withTimezone: true }),
   },
   (table) => [
     index("niches_created_at_idx").on(table.createdAt.desc()),
+    index("niches_kind_status_published_idx").on(
+      table.kind,
+      table.status,
+      table.publishedAt.desc(),
+    ),
     pgPolicy("niches_public_read", {
       for: "select",
       to: [anonRole, authenticatedRole],

@@ -16,7 +16,9 @@
     "db:migrate": "drizzle-kit migrate",
     "db:studio": "drizzle-kit studio",
     "seed:niches": "tsx scripts/seed-niches.ts",
-    "generate:niche": "tsx scripts/generate-niche.ts"
+    "generate:niche": "tsx scripts/generate-niche.ts",
+    "trends:refresh": "tsx scripts/trends-refresh.ts",
+    "trends:upsert": "tsx scripts/trends-upsert.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.133.0",
@@ -26,6 +28,7 @@
     "class-variance-authority": "^0.7.1",
     "cn": "^0.4.0",
     "drizzle-orm": "^0.45.4",
+    "fast-xml-parser": "^5.11.2",
     "lucide-react": "^1.55.0",
     "motion": "^14.1.0",
     "next": "16.4.0",

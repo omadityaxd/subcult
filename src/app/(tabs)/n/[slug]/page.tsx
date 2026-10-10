@@ -19,7 +19,8 @@ import type { NicheProfile } from "@/lib/engine/profile-schema"
 import { env } from "@/lib/env"
 import { googleNews, youtube } from "@/lib/links"
 import { NICHE_PRESETS, type NichePreset, findSeedProfileByName } from "@/lib/niches/catalog"
-import { lookupNicheProfile } from "@/lib/niches/lookup"
+import { isNew } from "@/lib/niches/lifecycle"
+import { type NicheMeta, lookupNicheProfile } from "@/lib/niches/lookup"
 import { nicheTheme } from "@/lib/niches/theme"
 
 export function generateStaticParams() {
@@ -60,10 +61,11 @@ async function NicheContent({ params }: Pick<PageProps<"/n/[slug]">, "params">) 
   const lookup = await lookupNicheProfile(slug)
   if (lookup.status === "missing") notFound()
   if (lookup.status === "unavailable") return <NicheUnavailable />
-  return <NicheWorld profile={lookup.profile} />
+  return <NicheWorld profile={lookup.profile} meta={lookup.meta} />
 }
 
-function NicheWorld({ profile }: { profile: NicheProfile }) {
+function NicheWorld({ profile, meta }: { profile: NicheProfile; meta: NicheMeta | null }) {
+  const badge = trendBadge(meta)
   const theme = nicheTheme(profile.palette)
   const related = profile.relatedNiches
     .map((name) => findSeedProfileByName(name))
@@ -80,10 +82,12 @@ function NicheWorld({ profile }: { profile: NicheProfile }) {
   return (
     <div data-niche="" style={theme.style}>
       <NicheNavBar name={profile.name} emoji={profile.emoji} />
-      <NicheHero profile={profile} themeStyle={theme.style} />
+      <NicheHero profile={profile} themeStyle={theme.style} badge={badge} />
       <NicheTabs
         panels={{
-          "for-you": <ForYouSection profile={profile} related={related} />,
+          "for-you": (
+            <ForYouSection profile={profile} related={related} sources={meta?.sources ?? []} />
+          ),
           sounds: <SoundsSection profile={profile} />,
           tea: (
             <SearchLinksSection
@@ -127,6 +131,13 @@ function NicheWorld({ profile }: { profile: NicheProfile }) {
       />
     </div>
   )
+}
+
+/** Lifecycle label for DB niches; curated seeds get none. */
+function trendBadge(meta: NicheMeta | null): string | null {
+  if (!meta || meta.kind !== "trending") return null
+  if (meta.status === "archived") return "🧊 this trend cooled off"
+  return isNew(meta.publishedAt) ? "🔥 new" : "🔥 trending"
 }
 
 function NicheUnavailable() {

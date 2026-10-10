@@ -5,6 +5,8 @@ import { JoinButton } from "./join-button"
 interface NicheHeroProps {
   profile: NicheProfile
   themeStyle: CSSProperties
+  /** Lifecycle label, e.g. "🔥 new" for fresh trends. */
+  badge?: string | null
 }
 
 /**
@@ -12,7 +14,7 @@ interface NicheHeroProps {
  * Text sits on a scrim that fades into the page background, so it keeps
  * contrast whatever the palette is.
  */
-export function NicheHero({ profile, themeStyle }: NicheHeroProps) {
+export function NicheHero({ profile, themeStyle, badge }: NicheHeroProps) {
   return (
     <section className="relative -mt-[calc(var(--nav-bar-height)+env(safe-area-inset-top))] overflow-hidden">
       <div
@@ -34,6 +36,11 @@ export function NicheHero({ profile, themeStyle }: NicheHeroProps) {
         <span aria-hidden className="block text-[64px] leading-none drop-shadow-lg">
           {profile.emoji}
         </span>
+        {badge ? (
+          <span className="mt-4 inline-block rounded-full bg-background/80 px-3 py-1 text-[13px] font-semibold">
+            {badge}
+          </span>
+        ) : null}
         <h1 className="mt-5 font-display text-[42px] leading-[0.95] font-extrabold tracking-tight">
           {profile.name}
         </h1>

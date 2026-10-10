@@ -1,19 +1,22 @@
-import { Mic2 } from "lucide-react"
+import { Mic2, Newspaper } from "lucide-react"
 import Link from "next/link"
 import type { NicheProfile } from "@/lib/engine/profile-schema"
 import type { NichePreset } from "@/lib/niches/catalog"
+import type { TrendSource } from "@/lib/niches/lifecycle"
 import { spotify } from "@/lib/links"
 import { LinkCard, SectionHeading } from "../link-card"
 
 interface ForYouSectionProps {
   profile: NicheProfile
   related: readonly NichePreset[]
+  /** Evidence for trending niches (empty for evergreen ones). */
+  sources: readonly TrendSource[]
 }
 
 const STARTER_ARTISTS = 3
 
 /** The niche at a glance: what it is, its vibe, where to start, where to go next. */
-export function ForYouSection({ profile, related }: ForYouSectionProps) {
+export function ForYouSection({ profile, related, sources }: ForYouSectionProps) {
   return (
     <div className="space-y-8">
       <section>
@@ -26,6 +29,23 @@ export function ForYouSection({ profile, related }: ForYouSectionProps) {
           ))}
         </ul>
       </section>
+
+      {sources.length > 0 ? (
+        <section>
+          <SectionHeading>why it&apos;s trending 📈</SectionHeading>
+          <div className="space-y-2">
+            {sources.map((source) => (
+              <LinkCard
+                key={source.url}
+                href={source.url}
+                title={source.title}
+                subtitle={new URL(source.url).hostname.replace(/^www./, "")}
+                icon={<Newspaper aria-hidden className="size-5" />}
+              />
+            ))}
+          </div>
+        </section>
+      ) : null}
 
       <section>
         <SectionHeading>start here 🎧</SectionHeading>

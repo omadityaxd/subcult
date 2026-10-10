@@ -1,10 +1,11 @@
 import { type Logger, errorMessage } from "@/lib/log"
+import type { NicheKind, NicheStatus, TrendSource } from "@/lib/niches/lifecycle"
 import type { GenerationResult } from "./generate"
 import type { NicheProfile } from "./profile-schema"
 import { parseNicheInput } from "./slug"
 import { type UsageEntry, type UsageLog, usageFromStats } from "./usage"
 
-export const GENERATED_BY = ["seed", "user", "anon"] as const
+export const GENERATED_BY = ["seed", "user", "anon", "trend"] as const
 export type GeneratedBy = (typeof GENERATED_BY)[number]
 
 export interface StoredNiche {
@@ -13,6 +14,12 @@ export interface StoredNiche {
   profile: NicheProfile
   generatedBy: GeneratedBy
   createdAt: Date
+  kind: NicheKind
+  status: NicheStatus
+  trendScore: number | null
+  sources: TrendSource[]
+  publishedAt: Date
+  expiresAt: Date | null
 }
 
 export interface NewNiche {

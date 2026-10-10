@@ -51,13 +51,19 @@ export async function upsertSeedProfiles(
   }
 }
 
-function toStoredNiche(row: NicheRow): StoredNiche {
+export function toStoredNiche(row: NicheRow): StoredNiche {
   return {
     slug: row.slug,
     name: row.name,
     profile: row.profile,
     generatedBy: row.generatedBy,
     createdAt: row.createdAt,
+    kind: row.kind,
+    status: row.status,
+    trendScore: row.trendScore,
+    sources: row.sources,
+    publishedAt: row.publishedAt,
+    expiresAt: row.expiresAt,
   }
 }
 

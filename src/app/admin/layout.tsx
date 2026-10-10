@@ -17,6 +17,9 @@ export default function AdminLayout({ children }: LayoutProps<"/admin">) {
           <Link href="/admin/usage" className="hover:text-foreground">
             usage
           </Link>
+          <Link href="/admin/niches" className="hover:text-foreground">
+            niches
+          </Link>
         </nav>
       </header>
       <main className="pb-10">{children}</main>

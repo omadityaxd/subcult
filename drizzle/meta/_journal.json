@@ -15,6 +15,13 @@
       "when": 1791619027040,
       "tag": "0001_usage_ledger",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1791620769557,
+      "tag": "0002_trend_lifecycle",
+      "breakpoints": true
     }
   ]
 }
