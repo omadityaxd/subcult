@@ -20,6 +20,8 @@ const serverEnvSchema = z.object({
   NEXT_PUBLIC_SUPABASE_ANON_KEY: optional,
   SUPABASE_SERVICE_ROLE_KEY: optional,
   DATABASE_URL: optional,
+  /** Session pooler / direct connection, used only by drizzle-kit migrations. */
+  DIRECT_URL: optional,
   UPSTASH_REDIS_REST_URL: optionalUrl,
   UPSTASH_REDIS_REST_TOKEN: optional,
   SPOTIFY_CLIENT_ID: optional,
