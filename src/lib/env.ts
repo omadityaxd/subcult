@@ -76,4 +76,23 @@ export const features = {
 
 export type Feature = keyof typeof features
 
-export const siteUrl = env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"
+/**
+ * Absolute origin for metadata (OG image URLs, share links). Explicit config
+ * wins; on Vercel the production domain (or the preview URL) is the fallback,
+ * so share cards never point at localhost.
+ */
+export function resolveSiteUrl(source: Record<string, string | undefined>): string {
+  if (source.NEXT_PUBLIC_SITE_URL) return source.NEXT_PUBLIC_SITE_URL
+  const vercelHost =
+    source.VERCEL_ENV === "production"
+      ? (source.VERCEL_PROJECT_PRODUCTION_URL ?? source.VERCEL_URL)
+      : source.VERCEL_URL
+  return vercelHost ? `https://${vercelHost}` : "http://localhost:3000"
+}
+
+export const siteUrl = resolveSiteUrl({
+  NEXT_PUBLIC_SITE_URL: env.NEXT_PUBLIC_SITE_URL,
+  VERCEL_ENV: process.env.VERCEL_ENV,
+  VERCEL_PROJECT_PRODUCTION_URL: process.env.VERCEL_PROJECT_PRODUCTION_URL,
+  VERCEL_URL: process.env.VERCEL_URL,
+})
