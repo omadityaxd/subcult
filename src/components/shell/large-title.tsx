@@ -6,49 +6,44 @@ import type { ReactNode } from "react"
 interface LargeTitleProps {
   title: string
   subtitle?: string
-  leading?: ReactNode
+  overline?: string
   trailing?: ReactNode
 }
 
-/** Distance (px) over which the large title hands off to the compact nav bar. */
-const COLLAPSE_START = 28
-const COLLAPSE_END = 52
+const COLLAPSE_START = 40
+const COLLAPSE_END = 72
 
 /**
- * iOS large-title nav bar: a big display title that scrolls away while a
- * compact, frosted bar fades in at the top.
+ * Editorial page header: overline + serif display title. On phones a compact
+ * frosted bar fades in once the big title scrolls away (iOS large title).
  */
-export function LargeTitle({ title, subtitle, leading, trailing }: LargeTitleProps) {
+export function LargeTitle({ title, subtitle, overline, trailing }: LargeTitleProps) {
   const { scrollY } = useScroll()
   const compactOpacity = useTransform(scrollY, [COLLAPSE_START, COLLAPSE_END], [0, 1])
-  const largeOpacity = useTransform(scrollY, [0, COLLAPSE_END], [1, 0])
 
   return (
     <>
-      <header className="sticky top-0 z-30 pt-safe">
-        <motion.div
-          aria-hidden
-          style={{ opacity: compactOpacity }}
-          className="absolute inset-0 glass hairline-b"
-        />
-        <div className="relative grid h-(--nav-bar-height) grid-cols-[1fr_auto_1fr] items-center px-4">
-          <div className="justify-self-start">{leading}</div>
-          <motion.span
-            aria-hidden
-            style={{ opacity: compactOpacity }}
-            className="truncate text-[17px] font-semibold"
-          >
-            {title}
-          </motion.span>
-          <div className="justify-self-end">{trailing}</div>
+      <motion.header
+        aria-hidden
+        style={{ opacity: compactOpacity }}
+        className="pointer-events-none fixed inset-x-0 top-0 z-30 pt-safe md:hidden"
+      >
+        <div className="grid h-(--nav-bar-height) place-items-center glass hairline-b">
+          <span className="text-headline font-semibold">{title}</span>
         </div>
-      </header>
-      <motion.div style={{ opacity: largeOpacity }} className="px-4 pt-1 pb-4">
-        <h1 className="font-display text-[34px] leading-[1.05] font-bold tracking-tight">
-          {title}
-        </h1>
-        {subtitle ? <p className="mt-1 text-[15px] text-muted-foreground">{subtitle}</p> : null}
-      </motion.div>
+      </motion.header>
+      <div className="container-page flex items-end justify-between gap-4 pt-[calc(env(safe-area-inset-top)+2.5rem)] pb-6 md:pt-14 md:pb-8">
+        <div className="min-w-0">
+          {overline ? (
+            <p className="mb-2 text-overline font-medium text-muted-foreground uppercase">
+              {overline}
+            </p>
+          ) : null}
+          <h1 className="font-serif text-title-1 italic">{title}</h1>
+          {subtitle ? <p className="mt-2 text-callout text-muted-foreground">{subtitle}</p> : null}
+        </div>
+        {trailing ? <div className="shrink-0">{trailing}</div> : null}
+      </div>
     </>
   )
 }

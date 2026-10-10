@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next"
 import { Geist, Instrument_Serif } from "next/font/google"
 import { MotionProvider } from "@/components/providers/motion-provider"
-import { AppFrame } from "@/components/shell/app-frame"
 import { siteUrl } from "@/lib/env"
 import { THEME_BOOT_SCRIPT } from "@/lib/theme"
 import "./globals.css"
@@ -51,9 +50,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <script dangerouslySetInnerHTML={{ __html: THEME_BOOT_SCRIPT }} />
       </head>
       <body>
-        <MotionProvider>
-          <AppFrame>{children}</AppFrame>
-        </MotionProvider>
+        <MotionProvider>{children}</MotionProvider>
       </body>
     </html>
   )
