@@ -1,0 +1,96 @@
+{
+  "slug": "dark-streetwear",
+  "schemaVersion": 1,
+  "name": "dark streetwear",
+  "emoji": "🌑",
+  "tagline": "every piece is black and somehow they're all different",
+  "description": "Everyday streetwear in a blackout palette: heavyweight hoodies, cargos, technical layers and boxy, oversized cuts. Less theatrical than vamp, more wearable than avant-garde. Fear of God, Y-3 and 1017 ALYX 9SM set the tone; your friend in all black is a member.",
+  "palette": ["#060606", "#151515", "#2b2b2b", "#5e5e5e", "#e6e6e6"],
+  "vibeWords": ["all black", "oversized", "technical", "minimal", "heavyweight", "boxy"],
+  "artists": [
+    {
+      "name": "Playboi Carti",
+      "why": "all-black off-duty fits"
+    },
+    {
+      "name": "Ken Carson",
+      "why": "black layers, every day"
+    },
+    {
+      "name": "Destroy Lonely",
+      "why": "monochrome done slow"
+    },
+    {
+      "name": "Yeat",
+      "why": "oversized black everything"
+    },
+    {
+      "name": "Travis Scott",
+      "why": "muted, technical streetwear at scale"
+    },
+    {
+      "name": "Future",
+      "why": "black-on-black luxury streetwear"
+    },
+    {
+      "name": "Che",
+      "why": "blackout fits for blackout bass"
+    },
+    {
+      "name": "Homixide Gang",
+      "why": "stage-ready all black"
+    }
+  ],
+  "spotifyQueries": ["dark trap", "rage rap", "opium"],
+  "subreddits": ["streetwear", "malefashion", "techwearclothing"],
+  "newsQueries": ["Fear of God collection", "Y-3 collection", "ALYX collection"],
+  "youtubeQueries": [
+    "all black outfit ideas",
+    "dark streetwear lookbook",
+    "how to style all black"
+  ],
+  "brands": [
+    {
+      "name": "Fear of God",
+      "priceTier": "$$$",
+      "why": "the elevated-basics blueprint"
+    },
+    {
+      "name": "Y-3",
+      "priceTier": "$$$",
+      "why": "Yohji Yamamoto x adidas in black"
+    },
+    {
+      "name": "1017 ALYX 9SM",
+      "priceTier": "$$$",
+      "why": "buckles and technical edge"
+    },
+    {
+      "name": "Rick Owens",
+      "priceTier": "$$$",
+      "why": "DRKSHDW for every day"
+    },
+    {
+      "name": "Entire Studios",
+      "priceTier": "$$",
+      "why": "boxy, washed-black basics"
+    },
+    {
+      "name": "Balenciaga",
+      "priceTier": "$$$",
+      "why": "the oversized black hoodie"
+    }
+  ],
+  "shopKeywords": [
+    "black heavyweight hoodie",
+    "black cargo pants",
+    "oversized black tee",
+    "black puffer",
+    "black sneakers",
+    "utility vest"
+  ],
+  "pinterestQueries": ["all black streetwear", "dark streetwear outfit", "monochrome black outfit"],
+  "instagramHashtags": ["allblack", "darkstreetwear", "streetwear", "blackfit"],
+  "tiktokQueries": ["all black outfit", "dark streetwear", "black fits"],
+  "relatedNiches": ["techwear", "dark avant-garde", "vamp"]
+}

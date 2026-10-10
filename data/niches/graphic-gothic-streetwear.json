@@ -1,0 +1,92 @@
+{
+  "slug": "graphic-gothic-streetwear",
+  "schemaVersion": 1,
+  "name": "graphic gothic streetwear",
+  "emoji": "✝️",
+  "tagline": "tribal print long sleeve, cross on everything, zero subtlety",
+  "description": "Loud, illustrated streetwear with a gothic edge: tribal and floral graphics on long sleeves, ornate crosses, rhinestones and statement silver. It borrows from 2000s Affliction and Ed Hardy, then filters it through the underground rap uniform. New labels like Kai Cenat's VIVET lean right into it.",
+  "palette": ["#070607", "#211a1c", "#5c4a3e", "#c9b28a", "#f4efe6"],
+  "vibeWords": ["tribal", "crosses", "rhinestones", "ornate", "loud", "illustrated"],
+  "artists": [
+    {
+      "name": "OsamaSon",
+      "why": "graphic long sleeves on every stage"
+    },
+    {
+      "name": "Che",
+      "why": "gothic graphics to match the bass"
+    },
+    {
+      "name": "Nettspend",
+      "why": "the scene's most-copied fits"
+    },
+    {
+      "name": "Ken Carson",
+      "why": "crosses, leather and print"
+    },
+    {
+      "name": "Yeat",
+      "why": "statement pieces only"
+    },
+    {
+      "name": "Lil Uzi Vert",
+      "why": "the original rockstar-rapper wardrobe"
+    },
+    {
+      "name": "Fakemink",
+      "why": "the London version of the look"
+    },
+    {
+      "name": "Xaviersobased",
+      "why": "jerk's take on graphic layering"
+    }
+  ],
+  "spotifyQueries": ["rage rap", "underground rap 2026", "opium"],
+  "subreddits": ["streetwear", "malefashion", "playboicarti"],
+  "newsQueries": ["Vivet Kai Cenat", "gothic streetwear", "tribal graphic fashion"],
+  "youtubeQueries": ["gothic streetwear haul", "tribal graphic outfit", "vivet clothing"],
+  "brands": [
+    {
+      "name": "VIVET",
+      "priceTier": "$$$",
+      "why": "Kai Cenat's label: tribal graphics and gothic crosses"
+    },
+    {
+      "name": "Chrome Hearts",
+      "priceTier": "$$$",
+      "why": "the gothic hardware benchmark"
+    },
+    {
+      "name": "Affliction",
+      "priceTier": "$$",
+      "why": "the 2000s tribal-print original"
+    },
+    {
+      "name": "Ed Hardy",
+      "priceTier": "$$",
+      "why": "rhinestone tattoo graphics, revived"
+    },
+    {
+      "name": "Hellstar",
+      "priceTier": "$$",
+      "why": "graphic-heavy underground staple"
+    },
+    {
+      "name": "Who Decides War",
+      "priceTier": "$$$",
+      "why": "ornate stained-glass denim"
+    }
+  ],
+  "shopKeywords": [
+    "tribal graphic long sleeve",
+    "cross necklace",
+    "rhinestone tee",
+    "studded belt",
+    "flared denim",
+    "leather bag"
+  ],
+  "pinterestQueries": ["tribal graphic outfit", "gothic streetwear", "cross jewelry streetwear"],
+  "instagramHashtags": ["gothicstreetwear", "tribalprint", "vivet", "streetwear"],
+  "tiktokQueries": ["tribal graphic fashion", "gothic streetwear", "vivet"],
+  "relatedNiches": ["vamp", "underground graphic streetwear", "mcbling revival", "goth"]
+}

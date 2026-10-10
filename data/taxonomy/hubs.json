@@ -1,0 +1,53 @@
+[
+  {
+    "slug": "underground",
+    "name": "Underground Internet Culture",
+    "aliases": ["underground", "underground culture"],
+    "description": "The scenes the algorithm finds last: new-gen rap, internet-born microgenres and the fashion that dresses them.",
+    "children": ["underground-music", "underground-internet", "underground-fashion"]
+  },
+  {
+    "slug": "underground-music",
+    "name": "Music",
+    "aliases": [],
+    "description": "Rage, jerk, plugg and tread: the new underground, plus the rap lineages it grew out of.",
+    "children": [
+      "new-gen-underground-rap",
+      "cloud-rap",
+      "experimental-rap",
+      "underground-rap",
+      "trap"
+    ]
+  },
+  {
+    "slug": "underground-internet",
+    "name": "Internet Culture",
+    "aliases": [],
+    "description": "Scenes born in Discord servers, SoundCloud reposts and TikTok edits.",
+    "children": ["digicore", "hyperpop", "sigilkore", "glitchcore"]
+  },
+  {
+    "slug": "underground-fashion",
+    "name": "Fashion & Aesthetics",
+    "aliases": ["underground fashion"],
+    "description": "Vamp, archive, avant-garde and graphic streetwear: what the scene actually wears.",
+    "children": [
+      "vamp",
+      "graphic-gothic-streetwear",
+      "dark-streetwear",
+      "dark-avant-garde",
+      "archive-fashion",
+      "underground-graphic-streetwear",
+      "diy-reworked",
+      "mcbling-revival",
+      "underground-sneaker-culture"
+    ]
+  },
+  {
+    "slug": "alt-metal-revival",
+    "name": "Alt-Metal Revival",
+    "aliases": ["alt metal revival", "nu metal revival scene"],
+    "description": "Deftones on repeat, drop-tuned guitars and the shoegaze haze that grew out of them.",
+    "children": ["deftones-core", "nu-gaze"]
+  }
+]

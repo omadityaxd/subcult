@@ -65,6 +65,7 @@ export function StoriesRow({ niches, day }: { niches: readonly HomeNiche[]; day:
                 slug={niche.slug}
                 name={niche.name}
                 palette={niche.palette}
+                imageUrl={niche.imageUrl}
                 unseen={seen[niche.slug] !== day}
                 className="transition-transform group-active:scale-95"
               />

@@ -10,12 +10,15 @@ import { createFeedDeps } from "@/lib/feed/server"
 import type { FeedItem } from "@/lib/feed/types"
 import { googleNews, spotify, youtube } from "@/lib/links"
 import { log } from "@/lib/log"
+import { TAXONOMY, artistSpotifyId } from "@/lib/niches/catalog"
 import { getRedis } from "@/lib/redis"
+import { tagFeedItems } from "@/lib/taxonomy/tagging"
 import { cn } from "@/lib/utils"
 import { LinkList } from "../link-card"
 import { SoundsSection } from "../sections/sounds-section"
 import { FeedCard } from "./feed-card"
 import { ProgressiveList } from "./progressive-list"
+import { TaggedFeed } from "./tagged-feed"
 
 /** One feed build per request, shared by every tab, the hero and the rail. */
 export const getNicheFeed = cache(async (profile: NicheProfile): Promise<NicheFeed> => {
@@ -26,6 +29,7 @@ export const getNicheFeed = cache(async (profile: NicheProfile): Promise<NicheFe
       spotifyClientId: env.SPOTIFY_CLIENT_ID,
       spotifyClientSecret: env.SPOTIFY_CLIENT_SECRET,
       youtubeApiKey: env.YOUTUBE_API_KEY,
+      artistIdFor: artistSpotifyId,
       redis: getRedis(),
       logger: log,
     }),
@@ -51,13 +55,15 @@ function Masonry({
   )
 }
 
+/** The ranked feed, with the niche's tag chips (only those that match something) as filters. */
 export async function LiveForYou({ profile }: { profile: NicheProfile }) {
   const feed = await getNicheFeed(profile)
   if (feed.items.length === 0) return null
+  const tagged = tagFeedItems(feed.items, TAXONOMY.tagsOf(profile.slug))
   return (
     <section className="mt-10">
       <SectionHeader overline="Ranked for you" title="Latest" />
-      <Masonry items={feed.items} now={feed.generatedAt} />
+      <TaggedFeed items={tagged.items} tags={tagged.tags} now={feed.generatedAt} />
     </section>
   )
 }
@@ -196,9 +202,14 @@ export async function LiveWatch({ profile }: { profile: NicheProfile }) {
 /** Hero mosaic: the niche's album art, when Spotify is configured. */
 export async function HeroMosaic({ profile }: { profile: NicheProfile }) {
   const feed = await getNicheFeed(profile)
-  const art = (feed.bySource.spotify ?? [])
+  const albumArt = (feed.bySource.spotify ?? [])
     .filter((item) => item.imageUrl && item.type !== "artist")
-    .slice(0, 6)
+    .map((item) => ({ id: item.id, imageUrl: item.imageUrl as string }))
+  // Spotify down or rate-limited: the verified artist photos still make a mosaic.
+  const photos = TAXONOMY.artistsOf(profile.slug).flatMap((artist) =>
+    artist.imageUrl ? [{ id: artist.slug, imageUrl: artist.imageUrl }] : [],
+  )
+  const art = (albumArt.length >= 3 ? albumArt : photos).slice(0, 6)
   if (art.length < 3) return null
   return (
     <ul aria-hidden className="grid grid-cols-3 gap-x-2 gap-y-5 md:gap-x-3 md:gap-y-8">
@@ -211,7 +222,7 @@ export async function HeroMosaic({ profile }: { profile: NicheProfile }) {
             index % 3 === 1 && "translate-y-3 md:translate-y-5",
           )}
         >
-          <MediaImage src={item.imageUrl ?? ""} alt="" sizes="160px" />
+          <MediaImage src={item.imageUrl} alt="" sizes="160px" />
         </li>
       ))}
     </ul>

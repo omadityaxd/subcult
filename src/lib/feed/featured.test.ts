@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest"
-import { SEED_PROFILES } from "@/lib/niches/catalog"
+import { SEED_PROFILES, TAXONOMY } from "@/lib/niches/catalog"
 import { featuredOrder, utcDay } from "./featured"
 
 describe("featuredOrder", () => {
@@ -15,7 +15,14 @@ describe("featuredOrder", () => {
     expect(night).toEqual(morning)
   })
 
-  it("reshuffles on a new day", () => {
+  it("leads with the featured cluster in curated order", () => {
+    const featured = TAXONOMY.featured()
+    const slugs = featuredOrder(new Date("2026-10-10T12:00:00Z")).map((n) => n.slug)
+    expect(featured.length).toBeGreaterThan(0)
+    expect(slugs.slice(0, featured.length)).toEqual(featured)
+  })
+
+  it("reshuffles the non-featured tail on a new day", () => {
     const today = featuredOrder(new Date("2026-10-10T12:00:00Z")).map((n) => n.slug)
     const tomorrow = featuredOrder(new Date("2026-10-11T12:00:00Z")).map((n) => n.slug)
     expect(tomorrow).not.toEqual(today)

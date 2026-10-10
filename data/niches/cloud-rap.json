@@ -1,0 +1,93 @@
+{
+  "slug": "cloud-rap",
+  "schemaVersion": 1,
+  "name": "cloud rap",
+  "emoji": "🌫️",
+  "tagline": "ethereal beats, sad lyrics, an arizona iced tea in hand",
+  "description": "Hazy, reverb-soaked rap over dreamy, sample-washed beats. Lil B and Clams Casino gave it its sound around 2010, and Sweden's Yung Lean and Drain Gang turned it into a whole visual world of melancholy and glossy internet nostalgia.",
+  "palette": ["#0d0f14", "#2a3348", "#8a9cc4", "#d6def0", "#f8f9fc"],
+  "vibeWords": ["hazy", "ethereal", "melancholy", "reverb", "dreamy", "sad boys", "drifting"],
+  "artists": [
+    {
+      "name": "Lil B",
+      "why": "the based god who started the haze"
+    },
+    {
+      "name": "Clams Casino",
+      "why": "the producer who defined cloud rap's sound"
+    },
+    {
+      "name": "A$AP Rocky",
+      "why": "LiveLoveA$AP took cloud rap mainstream"
+    },
+    {
+      "name": "Main Attrakionz",
+      "why": "Bay Area pioneers of the style"
+    },
+    {
+      "name": "Yung Lean",
+      "why": "Sad Boys and Ginseng Strip 2002"
+    },
+    {
+      "name": "Bladee",
+      "why": "Drain Gang's ethereal frontman"
+    },
+    {
+      "name": "Ecco2k",
+      "why": "angelic vocals and art-house visuals"
+    },
+    {
+      "name": "Thaiboy Digital",
+      "why": "Drain Gang's Thai-Swedish member"
+    },
+    {
+      "name": "Bones",
+      "why": "TeamSESH's endless, foggy catalogue"
+    },
+    {
+      "name": "Lucki",
+      "why": "drug-hazed Chicago introspection"
+    },
+    {
+      "name": "Black Kray",
+      "why": "Goth Money's lo-fi cloud rap"
+    }
+  ],
+  "spotifyQueries": ["cloud rap", "drain gang", "sad boys", "cloud rap classics"],
+  "subreddits": ["DrainGang", "sadboys", "hiphopheads"],
+  "newsQueries": ["Drain Gang", "Yung Lean", "Bladee album", "cloud rap"],
+  "youtubeQueries": ["cloud rap mix", "Bladee live", "Yung Lean live", "Clams Casino beats"],
+  "brands": [
+    {
+      "name": "Stüssy",
+      "priceTier": "$$",
+      "why": "Sad Boys-era surf-skate staple"
+    },
+    {
+      "name": "Salomon",
+      "priceTier": "$$",
+      "why": "Drain Gang's trail shoe of choice"
+    },
+    {
+      "name": "Maison Margiela",
+      "priceTier": "$$$",
+      "why": "minimal, moody, archival"
+    },
+    {
+      "name": "Nike",
+      "priceTier": "$$",
+      "why": "classic Tns and track suits"
+    }
+  ],
+  "shopKeywords": [
+    "bucket hat",
+    "track jacket",
+    "trail sneakers",
+    "silver chain",
+    "oversized fleece"
+  ],
+  "pinterestQueries": ["drain gang aesthetic", "cloud rap aesthetic", "yung lean aesthetic"],
+  "instagramHashtags": ["cloudrap", "draingang", "sadboys", "bladee"],
+  "tiktokQueries": ["cloud rap", "drain gang", "bladee"],
+  "relatedNiches": ["sigilkore", "lo-fi", "soundcloud rap", "vaporwave"]
+}

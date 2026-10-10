@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import { Cover } from "@/components/ds/cover"
 import { SectionHeader } from "@/components/ds/section-header"
+import { FollowingRail } from "@/components/me/following-rail"
 import { SavedGrid } from "@/components/me/saved-grid"
 import { LargeTitle } from "@/components/shell/large-title"
 import { Screen } from "@/components/shell/screen"
@@ -30,6 +31,8 @@ export default function MePage() {
         </section>
 
         <NicheCardTeaser />
+
+        <FollowingRail />
 
         <section>
           <SectionHeader title="Saved" />

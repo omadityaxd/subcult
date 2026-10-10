@@ -1,0 +1,91 @@
+{
+  "slug": "underground-sneaker-culture",
+  "schemaVersion": 1,
+  "name": "underground sneaker culture",
+  "emoji": "👟",
+  "tagline": "if you've heard of the shoe, it's already over",
+  "description": "Sneakers beyond the Jordan release calendar: Rick Owens Ramones and Geobaskets, Margiela GATs and Tabis, trail Salomons, Asics from the archive and designer collabs nobody else at school recognizes. It values silhouette and obscurity over hype.",
+  "palette": ["#0b0b0b", "#272522", "#5c584f", "#cfc8ba", "#f6f4ef"],
+  "vibeWords": ["obscure", "silhouette", "designer", "trail", "archive", "beat-up"],
+  "artists": [
+    {
+      "name": "Playboi Carti",
+      "why": "Rick Owens Geobaskets everywhere"
+    },
+    {
+      "name": "A$AP Rocky",
+      "why": "designer sneakers before it was common"
+    },
+    {
+      "name": "Lil Uzi Vert",
+      "why": "rare pairs as a personality"
+    },
+    {
+      "name": "Ken Carson",
+      "why": "Rick sneakers as a uniform"
+    },
+    {
+      "name": "Bladee",
+      "why": "Salomon and trail-shoe fan favorite"
+    },
+    {
+      "name": "Frank Ocean",
+      "why": "understated, rare pairs"
+    },
+    {
+      "name": "Yeat",
+      "why": "chunky statement sneakers"
+    },
+    {
+      "name": "Travis Scott",
+      "why": "collab culture at its most collected"
+    }
+  ],
+  "spotifyQueries": ["underground rap 2026", "drain gang", "opium"],
+  "subreddits": ["Sneakers", "rickowens", "malefashion"],
+  "newsQueries": ["Rick Owens sneaker", "Salomon collab", "Margiela Tabi"],
+  "youtubeQueries": ["Rick Owens Geobasket review", "Salomon XT-6 styling", "Margiela Tabi review"],
+  "brands": [
+    {
+      "name": "Rick Owens",
+      "priceTier": "$$$",
+      "why": "Geobaskets, Ramones and Jumbo laces"
+    },
+    {
+      "name": "Maison Margiela",
+      "priceTier": "$$$",
+      "why": "GATs and the split-toe Tabi"
+    },
+    {
+      "name": "Salomon",
+      "priceTier": "$$",
+      "why": "trail shoes turned fashion staple"
+    },
+    {
+      "name": "Asics",
+      "priceTier": "$$",
+      "why": "archive runners like the Gel-Kayano 14"
+    },
+    {
+      "name": "Mihara Yasuhiro",
+      "priceTier": "$$$",
+      "why": "melted, sculpted soles"
+    },
+    {
+      "name": "Bape",
+      "priceTier": "$$$",
+      "why": "Bapestas with a cult following"
+    }
+  ],
+  "shopKeywords": [
+    "trail running sneakers",
+    "split toe shoes",
+    "high top designer sneakers",
+    "chunky sole sneakers",
+    "jumbo laces"
+  ],
+  "pinterestQueries": ["designer sneakers outfit", "rick owens sneakers outfit", "salomon outfit"],
+  "instagramHashtags": ["sneakers", "rickowens", "salomon", "tabi"],
+  "tiktokQueries": ["designer sneakers", "rick owens ramones", "salomon xt6"],
+  "relatedNiches": ["sneakerheads", "archive fashion", "dark avant-garde"]
+}

@@ -1,56 +1,17 @@
-import { z } from "zod"
 import type { NicheProfile } from "@/lib/engine/profile-schema"
+import {
+  type SpotifyClient,
+  type SpotifyClientOptions,
+  type SpotifySearchResponse,
+  createSpotifyClient,
+} from "@/lib/sources/spotify"
 import type { FeedItem, Fetcher } from "../types"
 
-/**
- * Spotify Web API, Client Credentials + /search only. Since the Feb 2026
- * dev-mode changes, search is capped at limit=10 and recommendations, related
- * artists, top tracks, new releases and browse categories are unavailable.
- */
+/** Niche feed from Spotify search (see lib/sources/spotify for the API limits). */
 const PLAYLIST_LIMIT = 6 // ≤ 10 (dev-mode cap)
 const TRACKS_PER_ARTIST = 2
 const QUERIES_USED = 2
 const ARTISTS_LOOKED_UP = 4
-const TOKEN_REFRESH_MARGIN_MS = 60_000
-
-const imageSchema = z.object({ url: z.string() })
-const urlsSchema = z.object({ spotify: z.string() })
-
-const trackSchema = z.object({
-  id: z.string(),
-  name: z.string(),
-  external_urls: urlsSchema,
-  artists: z.array(z.object({ name: z.string() })),
-  album: z.object({
-    name: z.string(),
-    images: z.array(imageSchema).default([]),
-    release_date: z.string().optional(),
-  }),
-})
-const playlistSchema = z.object({
-  id: z.string(),
-  name: z.string(),
-  description: z.string().nullish(),
-  external_urls: urlsSchema,
-  images: z.array(imageSchema).nullish(),
-  owner: z.object({ display_name: z.string().nullish() }).nullish(),
-})
-const artistSchema = z.object({
-  id: z.string(),
-  name: z.string(),
-  external_urls: urlsSchema,
-  images: z.array(imageSchema).nullish(),
-})
-
-// Spotify sometimes returns null entries in playlist results; tolerate them.
-export const searchResponseSchema = z.object({
-  tracks: z.object({ items: z.array(trackSchema.nullable()) }).optional(),
-  playlists: z.object({ items: z.array(playlistSchema.nullable()) }).optional(),
-  artists: z.object({ items: z.array(artistSchema.nullable()) }).optional(),
-})
-export type SpotifySearchResponse = z.infer<typeof searchResponseSchema>
-
-const tokenSchema = z.object({ access_token: z.string(), expires_in: z.number() })
 
 const compact = <T>(items: readonly (T | null)[] | undefined): T[] =>
   (items ?? []).filter((item): item is T => item !== null)
@@ -61,6 +22,8 @@ function releaseDate(value: string | undefined): string | null {
   const date = new Date(value.length === 4 ? `${value}-01-01` : value)
   return Number.isNaN(date.getTime()) ? null : date.toISOString()
 }
+
+export { searchResponseSchema } from "@/lib/sources/spotify"
 
 export function mapSearchResponse(response: SpotifySearchResponse): FeedItem[] {
   const base = { source: "spotify" as const, score: 0 }
@@ -101,57 +64,46 @@ export function mapSearchResponse(response: SpotifySearchResponse): FeedItem[] {
   return [...tracks, ...playlists, ...artists]
 }
 
-interface SpotifyOptions {
-  clientId: string
-  clientSecret: string
-  fetchImpl?: typeof fetch
-  market?: string
+interface SpotifyOptions extends SpotifyClientOptions {
+  client?: SpotifyClient
+  /** Verified Spotify ID for a curated artist name, when the taxonomy knows it. */
+  artistIdFor?: (name: string) => string | undefined
 }
 
-export function spotifyFetcher({
-  clientId,
-  clientSecret,
-  fetchImpl = fetch,
-  market = "US",
-}: SpotifyOptions): Fetcher {
-  let token: { value: string; expiresAt: number } | null = null
-  // Parallel searches must share one token request, not each start their own.
-  let pending: Promise<string> | null = null
-
-  function accessToken(): Promise<string> {
-    if (token && token.expiresAt - TOKEN_REFRESH_MARGIN_MS > Date.now()) {
-      return Promise.resolve(token.value)
-    }
-    pending ??= requestToken().finally(() => {
-      pending = null
-    })
-    return pending
+/** Keep only the tracks (and artist card) that belong to this exact Spotify artist. */
+export function onlyArtist(
+  response: SpotifySearchResponse,
+  artistId: string,
+): SpotifySearchResponse {
+  return {
+    ...response,
+    tracks: response.tracks && {
+      items: response.tracks.items
+        .filter((track) => track?.artists.some((artist) => artist.id === artistId))
+        .slice(0, TRACKS_PER_ARTIST),
+    },
+    artists: response.artists && {
+      items: response.artists.items.filter((artist) => artist?.id === artistId).slice(0, 1),
+    },
   }
+}
 
-  async function requestToken(): Promise<string> {
-    const response = await fetchImpl("https://accounts.spotify.com/api/token", {
-      method: "POST",
-      headers: {
-        Authorization: `Basic ${btoa(`${clientId}:${clientSecret}`)}`,
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body: "grant_type=client_credentials",
-    })
-    if (!response.ok) throw new Error(`Spotify token ${response.status}`)
-    const parsed = tokenSchema.parse(await response.json())
-    token = { value: parsed.access_token, expiresAt: Date.now() + parsed.expires_in * 1000 }
-    return token.value
+export function spotifyFetcher({ client, artistIdFor, ...options }: SpotifyOptions): Fetcher {
+  const spotify = client ?? createSpotifyClient(options)
+
+  /**
+   * Verified artists: plain-name search filtered to their Spotify ID (the
+   * artist:"…" filter is fuzzy and leaks unrelated tracks). Unverified names
+   * keep the filtered query as a best effort.
+   */
+  async function artistItems(name: string): Promise<FeedItem[]> {
+    const id = artistIdFor?.(name)
+    if (!id) return search(`artist:"${name}"`, "artist,track", TRACKS_PER_ARTIST)
+    return mapSearchResponse(onlyArtist(await spotify.search(name, "artist,track", 10), id))
   }
 
   async function search(q: string, type: string, limit: number): Promise<FeedItem[]> {
-    const params = new URLSearchParams({ q, type, limit: String(limit), market })
-    const response = await fetchImpl(`https://api.spotify.com/v1/search?${params}`, {
-      headers: { Authorization: `Bearer ${await accessToken()}` },
-    })
-    if (!response.ok) throw new Error(`Spotify search ${response.status} for "${q}"`)
-    const parsed = searchResponseSchema.safeParse(await response.json())
-    if (!parsed.success) throw new Error("Unexpected Spotify search response shape")
-    return mapSearchResponse(parsed.data)
+    return mapSearchResponse(await spotify.search(q, type, limit))
   }
 
   return {
@@ -166,7 +118,7 @@ export function spotifyFetcher({
         ...profile.artists
           .slice(0, ARTISTS_LOOKED_UP)
           // Tracks come from the curated artists: generic query track search is noisy.
-          .map((artist) => search(`artist:"${artist.name}"`, "artist,track", TRACKS_PER_ARTIST)),
+          .map((artist) => artistItems(artist.name)),
       ]
       const settled = await Promise.allSettled(requests)
       const results = settled.flatMap((r) => (r.status === "fulfilled" ? r.value : []))

@@ -1,0 +1,85 @@
+{
+  "slug": "nu-gaze",
+  "schemaVersion": 1,
+  "name": "nu-gaze",
+  "emoji": "🌊",
+  "tagline": "shoegaze walls, nu-metal riffs, deftones in the dna",
+  "description": "A 2020s blend of shoegaze haze and nu-metal heaviness, revived as a name online around 2023. Narrow Head, Fleshwater, Bleed and Wisp lean on Deftones' dreamy-heavy template; the line with grungegaze is blurry, and fans love to argue about it.",
+  "palette": ["#0a0b10", "#1b2233", "#4a5d82", "#b7c3dd", "#f1f2f6"],
+  "vibeWords": ["dreamy", "heavy", "fuzz", "walls of sound", "melancholy", "reverb"],
+  "artists": [
+    {
+      "name": "Deftones",
+      "why": "the dreamy-heavy template"
+    },
+    {
+      "name": "Narrow Head",
+      "why": "grungegaze leaders of the revival"
+    },
+    {
+      "name": "Fleshwater",
+      "why": "Closet wears its Deftones influence proudly"
+    },
+    {
+      "name": "Bleed",
+      "why": "early nu-gaze touchstone"
+    },
+    {
+      "name": "Wisp",
+      "why": "viral, ethereal nu-gaze"
+    },
+    {
+      "name": "Loathe",
+      "why": "the heaviest edge of the haze"
+    },
+    {
+      "name": "Trauma Ray",
+      "why": "Texas shoegaze with a metal backbone"
+    },
+    {
+      "name": "Glare",
+      "why": "grungegaze that helped popularize the sound"
+    },
+    {
+      "name": "Leaving Time",
+      "why": "named among the new wave"
+    }
+  ],
+  "spotifyQueries": ["nu gaze", "grungegaze", "heavy shoegaze", "metalgaze"],
+  "subreddits": ["shoegaze", "Deftones", "numetal"],
+  "newsQueries": ["nu gaze", "grungegaze", "Narrow Head album", "Fleshwater"],
+  "youtubeQueries": ["nu gaze", "Narrow Head live", "Fleshwater live", "grungegaze"],
+  "brands": [
+    {
+      "name": "Vans",
+      "priceTier": "$",
+      "why": "pedalboard-stomping shoes"
+    },
+    {
+      "name": "Carhartt WIP",
+      "priceTier": "$$",
+      "why": "heavy jackets for heavy songs"
+    },
+    {
+      "name": "Dickies",
+      "priceTier": "$",
+      "why": "baggy and broken in"
+    },
+    {
+      "name": "Uniqlo",
+      "priceTier": "$",
+      "why": "plain black tees, a uniform"
+    }
+  ],
+  "shopKeywords": [
+    "mohair sweater",
+    "baggy jeans",
+    "band tee",
+    "thermal long sleeve",
+    "skate shoes"
+  ],
+  "pinterestQueries": ["nu gaze aesthetic", "shoegaze band aesthetic"],
+  "instagramHashtags": ["nugaze", "grungegaze", "shoegaze", "deftones"],
+  "tiktokQueries": ["nu gaze", "grungegaze", "heavy shoegaze"],
+  "relatedNiches": ["shoegaze", "deftones-core", "grunge", "midwest emo"]
+}

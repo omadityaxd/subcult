@@ -1,0 +1,86 @@
+[
+  {
+    "slug": "yvl",
+    "type": "identity",
+    "name": "YVL",
+    "aliases": ["young vamp life"],
+    "description": "Young Vamp Life: a fan identity tied to Playboi Carti's vamp era and the Opium aesthetic, used in captions and comments as a sign of belonging. It's an identity, not a brand.",
+    "sources": [
+      "https://legacystance.com/yvl-meaning/",
+      "https://hhsblueprint.com/32385/opinions/in-the-moment-thats-so-opium/"
+    ],
+    "niches": ["vamp", "rage", "new-gen-underground-rap"]
+  },
+  {
+    "slug": "opium",
+    "type": "collective",
+    "name": "Opium",
+    "aliases": ["opium label"],
+    "description": "Playboi Carti's label and crew (Ken Carson, Destroy Lonely, Homixide Gang), central to rage and the vamp look.",
+    "sources": ["https://en.wikipedia.org/wiki/Rage_(music_genre)"],
+    "niches": ["rage", "vamp", "new-gen-underground-rap"]
+  },
+  {
+    "slug": "working-on-dying",
+    "type": "collective",
+    "name": "Working on Dying",
+    "aliases": ["wod"],
+    "description": "Philadelphia producer collective founded by F1lthy and Oogie Mane, credited with creating tread.",
+    "sources": ["https://en.wikipedia.org/wiki/Working_on_Dying"],
+    "niches": ["tread", "cloud-rap"]
+  },
+  {
+    "slug": "drain-gang",
+    "type": "collective",
+    "name": "Drain Gang",
+    "aliases": ["gravity boys"],
+    "description": "Stockholm collective (Bladee, Ecco2k, Thaiboy Digital, Whitearmor) at the center of modern cloud rap.",
+    "sources": ["https://en.wikipedia.org/wiki/Drain_Gang"],
+    "niches": ["cloud-rap"]
+  },
+  {
+    "slug": "jewelxxet",
+    "type": "collective",
+    "name": "Jewelxxet",
+    "aliases": [],
+    "description": "The collective behind sigilkore, co-founded by islurwhenitalk with Luci4 at its center.",
+    "sources": ["https://en.wikipedia.org/wiki/Sigilkore"],
+    "niches": ["sigilkore"]
+  },
+  {
+    "slug": "1c34",
+    "type": "collective",
+    "name": "1c34",
+    "aliases": [],
+    "description": "Xaviersobased's crew, credited with spearheading jerk.",
+    "sources": ["https://en.wikipedia.org/wiki/Xaviersobased"],
+    "niches": ["jerk"]
+  },
+  {
+    "slug": "surf-gang",
+    "type": "collective",
+    "name": "Surf Gang",
+    "aliases": [],
+    "description": "Evilgiane's collective and label, home of the jerk single 40.",
+    "sources": ["https://en.wikipedia.org/wiki/40_(single)"],
+    "niches": ["jerk"]
+  },
+  {
+    "slug": "slayworld",
+    "type": "collective",
+    "name": "SlayWorld",
+    "aliases": [],
+    "description": "The now-defunct collective of Summrs and Autumn!, foundational to pluggnb.",
+    "sources": ["https://en.wikipedia.org/wiki/Plugg_music"],
+    "niches": ["pluggnb", "plugg"]
+  },
+  {
+    "slug": "beatpluggz",
+    "type": "collective",
+    "name": "BeatPluggz",
+    "aliases": [],
+    "description": "Producer collective founded by MexikoDro and StoopidXool that shaped the plugg sound.",
+    "sources": ["https://www.mixcloud.com/blog/2026/02/23/a-guide-to-plug-with-redkoffee"],
+    "niches": ["plugg"]
+  }
+]

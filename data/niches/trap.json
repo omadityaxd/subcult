@@ -1,0 +1,94 @@
+{
+  "slug": "trap",
+  "schemaVersion": 1,
+  "name": "trap",
+  "emoji": "🎛️",
+  "tagline": "the 808 is the main character",
+  "description": "Atlanta's gift to the world: rolling hi-hats, booming 808s and street storytelling. From Gucci Mane and Future to Metro Boomin's cinematic production, trap is the backbone nearly every newer underground sound grew out of, or rebelled against.",
+  "palette": ["#0b0b0a", "#262011", "#7a5c12", "#e5b53a", "#f7f1e1"],
+  "vibeWords": ["808s", "hi-hats", "Atlanta", "drip", "ad-libs", "anthemic"],
+  "artists": [
+    {
+      "name": "Gucci Mane",
+      "why": "a founding father of the sound"
+    },
+    {
+      "name": "Future",
+      "why": "the melodic, toxic blueprint"
+    },
+    {
+      "name": "Young Thug",
+      "why": "flows nobody can imitate"
+    },
+    {
+      "name": "Migos",
+      "why": "the triplet flow that took over"
+    },
+    {
+      "name": "21 Savage",
+      "why": "deadpan menace"
+    },
+    {
+      "name": "Metro Boomin",
+      "why": "the cinematic producer of the era"
+    },
+    {
+      "name": "Lil Baby",
+      "why": "Atlanta's steady hitmaker"
+    },
+    {
+      "name": "Gunna",
+      "why": "smooth, pocket-perfect flows"
+    },
+    {
+      "name": "Young Nudy",
+      "why": "eccentric East Atlanta energy"
+    },
+    {
+      "name": "Key Glock",
+      "why": "Memphis trap with Paper Route grit"
+    }
+  ],
+  "spotifyQueries": ["trap", "atlanta trap", "trap classics", "rap caviar"],
+  "subreddits": ["hiphopheads", "rap", "trapmuzik"],
+  "newsQueries": ["trap album", "Metro Boomin", "Future new album"],
+  "youtubeQueries": ["trap documentary atlanta", "Metro Boomin beat", "trap music live"],
+  "brands": [
+    {
+      "name": "Nike",
+      "priceTier": "$$",
+      "why": "Air Max and tech fleece"
+    },
+    {
+      "name": "Gallery Dept.",
+      "priceTier": "$$$",
+      "why": "paint-splatter flares"
+    },
+    {
+      "name": "Amiri",
+      "priceTier": "$$$",
+      "why": "the luxury rapper denim"
+    },
+    {
+      "name": "Moncler",
+      "priceTier": "$$$",
+      "why": "the puffer in every video"
+    },
+    {
+      "name": "Chrome Hearts",
+      "priceTier": "$$$",
+      "why": "the chain is the outfit"
+    }
+  ],
+  "shopKeywords": [
+    "tech fleece",
+    "designer denim",
+    "cuban link chain",
+    "puffer jacket",
+    "fitted cap"
+  ],
+  "pinterestQueries": ["trap aesthetic", "atlanta rapper outfits"],
+  "instagramHashtags": ["trap", "trapmusic", "atlanta", "rapper"],
+  "tiktokQueries": ["trap", "trap beats", "atlanta trap"],
+  "relatedNiches": ["new-gen underground rap", "rage", "jersey club"]
+}

@@ -1,0 +1,75 @@
+{
+  "slug": "pluggnb",
+  "schemaVersion": 1,
+  "name": "pluggnb",
+  "emoji": "💗",
+  "tagline": "plugg beats, r&b feelings, texted at 3am",
+  "description": "Plugg's softer sibling: glossy synth chords, R&B melodies and heartbroken auto-tune over bouncy plugg drums. Summrs, Autumn! and Lil Shine shaped it in the late 2010s, and it has quietly fed half of today's melodic underground.",
+  "palette": ["#120b14", "#3b1b3f", "#a04b8c", "#f3a6c8", "#fdf0f6"],
+  "vibeWords": ["romantic", "glossy", "melodic", "heartbreak", "late night", "dreamy"],
+  "artists": [
+    {
+      "name": "Summrs",
+      "why": "regarded as a pioneer of pluggnb"
+    },
+    {
+      "name": "Autumn!",
+      "why": "SlayWorld's lovesick melodies"
+    },
+    {
+      "name": "Lil Shine",
+      "why": "named among the style's originators"
+    },
+    {
+      "name": "Tony Shhnow",
+      "why": "plugg veteran with smooth R&B hooks"
+    },
+    {
+      "name": "Yung Fazo",
+      "why": "pluggnb melodies for the new wave"
+    },
+    {
+      "name": "Sharc",
+      "why": "sugary, melodic pluggnb"
+    },
+    {
+      "name": "Iayze",
+      "why": "breakout pluggnb vocals"
+    },
+    {
+      "name": "Bktherula",
+      "why": "melodic Atlanta rapper across plugg and rage"
+    }
+  ],
+  "spotifyQueries": ["pluggnb", "plug n b", "pluggnb love songs"],
+  "subreddits": ["hiphopheads", "makinghiphop", "rap"],
+  "newsQueries": ["pluggnb", "Summrs", "Autumn! rapper"],
+  "youtubeQueries": ["pluggnb mix", "pluggnb beat", "what is pluggnb"],
+  "brands": [
+    {
+      "name": "Nike",
+      "priceTier": "$$",
+      "why": "Tech Fleece season never ends"
+    },
+    {
+      "name": "Chrome Hearts",
+      "priceTier": "$$$",
+      "why": "the one splurge"
+    },
+    {
+      "name": "Sp5der",
+      "priceTier": "$$$",
+      "why": "web-print hoodies"
+    },
+    {
+      "name": "Fear of God Essentials",
+      "priceTier": "$$",
+      "why": "soft neutrals for soft songs"
+    }
+  ],
+  "shopKeywords": ["pastel hoodie", "tech fleece", "silver rings", "baggy jeans", "trucker hat"],
+  "pinterestQueries": ["pluggnb aesthetic", "pluggnb album cover"],
+  "instagramHashtags": ["pluggnb", "plugg", "summrs"],
+  "tiktokQueries": ["pluggnb", "pluggnb love songs"],
+  "relatedNiches": ["plugg", "dark plugg", "bedroom pop", "digicore"]
+}

@@ -1,0 +1,227 @@
+[
+  {
+    "from": "new-gen-underground-rap",
+    "type": "parent",
+    "to": "rage"
+  },
+  {
+    "from": "new-gen-underground-rap",
+    "type": "parent",
+    "to": "jerk"
+  },
+  {
+    "from": "new-gen-underground-rap",
+    "type": "parent",
+    "to": "soundcloud-rap"
+  },
+  {
+    "from": "new-gen-underground-rap",
+    "type": "parent",
+    "to": "plugg"
+  },
+  {
+    "from": "new-gen-underground-rap",
+    "type": "parent",
+    "to": "tread"
+  },
+  {
+    "from": "plugg",
+    "type": "parent",
+    "to": "pluggnb"
+  },
+  {
+    "from": "plugg",
+    "type": "parent",
+    "to": "dark-plugg"
+  },
+  {
+    "from": "y2k",
+    "type": "parent",
+    "to": "mcbling-revival"
+  },
+  {
+    "from": "rage",
+    "type": "similar_scene",
+    "to": "jerk"
+  },
+  {
+    "from": "rage",
+    "type": "similar_scene",
+    "to": "soundcloud-rap"
+  },
+  {
+    "from": "rage",
+    "type": "similar_scene",
+    "to": "tread"
+  },
+  {
+    "from": "rage",
+    "type": "similar_scene",
+    "to": "dark-plugg"
+  },
+  {
+    "from": "jerk",
+    "type": "similar_scene",
+    "to": "sigilkore"
+  },
+  {
+    "from": "cloud-rap",
+    "type": "similar_scene",
+    "to": "sigilkore"
+  },
+  {
+    "from": "cloud-rap",
+    "type": "similar_scene",
+    "to": "soundcloud-rap"
+  },
+  {
+    "from": "cloud-rap",
+    "type": "similar_scene",
+    "to": "tread"
+  },
+  {
+    "from": "experimental-rap",
+    "type": "similar_scene",
+    "to": "underground-rap"
+  },
+  {
+    "from": "digicore",
+    "type": "similar_scene",
+    "to": "hyperpop"
+  },
+  {
+    "from": "glitchcore",
+    "type": "similar_scene",
+    "to": "hyperpop"
+  },
+  {
+    "from": "glitchcore",
+    "type": "similar_scene",
+    "to": "digicore"
+  },
+  {
+    "from": "nu-gaze",
+    "type": "similar_scene",
+    "to": "deftones-core"
+  },
+  {
+    "from": "nu-gaze",
+    "type": "similar_scene",
+    "to": "shoegaze"
+  },
+  {
+    "from": "underground-sneaker-culture",
+    "type": "similar_scene",
+    "to": "sneakerheads"
+  },
+  {
+    "from": "vamp",
+    "type": "overlapping_aesthetic",
+    "to": "goth"
+  },
+  {
+    "from": "vamp",
+    "type": "overlapping_aesthetic",
+    "to": "dark-avant-garde"
+  },
+  {
+    "from": "vamp",
+    "type": "overlapping_aesthetic",
+    "to": "graphic-gothic-streetwear"
+  },
+  {
+    "from": "dark-streetwear",
+    "type": "overlapping_aesthetic",
+    "to": "dark-avant-garde"
+  },
+  {
+    "from": "dark-streetwear",
+    "type": "overlapping_aesthetic",
+    "to": "techwear"
+  },
+  {
+    "from": "archive-fashion",
+    "type": "overlapping_aesthetic",
+    "to": "dark-avant-garde"
+  },
+  {
+    "from": "underground-graphic-streetwear",
+    "type": "overlapping_aesthetic",
+    "to": "graphic-gothic-streetwear"
+  },
+  {
+    "from": "diy-reworked",
+    "type": "overlapping_aesthetic",
+    "to": "archive-fashion"
+  },
+  {
+    "from": "diy-reworked",
+    "type": "overlapping_aesthetic",
+    "to": "grunge"
+  },
+  {
+    "from": "mcbling-revival",
+    "type": "overlapping_aesthetic",
+    "to": "graphic-gothic-streetwear"
+  },
+  {
+    "from": "deftones-core",
+    "type": "overlapping_aesthetic",
+    "to": "grunge"
+  },
+  {
+    "from": "sigilkore",
+    "type": "overlapping_aesthetic",
+    "to": "goth"
+  },
+  {
+    "from": "vamp",
+    "type": "fashion_of",
+    "to": "rage"
+  },
+  {
+    "from": "vamp",
+    "type": "fashion_of",
+    "to": "new-gen-underground-rap"
+  },
+  {
+    "from": "graphic-gothic-streetwear",
+    "type": "fashion_of",
+    "to": "rage"
+  },
+  {
+    "from": "dark-streetwear",
+    "type": "fashion_of",
+    "to": "trap"
+  },
+  {
+    "from": "dark-avant-garde",
+    "type": "fashion_of",
+    "to": "cloud-rap"
+  },
+  {
+    "from": "archive-fashion",
+    "type": "fashion_of",
+    "to": "cloud-rap"
+  },
+  {
+    "from": "underground-graphic-streetwear",
+    "type": "fashion_of",
+    "to": "jerk"
+  },
+  {
+    "from": "diy-reworked",
+    "type": "fashion_of",
+    "to": "soundcloud-rap"
+  },
+  {
+    "from": "underground-sneaker-culture",
+    "type": "fashion_of",
+    "to": "new-gen-underground-rap"
+  },
+  {
+    "from": "trap",
+    "type": "related",
+    "to": "new-gen-underground-rap"
+  }
+]

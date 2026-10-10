@@ -1,0 +1,96 @@
+{
+  "slug": "archive-fashion",
+  "schemaVersion": 1,
+  "name": "archive fashion",
+  "emoji": "🗄️",
+  "tagline": "it's not used, it's from the 2002 runway, actually",
+  "description": "Hunting rare designer pieces from past collections: Raf Simons, Helmut Lang, Number (N)ine, Undercover, early Margiela. It runs on Grailed alerts, collection dates and runway lore, and treats a stained 20-year-old bomber like a museum piece. A$AP Rocky and Drain Gang made it a rap thing.",
+  "palette": ["#0d0c0a", "#2a2621", "#6b5d4b", "#c8b79a", "#f3eee4"],
+  "vibeWords": ["rare", "runway lore", "collection dates", "grails", "museum", "resale"],
+  "artists": [
+    {
+      "name": "A$AP Rocky",
+      "why": "brought Raf and archive into rap"
+    },
+    {
+      "name": "Playboi Carti",
+      "why": "rare pieces as a flex"
+    },
+    {
+      "name": "Bladee",
+      "why": "Drain Gang's archive-heavy wardrobe"
+    },
+    {
+      "name": "Ecco2k",
+      "why": "a designer's eye for old collections"
+    },
+    {
+      "name": "Yung Lean",
+      "why": "sad-boy archive classics"
+    },
+    {
+      "name": "Travis Scott",
+      "why": "archive collector at scale"
+    },
+    {
+      "name": "Lil Uzi Vert",
+      "why": "rare designer grails on stage"
+    },
+    {
+      "name": "Frank Ocean",
+      "why": "quiet, collector-level taste"
+    }
+  ],
+  "spotifyQueries": ["drain gang", "cloud rap", "a$ap rocky"],
+  "subreddits": ["malefashion", "rickowens", "streetwear"],
+  "newsQueries": ["archive fashion", "Raf Simons archive", "Helmut Lang archive"],
+  "youtubeQueries": ["archive fashion explained", "Raf Simons archive", "grailed haul archive"],
+  "brands": [
+    {
+      "name": "Raf Simons",
+      "priceTier": "$$$",
+      "why": "the most-hunted archive in menswear"
+    },
+    {
+      "name": "Helmut Lang",
+      "priceTier": "$$$",
+      "why": "90s minimalism collectors obsess over"
+    },
+    {
+      "name": "Number (N)ine",
+      "priceTier": "$$$",
+      "why": "Takahiro Miyashita's grunge-punk archive"
+    },
+    {
+      "name": "Undercover",
+      "priceTier": "$$$",
+      "why": "Jun Takahashi's cult collections"
+    },
+    {
+      "name": "Maison Margiela",
+      "priceTier": "$$$",
+      "why": "Martin-era pieces are holy relics"
+    },
+    {
+      "name": "Jean Paul Gaultier",
+      "priceTier": "$$$",
+      "why": "mesh tops and 90s prints, revived"
+    },
+    {
+      "name": "Rick Owens",
+      "priceTier": "$$$",
+      "why": "early-2000s pieces especially"
+    }
+  ],
+  "shopKeywords": [
+    "archive bomber jacket",
+    "vintage designer denim",
+    "90s runway piece",
+    "mesh print top",
+    "designer knit"
+  ],
+  "pinterestQueries": ["archive fashion", "raf simons archive", "archive menswear"],
+  "instagramHashtags": ["archivefashion", "archive", "rafsimons", "grailed"],
+  "tiktokQueries": ["archive fashion", "archive grails", "raf simons archive"],
+  "relatedNiches": ["dark avant-garde", "diy reworked", "underground sneaker culture"]
+}

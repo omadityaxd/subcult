@@ -1,0 +1,99 @@
+{
+  "slug": "rage",
+  "schemaVersion": 1,
+  "name": "rage",
+  "emoji": "⚡",
+  "tagline": "the synth is screaming and so is the crowd",
+  "description": "Trap with the volume knob snapped off: looping, stereo-wide synth leads, bass that clips on purpose and ad-libs over everything. Popularized by Playboi Carti, Trippie Redd and Lil Uzi Vert, then turned into a uniform by Opium. Built for the pit, not the car.",
+  "palette": ["#08070a", "#1d0b2b", "#5b1a8f", "#e0245e", "#f5f0fa"],
+  "vibeWords": ["loud", "synth leads", "clipping", "mosh", "vamp", "adrenaline", "stage dives"],
+  "artists": [
+    {
+      "name": "Playboi Carti",
+      "why": "Whole Lotta Red set the template"
+    },
+    {
+      "name": "Trippie Redd",
+      "why": "Miss The Rage named the whole thing"
+    },
+    {
+      "name": "Lil Uzi Vert",
+      "why": "an early pioneer of the sound"
+    },
+    {
+      "name": "Ken Carson",
+      "why": "Project X and A Great Chaos are the playbook"
+    },
+    {
+      "name": "Destroy Lonely",
+      "why": "rage at half speed, twice the drip"
+    },
+    {
+      "name": "Homixide Gang",
+      "why": "pure stage energy from Opium"
+    },
+    {
+      "name": "Yeat",
+      "why": "rage bells and an invented vocabulary"
+    },
+    {
+      "name": "SoFaygo",
+      "why": "Off the Map was an early rage blueprint"
+    },
+    {
+      "name": "OsamaSon",
+      "why": "rage pushed into noise"
+    },
+    {
+      "name": "Che",
+      "why": "industrial synths and distorted bass"
+    },
+    {
+      "name": "Lazer Dim 700",
+      "why": "chaotic Atlanta rage with zero brakes"
+    }
+  ],
+  "spotifyQueries": ["rage rap", "rage beats", "opium rage", "miss the rage"],
+  "subreddits": ["playboicarti", "hiphopheads", "rap"],
+  "newsQueries": ["rage rap", "Ken Carson tour", "Che Rest in Bass", "Opium label"],
+  "youtubeQueries": ["rage rap mosh pit", "Ken Carson live", "Che live", "rage type beat"],
+  "brands": [
+    {
+      "name": "Rick Owens",
+      "priceTier": "$$$",
+      "why": "the platform boots every rager is saving up for"
+    },
+    {
+      "name": "Chrome Hearts",
+      "priceTier": "$$$",
+      "why": "silver crosses and cemetery-chic hardware"
+    },
+    {
+      "name": "Balenciaga",
+      "priceTier": "$$$",
+      "why": "oversized everything, Whole Lotta Red energy"
+    },
+    {
+      "name": "Vivienne Westwood",
+      "priceTier": "$$$",
+      "why": "punk pearls and orb chokers"
+    },
+    {
+      "name": "Hellstar",
+      "priceTier": "$$",
+      "why": "graphic hoodies built for the pit"
+    }
+  ],
+  "shopKeywords": [
+    "leather jacket",
+    "flared denim",
+    "combat boots",
+    "skull graphic tee",
+    "studded belt",
+    "fingerless gloves"
+  ],
+  "pinterestQueries": ["rage rap aesthetic", "ken carson outfits", "opium aesthetic"],
+  "instagramHashtags": ["ragerap", "rage", "opium", "kencarson"],
+  "tiktokQueries": ["rage rap", "rage mosh pit", "rage beats"],
+  "relatedNiches": ["jerk", "vamp", "soundcloud rap", "tread", "dark plugg"]
+}

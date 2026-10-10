@@ -3,6 +3,8 @@ import type { Logger } from "@/lib/log"
 import { memoryStore, redisStore } from "./cache"
 import type { FeedDeps } from "./feed"
 import { newsFetcher } from "./fetchers/news"
+import { redisBreaker } from "@/lib/sources/redis-breaker"
+import { memoryBreaker } from "@/lib/sources/spotify"
 import { spotifyFetcher } from "./fetchers/spotify"
 import { youtubeFetcher } from "./fetchers/youtube"
 import { memoryQuota, redisQuota } from "./quota"
@@ -19,6 +21,8 @@ export interface FeedSettings {
   spotifyClientSecret?: string
   youtubeApiKey?: string
   youtubeDailySearches?: number
+  /** Verified Spotify artist IDs from the taxonomy, so artist tracks are exact. */
+  artistIdFor?: (name: string) => string | undefined
   /** null → per-process memory cache and quota (dev / demo). */
   redis: Redis | null
   logger: Logger
@@ -27,6 +31,10 @@ export interface FeedSettings {
 // Module-level so the in-memory fallbacks persist across requests in one process.
 const localCache = memoryStore()
 const localYoutubeQuota = memoryQuota(DEFAULT_YOUTUBE_DAILY_SEARCHES)
+const localSpotifyBreaker = memoryBreaker()
+
+/** Shared with lib/music so a 429 anywhere pauses every Spotify caller. */
+export const SPOTIFY_BREAKER_KEY = "subcult:spotify:blocked-until"
 
 /**
  * Builds fetchers from whatever keys exist. Missing keys disable that source
@@ -41,6 +49,10 @@ export function createFeedDeps(settings: FeedSettings): FeedDeps {
       spotifyFetcher({
         clientId: settings.spotifyClientId,
         clientSecret: settings.spotifyClientSecret,
+        artistIdFor: settings.artistIdFor,
+        breaker: settings.redis
+          ? redisBreaker(settings.redis, SPOTIFY_BREAKER_KEY)
+          : localSpotifyBreaker,
       }),
     )
   } else {

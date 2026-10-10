@@ -5,6 +5,7 @@ import { useDeferredValue, useState } from "react"
 import { NicheCard } from "@/components/niche/niche-card"
 import { OPEN_SEARCH_EVENT } from "@/components/shell/nav"
 import type { NichePreset } from "@/lib/niches/catalog"
+import { presetMatches } from "@/lib/niches/preset-search"
 import { SummonNiche } from "./summon-niche"
 
 interface NicheBrowserProps {
@@ -16,7 +17,7 @@ export function NicheBrowser({ presets }: NicheBrowserProps) {
   const [query, setQuery] = useState("")
   const deferredQuery = useDeferredValue(query)
   const needle = deferredQuery.trim().toLowerCase()
-  const results = needle ? presets.filter((niche) => niche.name.includes(needle)) : presets
+  const results = needle ? presets.filter((niche) => presetMatches(niche, needle)) : presets
 
   return (
     <section aria-labelledby="all-niches" className="container-page">

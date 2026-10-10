@@ -12,8 +12,10 @@ import { SearchButton } from "@/components/shell/search-button"
 import { Skeleton } from "@/components/ui/skeleton"
 import { featuredOrder } from "@/lib/feed/featured"
 import { getHomePage } from "@/lib/feed/home"
+import { TAXONOMY } from "@/lib/niches/catalog"
 
-const STORY_COUNT = 12
+/** The whole featured cluster, plus a few of the day's rotating picks. */
+const STORY_COUNT = TAXONOMY.featured().length + 4
 
 export default function ForYouPage() {
   return (

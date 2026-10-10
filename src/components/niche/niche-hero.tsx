@@ -1,17 +1,18 @@
 import { ChevronLeft } from "lucide-react"
 import Link from "next/link"
-import type { CSSProperties, ReactNode } from "react"
+import type { ReactNode } from "react"
 import { Cover } from "@/components/ds/cover"
 import type { NicheProfile } from "@/lib/engine/profile-schema"
-import { JoinButton } from "./join-button"
+import { FollowButton } from "./follow-button"
 import { ShareButton } from "./share-button"
 
 interface NicheHeroProps {
   profile: NicheProfile
-  themeStyle: CSSProperties
   badge?: string | null
   /** Album-art mosaic, streamed in when Spotify is available. */
   mosaic?: ReactNode
+  /** Top artist photo, saved with a follow so Me can show it. */
+  imageUrl?: string | null
 }
 
 /**
@@ -19,7 +20,7 @@ interface NicheHeroProps {
  * morphs from the card that was tapped (shared view-transition name); type
  * sits on a scrim so it reads on any palette.
  */
-export function NicheHero({ profile, themeStyle, badge, mosaic }: NicheHeroProps) {
+export function NicheHero({ profile, badge, mosaic, imageUrl }: NicheHeroProps) {
   return (
     <section className="md:container-page md:pt-8">
       <Cover
@@ -59,7 +60,12 @@ export function NicheHero({ profile, themeStyle, badge, mosaic }: NicheHeroProps
           </h1>
           <p className="mt-3 max-w-md text-headline text-pretty text-white/85">{profile.tagline}</p>
           <div className="mt-6 flex items-center gap-2">
-            <JoinButton name={profile.name} themeStyle={themeStyle} />
+            <FollowButton
+              slug={profile.slug}
+              name={profile.name}
+              tagline={profile.tagline}
+              imageUrl={imageUrl ?? null}
+            />
             <ShareButton name={profile.name} slug={profile.slug} />
           </div>
         </div>

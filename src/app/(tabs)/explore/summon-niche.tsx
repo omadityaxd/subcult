@@ -142,7 +142,13 @@ function Suggestions({ presets }: { presets: readonly NichePreset[] }) {
             transitionTypes={["nav-forward"]}
             className="flex items-center gap-2 rounded-full bg-muted py-1 pr-4 pl-1 text-callout font-medium transition-colors hover:bg-border-strong"
           >
-            <NicheAvatar slug={preset.slug} name={preset.name} palette={preset.palette} size="sm" />
+            <NicheAvatar
+              slug={preset.slug}
+              name={preset.name}
+              palette={preset.palette}
+              imageUrl={preset.imageUrl}
+              size="sm"
+            />
             {preset.name}
           </Link>
         </li>

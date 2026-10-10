@@ -1,0 +1,91 @@
+{
+  "slug": "mcbling-revival",
+  "schemaVersion": 1,
+  "name": "mcbling revival",
+  "emoji": "💎",
+  "tagline": "velour tracksuit, rhinestone everything, call me on the razr",
+  "description": "The mid-2000s celebrity look, revived: velour Juicy tracksuits, Von Dutch trucker hats, rhinestones, low-rise denim and pink everything. Where Y2K is chrome and futurism, McBling is pure paparazzi-era excess, and it's back on TikTok with zero irony.",
+  "palette": ["#1a0d14", "#5c1f45", "#e0559d", "#f7b4d6", "#fff3f9"],
+  "vibeWords": ["rhinestones", "velour", "pink", "paparazzi", "glossy", "bedazzled", "excess"],
+  "artists": [
+    {
+      "name": "Paris Hilton",
+      "why": "the face of the McBling era"
+    },
+    {
+      "name": "Britney Spears",
+      "why": "mid-2000s pop royalty"
+    },
+    {
+      "name": "Christina Aguilera",
+      "why": "Stripped-era glam"
+    },
+    {
+      "name": "Nicki Minaj",
+      "why": "Barbie-pink maximalism"
+    },
+    {
+      "name": "Ice Spice",
+      "why": "today's take on 2000s glam"
+    },
+    {
+      "name": "Doja Cat",
+      "why": "playful Y2K-to-McBling styling"
+    },
+    {
+      "name": "PinkPantheress",
+      "why": "2000s nostalgia in sound and style"
+    },
+    {
+      "name": "Ciara",
+      "why": "2000s R&B glam"
+    }
+  ],
+  "spotifyQueries": ["2000s pop hits", "y2k pop", "2000s r&b"],
+  "subreddits": ["femalefashionadvice", "fashion", "OUTFITS"],
+  "newsQueries": ["McBling revival", "Juicy Couture tracksuit trend", "Von Dutch"],
+  "youtubeQueries": ["mcbling fashion", "2000s celebrity fashion", "juicy tracksuit outfit"],
+  "brands": [
+    {
+      "name": "Juicy Couture",
+      "priceTier": "$$",
+      "why": "the velour tracksuit"
+    },
+    {
+      "name": "Von Dutch",
+      "priceTier": "$",
+      "why": "the trucker hat, obviously"
+    },
+    {
+      "name": "Ed Hardy",
+      "priceTier": "$$",
+      "why": "rhinestone tattoo tees"
+    },
+    {
+      "name": "Baby Phat",
+      "priceTier": "$$",
+      "why": "glam streetwear queen"
+    },
+    {
+      "name": "Blumarine",
+      "priceTier": "$$$",
+      "why": "butterflies and rhinestones, revived"
+    }
+  ],
+  "shopKeywords": [
+    "velour tracksuit",
+    "rhinestone top",
+    "trucker hat",
+    "low rise jeans",
+    "baguette bag",
+    "tinted sunglasses"
+  ],
+  "pinterestQueries": [
+    "mcbling aesthetic",
+    "2000s paris hilton outfits",
+    "juicy couture tracksuit outfit"
+  ],
+  "instagramHashtags": ["mcbling", "y2kfashion", "juicycouture", "2000sfashion"],
+  "tiktokQueries": ["mcbling", "mcbling aesthetic", "2000s fashion"],
+  "relatedNiches": ["y2k", "coquette", "graphic gothic streetwear"]
+}

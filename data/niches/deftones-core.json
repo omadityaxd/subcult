@@ -1,0 +1,95 @@
+{
+  "slug": "deftones-core",
+  "schemaVersion": 1,
+  "name": "deftones-core",
+  "emoji": "🖤",
+  "tagline": "white pony on repeat, hoodie up, emotionally unavailable",
+  "description": "The nu-metal revival as an aesthetic: Deftones and Soundgarden on repeat, drop-tuned guitars, chains and baggy black denim, plus a soft spot for Joji-style sad alt. New bands like Loathe, Tallah and Wargasm carry the heavy side; TikTok handles the moodboards.",
+  "palette": ["#08090a", "#1c1f22", "#3f4a52", "#9aa7ad", "#ece9e4"],
+  "vibeWords": ["drop-tuned", "moody", "heavy", "baggy", "nostalgic", "sad alt", "2000s"],
+  "artists": [
+    {
+      "name": "Deftones",
+      "why": "the band the whole aesthetic is named after"
+    },
+    {
+      "name": "Soundgarden",
+      "why": "grunge-metal heaviness that still hits"
+    },
+    {
+      "name": "Korn",
+      "why": "the nu-metal originals"
+    },
+    {
+      "name": "Loathe",
+      "why": "metalcore meets dreamy shoegaze"
+    },
+    {
+      "name": "Tallah",
+      "why": "a frontline nu-metal revival band"
+    },
+    {
+      "name": "Wargasm",
+      "why": "British nu-metal revival chaos"
+    },
+    {
+      "name": "Kim Dracula",
+      "why": "genre-hopping nu-metal theatrics"
+    },
+    {
+      "name": "Static Dress",
+      "why": "post-hardcore with nu-metal bite"
+    },
+    {
+      "name": "Spiritbox",
+      "why": "heavy, atmospheric alt-metal"
+    },
+    {
+      "name": "Joji",
+      "why": "the sad-alt crossover on every deftones-core playlist"
+    }
+  ],
+  "spotifyQueries": ["deftones core", "nu metal revival", "nu metal", "alt metal sad"],
+  "subreddits": ["Deftones", "numetal", "Metalcore"],
+  "newsQueries": ["Deftones", "nu metal revival", "Loathe band"],
+  "youtubeQueries": ["Deftones live", "nu metal revival bands", "Loathe live"],
+  "brands": [
+    {
+      "name": "Dickies",
+      "priceTier": "$",
+      "why": "baggy work pants, nu-metal issue"
+    },
+    {
+      "name": "Vans",
+      "priceTier": "$",
+      "why": "Old Skools in the pit"
+    },
+    {
+      "name": "Hot Topic",
+      "priceTier": "$",
+      "why": "band tees, no shame"
+    },
+    {
+      "name": "Carhartt WIP",
+      "priceTier": "$$",
+      "why": "the double-knee"
+    },
+    {
+      "name": "Dr. Martens",
+      "priceTier": "$",
+      "why": "boots for the show"
+    }
+  ],
+  "shopKeywords": [
+    "baggy black jeans",
+    "band tee",
+    "wallet chain",
+    "oversized hoodie",
+    "skate shoes",
+    "silver chain"
+  ],
+  "pinterestQueries": ["deftones aesthetic", "nu metal aesthetic", "deftones core outfit"],
+  "instagramHashtags": ["deftones", "numetal", "deftonescore", "altmetal"],
+  "tiktokQueries": ["deftones core", "nu metal revival", "deftones aesthetic"],
+  "relatedNiches": ["nu-gaze", "grunge", "shoegaze", "goth"]
+}

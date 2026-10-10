@@ -1,0 +1,96 @@
+{
+  "slug": "dark-avant-garde",
+  "schemaVersion": 1,
+  "name": "dark avant-garde",
+  "emoji": "🕯️",
+  "tagline": "draped, deconstructed, and $1,400 for one boot",
+  "description": "Rick Owens-inspired fashion: long draped silhouettes, brutalist proportions, raw leather, dusty neutrals and black. It pulls from the Antwerp and Japanese avant-garde (Ann Demeulemeester, Yohji Yamamoto) and from Rick's own cult world of Geobaskets, Ramones and cargo pods.",
+  "palette": ["#0b0a09", "#211e1b", "#4a443d", "#9c9283", "#ebe6de"],
+  "vibeWords": ["draped", "brutalist", "deconstructed", "monastic", "leather", "dust", "cult"],
+  "artists": [
+    {
+      "name": "A$AP Rocky",
+      "why": "made Rick Owens a rap staple"
+    },
+    {
+      "name": "Playboi Carti",
+      "why": "Rick on stage, Rick off stage"
+    },
+    {
+      "name": "Ken Carson",
+      "why": "Geobaskets as a personality"
+    },
+    {
+      "name": "Destroy Lonely",
+      "why": "long leather and drape"
+    },
+    {
+      "name": "Lil Uzi Vert",
+      "why": "avant-garde rockstar styling"
+    },
+    {
+      "name": "Travis Scott",
+      "why": "the archive-avant crossover"
+    },
+    {
+      "name": "Bladee",
+      "why": "ethereal, draped silhouettes"
+    },
+    {
+      "name": "Yeat",
+      "why": "statement Rick pieces"
+    }
+  ],
+  "spotifyQueries": ["opium", "drain gang", "dark ambient"],
+  "subreddits": ["rickowens", "malefashion", "streetwear"],
+  "newsQueries": ["Rick Owens show", "Ann Demeulemeester collection", "Yohji Yamamoto collection"],
+  "youtubeQueries": [
+    "Rick Owens runway",
+    "Rick Owens collection review",
+    "avant garde fashion explained"
+  ],
+  "brands": [
+    {
+      "name": "Rick Owens",
+      "priceTier": "$$$",
+      "why": "the reason this niche exists"
+    },
+    {
+      "name": "Ann Demeulemeester",
+      "priceTier": "$$$",
+      "why": "Antwerp romance in black"
+    },
+    {
+      "name": "Yohji Yamamoto",
+      "priceTier": "$$$",
+      "why": "draped black poetry"
+    },
+    {
+      "name": "Boris Bidjan Saberi",
+      "priceTier": "$$$",
+      "why": "hand-dyed, object-dyed leather"
+    },
+    {
+      "name": "Julius",
+      "priceTier": "$$$",
+      "why": "dark Japanese layering"
+    },
+    {
+      "name": "Guidi",
+      "priceTier": "$$$",
+      "why": "horse-leather boots for the long haul"
+    }
+  ],
+  "shopKeywords": [
+    "drop crotch pants",
+    "draped long sleeve",
+    "leather boots",
+    "cargo pods",
+    "asymmetric jacket",
+    "platform sneakers"
+  ],
+  "pinterestQueries": ["rick owens outfit", "avant garde fashion dark", "draped black outfit"],
+  "instagramHashtags": ["rickowens", "avantgarde", "drkshdw", "darkfashion"],
+  "tiktokQueries": ["rick owens", "avant garde fashion", "rick owens outfit"],
+  "relatedNiches": ["archive fashion", "vamp", "dark streetwear", "goth"]
+}

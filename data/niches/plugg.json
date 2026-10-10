@@ -1,0 +1,75 @@
+{
+  "slug": "plugg",
+  "schemaVersion": 1,
+  "name": "plugg",
+  "emoji": "🔌",
+  "tagline": "melodic, minimal, and it sounds like a video game save screen",
+  "description": "Spacious trap built on twinkling synths, sparse 808s and a laid-back bounce, born from producers like MexikoDro and StoopidXool's BeatPluggz crew in the mid-2010s. Pi'erre Bourne took the feel mainstream; the underground kept splitting it into pluggnb and dark plugg.",
+  "palette": ["#0c0d14", "#1c2240", "#4e5bb3", "#9fb3ff", "#eef1ff"],
+  "vibeWords": ["melodic", "spacious", "twinkly", "bouncy", "laid-back", "synths"],
+  "artists": [
+    {
+      "name": "MexikoDro",
+      "why": "BeatPluggz co-founder, the sound's architect"
+    },
+    {
+      "name": "StoopidXool",
+      "why": "co-founded BeatPluggz"
+    },
+    {
+      "name": "Pi'erre Bourne",
+      "why": "took the plugg feel to the charts"
+    },
+    {
+      "name": "Summrs",
+      "why": "SlayWorld's melodic plugg leader"
+    },
+    {
+      "name": "Tony Shhnow",
+      "why": "brought true-to-form plug back into rotation"
+    },
+    {
+      "name": "KanKan",
+      "why": "dreamy plugg beats and vocals"
+    },
+    {
+      "name": "Autumn!",
+      "why": "SlayWorld's soft, melodic side"
+    },
+    {
+      "name": "Lil Shine",
+      "why": "one of the originators of pluggnb"
+    }
+  ],
+  "spotifyQueries": ["plugg", "plug music", "beatpluggz", "plugg beats"],
+  "subreddits": ["hiphopheads", "makinghiphop", "rap"],
+  "newsQueries": ["plugg music", "Pi'erre Bourne", "Summrs"],
+  "youtubeQueries": ["plugg beat", "plugg music history", "Pi'erre Bourne beat", "plugg mix"],
+  "brands": [
+    {
+      "name": "Nike",
+      "priceTier": "$$",
+      "why": "Tech Fleece and Air Force 1s"
+    },
+    {
+      "name": "Supreme",
+      "priceTier": "$$",
+      "why": "box logos in the background of every video"
+    },
+    {
+      "name": "Bape",
+      "priceTier": "$$$",
+      "why": "shark hoodies for the plugg kids"
+    },
+    {
+      "name": "Chrome Hearts",
+      "priceTier": "$$$",
+      "why": "the cross on the hat"
+    }
+  ],
+  "shopKeywords": ["tech fleece", "shark hoodie", "cargo pants", "trucker hat", "air force 1"],
+  "pinterestQueries": ["plugg aesthetic", "plugg album covers"],
+  "instagramHashtags": ["plugg", "plugmusic", "pluggnb"],
+  "tiktokQueries": ["plugg music", "plugg beats"],
+  "relatedNiches": ["pluggnb", "dark plugg", "new-gen underground rap", "jerk"]
+}

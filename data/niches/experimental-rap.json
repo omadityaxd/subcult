@@ -1,0 +1,79 @@
+{
+  "slug": "experimental-rap",
+  "schemaVersion": 1,
+  "name": "experimental rap",
+  "emoji": "🧪",
+  "tagline": "is it rap? is it noise? is it a panic attack? yes",
+  "description": "Rap pushed past the edges: industrial noise, glitches, punk screams and beats that refuse to sit still. Death Grips, clipping. and JPEGMAFIA are the touchstones; the scene rewards anyone who makes a song you can't quite describe to your friends.",
+  "palette": ["#0a0a0a", "#1f1f1f", "#4a4a4a", "#c8ff00", "#f2f2f2"],
+  "vibeWords": ["noisy", "industrial", "glitchy", "abrasive", "art-rap", "unpredictable"],
+  "artists": [
+    {
+      "name": "Death Grips",
+      "why": "the abrasive standard everyone's measured against"
+    },
+    {
+      "name": "JPEGMAFIA",
+      "why": "glitchy, self-produced chaos"
+    },
+    {
+      "name": "clipping.",
+      "why": "noise-rap and sci-fi concept albums"
+    },
+    {
+      "name": "Danny Brown",
+      "why": "Atrocity Exhibition is required listening"
+    },
+    {
+      "name": "Injury Reserve",
+      "why": "art-rap that kept mutating"
+    },
+    {
+      "name": "Armand Hammer",
+      "why": "dense, avant-garde NYC rap"
+    },
+    {
+      "name": "Backxwash",
+      "why": "horror-rap with metal in its blood"
+    },
+    {
+      "name": "Lil Ugly Mane",
+      "why": "lo-fi Memphis-horror genre-bender"
+    },
+    {
+      "name": "Dälek",
+      "why": "noise-wall hip-hop pioneers"
+    }
+  ],
+  "spotifyQueries": ["experimental hip hop", "industrial hip hop", "abstract hip hop", "noise rap"],
+  "subreddits": ["hiphopheads", "deathgrips", "indieheads"],
+  "newsQueries": ["experimental hip hop album", "JPEGMAFIA", "Death Grips", "clipping."],
+  "youtubeQueries": ["Death Grips live", "JPEGMAFIA live", "experimental hip hop documentary"],
+  "brands": [
+    {
+      "name": "Carhartt WIP",
+      "priceTier": "$$",
+      "why": "workwear for the noise show"
+    },
+    {
+      "name": "Dickies",
+      "priceTier": "$",
+      "why": "the default"
+    },
+    {
+      "name": "Brain Dead",
+      "priceTier": "$$$",
+      "why": "art-weirdo streetwear"
+    },
+    {
+      "name": "Nike",
+      "priceTier": "$$",
+      "why": "beat-up sneakers only"
+    }
+  ],
+  "shopKeywords": ["band tee", "work jacket", "cargo pants", "beanie", "vintage sneakers"],
+  "pinterestQueries": ["experimental hip hop album covers", "death grips aesthetic"],
+  "instagramHashtags": ["experimentalhiphop", "deathgrips", "jpegmafia"],
+  "tiktokQueries": ["experimental rap", "death grips", "jpegmafia"],
+  "relatedNiches": ["underground rap", "hyperpop", "cyberpunk"]
+}

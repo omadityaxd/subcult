@@ -20,7 +20,8 @@
     "trends:refresh": "tsx scripts/trends-refresh.ts",
     "trends:upsert": "tsx scripts/trends-upsert.ts",
     "db:status": "tsx scripts/db-status.ts",
-    "feeds:check": "tsx scripts/feeds-check.ts"
+    "feeds:check": "tsx scripts/feeds-check.ts",
+    "taxonomy:verify-artists": "tsx scripts/verify-artists.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.133.0",

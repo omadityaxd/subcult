@@ -1,0 +1,75 @@
+{
+  "slug": "digicore",
+  "schemaVersion": 1,
+  "name": "digicore",
+  "emoji": "💾",
+  "tagline": "made on discord, mixed on a laptop, cried about on tiktok",
+  "description": "Teen-made, Discord-built internet music mixing emo, pop-punk and trap with pitched-up vocals and glitchy production. glaive, ericdoa and quinn came up through online collectives during lockdown, and the scene still lives in group chats and SoundCloud reposts.",
+  "palette": ["#0a0a12", "#1b1f3b", "#5a4fcf", "#7cf7d4", "#f4f4ff"],
+  "vibeWords": ["pitched-up", "emo", "glitchy", "Discord", "teen", "lockdown", "online"],
+  "artists": [
+    {
+      "name": "glaive",
+      "why": "emo-pop hooks that broke the scene out"
+    },
+    {
+      "name": "ericdoa",
+      "why": "melodic digicore with pop-punk bones"
+    },
+    {
+      "name": "osquinn",
+      "why": "glitchy, prolific producer-artist"
+    },
+    {
+      "name": "midwxst",
+      "why": "Indiana's emo-trap kid"
+    },
+    {
+      "name": "aldn",
+      "why": "melancholy digicore from the early wave"
+    },
+    {
+      "name": "d0llywood1",
+      "why": "chaotic, internet-native energy"
+    },
+    {
+      "name": "brakence",
+      "why": "math-rock guitars meet digicore"
+    },
+    {
+      "name": "Jane Remover",
+      "why": "from digicore to shoegaze and back"
+    }
+  ],
+  "spotifyQueries": ["digicore", "discord rap", "digicore 2020"],
+  "subreddits": ["hyperpop", "indieheads"],
+  "newsQueries": ["digicore", "glaive new album", "ericdoa"],
+  "youtubeQueries": ["digicore documentary", "glaive live", "digicore mix"],
+  "brands": [
+    {
+      "name": "Hot Topic",
+      "priceTier": "$",
+      "why": "where it started for most of us"
+    },
+    {
+      "name": "Converse",
+      "priceTier": "$",
+      "why": "beat-up high tops"
+    },
+    {
+      "name": "Dickies",
+      "priceTier": "$",
+      "why": "baggy, cheap, perfect"
+    },
+    {
+      "name": "Uniqlo",
+      "priceTier": "$",
+      "why": "the laptop-producer uniform"
+    }
+  ],
+  "shopKeywords": ["dyed hair", "band tee", "headphones", "striped long sleeve", "chunky sneakers"],
+  "pinterestQueries": ["digicore aesthetic", "glaive aesthetic"],
+  "instagramHashtags": ["digicore", "glaive", "hyperpop"],
+  "tiktokQueries": ["digicore", "glaive", "ericdoa"],
+  "relatedNiches": ["hyperpop", "glitchcore", "bedroom pop", "pluggnb"]
+}

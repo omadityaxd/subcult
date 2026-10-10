@@ -5,11 +5,12 @@ import { ButtonLink } from "@/components/ds/button"
 import { MediaImage } from "@/components/ds/media-image"
 import { SaveButton } from "@/components/ds/save-button"
 import { EmptyState } from "@/components/shell/empty-state"
+import { isFollow } from "@/lib/follows"
 import { type SavedItem, useSaves } from "@/lib/saves"
 
 /** Everything you've double-tapped, newest first. Lives on this device until accounts land. */
 export function SavedGrid() {
-  const saves = useSaves()
+  const saves = useSaves().filter((item) => !isFollow(item))
 
   if (saves.length === 0) {
     return (

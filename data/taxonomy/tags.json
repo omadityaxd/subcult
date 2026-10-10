@@ -1,0 +1,237 @@
+[
+  {
+    "slug": "fit-pics",
+    "name": "fit pics",
+    "group": "fit-pics",
+    "aliases": ["fit check"],
+    "description": "Outfit photos and fit checks from the scene.",
+    "keywords": ["fit check", "fit pic", "outfit", "ootd", "what i wore", "lookbook", "fits"],
+    "niches": [
+      "vamp",
+      "graphic-gothic-streetwear",
+      "dark-streetwear",
+      "dark-avant-garde",
+      "archive-fashion",
+      "underground-graphic-streetwear",
+      "diy-reworked",
+      "mcbling-revival",
+      "underground-sneaker-culture",
+      "deftones-core"
+    ]
+  },
+  {
+    "slug": "rapper-fit-pics",
+    "name": "rapper fit pics",
+    "group": "fit-pics",
+    "aliases": ["artist outfit inspiration", "artist fits"],
+    "description": "What the artists wear on stage and off, broken down for inspiration.",
+    "keywords": ["outfit", "fit check", "what he wore", "style breakdown", "wearing", "drip"],
+    "niches": [
+      "vamp",
+      "new-gen-underground-rap",
+      "rage",
+      "jerk",
+      "dark-streetwear",
+      "graphic-gothic-streetwear"
+    ]
+  },
+  {
+    "slug": "outfit-breakdowns",
+    "name": "outfit breakdowns",
+    "group": "fit-pics",
+    "aliases": [],
+    "description": "Piece-by-piece breakdowns of a look, with where to find it.",
+    "keywords": ["breakdown", "outfit breakdown", "fit breakdown", "how to style", "styling"],
+    "niches": [
+      "vamp",
+      "graphic-gothic-streetwear",
+      "dark-streetwear",
+      "dark-avant-garde",
+      "archive-fashion",
+      "underground-graphic-streetwear",
+      "diy-reworked",
+      "mcbling-revival",
+      "underground-sneaker-culture"
+    ]
+  },
+  {
+    "slug": "streetwear-styling",
+    "name": "streetwear styling",
+    "group": "fit-pics",
+    "aliases": [],
+    "description": "How to put streetwear together: layering, proportions, shoes.",
+    "keywords": ["styling", "how to style", "streetwear", "layering", "outfit ideas"],
+    "niches": [
+      "dark-streetwear",
+      "underground-graphic-streetwear",
+      "diy-reworked",
+      "underground-sneaker-culture"
+    ]
+  },
+  {
+    "slug": "fashion-grails",
+    "name": "fashion grails",
+    "group": "grails",
+    "aliases": ["grails", "rare designer pieces"],
+    "description": "The rare pieces collectors chase: runway seasons, discontinued items, one-offs.",
+    "keywords": ["grail", "grails", "rare", "archive", "runway", "vintage"],
+    "niches": ["archive-fashion", "dark-avant-garde", "vamp", "underground-sneaker-culture"]
+  },
+  {
+    "slug": "secondhand-designer-finds",
+    "name": "secondhand designer finds",
+    "group": "grails",
+    "aliases": ["designer thrifting"],
+    "description": "Designer pieces found secondhand, thrifted or on resale apps.",
+    "keywords": ["thrift", "thrifted", "secondhand", "resale", "grailed", "depop", "vestiaire"],
+    "niches": ["archive-fashion", "diy-reworked", "mcbling-revival", "dark-avant-garde"]
+  },
+  {
+    "slug": "streetwear-drops",
+    "name": "streetwear drops",
+    "group": "drops",
+    "aliases": [],
+    "description": "Release days, restocks and collabs worth setting an alarm for.",
+    "keywords": ["drop", "release", "restock", "collection", "collab", "launch"],
+    "niches": [
+      "underground-graphic-streetwear",
+      "graphic-gothic-streetwear",
+      "dark-streetwear",
+      "underground-sneaker-culture"
+    ]
+  },
+  {
+    "slug": "underground-fashion-brands",
+    "name": "underground fashion brands",
+    "group": "drops",
+    "aliases": ["underground brands"],
+    "description": "Small labels with cult followings, before everyone knows them.",
+    "keywords": ["brand", "label", "new brand", "independent", "designer"],
+    "niches": [
+      "graphic-gothic-streetwear",
+      "underground-graphic-streetwear",
+      "dark-streetwear",
+      "diy-reworked"
+    ]
+  },
+  {
+    "slug": "oversized-silhouettes",
+    "name": "oversized silhouettes",
+    "group": "silhouettes",
+    "aliases": [],
+    "description": "Boxy, baggy, flared and dropped: proportion as the point.",
+    "keywords": ["oversized", "baggy", "wide leg", "boxy", "flared", "flare"],
+    "niches": ["dark-streetwear", "vamp", "dark-avant-garde", "underground-graphic-streetwear"]
+  },
+  {
+    "slug": "statement-accessories",
+    "name": "statement accessories",
+    "group": "silhouettes",
+    "aliases": [],
+    "description": "Silver crosses, studded belts, chains and sunglasses that carry the outfit.",
+    "keywords": ["jewelry", "chain", "belt", "rings", "sunglasses", "accessories", "necklace"],
+    "niches": ["graphic-gothic-streetwear", "vamp", "mcbling-revival"]
+  },
+  {
+    "slug": "graphic-long-sleeves",
+    "name": "graphic long sleeves",
+    "group": "silhouettes",
+    "aliases": [],
+    "description": "Printed long sleeves: tribal, floral, gothic and everything in between.",
+    "keywords": ["long sleeve", "longsleeve", "graphic tee", "tribal", "print"],
+    "niches": ["graphic-gothic-streetwear", "underground-graphic-streetwear"]
+  },
+  {
+    "slug": "experimental-streetwear",
+    "name": "experimental streetwear",
+    "group": "silhouettes",
+    "aliases": [],
+    "description": "Deconstructed, reworked and avant-garde takes on everyday pieces.",
+    "keywords": ["experimental", "avant", "deconstructed", "reworked", "custom"],
+    "niches": ["dark-avant-garde", "diy-reworked", "archive-fashion"]
+  },
+  {
+    "slug": "alternative-gen-z-fashion",
+    "name": "alternative gen z fashion",
+    "group": "silhouettes",
+    "aliases": ["alt fashion"],
+    "description": "Alt styles that live online: goth, emo, grunge and their remixes.",
+    "keywords": ["alt", "alternative", "goth", "emo", "grunge", "punk"],
+    "niches": [
+      "vamp",
+      "graphic-gothic-streetwear",
+      "mcbling-revival",
+      "deftones-core",
+      "diy-reworked"
+    ]
+  },
+  {
+    "slug": "soundcloud-culture",
+    "name": "soundcloud culture",
+    "group": "scene",
+    "aliases": [],
+    "description": "Uploads at 2am, reposts, leaks and the snippet economy.",
+    "keywords": ["soundcloud", "leak", "snippet", "unreleased", "upload"],
+    "niches": [
+      "soundcloud-rap",
+      "new-gen-underground-rap",
+      "digicore",
+      "sigilkore",
+      "plugg",
+      "jerk"
+    ]
+  },
+  {
+    "slug": "underground-music-memes",
+    "name": "underground music memes",
+    "group": "scene",
+    "aliases": [],
+    "description": "The jokes, edits and reactions every scene runs on.",
+    "keywords": ["meme", "funny", "reaction", "skit", "edit"],
+    "niches": ["new-gen-underground-rap", "rage", "jerk", "digicore", "glitchcore"]
+  },
+  {
+    "slug": "niche-music-discovery",
+    "name": "niche music discovery",
+    "group": "scene",
+    "aliases": ["music discovery"],
+    "description": "Rabbit holes, deep dives and the artists you have to hear next.",
+    "keywords": [
+      "underrated",
+      "discover",
+      "you need to hear",
+      "playlist",
+      "rabbit hole",
+      "deep dive",
+      "explained"
+    ],
+    "niches": [
+      "new-gen-underground-rap",
+      "plugg",
+      "dark-plugg",
+      "tread",
+      "sigilkore",
+      "nu-gaze",
+      "experimental-rap",
+      "cloud-rap"
+    ]
+  },
+  {
+    "slug": "online-music-collectives",
+    "name": "online music collectives",
+    "group": "scene",
+    "aliases": ["music collectives"],
+    "description": "Crews built in group chats: Drain Gang, Working on Dying, 1c34, Jewelxxet.",
+    "keywords": ["collective", "crew", "gang", "label"],
+    "niches": ["digicore", "sigilkore", "cloud-rap", "tread", "jerk", "plugg"]
+  },
+  {
+    "slug": "internet-core",
+    "name": "internet-core",
+    "group": "scene",
+    "aliases": ["-core aesthetics"],
+    "description": "The '-core' naming culture: aesthetics and microgenres born and named online.",
+    "keywords": ["core", "aesthetic", "internet"],
+    "niches": ["glitchcore", "hyperpop", "digicore", "sigilkore", "deftones-core"]
+  }
+]

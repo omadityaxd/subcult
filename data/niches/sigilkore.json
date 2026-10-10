@@ -1,0 +1,81 @@
+{
+  "slug": "sigilkore",
+  "schemaVersion": 1,
+  "name": "sigilkore",
+  "emoji": "🔯",
+  "tagline": "occult symbols, memphis samples, the reverb never stops",
+  "description": "An experimental trap microgenre born on SoundCloud: dark, lo-fi and disorienting, blending cloud rap, HexD and hyperpop. Pioneered by Luci4 and the Jewelxxet collective with islurwhenitalk, then popularized by 9lives and Odetari. Sigils on the cover art are mandatory.",
+  "palette": ["#060608", "#1a0f1f", "#4a1d4f", "#b46fd0", "#efe6f5"],
+  "vibeWords": ["occult", "lo-fi", "disorienting", "Memphis", "sigils", "hazy", "nocturnal"],
+  "artists": [
+    {
+      "name": "Luci4",
+      "why": "the genre's main pioneer"
+    },
+    {
+      "name": "Islurwhenitalk",
+      "why": "Jewelxxet co-founder"
+    },
+    {
+      "name": "9lives",
+      "why": "helped popularize sigilkore"
+    },
+    {
+      "name": "Odetari",
+      "why": "took the sound to TikTok scale"
+    },
+    {
+      "name": "sellasouls",
+      "why": "a core scene artist"
+    },
+    {
+      "name": "Siouxxie Sixxsta",
+      "why": "named among the genre's voices"
+    },
+    {
+      "name": "Rachyl",
+      "why": "formerly Syve, a sigilkore staple"
+    },
+    {
+      "name": "Kaystrueno",
+      "why": "part of the sigilkore orbit"
+    }
+  ],
+  "spotifyQueries": ["sigilkore", "jewelxxet", "hexd", "sigilkore playlist"],
+  "subreddits": ["hyperpop", "DrainGang"],
+  "newsQueries": ["sigilkore", "Luci4", "Odetari"],
+  "youtubeQueries": ["sigilkore", "Luci4", "sigilkore mix"],
+  "brands": [
+    {
+      "name": "Chrome Hearts",
+      "priceTier": "$$$",
+      "why": "crosses are basically sigils"
+    },
+    {
+      "name": "Hellstar",
+      "priceTier": "$$",
+      "why": "occult-ish graphics"
+    },
+    {
+      "name": "Rick Owens",
+      "priceTier": "$$$",
+      "why": "all-black ritual wear"
+    },
+    {
+      "name": "Dr. Martens",
+      "priceTier": "$",
+      "why": "black boots for the séance"
+    }
+  ],
+  "shopKeywords": [
+    "sigil necklace",
+    "black hoodie",
+    "silver rings",
+    "platform boots",
+    "occult graphic tee"
+  ],
+  "pinterestQueries": ["sigilkore aesthetic", "sigil cover art"],
+  "instagramHashtags": ["sigilkore", "luci4", "jewelxxet"],
+  "tiktokQueries": ["sigilkore", "luci4", "odetari"],
+  "relatedNiches": ["cloud rap", "jerk", "hyperpop", "goth"]
+}

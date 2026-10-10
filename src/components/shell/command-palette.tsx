@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation"
 import { type KeyboardEvent, useEffect, useMemo, useState } from "react"
 import { NicheAvatar } from "@/components/ds/niche-avatar"
 import type { NichePreset } from "@/lib/niches/catalog"
+import { presetIs, presetMatches } from "@/lib/niches/preset-search"
 import type { ApiResponse } from "@/lib/request"
 import { cn } from "@/lib/utils"
 import { OPEN_SEARCH_EVENT } from "./nav"
@@ -63,7 +64,7 @@ export function CommandPalette({ presets }: { presets: readonly NichePreset[] })
   const entries = useMemo<Entry[]>(() => {
     const needle = query.trim().toLowerCase()
     const niches = presets
-      .filter((preset) => !needle || preset.name.includes(needle))
+      .filter((preset) => presetMatches(preset, needle))
       .slice(0, MAX_NICHES)
       .map<Entry>((preset) => ({
         kind: "niche",
@@ -74,7 +75,7 @@ export function CommandPalette({ presets }: { presets: readonly NichePreset[] })
       }))
     const pages = PAGES.filter((page) => !needle || page.label.toLowerCase().includes(needle))
     const summon: Entry[] =
-      needle.length >= 2 && !presets.some((preset) => preset.name === needle)
+      needle.length >= 2 && !presets.some((preset) => presetIs(preset, needle))
         ? [
             {
               kind: "summon",
@@ -182,6 +183,7 @@ export function CommandPalette({ presets }: { presets: readonly NichePreset[] })
                     slug={entry.preset.slug}
                     name={entry.preset.name}
                     palette={entry.preset.palette}
+                    imageUrl={entry.preset.imageUrl}
                     size="sm"
                   />
                 ) : (

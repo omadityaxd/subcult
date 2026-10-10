@@ -1,0 +1,95 @@
+{
+  "slug": "diy-reworked",
+  "schemaVersion": 1,
+  "name": "diy reworked",
+  "emoji": "✂️",
+  "tagline": "you could buy it destroyed or you could destroy it yourself",
+  "description": "Distressed, reworked and hand-altered clothes: bleached denim, raw hems, patchwork, safety pins, hand-painted jackets. It runs from punk's DIY roots through Gallery Dept. and Kapital to TikTok tutorials on shredding thrifted jeans. The flaws are the point.",
+  "palette": ["#0c0b09", "#2e2a22", "#6e6250", "#c5b593", "#f4efe3"],
+  "vibeWords": [
+    "distressed",
+    "patchwork",
+    "bleached",
+    "hand-painted",
+    "raw hems",
+    "thrifted",
+    "punk"
+  ],
+  "artists": [
+    {
+      "name": "Playboi Carti",
+      "why": "shredded denim on the biggest stages"
+    },
+    {
+      "name": "Lil Uzi Vert",
+      "why": "patched, painted and pinned"
+    },
+    {
+      "name": "Ken Carson",
+      "why": "destroyed knits and leather"
+    },
+    {
+      "name": "OsamaSon",
+      "why": "fits that look survived a mosh pit"
+    },
+    {
+      "name": "Nettspend",
+      "why": "thrift-store remixes"
+    },
+    {
+      "name": "Nirvana",
+      "why": "the grunge-era blueprint for distressed"
+    },
+    {
+      "name": "Sex Pistols",
+      "why": "punk invented safety-pin couture"
+    },
+    {
+      "name": "Fakemink",
+      "why": "UK DIY styling"
+    }
+  ],
+  "spotifyQueries": ["punk classics", "underground rap 2026", "grunge"],
+  "subreddits": ["streetwear", "thriftstorehauls", "rawdenim"],
+  "newsQueries": ["Gallery Dept.", "Kapital collection", "reworked fashion"],
+  "youtubeQueries": ["how to distress jeans", "reworked clothing diy", "patchwork jeans tutorial"],
+  "brands": [
+    {
+      "name": "Gallery Dept.",
+      "priceTier": "$$$",
+      "why": "paint-splattered flares made famous"
+    },
+    {
+      "name": "Kapital",
+      "priceTier": "$$$",
+      "why": "Japanese boro patchwork and sashiko"
+    },
+    {
+      "name": "Who Decides War",
+      "priceTier": "$$$",
+      "why": "hand-pieced, ornate denim"
+    },
+    {
+      "name": "Readymade",
+      "priceTier": "$$$",
+      "why": "built from deadstock military fabric"
+    },
+    {
+      "name": "Levi's",
+      "priceTier": "$",
+      "why": "the jeans you'll destroy yourself"
+    }
+  ],
+  "shopKeywords": [
+    "distressed jeans",
+    "patchwork denim",
+    "bleached hoodie",
+    "fabric paint",
+    "safety pins",
+    "thrifted jacket"
+  ],
+  "pinterestQueries": ["reworked clothing", "distressed streetwear", "patchwork jeans outfit"],
+  "instagramHashtags": ["reworked", "diyfashion", "distressed", "upcycled"],
+  "tiktokQueries": ["distressed jeans diy", "reworked clothes", "patchwork jeans"],
+  "relatedNiches": ["grunge", "archive fashion", "skater", "underground graphic streetwear"]
+}

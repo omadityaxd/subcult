@@ -1,0 +1,95 @@
+{
+  "slug": "soundcloud-rap",
+  "schemaVersion": 1,
+  "name": "soundcloud rap",
+  "emoji": "☁️",
+  "tagline": "face tats, red dreads, 2017 never ended",
+  "description": "The 2016 to 2018 SoundCloud explosion: blown-out bass, punk energy and emo hooks recorded in bedrooms and uploaded the same night. XXXTENTACION, Lil Peep and Smokepurpp rewired what a rap star looked like, and today's underground is its direct descendant.",
+  "palette": ["#0c0a0a", "#2b1616", "#ff5500", "#ffb27a", "#f6efe9"],
+  "vibeWords": ["distorted", "emo", "punk", "lo-fi", "2017", "dreads", "chaos"],
+  "artists": [
+    {
+      "name": "XXXTENTACION",
+      "why": "distorted rage and raw emo in one tape"
+    },
+    {
+      "name": "Lil Peep",
+      "why": "emo rap's heartbreak and pop-punk hooks"
+    },
+    {
+      "name": "Lil Pump",
+      "why": "Gucci Gang chaos"
+    },
+    {
+      "name": "Smokepurpp",
+      "why": "Florida's blown-out bass"
+    },
+    {
+      "name": "Ski Mask the Slump God",
+      "why": "cartoon flows at 200 mph"
+    },
+    {
+      "name": "Juice WRLD",
+      "why": "the melodic heart of the era"
+    },
+    {
+      "name": "Trippie Redd",
+      "why": "rock-rap wails before rage existed"
+    },
+    {
+      "name": "$uicideboy$",
+      "why": "New Orleans darkness that built a cult"
+    },
+    {
+      "name": "Lil Tracy",
+      "why": "GothBoiClique's emo partner in crime"
+    },
+    {
+      "name": "Ronny J",
+      "why": "the producer behind the era's blown-out sound"
+    }
+  ],
+  "spotifyQueries": ["soundcloud rap", "soundcloud era 2017", "emo rap", "soundcloud classics"],
+  "subreddits": ["hiphopheads", "rap", "LilPeep"],
+  "newsQueries": ["SoundCloud rap", "emo rap", "SoundCloud era anniversary"],
+  "youtubeQueries": ["soundcloud rap era documentary", "soundcloud rap classics", "emo rap mix"],
+  "brands": [
+    {
+      "name": "Vlone",
+      "priceTier": "$$",
+      "why": "the orange V that defined the era"
+    },
+    {
+      "name": "Anti Social Social Club",
+      "priceTier": "$$",
+      "why": "sad-boy hoodies, sold out"
+    },
+    {
+      "name": "Gucci",
+      "priceTier": "$$$",
+      "why": "Gucci Gang, literally"
+    },
+    {
+      "name": "Dickies",
+      "priceTier": "$",
+      "why": "skate pants that survived every show"
+    },
+    {
+      "name": "Vans",
+      "priceTier": "$",
+      "why": "checkerboard slip-ons at the pit"
+    }
+  ],
+  "shopKeywords": [
+    "graphic hoodie",
+    "ripped skinny jeans",
+    "dyed hair",
+    "chain necklace",
+    "checkerboard vans",
+    "beanie"
+  ],
+  "pinterestQueries": ["soundcloud rapper aesthetic 2017", "lil peep outfits", "emo rap aesthetic"],
+  "instagramHashtags": ["soundcloudrap", "emorap", "lilpeep", "xxxtentacion"],
+  "tiktokQueries": ["soundcloud era", "soundcloud rap", "emo rap"],
+  "relatedNiches": ["rage", "midwest emo", "cloud rap", "new-gen underground rap"]
+}

@@ -1,0 +1,87 @@
+{
+  "slug": "jerk",
+  "schemaVersion": 1,
+  "name": "jerk",
+  "emoji": "🌀",
+  "tagline": "piano loop, blown-out 808, nobody is standing still",
+  "description": "An internet-born microgenre pushed by Xaviersobased and his 1c34 crew: bouncy, lo-fi beats, chopped pianos and woozy, half-mumbled flows. Patchmade put it on the map, then Nettspend and Evilgiane's Surf Gang carried it onto every underground playlist.",
+  "palette": ["#0a0b0d", "#14232b", "#2f6e7a", "#a8e0e0", "#f2f7f5"],
+  "vibeWords": ["bouncy", "lo-fi", "piano loops", "woozy", "NYC", "Discord", "snippets"],
+  "artists": [
+    {
+      "name": "Xaviersobased",
+      "why": "spearheaded the sound with Patchmade"
+    },
+    {
+      "name": "Nettspend",
+      "why": "Bad Ass F*cking Kid made jerk go global"
+    },
+    {
+      "name": "Evilgiane",
+      "why": "Surf Gang producer behind 40"
+    },
+    {
+      "name": "Yhapojj",
+      "why": "a core voice of the scene"
+    },
+    {
+      "name": "Fakemink",
+      "why": "London take on the jerk bounce"
+    },
+    {
+      "name": "EsDeeKid",
+      "why": "tied to the same wave from Liverpool"
+    },
+    {
+      "name": "Kashpaint",
+      "why": "produced Patchmade, the genre's anthem"
+    },
+    {
+      "name": "Islurwhenitalk",
+      "why": "sigilkore co-founder who crosses into jerk"
+    }
+  ],
+  "spotifyQueries": ["jerk rap", "jerk music", "surf gang", "1c34"],
+  "subreddits": ["hiphopheads", "rap", "makinghiphop"],
+  "newsQueries": ["Xaviersobased", "Nettspend", "jerk rap", "Surf Gang Records"],
+  "youtubeQueries": ["jerk rap", "Xaviersobased live", "Nettspend Impact", "jerk type beat"],
+  "brands": [
+    {
+      "name": "Hellstar",
+      "priceTier": "$$",
+      "why": "graphic hoodies on every jerk snippet"
+    },
+    {
+      "name": "Chrome Hearts",
+      "priceTier": "$$$",
+      "why": "hardware, crosses, the usual"
+    },
+    {
+      "name": "Supreme",
+      "priceTier": "$$",
+      "why": "NYC staple that never left"
+    },
+    {
+      "name": "Nike",
+      "priceTier": "$$",
+      "why": "Air Max Plus, Tns forever"
+    },
+    {
+      "name": "Corteiz",
+      "priceTier": "$$",
+      "why": "the London side of the wave"
+    }
+  ],
+  "shopKeywords": [
+    "Nike Air Max Plus",
+    "baggy jeans",
+    "zip-up hoodie",
+    "beanie",
+    "puffer jacket",
+    "chain wallet"
+  ],
+  "pinterestQueries": ["jerk rap aesthetic", "xaviersobased outfit", "nettspend outfit"],
+  "instagramHashtags": ["jerkrap", "xaviersobased", "nettspend", "surfgang"],
+  "tiktokQueries": ["jerk rap", "jerk music", "nettspend"],
+  "relatedNiches": ["rage", "new-gen underground rap", "sigilkore", "plugg"]
+}

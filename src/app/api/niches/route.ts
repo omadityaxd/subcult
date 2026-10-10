@@ -3,7 +3,7 @@ import type { NicheProfile } from "@/lib/engine/profile-schema"
 import { checkGenerationBudget, getNicheService } from "@/lib/engine/server"
 import { parseNicheInput } from "@/lib/engine/slug"
 import { errorMessage, log } from "@/lib/log"
-import { findSeedProfile } from "@/lib/niches/catalog"
+import { findSeedProfileByName } from "@/lib/niches/catalog"
 import { apiError, apiOk, clientIp } from "@/lib/request"
 
 const bodySchema = z.object({ name: z.string().max(200) })
@@ -30,7 +30,7 @@ const toResolved = (profile: NicheProfile, source: ResolvedNiche["source"]): Res
 
 /**
  * POST /api/niches { name } → resolves any typed vibe to a niche. Order:
- * bundled seed catalog (free, no DB) → Postgres cache → Claude generation,
+ * bundled seed catalog incl. aliases (free, no DB) → Postgres cache → Claude generation,
  * which is gated by the global daily cap and a per-IP limit.
  */
 export async function POST(request: Request): Promise<Response> {
@@ -44,7 +44,8 @@ export async function POST(request: Request): Promise<Response> {
   const input = parseNicheInput(body.name)
   if (!input.ok) return apiError(input.reason, 400, "invalid-input")
 
-  const seed = findSeedProfile(input.slug)
+  // Name, slug or alias ("opium fashion" → vamp): never generate a duplicate of a curated niche.
+  const seed = findSeedProfileByName(input.name)
   if (seed) return apiOk(toResolved(seed, "seed"))
 
   const service = getNicheService()

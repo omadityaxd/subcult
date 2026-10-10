@@ -1,0 +1,232 @@
+[
+  {
+    "slug": "rick-owens",
+    "name": "Rick Owens",
+    "aliases": [],
+    "description": "Paris-based designer behind draped, brutalist luxury and cult sneakers like the Geobasket and Ramones.",
+    "officialUrl": "https://www.rickowens.eu/",
+    "linkedTo": [
+      "dark-avant-garde",
+      "archive-fashion",
+      "vamp",
+      "underground-sneaker-culture",
+      "dark-streetwear"
+    ]
+  },
+  {
+    "slug": "vivet",
+    "name": "VIVET",
+    "aliases": ["Vivet Apparel"],
+    "description": "Streetwear label founded in 2025 by streamer Kai Cenat (Vivet Apparel LLC): tribal-style graphics, a gothic cross logo, denim and leather. Lookalike sites exist; this is the official one.",
+    "officialUrl": "https://vivetofficial.com/",
+    "linkedTo": ["graphic-gothic-streetwear", "statement-accessories"]
+  },
+  {
+    "slug": "chrome-hearts",
+    "name": "Chrome Hearts",
+    "aliases": [],
+    "description": "LA label known for sterling-silver crosses, gothic hardware and leather.",
+    "officialUrl": "https://www.chromehearts.com/",
+    "linkedTo": ["vamp", "graphic-gothic-streetwear", "statement-accessories"]
+  },
+  {
+    "slug": "hellstar",
+    "name": "Hellstar",
+    "aliases": [],
+    "description": "Graphic-heavy streetwear label with a cult following in the rap underground.",
+    "officialUrl": "https://hellstar.com/",
+    "linkedTo": ["underground-graphic-streetwear"]
+  },
+  {
+    "slug": "corteiz",
+    "name": "Corteiz",
+    "aliases": ["crtz"],
+    "description": "London streetwear label built on drop culture and community events.",
+    "officialUrl": "https://www.corteiz.com/",
+    "linkedTo": ["underground-graphic-streetwear"]
+  },
+  {
+    "slug": "broken-planet",
+    "name": "Broken Planet",
+    "aliases": [],
+    "description": "London label known for slogan sweats and limited drops.",
+    "officialUrl": "https://www.brokenplanet.com/",
+    "linkedTo": ["underground-graphic-streetwear"]
+  },
+  {
+    "slug": "sp5der",
+    "name": "Sp5der",
+    "aliases": ["spider worldwide"],
+    "description": "Streetwear label known for puffy web-print hoodies.",
+    "officialUrl": null,
+    "linkedTo": ["underground-graphic-streetwear"]
+  },
+  {
+    "slug": "denim-tears",
+    "name": "Denim Tears",
+    "aliases": [],
+    "description": "Tremaine Emory's label, known for cotton-wreath denim that tells a history.",
+    "officialUrl": "https://denimtears.com/",
+    "linkedTo": ["underground-graphic-streetwear"]
+  },
+  {
+    "slug": "raf-simons",
+    "name": "Raf Simons",
+    "aliases": [],
+    "description": "Belgian designer whose past collections are among the most hunted in archive menswear.",
+    "officialUrl": "https://www.rafsimons.com/",
+    "linkedTo": ["archive-fashion"]
+  },
+  {
+    "slug": "helmut-lang",
+    "name": "Helmut Lang",
+    "aliases": [],
+    "description": "Minimalist label whose 90s archive is a collector obsession.",
+    "officialUrl": "https://www.helmutlang.com/",
+    "linkedTo": ["archive-fashion"]
+  },
+  {
+    "slug": "undercover",
+    "name": "Undercover",
+    "aliases": [],
+    "description": "Jun Takahashi's Tokyo label with a deep cult archive.",
+    "officialUrl": "https://undercoverism.com/",
+    "linkedTo": ["archive-fashion"]
+  },
+  {
+    "slug": "maison-margiela",
+    "name": "Maison Margiela",
+    "aliases": [],
+    "description": "Paris house behind the Tabi and the GAT, with a Martin-era archive collectors revere.",
+    "officialUrl": "https://www.maisonmargiela.com/",
+    "linkedTo": ["archive-fashion", "underground-sneaker-culture"]
+  },
+  {
+    "slug": "ann-demeulemeester",
+    "name": "Ann Demeulemeester",
+    "aliases": [],
+    "description": "Antwerp label of romantic, poetic black tailoring.",
+    "officialUrl": "https://anndemeulemeester.com/",
+    "linkedTo": ["dark-avant-garde"]
+  },
+  {
+    "slug": "yohji-yamamoto",
+    "name": "Yohji Yamamoto",
+    "aliases": [],
+    "description": "Tokyo designer of draped, oversized black silhouettes.",
+    "officialUrl": "https://www.yohjiyamamoto.co.jp/",
+    "linkedTo": ["dark-avant-garde"]
+  },
+  {
+    "slug": "julius",
+    "name": "Julius",
+    "aliases": [],
+    "description": "Japanese label of dark, layered, technical-avant clothing.",
+    "officialUrl": "https://www.julius-garden.jp/",
+    "linkedTo": ["dark-avant-garde"]
+  },
+  {
+    "slug": "gallery-dept",
+    "name": "Gallery Dept.",
+    "aliases": [],
+    "description": "LA label of hand-painted, distressed and reworked denim.",
+    "officialUrl": "https://gallerydept.com/",
+    "linkedTo": ["diy-reworked"]
+  },
+  {
+    "slug": "kapital",
+    "name": "Kapital",
+    "aliases": [],
+    "description": "Japanese label known for boro patchwork, sashiko and reworked denim.",
+    "officialUrl": "https://www.kapital.jp/",
+    "linkedTo": ["diy-reworked"]
+  },
+  {
+    "slug": "who-decides-war",
+    "name": "Who Decides War",
+    "aliases": [],
+    "description": "Label of ornate, hand-pieced, stained-glass-inspired denim.",
+    "officialUrl": "https://whodecideswar.com/",
+    "linkedTo": ["diy-reworked", "graphic-gothic-streetwear"]
+  },
+  {
+    "slug": "affliction",
+    "name": "Affliction",
+    "aliases": [],
+    "description": "The 2000s label whose tribal and gothic graphics are back in rotation.",
+    "officialUrl": "https://www.afflictionclothing.com/",
+    "linkedTo": ["graphic-gothic-streetwear"]
+  },
+  {
+    "slug": "ed-hardy",
+    "name": "Ed Hardy",
+    "aliases": [],
+    "description": "Tattoo-art graphics and rhinestones, a 2000s icon revived.",
+    "officialUrl": "https://edhardyoriginals.com/",
+    "linkedTo": ["graphic-gothic-streetwear", "mcbling-revival"]
+  },
+  {
+    "slug": "juicy-couture",
+    "name": "Juicy Couture",
+    "aliases": [],
+    "description": "Home of the velour tracksuit.",
+    "officialUrl": "https://juicycouture.com/",
+    "linkedTo": ["mcbling-revival"]
+  },
+  {
+    "slug": "von-dutch",
+    "name": "Von Dutch",
+    "aliases": [],
+    "description": "The trucker hat of the 2000s paparazzi era.",
+    "officialUrl": "https://vondutch.com/",
+    "linkedTo": ["mcbling-revival"]
+  },
+  {
+    "slug": "salomon",
+    "name": "Salomon",
+    "aliases": [],
+    "description": "French outdoor brand whose trail shoes became a fashion staple.",
+    "officialUrl": "https://www.salomon.com/",
+    "linkedTo": ["underground-sneaker-culture"]
+  },
+  {
+    "slug": "asics",
+    "name": "Asics",
+    "aliases": [],
+    "description": "Japanese running brand with archive silhouettes like the Gel-Kayano 14.",
+    "officialUrl": "https://www.asics.com/",
+    "linkedTo": ["underground-sneaker-culture"]
+  },
+  {
+    "slug": "bape",
+    "name": "Bape",
+    "aliases": ["a bathing ape"],
+    "description": "Tokyo streetwear label behind the Bapesta.",
+    "officialUrl": "https://www.bape.com/",
+    "linkedTo": ["underground-sneaker-culture"]
+  },
+  {
+    "slug": "fear-of-god",
+    "name": "Fear of God",
+    "aliases": [],
+    "description": "Jerry Lorenzo's elevated, muted streetwear.",
+    "officialUrl": "https://fearofgod.com/",
+    "linkedTo": ["dark-streetwear"]
+  },
+  {
+    "slug": "entire-studios",
+    "name": "Entire Studios",
+    "aliases": [],
+    "description": "Boxy, washed basics in muted and black tones.",
+    "officialUrl": "https://www.entirestudios.com/",
+    "linkedTo": ["dark-streetwear"]
+  },
+  {
+    "slug": "balenciaga",
+    "name": "Balenciaga",
+    "aliases": [],
+    "description": "Paris house whose oversized silhouettes shaped the underground uniform.",
+    "officialUrl": "https://www.balenciaga.com/",
+    "linkedTo": ["vamp", "dark-streetwear"]
+  }
+]

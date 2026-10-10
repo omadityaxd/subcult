@@ -2,6 +2,7 @@ import "server-only"
 import { env } from "@/lib/env"
 import { log } from "@/lib/log"
 import { getRedis } from "@/lib/redis"
+import { artistSpotifyId, nicheImage } from "@/lib/niches/catalog"
 import { lookupNicheProfile } from "@/lib/niches/lookup"
 import { buildNicheFeed } from "./feed"
 import { featuredOrder, type HomeNiche } from "./featured"
@@ -22,6 +23,7 @@ function feedDeps() {
     spotifyClientId: env.SPOTIFY_CLIENT_ID,
     spotifyClientSecret: env.SPOTIFY_CLIENT_SECRET,
     youtubeApiKey: env.YOUTUBE_API_KEY,
+    artistIdFor: artistSpotifyId,
     redis: getRedis(),
     logger: log,
   })
@@ -38,6 +40,7 @@ async function feedFor(slug: string): Promise<{ niche: HomeNiche; items: FeedIte
       name: profile.name,
       tagline: profile.tagline,
       palette: profile.palette,
+      imageUrl: nicheImage(profile.slug),
     },
     items: feed.items,
   }

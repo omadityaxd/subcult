@@ -1,0 +1,2627 @@
+[
+  {
+    "slug": "100-gecs",
+    "name": "100 gecs",
+    "aliases": [],
+    "spotifyId": "6PfSUFtkMVoDkx4MQkzOi3",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebd77a9c855001f3a9b5815bc0"
+  },
+  {
+    "slug": "21-savage",
+    "name": "21 Savage",
+    "aliases": [],
+    "spotifyId": "1URnnhqYAYcrqrcwql10ft",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb4f8f76117470957c0e81e5b2"
+  },
+  {
+    "slug": "2814",
+    "name": "２８１４",
+    "aliases": [],
+    "spotifyId": "2wBpW4bAGYVe0yJcBeCTyd",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb5a96d8961611ce5321a62d8c"
+  },
+  {
+    "slug": "9lives",
+    "name": "9lives",
+    "aliases": [],
+    "spotifyId": "2MQN1o9W3ULxdT38vj8g4Q",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebf525de2d113c26d5c46854d9"
+  },
+  {
+    "slug": "a-ap-rocky",
+    "name": "A$AP Rocky",
+    "aliases": [],
+    "spotifyId": "13ubrt8QOOCPljQ2FL1Kca",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebad160b333f9a240f84aff7d7"
+  },
+  {
+    "slug": "a-g-cook",
+    "name": "A. G. Cook",
+    "aliases": [],
+    "spotifyId": "335TWGWGFan4vaacJzSiU8",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb46fcb25c1d37f61e5fb2a5fd"
+  },
+  {
+    "slug": "a-tribe-called-quest",
+    "name": "A Tribe Called Quest",
+    "aliases": [],
+    "spotifyId": "09hVIj6vWgoCDtT03h8ZCa",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb774d73ae6796b6f437d89db9"
+  },
+  {
+    "slug": "aaliyah",
+    "name": "Aaliyah",
+    "aliases": [],
+    "spotifyId": "0urTpYCsixqZwgNTkPJOJ4",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebd2493cea701d45401cc79ffd"
+  },
+  {
+    "slug": "ado",
+    "name": "Ado",
+    "aliases": [],
+    "spotifyId": "6mEQK9m2krja6X1cfsAjfl",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebbcb1c184c322688f10cdce7a"
+  },
+  {
+    "slug": "adrianne-lenker",
+    "name": "Adrianne Lenker",
+    "aliases": [],
+    "spotifyId": "4aKWmkWAKviFlyvHYPTNQY",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb5a7d5278cf9deda53119028c"
+  },
+  {
+    "slug": "aespa",
+    "name": "aespa",
+    "aliases": [],
+    "spotifyId": "6YVMFz59CuY7ngCxTxjpxE",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb053bbb910dda6d4ab0618b8b"
+  },
+  {
+    "slug": "aimer",
+    "name": "Aimer",
+    "aliases": [],
+    "spotifyId": "0bAsR2unSRpn6BQPEnNlZm",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebecb2f33d56d05407f877aa81"
+  },
+  {
+    "slug": "aldn",
+    "name": "aldn",
+    "aliases": [],
+    "spotifyId": "2GUw9Wzha61PkZoRVv1PDD",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb6ef54a862fb3da1a3754e443"
+  },
+  {
+    "slug": "algernon-cadwallader",
+    "name": "Algernon Cadwallader",
+    "aliases": [],
+    "spotifyId": "1BfYXNfaB5HBwHn4gxnEQE",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb5ce238651d0ef449d6610367"
+  },
+  {
+    "slug": "alice-in-chains",
+    "name": "Alice In Chains",
+    "aliases": [],
+    "spotifyId": "64tNsm6TnZe2zpcMVMOoHL",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb6114a63659d0d5c0a801f733"
+  },
+  {
+    "slug": "amelie-lens",
+    "name": "Amelie Lens",
+    "aliases": [],
+    "spotifyId": "5Ho1vKl1Uz8bJlk4vbmvmf",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb033a4201ccdb09df6f7168ea"
+  },
+  {
+    "slug": "american-football",
+    "name": "American Football",
+    "aliases": [],
+    "spotifyId": "5FwydyGVcsQllnM4xM6jw4",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb69c67c1ac91e3ee57dd6da26"
+  },
+  {
+    "slug": "anri",
+    "name": "Anri",
+    "aliases": [],
+    "spotifyId": "0xGtOrmB2hnrNRLG3vhpSo",
+    "imageUrl": "https://i.scdn.co/image/ab67616d0000b273cfd93d36fe2365f9436587d1"
+  },
+  {
+    "slug": "antonio-vivaldi",
+    "name": "Antonio Vivaldi",
+    "aliases": [],
+    "spotifyId": "2QOIawHpSlOwXDvSqQ9YJR",
+    "imageUrl": "https://i.scdn.co/image/9785700bae86f991f78183076861c7342a4bcf90"
+  },
+  {
+    "slug": "arctic-monkeys",
+    "name": "Arctic Monkeys",
+    "aliases": [],
+    "spotifyId": "7Ln80lUS6He07XvHI8qqHH",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb7da39dea0a72f581535fb11f"
+  },
+  {
+    "slug": "armand-hammer",
+    "name": "Armand Hammer",
+    "aliases": [],
+    "spotifyId": "3SCI7sXHUZIeDKMWC5NT9C",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb36540146e6771f3508d8032a"
+  },
+  {
+    "slug": "asake",
+    "name": "Asake",
+    "aliases": [],
+    "spotifyId": "3a1tBryiczPAZpgoZN9Rzg",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebff54cbafa23b728b49954587"
+  },
+  {
+    "slug": "ateez",
+    "name": "ATEEZ",
+    "aliases": [],
+    "spotifyId": "68KmkJeZGfwe1OUaivBa2L",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb630859e6682cfa878243bacc"
+  },
+  {
+    "slug": "autumn",
+    "name": "Autumn!",
+    "aliases": [],
+    "spotifyId": "5delTPpDAtBDsjk60f5xnt",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb56968aed396700e050acb99c"
+  },
+  {
+    "slug": "avril-lavigne",
+    "name": "Avril Lavigne",
+    "aliases": [],
+    "spotifyId": "0p4nmQO2msCgU4IF37Wi3j",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebcea575e8c9519d4367984256"
+  },
+  {
+    "slug": "ayra-starr",
+    "name": "Ayra Starr",
+    "aliases": [],
+    "spotifyId": "3ZpEKRjHaHANcpk10u6Ntq",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebc2074e9ac0e35662936cde67"
+  },
+  {
+    "slug": "backxwash",
+    "name": "Backxwash",
+    "aliases": [],
+    "spotifyId": "4du3q8TIzsZxZZKdRT23Jg",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb976891b2d63978bd728e4b7c"
+  },
+  {
+    "slug": "bad-brains",
+    "name": "Bad Brains",
+    "aliases": [],
+    "spotifyId": "1oVj9JmPUPg4SQ2uerV2xc",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebbd42597d561d676f5311586a"
+  },
+  {
+    "slug": "bad-bunny",
+    "name": "Bad Bunny",
+    "aliases": [],
+    "spotifyId": "4q3ewBCX7sLwd24euuV69X",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb81f47f44084e0a09b5f0fa13"
+  },
+  {
+    "slug": "bandmanrill",
+    "name": "Bandmanrill",
+    "aliases": [],
+    "spotifyId": "2SyMN1PdSuQpZgrYXrkai1",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebf2e64d7d36033e03081c05ec"
+  },
+  {
+    "slug": "bauhaus",
+    "name": "Bauhaus",
+    "aliases": [],
+    "spotifyId": "5N5tQ9Dx1h8Od7aRmGj7Fi",
+    "imageUrl": "https://i.scdn.co/image/9676688ae196b8abf4ed89ce6620a7ad04027095"
+  },
+  {
+    "slug": "beabadoobee",
+    "name": "beabadoobee",
+    "aliases": [],
+    "spotifyId": "35l9BRT7MXmM8bv2WDQiyB",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb3a41a62e7193703d29d30a9a"
+  },
+  {
+    "slug": "beyonce",
+    "name": "Beyoncé",
+    "aliases": [],
+    "spotifyId": "6vWDO969PvNqNYHIOW5v0m",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb7eaa373538359164b843f7c0"
+  },
+  {
+    "slug": "big-thief",
+    "name": "Big Thief",
+    "aliases": [],
+    "spotifyId": "5QdyldG4Fl4TPiOIeMNpBZ",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebb2be573b9d9ca2bf7f113d92"
+  },
+  {
+    "slug": "bigbang",
+    "name": "BIGBANG",
+    "aliases": [],
+    "spotifyId": "4Kxlr1PRlDKEB0ekOCyHgX",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb41f3b91c5c5bf6651da98956"
+  },
+  {
+    "slug": "bill-evans",
+    "name": "Bill Evans",
+    "aliases": [],
+    "spotifyId": "4jXfFzeP66Zy67HM2mvIIF",
+    "imageUrl": "https://i.scdn.co/image/ab6772690000c46cb96765d063ef075b79dd3a99"
+  },
+  {
+    "slug": "billy-woods",
+    "name": "billy woods",
+    "aliases": [],
+    "spotifyId": "39vtb2iiz3079nqfL5nfFc",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb5175bd62c4f1c1d8436a0a16"
+  },
+  {
+    "slug": "bktherula",
+    "name": "BKTHERULA",
+    "aliases": [],
+    "spotifyId": "6OjtkJDlAZzlzAydEn78cK",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb226c7cc474178456ec709615"
+  },
+  {
+    "slug": "black-flag",
+    "name": "Black Flag",
+    "aliases": [],
+    "spotifyId": "5Mhs3Eu8lU6sRCtRYsmABV",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb64f57c3f54c287c42cadf773"
+  },
+  {
+    "slug": "black-kray",
+    "name": "Black Kray",
+    "aliases": [],
+    "spotifyId": "7EmyqxxYZltYLKFk9sAHzM",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebf2a8e562504f90e8f733ce42"
+  },
+  {
+    "slug": "blackpink",
+    "name": "BLACKPINK",
+    "aliases": [],
+    "spotifyId": "41MozSoPIsD1dJM0CLPjZF",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb623538b7014238c54ceee056"
+  },
+  {
+    "slug": "bladee",
+    "name": "Bladee",
+    "aliases": [],
+    "spotifyId": "2xvtxDNInKDV4AvGmjw6d1",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb3c4ebaf1561b2ab468cca261"
+  },
+  {
+    "slug": "blank-banshee",
+    "name": "Blank Banshee",
+    "aliases": [],
+    "spotifyId": "1oR9pQhucVTJyi5lH2Y2iT",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb76871cb2fc40a02d2ef1e401"
+  },
+  {
+    "slug": "bleed",
+    "name": "Bleed",
+    "aliases": [],
+    "spotifyId": "15DYcBNS0c6bfsoezOIzT3",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebb7598246e39da39e0723f634"
+  },
+  {
+    "slug": "bloc-party",
+    "name": "Bloc Party",
+    "aliases": [],
+    "spotifyId": "3MM8mtgFzaEJsqbjZBSsHJ",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebaa55c33dd7e8d3f5e24c3e3c"
+  },
+  {
+    "slug": "blur",
+    "name": "Blur",
+    "aliases": [],
+    "spotifyId": "7MhMgCo0Bl0Kukl93PZbYS",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb00620d736644d2359ce99430"
+  },
+  {
+    "slug": "boldy-james",
+    "name": "Boldy James",
+    "aliases": [],
+    "spotifyId": "4fpwOzxFRMVGfd197dKIdY",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb602c23a84ea1a0ff2a63891a"
+  },
+  {
+    "slug": "bon-iver",
+    "name": "Bon Iver",
+    "aliases": [],
+    "spotifyId": "4LEiUm1SRbFMgfqnQTwUbQ",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebfa1d9471f2a10a3a5da1a646"
+  },
+  {
+    "slug": "bones",
+    "name": "BONES",
+    "aliases": [],
+    "spotifyId": "5v2WhpA59TJSdPh7LCx1lN",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb31672210ac133d978de5ce45"
+  },
+  {
+    "slug": "boolymon",
+    "name": "boolymon",
+    "aliases": [],
+    "spotifyId": "0T4s3xc50BkYsAvK2tV9cd",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb30034dd53574f8093b2ed96a"
+  },
+  {
+    "slug": "bootychaaain",
+    "name": "Bootychaaain",
+    "aliases": [],
+    "spotifyId": "2hTiztixod5ZwsbCInAgmt",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eba7f823336e9b076d73ea8469"
+  },
+  {
+    "slug": "boy-harsher",
+    "name": "Boy Harsher",
+    "aliases": [],
+    "spotifyId": "4iom7VVRU6AHRIu1JUXpLG",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebc49def2ad602ccd7e2caded6"
+  },
+  {
+    "slug": "boy-pablo",
+    "name": "boy pablo",
+    "aliases": [],
+    "spotifyId": "7wbkl3zgDZEoZer357mVIw",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebaaaf85682f1fecc9bdd675fe"
+  },
+  {
+    "slug": "brakence",
+    "name": "brakence",
+    "aliases": [],
+    "spotifyId": "4kqFrZkeqDfOIEqTWqbOOV",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebe1dce3b56c044ae242ea558f"
+  },
+  {
+    "slug": "brian-tyler",
+    "name": "Brian Tyler",
+    "aliases": [],
+    "spotifyId": "109FvbnDVNag1UcJDVpFlr",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb5e43eb7a1380a0e47f05ee9b"
+  },
+  {
+    "slug": "britney-spears",
+    "name": "Britney Spears",
+    "aliases": [],
+    "spotifyId": "26dSoYclwsYLMAKD3tpOr4",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eba82576e3d9f02b310e15a262"
+  },
+  {
+    "slug": "bts",
+    "name": "BTS",
+    "aliases": [],
+    "spotifyId": "3Nrfpe0tUJi4K4DXYWgMUX",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebf80ec63ea7a0ef0fba60957d"
+  },
+  {
+    "slug": "burial",
+    "name": "Burial",
+    "aliases": [],
+    "spotifyId": "0uCCBpmg6MrPb1KY2msceF",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb4be7334b7aed9ca32a732aeb"
+  },
+  {
+    "slug": "burna-boy",
+    "name": "Burna Boy",
+    "aliases": [],
+    "spotifyId": "3wcj11K77LjEY1PkEazffa",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebb4e44d0f4e3e47af2cf06f3f"
+  },
+  {
+    "slug": "cap-n-jazz",
+    "name": "Cap'n Jazz",
+    "aliases": [],
+    "spotifyId": "3JhEcBWSCPXkRMt1VK14i4",
+    "imageUrl": "https://i.scdn.co/image/2128693a4598c64a0c14f25ba3ee0f8f2afd3ab2"
+  },
+  {
+    "slug": "carpenter-brut",
+    "name": "Carpenter Brut",
+    "aliases": [],
+    "spotifyId": "1l2oLiukA9i5jEtIyNWIEP",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebac2f9a19a87d094626992c94"
+  },
+  {
+    "slug": "central-cee",
+    "name": "Central Cee",
+    "aliases": [],
+    "spotifyId": "5H4yInM5zmHqpKIoMNAx4r",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb6ce131983245fc2e6940f6c2"
+  },
+  {
+    "slug": "chappell-roan",
+    "name": "Chappell Roan",
+    "aliases": [],
+    "spotifyId": "7GlBOeep6PqTfFi59PTUUN",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebd258ecb0d66244e6300bcf64"
+  },
+  {
+    "slug": "charli-xcx",
+    "name": "Charli xcx",
+    "aliases": [],
+    "spotifyId": "25uiPmTg16RbhZWAqwLBy5",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb6fa76436a2bba83b9f1d6fd1"
+  },
+  {
+    "slug": "charlotte-de-witte",
+    "name": "Charlotte de Witte",
+    "aliases": [],
+    "spotifyId": "1lJhME1ZpzsEa5M0wW6Mso",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb2d6285111ab8944150879a05"
+  },
+  {
+    "slug": "che",
+    "name": "Che",
+    "aliases": [],
+    "spotifyId": "5A7T1LAGJg5NXySBoIKUmF",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb856122aa629701a14755ab65"
+  },
+  {
+    "slug": "chet-baker",
+    "name": "Chet Baker",
+    "aliases": [],
+    "spotifyId": "3rxeQlsv0Sc2nyYaZ5W71T",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebabde819fe640d69f899e7844"
+  },
+  {
+    "slug": "christina-aguilera",
+    "name": "Christina Aguilera",
+    "aliases": [],
+    "spotifyId": "1l7ZsJRRS8wlW3WfJfPfNS",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb4a69ef1c3d566709985ce452"
+  },
+  {
+    "slug": "ciara",
+    "name": "Ciara",
+    "aliases": [],
+    "spotifyId": "2NdeV5rLm47xAvogXrYhJX",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb5d1fbc6d7d17e7ba6b587eaf"
+  },
+  {
+    "slug": "cigarettes-after-sex",
+    "name": "Cigarettes After Sex",
+    "aliases": [],
+    "spotifyId": "1QAJqy2dA3ihHBFIHRphZj",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb2e08fd554de35c3ef1db7fd9"
+  },
+  {
+    "slug": "ckay",
+    "name": "CKay",
+    "aliases": [],
+    "spotifyId": "048LktY5zMnakWq7PTtFrz",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebff101c2e561cfcff3f6195aa"
+  },
+  {
+    "slug": "clairo",
+    "name": "Clairo",
+    "aliases": [],
+    "spotifyId": "3l0CmX0FuQjFxr8SK7Vqag",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb4804c4a44c85afea1a72d1bd"
+  },
+  {
+    "slug": "clams-casino",
+    "name": "Clams Casino",
+    "aliases": [],
+    "spotifyId": "5vSQUyT33qxr1xAX2Tkf3A",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb775c5cfa9dbf38861387eebc"
+  },
+  {
+    "slug": "claude-debussy",
+    "name": "Claude Debussy",
+    "aliases": [],
+    "spotifyId": "1Uff91EOsvd99rtAupatMP",
+    "imageUrl": "https://i.scdn.co/image/5e1155c852578ddf5d2cfea94ccb3a8a65efa882"
+  },
+  {
+    "slug": "clipping",
+    "name": "clipping.",
+    "aliases": [],
+    "spotifyId": "5HJ2kX5UTwN4Ns8fB5Rn1I",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebcc61b54c332a2c8baaaf375b"
+  },
+  {
+    "slug": "cmten",
+    "name": "CMTEN",
+    "aliases": [],
+    "spotifyId": "3ReVTyprRfKmKquryr9UeA",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb6556442455c6194a94e5d321"
+  },
+  {
+    "slug": "cocteau-twins",
+    "name": "Cocteau Twins",
+    "aliases": [],
+    "spotifyId": "5Wabl1lPdNOeIn0SQ5A1mp",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb00f01cecce8a4475c3de0998"
+  },
+  {
+    "slug": "cookiee-kawaii",
+    "name": "Cookiee Kawaii",
+    "aliases": [],
+    "spotifyId": "0DbBBj0ScPumRqKXswGQH1",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb79f9d24d0a87ca99f3a40cb1"
+  },
+  {
+    "slug": "crystal-castles",
+    "name": "Crystal Castles",
+    "aliases": [],
+    "spotifyId": "7K3zpFXBvPcvzhj7zlGJdO",
+    "imageUrl": "https://i.scdn.co/image/5419a05563a9ba8cb16fe207199c298f621eef85"
+  },
+  {
+    "slug": "cuco",
+    "name": "Cuco",
+    "aliases": [],
+    "spotifyId": "2Tglaf8nvDzwSQnpSrjLHP",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb35869fcd31b5d3252d636595"
+  },
+  {
+    "slug": "d0llywood1",
+    "name": "d0llywood1",
+    "aliases": [],
+    "spotifyId": "2KZogWZPYcACVe4NK80dmc",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb92521c145160a2ccc7d3c1c8"
+  },
+  {
+    "slug": "daft-punk",
+    "name": "Daft Punk",
+    "aliases": [],
+    "spotifyId": "4tZwfgrHOc3mvqYlEYSvVi",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebd3aa7cc0e419b6c459b08e8e"
+  },
+  {
+    "slug": "dalek",
+    "name": "dälek",
+    "aliases": [],
+    "spotifyId": "1zDrsLJJfYel0jJruLe4Yp",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb8011c9d186bdc242512a8654"
+  },
+  {
+    "slug": "daniel-deluxe",
+    "name": "Daniel Deluxe",
+    "aliases": [],
+    "spotifyId": "0OTY72l7CC7ynKzp6N2o5b",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebe167b83e559ddd7153e38134"
+  },
+  {
+    "slug": "danny-brown",
+    "name": "Danny Brown",
+    "aliases": [],
+    "spotifyId": "7aA592KWirLsnfb5ulGWvU",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb3ed06c602b351dc33a30f018"
+  },
+  {
+    "slug": "danny-l-harle",
+    "name": "Danny L Harle",
+    "aliases": [],
+    "spotifyId": "1PNvaesh1mkKZucGhBuqgD",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb7ed91d57fba528500cf15bb3"
+  },
+  {
+    "slug": "david-shawty",
+    "name": "David Shawty",
+    "aliases": [],
+    "spotifyId": "1p8A4FgZDL8Q7o6BO3NwJk",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebbf1727a9df16df05cacc3bbd"
+  },
+  {
+    "slug": "dean-martin",
+    "name": "Dean Martin",
+    "aliases": [],
+    "spotifyId": "49e4v89VmlDcFCMyDv9wQ9",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebd570667643682f6c1e99167e"
+  },
+  {
+    "slug": "death-grips",
+    "name": "Death Grips",
+    "aliases": [],
+    "spotifyId": "5RADpgYLOuS2ZxDq7ggYYH",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebd7f3f929aa8032fdcff1d349"
+  },
+  {
+    "slug": "death-s-dynamic-shroud",
+    "name": "death's dynamic shroud",
+    "aliases": [],
+    "spotifyId": "1F31FB7Y6ic4844PbqMf7c",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebd9e58a36c76fc385398165ce"
+  },
+  {
+    "slug": "deftones",
+    "name": "Deftones",
+    "aliases": [],
+    "spotifyId": "6Ghvu1VvMGScGpOUJBAHNH",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebe3ac5eb948e78d9285d1dbdb"
+  },
+  {
+    "slug": "descendents",
+    "name": "Descendents",
+    "aliases": [],
+    "spotifyId": "1FGH4Bh7g9W6V4fUcKZWp5",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb37a1894d96ab00899a01e409"
+  },
+  {
+    "slug": "destiny-s-child",
+    "name": "Destiny's Child",
+    "aliases": [],
+    "spotifyId": "1Y8cdNmUJH7yBTd9yOvr5i",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebf75e64532704bd6acf0b4e76"
+  },
+  {
+    "slug": "destroy-lonely",
+    "name": "Destroy Lonely",
+    "aliases": [],
+    "spotifyId": "1HPW4jeRjXBFRoUnSvBzoD",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebd4687f69ce1804bdbbc05517"
+  },
+  {
+    "slug": "diiv",
+    "name": "DIIV",
+    "aliases": [],
+    "spotifyId": "4OrizGCKhOrW6iDDJHN9xd",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb96cc7952a38d7e9f7276bb4a"
+  },
+  {
+    "slug": "disclosure",
+    "name": "Disclosure",
+    "aliases": [],
+    "spotifyId": "6nS5roXSAGhTGr34W6n7Et",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb0b084ede947f009beade9a6a"
+  },
+  {
+    "slug": "dj-sliink",
+    "name": "DJ Sliink",
+    "aliases": [],
+    "spotifyId": "0t9dGS12PMZmiJiZa9vpyk",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eba7a9d246b899e3cccbba19d2"
+  },
+  {
+    "slug": "dj-smallz-732",
+    "name": "DJ Smallz 732",
+    "aliases": [],
+    "spotifyId": "6GrHfxMFCXCdIhN9DrAxjK",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb788da8ddf0f930a86dcee59f"
+  },
+  {
+    "slug": "dj-tameil",
+    "name": "Dj Tameil",
+    "aliases": [],
+    "spotifyId": "7jpsm3UOVdNAI0GK2EbzV1",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb93cb309db78e421d63788a87"
+  },
+  {
+    "slug": "doja-cat",
+    "name": "Doja Cat",
+    "aliases": [],
+    "spotifyId": "5cj0lLjcoR7YOSnhnX0Po5",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb8a0644455ebfa7d3976f5101"
+  },
+  {
+    "slug": "dolly-parton",
+    "name": "Dolly Parton",
+    "aliases": [],
+    "spotifyId": "32vWCbZh0xZ4o9gkz4PsEU",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb7fbd42b2f8ddebe1a817c53a"
+  },
+  {
+    "slug": "don-toliver",
+    "name": "Don Toliver",
+    "aliases": [],
+    "spotifyId": "4Gso3d4CscCijv0lmajZWs",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebc52b798deb89eb8414a51b7b"
+  },
+  {
+    "slug": "dorian-electra",
+    "name": "Dorian Electra",
+    "aliases": [],
+    "spotifyId": "202HZzqKvPsMHcbwnDZx7u",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb4ae93c6f14281f933ec83158"
+  },
+  {
+    "slug": "drab-majesty",
+    "name": "Drab Majesty",
+    "aliases": [],
+    "spotifyId": "2CSEKlTT9empsZ8vZWsrKO",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb8c8b75dcbb2e52a22d377f24"
+  },
+  {
+    "slug": "drake",
+    "name": "Drake",
+    "aliases": [],
+    "spotifyId": "3TVXtAsR1Inumwj472S9r4",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb4293385d324db8558179afd9"
+  },
+  {
+    "slug": "duster",
+    "name": "Duster",
+    "aliases": [],
+    "spotifyId": "5AyEXCtu3xnnsTGCo4RVZh",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebcd67bffd1bac79ac28e77d79"
+  },
+  {
+    "slug": "dvrst",
+    "name": "DVRST",
+    "aliases": [],
+    "spotifyId": "0XFgyr4jwM0MGeZZW0VzA5",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb03eda6f00dca7bc04f33e8bb"
+  },
+  {
+    "slug": "earl-sweatshirt",
+    "name": "Earl Sweatshirt",
+    "aliases": [],
+    "spotifyId": "3A5tHz1SfngyOZM2gItYKu",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebe387d22e49d2324c7c69ea86"
+  },
+  {
+    "slug": "ecco2k",
+    "name": "Ecco2k",
+    "aliases": [],
+    "spotifyId": "6hG0VsXXlD10l60TqiIHIX",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eba4caf4073b40cef9206c8012"
+  },
+  {
+    "slug": "ed-sheeran",
+    "name": "Ed Sheeran",
+    "aliases": [],
+    "spotifyId": "6eUKZXaKkcviH0Ku9w2n3V",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebd55c95ad400aed87da52daec"
+  },
+  {
+    "slug": "eevee",
+    "name": "eevee",
+    "aliases": [],
+    "spotifyId": "4pwqNyMSvuv7VOhQBdjB6Q",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb7e66b5b3651dd752a40ed9eb"
+  },
+  {
+    "slug": "ella-fitzgerald",
+    "name": "Ella Fitzgerald",
+    "aliases": [],
+    "spotifyId": "5V0MlUE1Bft0mbLlND7FJz",
+    "imageUrl": "https://i.scdn.co/image/3c1d23141059785c8a863137d176319329dc17ef"
+  },
+  {
+    "slug": "elyotto",
+    "name": "ElyOtto",
+    "aliases": [],
+    "spotifyId": "4b19vuzlDcNdU4quI7L6sW",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb6d9d55be76efab83f91ecbcc"
+  },
+  {
+    "slug": "eminem",
+    "name": "Eminem",
+    "aliases": [],
+    "spotifyId": "7dGJo4pcD2V6oG8kP0tJRR",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eba00b11c129b27a88fc72f36b"
+  },
+  {
+    "slug": "ericdoa",
+    "name": "ericdoa",
+    "aliases": [],
+    "spotifyId": "4hR6Bm9YYtktXzjmKhb1Cn",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb0323a01d4bf25da5323fe836"
+  },
+  {
+    "slug": "esdeekid",
+    "name": "EsDeeKid",
+    "aliases": [],
+    "spotifyId": "0EyhkwP3UnwGFBy6xwKjSy",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebfe6d53e126b70d1c2594b434"
+  },
+  {
+    "slug": "evilgiane",
+    "name": "evilgiane",
+    "aliases": [],
+    "spotifyId": "4bbAeMRdMbfCLVSlpryAVV",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb955a83ea609d27333f3154f1"
+  },
+  {
+    "slug": "f1lthy",
+    "name": "F1LTHY",
+    "aliases": [],
+    "spotifyId": "6NmvwMFvNRQmWdW5N1nxsC",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebc5d5930b9a3a970f9768d668"
+  },
+  {
+    "slug": "fakemink",
+    "name": "fakemink",
+    "aliases": [],
+    "spotifyId": "0qc4BFxcwRFZfevTck4fOi",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebfea7ad1b3bc4a7f94234bd1c"
+  },
+  {
+    "slug": "fela-kuti",
+    "name": "Fela Kuti",
+    "aliases": [],
+    "spotifyId": "5CG9X521RDFWCuAhlo6QoR",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb09571fb5577b68d01d7b7506"
+  },
+  {
+    "slug": "fleet-foxes",
+    "name": "Fleet Foxes",
+    "aliases": [],
+    "spotifyId": "4EVpmkEwrLYEg6jIsiPMIb",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb7d2e812e63d6df77ee087b47"
+  },
+  {
+    "slug": "fleetwood-mac",
+    "name": "Fleetwood Mac",
+    "aliases": [],
+    "spotifyId": "08GQAI4eElDnROBrJRGE0X",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebc8752dd511cda8c31e9daee8"
+  },
+  {
+    "slug": "fleshwater",
+    "name": "Fleshwater",
+    "aliases": [],
+    "spotifyId": "6P5ccCJCe8A4s9tDSTNFzF",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eba1726163ae16ff6fd8acb7e2"
+  },
+  {
+    "slug": "florence-the-machine",
+    "name": "Florence + The Machine",
+    "aliases": [],
+    "spotifyId": "1moxjboGR7GNWYIMWsRjgG",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb836eb0a7a82eb8f4133ee04d"
+  },
+  {
+    "slug": "fluhkunxhkos",
+    "name": "Fluhkunxhkos",
+    "aliases": [],
+    "spotifyId": "6pCLUSyfp5qxqjBW6hKjvU",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebecd875d78727faf106e6c894"
+  },
+  {
+    "slug": "four-tet",
+    "name": "Four Tet",
+    "aliases": [],
+    "spotifyId": "7Eu1txygG6nJttLHbZdQOh",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb21c0ea7fc21ab3038d111ec2"
+  },
+  {
+    "slug": "frank-ocean",
+    "name": "Frank Ocean",
+    "aliases": [],
+    "spotifyId": "2h93pZq0e7k5yf4dywlkpM",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebee3123e593174208f9754fab"
+  },
+  {
+    "slug": "frank-sinatra",
+    "name": "Frank Sinatra",
+    "aliases": [],
+    "spotifyId": "1Mxqyy3pSjf8kZZL4QVxS0",
+    "imageUrl": "https://i.scdn.co/image/fc4e0f474fb4c4cb83617aa884dc9fd9822d4411"
+  },
+  {
+    "slug": "fred-again",
+    "name": "Fred again..",
+    "aliases": [],
+    "spotifyId": "4oLeXFyACqeem2VImYeBFe",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebf760292919aee89e58d943d9"
+  },
+  {
+    "slug": "frederic-chopin",
+    "name": "Frédéric Chopin",
+    "aliases": [],
+    "spotifyId": "7y97mc3bZRFXzT2szRM4L4",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebe55372097569b7b56b439365"
+  },
+  {
+    "slug": "future",
+    "name": "Future",
+    "aliases": [],
+    "spotifyId": "1RyvyyTE3xzB2ZywiAwp0i",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb2c472c891062acb4f3068583"
+  },
+  {
+    "slug": "gesaffelstein",
+    "name": "Gesaffelstein",
+    "aliases": [],
+    "spotifyId": "3hteYQFiMFbJY7wS0xDymP",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebd1b0c16bf77cfe30c09b4951"
+  },
+  {
+    "slug": "girl-in-red",
+    "name": "girl in red",
+    "aliases": [],
+    "spotifyId": "3uwAm6vQy7kWPS2bciKWx9",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb1b15c2ad299fdcf864a09742"
+  },
+  {
+    "slug": "glaive",
+    "name": "glaive",
+    "aliases": [],
+    "spotifyId": "4cJKDGSv4Dz9QycXYmo565",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebc4bdb0035310b2535bdacfa3"
+  },
+  {
+    "slug": "glare",
+    "name": "Glare",
+    "aliases": [],
+    "spotifyId": "2dXj6aC3DsxoTDyhk3u4gl",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb5f00a281ce3ca88180c85a9e"
+  },
+  {
+    "slug": "glitch-gum",
+    "name": "Glitch Gum",
+    "aliases": [],
+    "spotifyId": "1wpftBruYql3kTa4Px6kze",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb0372bee70f0fc93916b512ad"
+  },
+  {
+    "slug": "glokk40spaz",
+    "name": "Glokk40Spaz",
+    "aliases": [],
+    "spotifyId": "7p9z8XOXVNeBNvs9EOxX2W",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb8a9e99eb3d0dd4c6a5b7209b"
+  },
+  {
+    "slug": "gregory-alan-isakov",
+    "name": "Gregory Alan Isakov",
+    "aliases": [],
+    "spotifyId": "5sXaGoRLSpd7VeyZrLkKwt",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb4528d0f9bb51b241561a16f3"
+  },
+  {
+    "slug": "grimes",
+    "name": "Grimes",
+    "aliases": [],
+    "spotifyId": "053q0ukIDRgzwTr4vNSwab",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb61e52a36dfb35ebab422edac"
+  },
+  {
+    "slug": "gucci-mane",
+    "name": "Gucci Mane",
+    "aliases": [],
+    "spotifyId": "13y7CgLHjMVRMDqxdx0Xdo",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebb9b77f64bd278ffde2c94428"
+  },
+  {
+    "slug": "gunna",
+    "name": "Gunna",
+    "aliases": [],
+    "spotifyId": "2hlmm7s2ICUX0LVIhVFlZQ",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebb99bd0e431142f2919a58276"
+  },
+  {
+    "slug": "gunship",
+    "name": "Gunship",
+    "aliases": [],
+    "spotifyId": "3PALZKWkpwjRvBsRmhlVSS",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eba4e71924565492a64418a4d7"
+  },
+  {
+    "slug": "gus-dapperton",
+    "name": "Gus Dapperton",
+    "aliases": [],
+    "spotifyId": "6sHCvZe1PHrOAuYlwTLNH4",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebdc3bafde5e1e9eee45e984f9"
+  },
+  {
+    "slug": "gwen-stefani",
+    "name": "Gwen Stefani",
+    "aliases": [],
+    "spotifyId": "4yiQZ8tQPux8cPriYMWUFP",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebcb243eb64e92b61504ea957b"
+  },
+  {
+    "slug": "hans-zimmer",
+    "name": "Hans Zimmer",
+    "aliases": [],
+    "spotifyId": "0YC192cP3KPCRWx8zr8MfZ",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb371632043a8c12bb7eeeaf9d"
+  },
+  {
+    "slug": "hensonn",
+    "name": "Hensonn",
+    "aliases": [],
+    "spotifyId": "0snouHYzOWSgxRBYMQsa3H",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb7cea2dcc8fecc2a37659fa2b"
+  },
+  {
+    "slug": "hole",
+    "name": "Hole",
+    "aliases": [],
+    "spotifyId": "5SHQUMAmEK5KmuSb0aDvsn",
+    "imageUrl": "https://i.scdn.co/image/3f070ac89152fcd23f90c1351295d8cc64d54cb2"
+  },
+  {
+    "slug": "home",
+    "name": "Home",
+    "aliases": [],
+    "spotifyId": "2exebQUDoIoT0dXA8BcN1P",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb9c1eb9531e1176c4a3a25925"
+  },
+  {
+    "slug": "homixide-gang",
+    "name": "Homixide Gang",
+    "aliases": [],
+    "spotifyId": "2ojqsY1ycYzZOpLDBBwHPU",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb37f3b59d4e544a0da5a42e76"
+  },
+  {
+    "slug": "hozier",
+    "name": "Hozier",
+    "aliases": [],
+    "spotifyId": "2FXC3k01G6Gw61bmprjgqS",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebad85a585103dfc2f3439119a"
+  },
+  {
+    "slug": "hum",
+    "name": "Hum",
+    "aliases": [],
+    "spotifyId": "6sM2JCBjZprP7JLMTZZSxX",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb3400e7905737b35620dc34ab"
+  },
+  {
+    "slug": "iayze",
+    "name": "iayze",
+    "aliases": [],
+    "spotifyId": "00msLVGU9crX0EC5McCiCa",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebbf7ff32d876d1aefe4e68c81"
+  },
+  {
+    "slug": "ice-spice",
+    "name": "Ice Spice",
+    "aliases": [],
+    "spotifyId": "3LZZPxNDGDFVSIPqf4JuEf",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebab47bb63dae13065213602cd"
+  },
+  {
+    "slug": "idealism",
+    "name": "Idealism",
+    "aliases": [],
+    "spotifyId": "6YJ4EgQzDfJnIHRbqIHAdD",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb413acb13054e12dd1a766aae"
+  },
+  {
+    "slug": "injury-reserve",
+    "name": "Injury Reserve",
+    "aliases": [],
+    "spotifyId": "3nf2EaHj8HikLNdaiW3v73",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb2a8b5966bf18ebc260d6f697"
+  },
+  {
+    "slug": "interworld",
+    "name": "INTERWORLD",
+    "aliases": [],
+    "spotifyId": "5hKGLu4Ik88FzWcTPhWNTN",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb24c88b3fbad983cf4c1fa71d"
+  },
+  {
+    "slug": "iron-and-wine",
+    "name": "Iron & Wine",
+    "aliases": [],
+    "spotifyId": "4M5nCE77Qaxayuhp3fVn4V",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebd658bc80540e6d8944109166"
+  },
+  {
+    "slug": "islurwhenitalk",
+    "name": "islurwhenitalk",
+    "aliases": [],
+    "spotifyId": "1IhtClz2iM8V7VImTNM6E0",
+    "imageUrl": "https://i.scdn.co/image/ab67616d0000b273f937d30cf1637e316be6a53b"
+  },
+  {
+    "slug": "j-dilla",
+    "name": "J Dilla",
+    "aliases": [],
+    "spotifyId": "0IVcLMMbm05VIjnzPkGCyp",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebc68a069a1c70eca57b2828d2"
+  },
+  {
+    "slug": "jane-remover",
+    "name": "Jane Remover",
+    "aliases": [],
+    "spotifyId": "2rLGlNI6htigNxx172qxLu",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebb3ba80684c90081ad8c0b7f2"
+  },
+  {
+    "slug": "jinsang",
+    "name": "Jinsang",
+    "aliases": [],
+    "spotifyId": "5FsfZj0Mp6YwEWytuJUcWt",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb75c0cd8e287b284fa3642ba7"
+  },
+  {
+    "slug": "joe-hisaishi",
+    "name": "Joe Hisaishi",
+    "aliases": [],
+    "spotifyId": "7nzSoJISlVJsn7O0yTeMOB",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb255e3fb8af57399bc9975c61"
+  },
+  {
+    "slug": "joji",
+    "name": "Joji",
+    "aliases": [],
+    "spotifyId": "3MZsBdqDrRTJihTHQrO6Dq",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebb6d7836808e8b99fc8c7aadc"
+  },
+  {
+    "slug": "joni-mitchell",
+    "name": "Joni Mitchell",
+    "aliases": [],
+    "spotifyId": "5hW4L92KnC6dX9t7tYM4Ve",
+    "imageUrl": "https://i.scdn.co/image/68cfb061951dbd44c95422a54cb70baec0722ca3"
+  },
+  {
+    "slug": "joy-division",
+    "name": "Joy Division",
+    "aliases": [],
+    "spotifyId": "432R46LaYsJZV2Gmc4jUV5",
+    "imageUrl": "https://i.scdn.co/image/5eeddd733170399db794d2c430a8d2cde7ae1425"
+  },
+  {
+    "slug": "jpegmafia",
+    "name": "JPEGMAFIA",
+    "aliases": [],
+    "spotifyId": "6yJ6QQ3Y5l0s0tn7b0arrO",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebb37aa35eec6d83fe18e48e73"
+  },
+  {
+    "slug": "juice-wrld",
+    "name": "Juice WRLD",
+    "aliases": [],
+    "spotifyId": "4MCBfE4596Uoi2O4DtmEMz",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb23a60030944f7853c21565ef"
+  },
+  {
+    "slug": "junko-ohashi",
+    "name": "Junko Ohashi",
+    "aliases": [],
+    "spotifyId": "7rGbODPTIVjzn3CTR6RCzE",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb3d6b5889533624cf309884f5"
+  },
+  {
+    "slug": "justice",
+    "name": "Justice",
+    "aliases": [],
+    "spotifyId": "1gR0gsQYfi6joyO1dlp76N",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebf140c161d9f9cc9afe85b6ed"
+  },
+  {
+    "slug": "kacey-musgraves",
+    "name": "Kacey Musgraves",
+    "aliases": [],
+    "spotifyId": "70kkdajctXSbqSMJbQO424",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb81a4837fda8c9e356bfb6252"
+  },
+  {
+    "slug": "kankan",
+    "name": "Kankan",
+    "aliases": [],
+    "spotifyId": "7tFehEdzjjoeiwUExR89qs",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebd9ed3e16a8b7c5e0442683e6"
+  },
+  {
+    "slug": "kasabian",
+    "name": "Kasabian",
+    "aliases": [],
+    "spotifyId": "11wRdbnoYqRddKBrpHt4Ue",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb8fafeb8428e1f8873d078d03"
+  },
+  {
+    "slug": "kashpaint",
+    "name": "kashpaint",
+    "aliases": [],
+    "spotifyId": "5rzDYfDmuRrSuhFrRdEQH4",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb4caa06e83df6455ed4f5ab90"
+  },
+  {
+    "slug": "kavinsky",
+    "name": "Kavinsky",
+    "aliases": [],
+    "spotifyId": "0UF7XLthtbSF2Eur7559oV",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb2dc7b3180bad1885c6ee1320"
+  },
+  {
+    "slug": "kaystrueno",
+    "name": "kaystrueno",
+    "aliases": [],
+    "spotifyId": "2PY3V8CCFzhqxUzWEcjKZ4",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebd0a490fa93f5be9ff1db10aa"
+  },
+  {
+    "slug": "ken-carson",
+    "name": "Ken Carson",
+    "aliases": [],
+    "spotifyId": "3gBZUcNeVumkeeJ19CY2sX",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb35033cc5f61a8529cb15f1de"
+  },
+  {
+    "slug": "kendrick-lamar",
+    "name": "Kendrick Lamar",
+    "aliases": [],
+    "spotifyId": "2YZyLoL8N0Wb9xBt1NhZWg",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb39ba6dcd4355c03de0b50918"
+  },
+  {
+    "slug": "kenji-kawai",
+    "name": "Kenji Kawai",
+    "aliases": [],
+    "spotifyId": "4ObvA097FfnbrTm3Uepano",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb367b03ee7bd1931aba6a27a8"
+  },
+  {
+    "slug": "kenshi-yonezu",
+    "name": "Kenshi Yonezu",
+    "aliases": [],
+    "spotifyId": "1snhtMLeb2DYoMOcVbb8iB",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eba39642d6f3ba26f42d54ac98"
+  },
+  {
+    "slug": "key-glock",
+    "name": "Key Glock",
+    "aliases": [],
+    "spotifyId": "0RESbWvOMyua0yuyVrztJ5",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb82b15c0121aac8f615e13d41"
+  },
+  {
+    "slug": "khruangbin",
+    "name": "Khruangbin",
+    "aliases": [],
+    "spotifyId": "2mVVjNmdjXZZDvhgQWiakk",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb7c7e48743caf917d5206fb39"
+  },
+  {
+    "slug": "kim-dracula",
+    "name": "Kim Dracula",
+    "aliases": [],
+    "spotifyId": "526TMJFuJibm9j2p9td9Yp",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebe91e08e675b051de3273eb93"
+  },
+  {
+    "slug": "kim-petras",
+    "name": "Kim Petras",
+    "aliases": [],
+    "spotifyId": "3Xt3RrJMFv5SZkCfUE8C1J",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb15a73d2fd90eb732c846ce06"
+  },
+  {
+    "slug": "king-gnu",
+    "name": "King Gnu",
+    "aliases": [],
+    "spotifyId": "6wxfx1yhyqjCPYwwxJktR2",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb4ec795dffef81475326da642"
+  },
+  {
+    "slug": "kordhell",
+    "name": "Kordhell",
+    "aliases": [],
+    "spotifyId": "2W6WP4pHQTFlbr2z9S4n54",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb3c15e6e51a8f86b03484cd0b"
+  },
+  {
+    "slug": "korn",
+    "name": "Korn",
+    "aliases": [],
+    "spotifyId": "3RNrq3jvMZxD9ZyoOZbQOD",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb29af2ffb6f4ddd6324f878bc"
+  },
+  {
+    "slug": "kupla",
+    "name": "Kupla",
+    "aliases": [],
+    "spotifyId": "7daSp9zXk1dmqNxwKFkL35",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb93f7e683ef76643012351b7c"
+  },
+  {
+    "slug": "lainey-wilson",
+    "name": "Lainey Wilson",
+    "aliases": [],
+    "spotifyId": "6tPHARSq45lQ8BSALCfkFC",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb6567547c5bac1a70f23678f3"
+  },
+  {
+    "slug": "lana-del-rey",
+    "name": "Lana Del Rey",
+    "aliases": [],
+    "spotifyId": "00FQb4jTyendYWaN8pK0wa",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebb99cacf8acd5378206767261"
+  },
+  {
+    "slug": "laufey",
+    "name": "Laufey",
+    "aliases": [],
+    "spotifyId": "7gW0r5CkdEUMm42w9XpyZO",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebc751deb23ed62e7cadfb669a"
+  },
+  {
+    "slug": "lazer-dim-700",
+    "name": "LAZER DIM 700",
+    "aliases": [],
+    "spotifyId": "3CE6MgsLpKMDfYFtexgc8U",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb57dfe49dd511def034de1566"
+  },
+  {
+    "slug": "lcd-soundsystem",
+    "name": "LCD Soundsystem",
+    "aliases": [],
+    "spotifyId": "066X20Nz7iquqkkCW6Jxy6",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb6a0838a408f8c9cf82915ac8"
+  },
+  {
+    "slug": "le-sserafim",
+    "name": "LE SSERAFIM",
+    "aliases": [],
+    "spotifyId": "4SpbR6yFEvexJuaBpgAU5p",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebb976b6defd4f7343c78d63c0"
+  },
+  {
+    "slug": "leaving-time",
+    "name": "Leaving Time",
+    "aliases": [],
+    "spotifyId": "7uskWkK7rsdbMgE2wDU22Y",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebed3df876eb3fcda201976cea"
+  },
+  {
+    "slug": "lebanon-hanover",
+    "name": "Lebanon Hanover",
+    "aliases": [],
+    "spotifyId": "6w8h2uD28BEdg7bX4k3Lh7",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb051313a495b4a4de4620e3cb"
+  },
+  {
+    "slug": "lil-b",
+    "name": "Lil B",
+    "aliases": [],
+    "spotifyId": "4bbjivSh1oG4NOc7uYHfw5",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb10479cab73b2ba1121d22da9"
+  },
+  {
+    "slug": "lil-baby",
+    "name": "Lil Baby",
+    "aliases": [],
+    "spotifyId": "5f7VJjfbwm532GiveGC0ZK",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb345f9be864ad543c7597936e"
+  },
+  {
+    "slug": "lil-peep",
+    "name": "Lil Peep",
+    "aliases": [],
+    "spotifyId": "2kCcBybjl3SAtIcwdWpUe3",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb3d9d59e200e82fa53d8781a1"
+  },
+  {
+    "slug": "lil-pump",
+    "name": "Lil Pump",
+    "aliases": [],
+    "spotifyId": "3wyVrVrFCkukjdVIdirGVY",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb0b151573a50ab626ee721307"
+  },
+  {
+    "slug": "lil-shine",
+    "name": "Lil Shine",
+    "aliases": [],
+    "spotifyId": "6SmUCZMpJG06ZhIqMOJKCn",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebf091b0006821cfd88d4ad929"
+  },
+  {
+    "slug": "lil-tracy",
+    "name": "Lil Tracy",
+    "aliases": [],
+    "spotifyId": "5g63iWaMJ2UrkZMkCC8dMi",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb3d5c8ce1329232f09903c060"
+  },
+  {
+    "slug": "lil-ugly-mane",
+    "name": "Lil Ugly Mane",
+    "aliases": [],
+    "spotifyId": "2gPLG9mGaU67woC5L0luYA",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb2b234b83cf48992b2c4d8b5c"
+  },
+  {
+    "slug": "lil-uzi-vert",
+    "name": "Lil Uzi Vert",
+    "aliases": [],
+    "spotifyId": "4O15NlyKLIASxsJ0PrXPfz",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb0eb7019b6bb9ce078a9ac03b"
+  },
+  {
+    "slug": "linked-horizon",
+    "name": "Linked Horizon",
+    "aliases": [],
+    "spotifyId": "3eNYrVLcWfjJ9JdH9kiPJO",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb1bd3d7f70a7478c63ab91689"
+  },
+  {
+    "slug": "linkin-park",
+    "name": "Linkin Park",
+    "aliases": [],
+    "spotifyId": "6XyY86QOPPrYVGvF9ch6wz",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb527d95dabbe8b8b527e8136f"
+  },
+  {
+    "slug": "lisa",
+    "name": "LISA",
+    "aliases": [],
+    "spotifyId": "5L1lO4eRHmJ7a0Q6csE5cT",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb3c88464ba063f0ae5d326738"
+  },
+  {
+    "slug": "loathe",
+    "name": "Loathe",
+    "aliases": [],
+    "spotifyId": "4G9wSdX0klmoHfjm9i6DLd",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebc4e8bc66dcecb7e07a32871b"
+  },
+  {
+    "slug": "lorn",
+    "name": "Lorn",
+    "aliases": [],
+    "spotifyId": "1PmVyfIR9KtCxbHWuga8E5",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb407dacc6afcca2e56bdf0b02"
+  },
+  {
+    "slug": "luci4",
+    "name": "Luci4",
+    "aliases": [],
+    "spotifyId": "1CbA4z6JauNQnHzOErDQL6",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb6b3aef3cd05f5c267f7377e2"
+  },
+  {
+    "slug": "lucki",
+    "name": "LUCKI",
+    "aliases": [],
+    "spotifyId": "5tQMB0cuNXdCtzovGt55uD",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebf7fd0489c7de07aa1e98ba06"
+  },
+  {
+    "slug": "ludovico-einaudi",
+    "name": "Ludovico Einaudi",
+    "aliases": [],
+    "spotifyId": "2uFUBdaVGtyMqckSeCl0Qj",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb194e3f91e6c0c81e82ba4328"
+  },
+  {
+    "slug": "lush",
+    "name": "Lush",
+    "aliases": [],
+    "spotifyId": "3ysp8GwsheDcBxP9q65lBg",
+    "imageUrl": "https://i.scdn.co/image/ab6772690000c46c90d37cca58b8ae55c3ced104"
+  },
+  {
+    "slug": "luxury-elite",
+    "name": "luxury elite",
+    "aliases": [],
+    "spotifyId": "28516pIwBLUO62yBiLAfdI",
+    "imageUrl": "https://i.scdn.co/image/ab67616d0000b273a7b080a4775f267f5b584f10"
+  },
+  {
+    "slug": "mac-demarco",
+    "name": "Mac DeMarco",
+    "aliases": [],
+    "spotifyId": "3Sz7ZnJQBIHsXLUSo0OQtM",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebc9aca5b6d4c528caf75e8a1d"
+  },
+  {
+    "slug": "mach-hommy",
+    "name": "Mach-Hommy",
+    "aliases": [],
+    "spotifyId": "3ZMur3elMyOs248ah86NRk",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb0951eed046371267e421dfdb"
+  },
+  {
+    "slug": "machine-girl",
+    "name": "Machine Girl",
+    "aliases": [],
+    "spotifyId": "17Vw9uuOYB7XYjPt0LNFN0",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb3c4e6e8609f93e954261177c"
+  },
+  {
+    "slug": "macintosh-plus",
+    "name": "Macintosh Plus",
+    "aliases": [],
+    "spotifyId": "2hkoUqWFI4KP39O9MViMY3",
+    "imageUrl": "https://i.scdn.co/image/ab67616d0000b273f96aa738b4b990e12f1d33c6"
+  },
+  {
+    "slug": "main-attrakionz",
+    "name": "Main Attrakionz",
+    "aliases": [],
+    "spotifyId": "3jdktm1PgLu9u3tS1YUKrW",
+    "imageUrl": "https://i.scdn.co/image/77c371fbf4a31965e6619ea856364220acd9aeb5"
+  },
+  {
+    "slug": "marcin-przyby-owicz",
+    "name": "Marcin Przybyłowicz",
+    "aliases": [],
+    "spotifyId": "07vycW8ICLf5hKb22PFWXw",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebf1e54d1ce1d7cc63560ecc11"
+  },
+  {
+    "slug": "mariya-takeuchi",
+    "name": "Mariya Takeuchi",
+    "aliases": [],
+    "spotifyId": "3WwGRA2o4Ux1RRMYaYDh7N",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb1daad2142894adbb71a7cb09"
+  },
+  {
+    "slug": "matt-ox",
+    "name": "Matt OX",
+    "aliases": [],
+    "spotifyId": "2J6pigOrBmKQgqJUY5UM7r",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb527479b860421ae3b5423117"
+  },
+  {
+    "slug": "max-richter",
+    "name": "Max Richter",
+    "aliases": [],
+    "spotifyId": "2VZNmg4vCnew4Pavo8zDdW",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb4abcdadf341d4234eb0ef88c"
+  },
+  {
+    "slug": "melanie-martinez",
+    "name": "Melanie Martinez",
+    "aliases": [],
+    "spotifyId": "63yrD80RY3RNEM2YDpUpO8",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb049b4a6c038ea063a413c5df"
+  },
+  {
+    "slug": "melvins",
+    "name": "Melvins",
+    "aliases": [],
+    "spotifyId": "6aVjo0xHSiuW5hkasoYSR3",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb7c310dd6a7f9b800b2fb8728"
+  },
+  {
+    "slug": "men-i-trust",
+    "name": "Men I Trust",
+    "aliases": [],
+    "spotifyId": "3zmfs9cQwzJl575W1ZYXeT",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebfd30ebd7e80dad6b2383aab0"
+  },
+  {
+    "slug": "metro-boomin",
+    "name": "Metro Boomin",
+    "aliases": [],
+    "spotifyId": "0iEtIxbK0KxaSlF7G42ZOp",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb28f1e72b31e756ea3f3a51e7"
+  },
+  {
+    "slug": "mexikodro",
+    "name": "MexikoDro",
+    "aliases": [],
+    "spotifyId": "6VTn4Wmhm4uD4UNFcEIkEP",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb62f2d8d9f8436ecd604dea7e"
+  },
+  {
+    "slug": "mf-doom",
+    "name": "MF DOOM",
+    "aliases": [],
+    "spotifyId": "2pAWfrd7WFF3XhVt9GooDL",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb6c8167ef48a872b6f190078f"
+  },
+  {
+    "slug": "mgmt",
+    "name": "MGMT",
+    "aliases": [],
+    "spotifyId": "0SwO7SWeDHJijQ3XNS7xEE",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb9dccdc8f4087cbe2bdedc9d3"
+  },
+  {
+    "slug": "midwxst",
+    "name": "midwxst",
+    "aliases": [],
+    "spotifyId": "7CGSp2GbiOpLPSq61qjxf8",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebcefa3103a0e3e6d3bfa18121"
+  },
+  {
+    "slug": "migos",
+    "name": "Migos",
+    "aliases": [],
+    "spotifyId": "6oMuImdp5ZcFhWP0ESe6mG",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebf4593f7b778219838d858c34"
+  },
+  {
+    "slug": "miki-matsubara",
+    "name": "Miki Matsubara",
+    "aliases": [],
+    "spotifyId": "4hUmsYcvD8C5zuVSP93jb1",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb5f0f64c377388c01d381b896"
+  },
+  {
+    "slug": "miles-davis",
+    "name": "Miles Davis",
+    "aliases": [],
+    "spotifyId": "0kbYTNQb4Pb1rPbbaF0pT4",
+    "imageUrl": "https://i.scdn.co/image/ab6772690000c46c12f90798134ecfe8dcb99db6"
+  },
+  {
+    "slug": "mineral",
+    "name": "Mineral",
+    "aliases": [],
+    "spotifyId": "3N4eFtnZCCXfMs0hBQwujT",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebae93a760cf657dc4ecd48544"
+  },
+  {
+    "slug": "minor-threat",
+    "name": "Minor Threat",
+    "aliases": [],
+    "spotifyId": "07PiZYrhllpSXtELkUxlrf",
+    "imageUrl": "https://i.scdn.co/image/f25787f1e1cf9bdd581a8af20324a2e0e72cd198"
+  },
+  {
+    "slug": "mitski",
+    "name": "Mitski",
+    "aliases": [],
+    "spotifyId": "2uYWxilOVlUdk4oV9DvwqK",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebaf731fe1a006c29152075c89"
+  },
+  {
+    "slug": "modern-baseball",
+    "name": "Modern Baseball",
+    "aliases": [],
+    "spotifyId": "1HxXNvsraqrsgfmju1yKk8",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb61fb7bc248f90cd8e7b0223d"
+  },
+  {
+    "slug": "momoko-kikuchi",
+    "name": "Momoko Kikuchi",
+    "aliases": [],
+    "spotifyId": "0gT302jqzDIhNWY8YpzDCs",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb37227738eb123c6761cb7cd7"
+  },
+  {
+    "slug": "mt-joy",
+    "name": "Mt. Joy",
+    "aliases": [],
+    "spotifyId": "69tiO1fG8VWduDl3ji2qhI",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb7c92602e66076f1b0bf5843b"
+  },
+  {
+    "slug": "mudhoney",
+    "name": "Mudhoney",
+    "aliases": [],
+    "spotifyId": "7LuYiSXiWs86rwWJjEEgB9",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb66dda48b167de387ba3299ba"
+  },
+  {
+    "slug": "mxlachi",
+    "name": "Mxlachi",
+    "aliases": [],
+    "spotifyId": "4hY6v4M7KswDIhg8Xg1tfu",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb1992a8c692953ab12a4be930"
+  },
+  {
+    "slug": "mxmtoon",
+    "name": "mxmtoon",
+    "aliases": [],
+    "spotifyId": "0HthCchcL0kVLHTr113Vk1",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb0a34700e7ec63cd33d4006f9"
+  },
+  {
+    "slug": "my-bloody-valentine",
+    "name": "my bloody valentine",
+    "aliases": [],
+    "spotifyId": "3G3Gdm0ZRAOxLrbyjfhii5",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb21c79e4e6e1af6af9b94d3a0"
+  },
+  {
+    "slug": "narrow-head",
+    "name": "Narrow Head",
+    "aliases": [],
+    "spotifyId": "4g6ODwOQYRZLsP89kEoBIu",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebe9c0358d8615d9ffcc799ba0"
+  },
+  {
+    "slug": "nat-king-cole",
+    "name": "Nat King Cole",
+    "aliases": [],
+    "spotifyId": "7v4imS0moSyGdXyLgVTIV7",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb9754b38c722fc1882174c874"
+  },
+  {
+    "slug": "navy-blue",
+    "name": "Navy Blue",
+    "aliases": [],
+    "spotifyId": "5qRbfEf4Ooo19aRXKQzvUV",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb5c55deb805a2b76affbae0ab"
+  },
+  {
+    "slug": "nelly",
+    "name": "Nelly",
+    "aliases": [],
+    "spotifyId": "2gBjLmx6zQnFGQJCAQpRgw",
+    "imageUrl": "https://i.scdn.co/image/ab6772690000c46cffdb43fbb983b2c991cc3685"
+  },
+  {
+    "slug": "nelly-furtado",
+    "name": "Nelly Furtado",
+    "aliases": [],
+    "spotifyId": "2jw70GZXlAI8QzWeY2bgRc",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebd2ce0bf5614b54bd44e059d5"
+  },
+  {
+    "slug": "nettspend",
+    "name": "Nettspend",
+    "aliases": [],
+    "spotifyId": "2jl4qd6UbzeCmImT4nWbtA",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb6bc255a221b2d2db4c1de21f"
+  },
+  {
+    "slug": "newjeans",
+    "name": "NewJeans",
+    "aliases": [],
+    "spotifyId": "6HvZYsbFfjnjFrWF950C9d",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb841bdcf28a956f3a384ffcf4"
+  },
+  {
+    "slug": "nick-drake",
+    "name": "Nick Drake",
+    "aliases": [],
+    "spotifyId": "5c3GLXai8YOMid29ZEuR9y",
+    "imageUrl": "https://i.scdn.co/image/d364b498f85ae764cd278fbba9a8ed7f00c3e434"
+  },
+  {
+    "slug": "nicki-minaj",
+    "name": "Nicki Minaj",
+    "aliases": [],
+    "spotifyId": "0hCNtLu0JehylgoiP8L4Gh",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb07a50f0a9a8f11e5a1102cbd"
+  },
+  {
+    "slug": "nine-inch-nails",
+    "name": "Nine Inch Nails",
+    "aliases": [],
+    "spotifyId": "0X380XXQSNBYuleKzav5UO",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb752fca27c5b839ea47d5100d"
+  },
+  {
+    "slug": "nirvana",
+    "name": "Nirvana",
+    "aliases": [],
+    "spotifyId": "6olE6TJLqED3rqDCT0FyPh",
+    "imageUrl": "https://i.scdn.co/image/84282c28d851a700132356381fcfbadc67ff498b"
+  },
+  {
+    "slug": "norah-jones",
+    "name": "Norah Jones",
+    "aliases": [],
+    "spotifyId": "2Kx7MNY7cI1ENniW7vT30N",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebed83d3ea063d87ce7e708f00"
+  },
+  {
+    "slug": "novo-amor",
+    "name": "Novo Amor",
+    "aliases": [],
+    "spotifyId": "0rZp7G3gIH6WkyeXbrZnGi",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb18a1928eb2892201f56d39e0"
+  },
+  {
+    "slug": "nsync",
+    "name": "*NSYNC",
+    "aliases": [],
+    "spotifyId": "6Ff53KvcvAj5U7Z1vojB5o",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb9414ef07d0ca697726912df1"
+  },
+  {
+    "slug": "nujabes",
+    "name": "Nujabes",
+    "aliases": [],
+    "spotifyId": "3Rq3YOF9YG9YfCWD4D56RZ",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb57f19d2f179b00207bfb3155"
+  },
+  {
+    "slug": "oasis",
+    "name": "Oasis",
+    "aliases": [],
+    "spotifyId": "2DaxqgrOhkeH0fpeiQq2f4",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb23a08396d484aa0e81d73527"
+  },
+  {
+    "slug": "odetari",
+    "name": "Odetari",
+    "aliases": [],
+    "spotifyId": "7ITMCzIU9uII8gwRg8JAhc",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebc1af979ade463140f82dcf69"
+  },
+  {
+    "slug": "olafur-arnalds",
+    "name": "Ólafur Arnalds",
+    "aliases": [],
+    "spotifyId": "7E3BRXV9ZbCt5lQTCXMTia",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb7d901cbff8cb882e7ba4e5f3"
+  },
+  {
+    "slug": "olivia-rodrigo",
+    "name": "Olivia Rodrigo",
+    "aliases": [],
+    "spotifyId": "1McMsnEElThX1knmY4oliG",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebb14eb4dcfd2f3858bed06e44"
+  },
+  {
+    "slug": "orville-peck",
+    "name": "Orville Peck",
+    "aliases": [],
+    "spotifyId": "46auOkH1pk28rWrSoUNhLo",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebfe6426d005fa5f990354bd9d"
+  },
+  {
+    "slug": "osamason",
+    "name": "OsamaSon",
+    "aliases": [],
+    "spotifyId": "0uj6QiPsPfK8ywLC7uwBE1",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb74ed087d1fbfbebac0380649"
+  },
+  {
+    "slug": "overmono",
+    "name": "Overmono",
+    "aliases": [],
+    "spotifyId": "01PnN11ovfen6xUOHfNpn3",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebaf9223204ffd235e81cde035"
+  },
+  {
+    "slug": "owen",
+    "name": "Owen",
+    "aliases": [],
+    "spotifyId": "4PJbP0dXALttfo1PFPY1Pt",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb99d3335823dee206d4cc2a78"
+  },
+  {
+    "slug": "parannoul",
+    "name": "Parannoul",
+    "aliases": [],
+    "spotifyId": "7eZbNxarrTW4VkRI8u9aDX",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb4ef6aec62503a1f5cad79f49"
+  },
+  {
+    "slug": "paris-hilton",
+    "name": "Paris Hilton",
+    "aliases": [],
+    "spotifyId": "1vkJFCwstOoJO7yQ4lTtLK",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebddce1d9cc83a9ad57d64eb23"
+  },
+  {
+    "slug": "pearl-jam",
+    "name": "Pearl Jam",
+    "aliases": [],
+    "spotifyId": "1w5Kfo2jwwIPruYS2UWh56",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebe431fb8ba17cdee73e4ce08a"
+  },
+  {
+    "slug": "peggy-gou",
+    "name": "Peggy Gou",
+    "aliases": [],
+    "spotifyId": "2mLA48B366zkELXYx7hcDN",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebffbd43b1e54eb09a8c824f53"
+  },
+  {
+    "slug": "perturbator",
+    "name": "Perturbator",
+    "aliases": [],
+    "spotifyId": "244uLu9lkdw39BJwlul3k8",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb7aa1171baef93e682ceb9ea8"
+  },
+  {
+    "slug": "pharrell-williams",
+    "name": "Pharrell Williams",
+    "aliases": [],
+    "spotifyId": "2RdwBSPQiwcmiDo9kixcl8",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebf0789cd783c20985ec3deb4e"
+  },
+  {
+    "slug": "philanthrope",
+    "name": "Philanthrope",
+    "aliases": [],
+    "spotifyId": "13ACz7DIictCpSYGglNTHs",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb9d371cefdfd7be013afd529a"
+  },
+  {
+    "slug": "phoebe-bridgers",
+    "name": "Phoebe Bridgers",
+    "aliases": [],
+    "spotifyId": "1r1uxoy19fzMxunt3ONAkG",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb6e2d4ab2b84463aa4c349311"
+  },
+  {
+    "slug": "pi-erre-bourne",
+    "name": "Pi’erre Bourne",
+    "aliases": [],
+    "spotifyId": "3x3jSlhyv5CiCZDZlaTq0M",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb0654f82c997f5da62667924c"
+  },
+  {
+    "slug": "pink-siifu",
+    "name": "Pink Siifu",
+    "aliases": [],
+    "spotifyId": "40ZElxHldNyvn7x8WRC6fh",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb99a6a5403de165fea5b7d435"
+  },
+  {
+    "slug": "pinkpantheress",
+    "name": "PinkPantheress",
+    "aliases": [],
+    "spotifyId": "78rUTD7y6Cy67W1RVzYs7t",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb6bf10d74063b45938f5d8656"
+  },
+  {
+    "slug": "playboi-carti",
+    "name": "Playboi Carti",
+    "aliases": ["Carti"],
+    "spotifyId": "699OTQXzgjhIYAHMy9RyPD",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebba50ca67ffc3097f6ea1710a"
+  },
+  {
+    "slug": "potsu",
+    "name": "potsu",
+    "aliases": [],
+    "spotifyId": "5XE0fiZWGbq9TcSuWwJ1fA",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebbcc0cb2e09e5988c30a5eb04"
+  },
+  {
+    "slug": "pulp",
+    "name": "Pulp",
+    "aliases": [],
+    "spotifyId": "36E7oYfz3LLRto6l2WmDcD",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb2a7e3dfda16364548dfdc915"
+  },
+  {
+    "slug": "rachyl",
+    "name": "rachyl",
+    "aliases": [],
+    "spotifyId": "3luzt74TZrAX0FF96vFKqv",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebf8365f29f64ea251a9630bba"
+  },
+  {
+    "slug": "radwimps",
+    "name": "RADWIMPS",
+    "aliases": [],
+    "spotifyId": "1EowJ1WwkMzkCkRomFhui7",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb61c979f8a7cdfe8fa2e8e909"
+  },
+  {
+    "slug": "rema",
+    "name": "Rema",
+    "aliases": [],
+    "spotifyId": "46pWGuE3dSwY3bMMXGBvVS",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebd3c02a2a399fade619a9ae5c"
+  },
+  {
+    "slug": "rex-orange-county",
+    "name": "Rex Orange County",
+    "aliases": [],
+    "spotifyId": "7pbDxGE6nQSZVfiFdq9lOL",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb7f6cc3c192e15b0b402ee6c3"
+  },
+  {
+    "slug": "ronny-j",
+    "name": "RONNY J",
+    "aliases": [],
+    "spotifyId": "3TKCdsX8yNNoiC1gesn6or",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebf7c89ac7c14e14ef1e0468d9"
+  },
+  {
+    "slug": "rose",
+    "name": "ROSÉ",
+    "aliases": [],
+    "spotifyId": "3eVa5w3URK5duf6eyVDbu9",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb3939f5ec8323cf370fc9e99e"
+  },
+  {
+    "slug": "run-dmc",
+    "name": "Run-DMC",
+    "aliases": [],
+    "spotifyId": "13bVJjjvsA6iWmjYMlog78",
+    "imageUrl": null
+  },
+  {
+    "slug": "sabrina-carpenter",
+    "name": "Sabrina Carpenter",
+    "aliases": [],
+    "spotifyId": "74KM79TiuVKeVCqs8QtB0B",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb78e45cfa4697ce3c437cb455"
+  },
+  {
+    "slug": "saib",
+    "name": "Saib",
+    "aliases": [],
+    "spotifyId": "6N4HlHINMvoTyAL0yhBUCk",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb4951529dd817135437fd61a4"
+  },
+  {
+    "slug": "saint-pepsi",
+    "name": "Saint Pepsi",
+    "aliases": [],
+    "spotifyId": "3b014NFgLGBMV2q0sGyFQM",
+    "imageUrl": "https://i.scdn.co/image/d4be568b75d7beb692df5c98f735437611377d05"
+  },
+  {
+    "slug": "sellasouls",
+    "name": "Sellasouls",
+    "aliases": [],
+    "spotifyId": "2q1TGIlGwiovxBDVWkJtUb",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebafa6743e8e31580175fe8870"
+  },
+  {
+    "slug": "seventeen",
+    "name": "SEVENTEEN",
+    "aliases": [],
+    "spotifyId": "7nqOGRxlXj7N2JYbgNEjYH",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb8da3a229445fd3cd896cdd5c"
+  },
+  {
+    "slug": "sex-pistols",
+    "name": "Sex Pistols",
+    "aliases": [],
+    "spotifyId": "1u7kkVrr14iBvrpYnZILJR",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebd3fa01fd4baad1158dd2fd8b"
+  },
+  {
+    "slug": "shaboozey",
+    "name": "Shaboozey",
+    "aliases": [],
+    "spotifyId": "3y2cIKLjiOlp1Np37WiUdH",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebeb786bf6ceec60d49c2f39f0"
+  },
+  {
+    "slug": "sharc",
+    "name": "Sharc",
+    "aliases": [],
+    "spotifyId": "7Kt7O3A8zdjcCYPFopGTiY",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebccd90fa02f54808546f1d196"
+  },
+  {
+    "slug": "siouxsie-and-the-banshees",
+    "name": "Siouxsie and the Banshees",
+    "aliases": [],
+    "spotifyId": "1n65zfwYIj5kKEtNgxUlWb",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb5713872265883ef401f43a92"
+  },
+  {
+    "slug": "siouxxie-sixxsta",
+    "name": "siouxxie sixxsta",
+    "aliases": [],
+    "spotifyId": "0OO76E5lRfeyBI3fkA73Dr",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb6ad58a0fb241739b77506086"
+  },
+  {
+    "slug": "ski-mask-the-slump-god",
+    "name": "Ski Mask The Slump God",
+    "aliases": [],
+    "spotifyId": "2rhFzFmezpnW82MNqEKVry",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebd9531e79636e5bfa61817e43"
+  },
+  {
+    "slug": "skrillex",
+    "name": "Skrillex",
+    "aliases": [],
+    "spotifyId": "5he5w2lnU9x7JFhnwcekXX",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb09a2575e4cfa8af8bce207d1"
+  },
+  {
+    "slug": "slimesito",
+    "name": "Slimesito",
+    "aliases": [],
+    "spotifyId": "1fqzcp3dzZD1YGQ2RT5pYs",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebca9c9c07ece02bb56d7d2b1b"
+  },
+  {
+    "slug": "slowdive",
+    "name": "Slowdive",
+    "aliases": [],
+    "spotifyId": "72X6FHxaShda0XeQw3vbeF",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb653481f50df3c11791d6132a"
+  },
+  {
+    "slug": "smokepurpp",
+    "name": "Smokepurpp",
+    "aliases": [],
+    "spotifyId": "21dooacK2WGBB5amYvKyfM",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebd97ccc83b24186e62593b76e"
+  },
+  {
+    "slug": "smokingskul",
+    "name": "Smokingskul",
+    "aliases": [],
+    "spotifyId": "5GypDshVVcsZEHRM2L8W8C",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb73c01d219e307260ad4f947f"
+  },
+  {
+    "slug": "snowing",
+    "name": "Snowing",
+    "aliases": [],
+    "spotifyId": "7swQ7gmKDlIOsnl0bdnaXn",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb13ea8452d345ff1efad4a294"
+  },
+  {
+    "slug": "sofaygo",
+    "name": "SoFaygo",
+    "aliases": [],
+    "spotifyId": "2SJhf6rTOU53g8yBdAjPby",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb010635685ba93f98efe6e936"
+  },
+  {
+    "slug": "sonic-youth",
+    "name": "Sonic Youth",
+    "aliases": [],
+    "spotifyId": "5UqTO8smerMvxHYA5xsXb6",
+    "imageUrl": "https://i.scdn.co/image/af335c11a73e9311516bb28800be58311410d1be"
+  },
+  {
+    "slug": "sophie",
+    "name": "SOPHIE",
+    "aliases": [],
+    "spotifyId": "5a2w2tgpLwv26BYJf2qYwu",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb0a5f93747d4d50f1ea5ab6f0"
+  },
+  {
+    "slug": "soundgarden",
+    "name": "Soundgarden",
+    "aliases": [],
+    "spotifyId": "5xUf6j4upBrXZPg6AI4MRK",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebafa254b2a224584485286526"
+  },
+  {
+    "slug": "spiritbox",
+    "name": "Spiritbox",
+    "aliases": [],
+    "spotifyId": "4MzJMcHQBl9SIYSjwWn8QW",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb09c67132c06a3623cfb212aa"
+  },
+  {
+    "slug": "squillo",
+    "name": "squillo",
+    "aliases": [],
+    "spotifyId": "6p6IdBLzoqQdol9Zl8FOEg",
+    "imageUrl": "https://i.scdn.co/image/ab67616d0000b27352a3618e8fe5e1d4deea8698"
+  },
+  {
+    "slug": "static-dress",
+    "name": "Static Dress",
+    "aliases": [],
+    "spotifyId": "1Lqdsv7Ff4GNq9PM3Yd0vi",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebeccc53e00be4f2d9e975e232"
+  },
+  {
+    "slug": "steve-lacy",
+    "name": "Steve Lacy",
+    "aliases": [],
+    "spotifyId": "57vWImR43h4CaDao012Ofp",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb7e3150cffbfda40c6eaf28dd"
+  },
+  {
+    "slug": "stoopidxool",
+    "name": "StoopidXool",
+    "aliases": [],
+    "spotifyId": "6ufMjaOmZOf0WCMgE7nR8i",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb8b734ad49d39499f77ae222e"
+  },
+  {
+    "slug": "stray-kids",
+    "name": "Stray Kids",
+    "aliases": [],
+    "spotifyId": "2dIgFjalVxs4ThymZ67YCE",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb91be1e574fd2e0992f94decb"
+  },
+  {
+    "slug": "sublime",
+    "name": "Sublime",
+    "aliases": [],
+    "spotifyId": "0EdvGhlC1FkGItLOWQzG4J",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebe726280500259dbdb97a8be4"
+  },
+  {
+    "slug": "sufjan-stevens",
+    "name": "Sufjan Stevens",
+    "aliases": [],
+    "spotifyId": "4MXUO7sVCaFgFjoTI5ox5c",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebe70700c1329d2f26971c3914"
+  },
+  {
+    "slug": "summrs",
+    "name": "Summrs",
+    "aliases": [],
+    "spotifyId": "5L15t6I0PQS9SBXbiklPEN",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb48788ce621a921527f9df678"
+  },
+  {
+    "slug": "swervedriver",
+    "name": "Swervedriver",
+    "aliases": [],
+    "spotifyId": "0Sd7X8SxWV0AyDLbvd4uEu",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebf3e2ba96a61f26703477f230"
+  },
+  {
+    "slug": "taeko-ohnuki",
+    "name": "Taeko Ohnuki",
+    "aliases": [],
+    "spotifyId": "2YMSkgSjLdieABNQdItPES",
+    "imageUrl": null
+  },
+  {
+    "slug": "tallah",
+    "name": "Tallah",
+    "aliases": [],
+    "spotifyId": "6Idb4IHX4Mf8IlB6sXcsdf",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb5a5b6ea4708de585b5dea168"
+  },
+  {
+    "slug": "tate-mcrae",
+    "name": "Tate McRae",
+    "aliases": [],
+    "spotifyId": "45dkTj5sMRSjrmBSBeiHym",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebbed8016bd64422793ff3bc75"
+  },
+  {
+    "slug": "tatsuro-yamashita",
+    "name": "Tatsuro Yamashita",
+    "aliases": [],
+    "spotifyId": "41hQ0PoEyj9xEBhwt73aWC",
+    "imageUrl": "https://i.scdn.co/image/ab6772690000c46ccd9f2884c53f97476623b5f1"
+  },
+  {
+    "slug": "taylor-swift",
+    "name": "Taylor Swift",
+    "aliases": [],
+    "spotifyId": "06HL4z0CvFAxyc27GXpf02",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb12184bdd29403de54cb9d9c7"
+  },
+  {
+    "slug": "tems",
+    "name": "Tems",
+    "aliases": [],
+    "spotifyId": "687cZJR45JO7jhk1LHIbgq",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb22d7d6f8981c7a27bf68a382"
+  },
+  {
+    "slug": "thaiboy-digital",
+    "name": "Thaiboy Digital",
+    "aliases": [],
+    "spotifyId": "3cGojc1Yu89IHXx8OeSnee",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebbe2dfe98c26ead5955f58bcf"
+  },
+  {
+    "slug": "the-chemical-brothers",
+    "name": "The Chemical Brothers",
+    "aliases": [],
+    "spotifyId": "1GhPHrq36VKCY3ucVaZCfo",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebae05213e52565bfd7e7489b3"
+  },
+  {
+    "slug": "the-cure",
+    "name": "The Cure",
+    "aliases": [],
+    "spotifyId": "7bu3H8JO7d0UbMoVzbo70s",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebdd427c765c409ec02dc3a868"
+  },
+  {
+    "slug": "the-hotelier",
+    "name": "The Hotelier",
+    "aliases": [],
+    "spotifyId": "3kzNckjE5FzHQhe4pJiLKa",
+    "imageUrl": "https://i.scdn.co/image/2b9ff272ef806f5c555bdc87668aa3350258753f"
+  },
+  {
+    "slug": "the-kills",
+    "name": "The Kills",
+    "aliases": [],
+    "spotifyId": "5BYuBzqmTXwUDw2rYkwExr",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebdc72312190b3742e1ff2783a"
+  },
+  {
+    "slug": "the-libertines",
+    "name": "The Libertines",
+    "aliases": [],
+    "spotifyId": "4fSPtBgFPZzygkY6MehwQ7",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb8c9ebe40fb416ca7ec5ae8e9"
+  },
+  {
+    "slug": "the-lightning-seeds",
+    "name": "The Lightning Seeds",
+    "aliases": [],
+    "spotifyId": "67YNiSqhrx1P8oPvIIvbP5",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebb8eb1cf84d5d4eabe6b3fc69"
+  },
+  {
+    "slug": "the-marias",
+    "name": "The Marías",
+    "aliases": [],
+    "spotifyId": "2sSGPbdZJkaSE2AbcGOACx",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebaf586afa2b397f1288683a76"
+  },
+  {
+    "slug": "the-promise-ring",
+    "name": "The Promise Ring",
+    "aliases": [],
+    "spotifyId": "5li5GfWFVl73vu7r2bGitu",
+    "imageUrl": "https://i.scdn.co/image/1f7179b553f2b376c4882bcc6706e8f4e8d75764"
+  },
+  {
+    "slug": "the-pussycat-dolls",
+    "name": "The Pussycat Dolls",
+    "aliases": [],
+    "spotifyId": "6wPhSqRtPu1UhRCDX5yaDJ",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb6af14c33f555f1902e7cfa12"
+  },
+  {
+    "slug": "the-smashing-pumpkins",
+    "name": "The Smashing Pumpkins",
+    "aliases": [],
+    "spotifyId": "40Yq4vzPs9VNUrIBG5Jr2i",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb2897dd777bbd8e3f23e49c99"
+  },
+  {
+    "slug": "the-stone-roses",
+    "name": "The Stone Roses",
+    "aliases": [],
+    "spotifyId": "1lYT0A0LV5DUfxr6doRP3d",
+    "imageUrl": "https://i.scdn.co/image/b402bab4eb25e953eef911e1fde6076e116ce0b2"
+  },
+  {
+    "slug": "the-streets",
+    "name": "The Streets",
+    "aliases": [],
+    "spotifyId": "4GvOygVQquMaPm8oAc0vXi",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb4b7d7580bc3796bb446537fb"
+  },
+  {
+    "slug": "the-strokes",
+    "name": "The Strokes",
+    "aliases": [],
+    "spotifyId": "0epOFNiUfyON9EYx7Tpr6V",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb98856eea770468af6dd999d9"
+  },
+  {
+    "slug": "tiwa-savage",
+    "name": "Tiwa Savage",
+    "aliases": [],
+    "spotifyId": "1hNaHKp2Za5YdOAG0WnRbc",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebf50933ec70ba9ca9648fcadf"
+  },
+  {
+    "slug": "tomppabeats",
+    "name": "Tomppabeats",
+    "aliases": [],
+    "spotifyId": "0Q2Tc5yZFJpumLMc7Yz4e4",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebcaa88f6b6c73e959f4fd5027"
+  },
+  {
+    "slug": "tony-shhnow",
+    "name": "Tony Shhnow",
+    "aliases": [],
+    "spotifyId": "6w1PsA3Lux2vlfaymj66w8",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb51ebc9cadd58253c27436d95"
+  },
+  {
+    "slug": "toshiki-kadomatsu",
+    "name": "Toshiki Kadomatsu",
+    "aliases": [],
+    "spotifyId": "6iObav6taH2dBX027xd3rH",
+    "imageUrl": null
+  },
+  {
+    "slug": "trauma-ray",
+    "name": "trauma ray",
+    "aliases": [],
+    "spotifyId": "7mhFqGccO5U4pn90mix9S1",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebc35eeb177172902ad8d3e489"
+  },
+  {
+    "slug": "travis-scott",
+    "name": "Travis Scott",
+    "aliases": [],
+    "spotifyId": "0Y5tJX1MQlPlqiwlOH1tJY",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb19c2790744c792d05570bb71"
+  },
+  {
+    "slug": "trippie-redd",
+    "name": "Trippie Redd",
+    "aliases": [],
+    "spotifyId": "6Xgp2XMz1fhVYe7i6yNAax",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebbb2dd30a6c15bdeeb131e525"
+  },
+  {
+    "slug": "ttng",
+    "name": "TTNG",
+    "aliases": [],
+    "spotifyId": "5TUa95aB5Vu2CzwCnZd6t0",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb0a58524391dee6c69fd337b3"
+  },
+  {
+    "slug": "twice",
+    "name": "TWICE",
+    "aliases": [],
+    "spotifyId": "7n2Ycct7Beij7Dj7meI4X0",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb3d8820046fd455b38d644864"
+  },
+  {
+    "slug": "tyler-the-creator",
+    "name": "Tyler, The Creator",
+    "aliases": [],
+    "spotifyId": "4V8LLVI7PbaPR0K2TGSxFF",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebdf2728294ff77dd11eeb18fb"
+  },
+  {
+    "slug": "type-o-negative",
+    "name": "Type O Negative",
+    "aliases": [],
+    "spotifyId": "0blJzvevdXrp21YeI2vbco",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb843df562d1bad7f5163fd164"
+  },
+  {
+    "slug": "uffie",
+    "name": "Uffie",
+    "aliases": [],
+    "spotifyId": "2s6lxOYvvCvzpHtd3VyuMj",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb136657586494d9b9340b0a94"
+  },
+  {
+    "slug": "uicideboy",
+    "name": "$uicideboy$",
+    "aliases": [],
+    "spotifyId": "1VPmR4DJC1PlOtd0IADAO0",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebc4817922f21a5f2a36e12bf2"
+  },
+  {
+    "slug": "underscores",
+    "name": "underscores",
+    "aliases": [],
+    "spotifyId": "7HfUJxeVTgrvhk0eWHFzV7",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebde8dfaf8e64fee65ef479e68"
+  },
+  {
+    "slug": "underworld",
+    "name": "Underworld",
+    "aliases": [],
+    "spotifyId": "1PXHzxRDiLnjqNrRn2Xbsa",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb5cfa742c32b2f8c23f94cf7e"
+  },
+  {
+    "slug": "uniiqu3",
+    "name": "UNIIQU3",
+    "aliases": [],
+    "spotifyId": "5aR8qSaApKChlZvzB0Jfpx",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebefb73363ece1641e06e25c01"
+  },
+  {
+    "slug": "vangelis",
+    "name": "Vangelis",
+    "aliases": [],
+    "spotifyId": "4P70aqttdpJ9vuYFDmf7f6",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb4eb15436c35fface06216543"
+  },
+  {
+    "slug": "vektroid",
+    "name": "Vektroid",
+    "aliases": [],
+    "spotifyId": "0aHFAt3c3C648WXJP7GCRc",
+    "imageUrl": "https://i.scdn.co/image/ab67616d0000b2737f7e0e1823de67575eae06c8"
+  },
+  {
+    "slug": "wargasm",
+    "name": "Wargasm",
+    "aliases": [],
+    "spotifyId": "4heY3O8p8CQHH81wINvExe",
+    "imageUrl": "https://i.scdn.co/image/ab67616d0000b273c0b52c93235afb9a3f2cf2cf"
+  },
+  {
+    "slug": "westside-gunn",
+    "name": "Westside Gunn",
+    "aliases": [],
+    "spotifyId": "0ABk515kENDyATUdpCKVfW",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb5c37923fb58eead7ad4c0f1f"
+  },
+  {
+    "slug": "willie-nelson",
+    "name": "Willie Nelson",
+    "aliases": [],
+    "spotifyId": "5W5bDNCqJ1jbCgTxDD0Cb3",
+    "imageUrl": "https://i.scdn.co/image/ab6772690000c46c8ff3385555930af73293254b"
+  },
+  {
+    "slug": "windows-96",
+    "name": "Windows 96",
+    "aliases": [],
+    "spotifyId": "65XcfOOaVxbZnNlz40DK7i",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebb094c0e2fac2c25cb4838263"
+  },
+  {
+    "slug": "wisp",
+    "name": "Wisp",
+    "aliases": [],
+    "spotifyId": "3TJZG17pjOKXwx1ELKJPfm",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb3c452fd195cec342b58a3eea"
+  },
+  {
+    "slug": "wizkid",
+    "name": "Wizkid",
+    "aliases": [],
+    "spotifyId": "3tVQdUvClmAT7URs9V3rsp",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebe6ef803356b45ee5a9fa7a8a"
+  },
+  {
+    "slug": "xaviersobased",
+    "name": "xaviersobased",
+    "aliases": [],
+    "spotifyId": "2oM7LMPFu882oC6jSwEqjd",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb837aeb70fbd21f9587dab56e"
+  },
+  {
+    "slug": "xxxtentacion",
+    "name": "XXXTENTACION",
+    "aliases": [],
+    "spotifyId": "15UsOTVnJzReFVN1VCnxy4",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebf0c20db5ef6c6fbe5135d2e4"
+  },
+  {
+    "slug": "yeah-yeah-yeahs",
+    "name": "Yeah Yeah Yeahs",
+    "aliases": [],
+    "spotifyId": "3TNt4aUIxgfy9aoaft5Jj2",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebc4f717ba98edb3a4371066aa"
+  },
+  {
+    "slug": "yeat",
+    "name": "Yeat",
+    "aliases": [],
+    "spotifyId": "3qiHUAX7zY4Qnjx8TNUzVx",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebfc759f7938b4c65bfe41c4ff"
+  },
+  {
+    "slug": "yhapojj",
+    "name": "Yhapojj",
+    "aliases": [],
+    "spotifyId": "4mAsHgZzoZvU0eMbHOB60X",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebb451198790c31f59b317da43"
+  },
+  {
+    "slug": "yoasobi",
+    "name": "YOASOBI",
+    "aliases": [],
+    "spotifyId": "64tJ2EAv1R6UaZqc4iOCyj",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb192be4e9b455c2d5dd5dfe09"
+  },
+  {
+    "slug": "yoko-kanno",
+    "name": "Yoko Kanno",
+    "aliases": [],
+    "spotifyId": "0lbYsAt8JNKNjttbncKg8i",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebd2f58e58b59f8d617bd13de9"
+  },
+  {
+    "slug": "young-nudy",
+    "name": "Young Nudy",
+    "aliases": [],
+    "spotifyId": "5yPzzu25VzEk8qrGTLIrE1",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb03775f1dcd383778c1e8832d"
+  },
+  {
+    "slug": "young-thug",
+    "name": "Young Thug",
+    "aliases": [],
+    "spotifyId": "50co4Is1HCEo8bhOyUWKpn",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb9f2fb33940aac624dc5d100d"
+  },
+  {
+    "slug": "yung-fazo",
+    "name": "Yung Fazo",
+    "aliases": [],
+    "spotifyId": "2UuVqmRzuGdHQB7BKACEW4",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb79c00a2e69642b5bee932f79"
+  },
+  {
+    "slug": "yung-lean",
+    "name": "Yung Lean",
+    "aliases": [],
+    "spotifyId": "67lytN32YpUxiSeWlKfHJ3",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb9203ea92f4c538f41e6eea8c"
+  },
+  {
+    "slug": "yungster-jack",
+    "name": "Yungster Jack",
+    "aliases": [],
+    "spotifyId": "3u8gw2fsGkXsQywU99i3S0",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebb05bb86e165cf7852207b606"
+  },
+  {
+    "slug": "zach-bryan",
+    "name": "Zach Bryan",
+    "aliases": [],
+    "spotifyId": "40ZNYROS4zLfyyBSs2PGe2",
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebc742fbc057bdbc64834a6cdc"
+  }
+]

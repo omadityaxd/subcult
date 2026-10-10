@@ -1,0 +1,81 @@
+{
+  "slug": "tread",
+  "schemaVersion": 1,
+  "name": "tread",
+  "emoji": "🏃",
+  "tagline": "160 bpm minimum. the beat is on a treadmill and so are you",
+  "description": "A Philadelphia trap offshoot built by the Working on Dying collective: icy synths, busy off-beat hi-hats and tempos around 160 to 190 BPM under lethargic, half-awake flows. Matt Ox's Overwhelming and Bladee's Working on Dying tape carried it out of Philly.",
+  "palette": ["#07090c", "#0f2230", "#1f6f8b", "#7fe0f0", "#effafc"],
+  "vibeWords": ["fast", "icy", "Philly", "hi-hats", "lethargic", "futuristic"],
+  "artists": [
+    {
+      "name": "F1lthy",
+      "why": "Working on Dying founder and the sound's architect"
+    },
+    {
+      "name": "Oogie Mane",
+      "why": "co-founded Working on Dying with his brother"
+    },
+    {
+      "name": "Matt Ox",
+      "why": "Overwhelming took tread viral in 2017"
+    },
+    {
+      "name": "Bladee",
+      "why": "his Working on Dying tape spread the sound"
+    },
+    {
+      "name": "Bootychaaain",
+      "why": "WOD collaborator who named the genre"
+    },
+    {
+      "name": "Brandon Finessin",
+      "why": "Working on Dying producer"
+    },
+    {
+      "name": "Lil Uzi Vert",
+      "why": "The Real Uzi put WOD beats on the map"
+    },
+    {
+      "name": "Thaiboy Digital",
+      "why": "Drain Gang collaborator on WOD beats"
+    }
+  ],
+  "spotifyQueries": ["tread rap", "working on dying", "philly tread"],
+  "subreddits": ["hiphopheads", "makinghiphop", "DrainGang"],
+  "newsQueries": ["Working on Dying", "F1lthy producer", "tread rap"],
+  "youtubeQueries": ["working on dying beats", "tread rap", "F1lthy type beat"],
+  "brands": [
+    {
+      "name": "Rick Owens",
+      "priceTier": "$$$",
+      "why": "the scene's luxury default"
+    },
+    {
+      "name": "Nike",
+      "priceTier": "$$",
+      "why": "running gear, fittingly"
+    },
+    {
+      "name": "Salomon",
+      "priceTier": "$$",
+      "why": "trail shoes for treadmill music"
+    },
+    {
+      "name": "Supreme",
+      "priceTier": "$$",
+      "why": "Philly to NYC staple"
+    }
+  ],
+  "shopKeywords": [
+    "running jacket",
+    "trail sneakers",
+    "track pants",
+    "tinted sunglasses",
+    "zip-up fleece"
+  ],
+  "pinterestQueries": ["working on dying aesthetic", "tread rap cover art"],
+  "instagramHashtags": ["workingondying", "treadrap", "f1lthy"],
+  "tiktokQueries": ["tread rap", "working on dying"],
+  "relatedNiches": ["rage", "cloud rap", "new-gen underground rap", "soundcloud rap"]
+}

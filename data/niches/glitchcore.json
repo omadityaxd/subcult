@@ -1,0 +1,81 @@
+{
+  "slug": "glitchcore",
+  "schemaVersion": 1,
+  "name": "glitchcore",
+  "emoji": "📺",
+  "tagline": "nightcore'd vocals, impaling 808s, the edit has 40 transitions",
+  "description": "The 2020 TikTok mutation of hyperpop: high-pitched vocals layered over crushing 808s, paired with frantic, strobe-cut glitch edits. Yungster Jack and David Shawty's Pressure and CMTEN's Never Met! defined the sound; the visuals mattered as much as the music.",
+  "palette": ["#08080c", "#1f0a3a", "#ff2bd6", "#2bfff1", "#fbfbff"],
+  "vibeWords": ["high-pitched", "frantic", "strobe", "nightcore", "TikTok edits", "maximal"],
+  "artists": [
+    {
+      "name": "Yungster Jack",
+      "why": "Pressure inspired a wave of glitchcore edits"
+    },
+    {
+      "name": "David Shawty",
+      "why": "the other half of Pressure"
+    },
+    {
+      "name": "CMTEN",
+      "why": "Never Met! was a breakout"
+    },
+    {
+      "name": "Glitch Gum",
+      "why": "featured on Never Met!"
+    },
+    {
+      "name": "ElyOtto",
+      "why": "SugarCrash! was everywhere in 2020"
+    },
+    {
+      "name": "100 gecs",
+      "why": "the trailblazers the scene grew from"
+    },
+    {
+      "name": "Machine Girl",
+      "why": "the aggressive, chaotic edge"
+    },
+    {
+      "name": "osquinn",
+      "why": "glitchy vocals and production"
+    }
+  ],
+  "spotifyQueries": ["glitchcore", "glitchcore 2020", "nightcore hyperpop"],
+  "subreddits": ["hyperpop", "indieheads"],
+  "newsQueries": ["glitchcore", "hyperpop TikTok"],
+  "youtubeQueries": ["glitchcore edit", "glitchcore mix", "Pressure Yungster Jack"],
+  "brands": [
+    {
+      "name": "Hot Topic",
+      "priceTier": "$",
+      "why": "the starter pack"
+    },
+    {
+      "name": "Dolls Kill",
+      "priceTier": "$$",
+      "why": "maximalist platforms"
+    },
+    {
+      "name": "Converse",
+      "priceTier": "$",
+      "why": "doodled-on high tops"
+    },
+    {
+      "name": "Demonia",
+      "priceTier": "$$",
+      "why": "the platform boots"
+    }
+  ],
+  "shopKeywords": [
+    "neon hair dye",
+    "platform boots",
+    "anime graphic tee",
+    "kandi bracelets",
+    "striped arm warmers"
+  ],
+  "pinterestQueries": ["glitchcore aesthetic", "glitchcore edit"],
+  "instagramHashtags": ["glitchcore", "hyperpop", "glitchart"],
+  "tiktokQueries": ["glitchcore", "glitchcore edit"],
+  "relatedNiches": ["hyperpop", "digicore", "rave"]
+}

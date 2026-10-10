@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest"
-import { STORE_IDS, reddit, social, spotify, storeLinks, youtube } from "./links"
+import { STORE_IDS, brandLinks, reddit, social, spotify, storeLinks, youtube } from "./links"
 
 describe("deep links", () => {
   it("encodes queries safely", () => {
@@ -38,5 +38,29 @@ describe("storeLinks", () => {
   it("defaults to amazon.com without a tag", () => {
     const [amazon] = storeLinks("beanie")
     expect(amazon.url).toBe("https://www.amazon.com/s?k=beanie")
+  })
+})
+
+describe("designer stores and brand links", () => {
+  it("appends SSENSE and Vestiaire only when a niche opts in", () => {
+    const ids = storeLinks("raf simons bomber", undefined, ["ssense", "vestiaire"]).map((l) => l.id)
+    expect(ids).toEqual([...STORE_IDS, "ssense", "vestiaire"])
+    expect(storeLinks("raf simons bomber", undefined, ["ssense"]).at(-1)?.url).toBe(
+      "https://www.ssense.com/en-us/search?q=raf%20simons%20bomber",
+    )
+  })
+
+  it("links a brand to its official site plus Grailed and Depop resale only", () => {
+    const links = brandLinks("VIVET", "https://vivetofficial.com/")
+    expect(links.map((l) => l.id)).toEqual(["official", "depop", "grailed"])
+    expect(links[0]).toMatchObject({
+      url: "https://vivetofficial.com/",
+      blurb: "vivetofficial.com",
+    })
+    expect(links[2].url).toBe("https://www.grailed.com/shop?query=VIVET")
+  })
+
+  it("skips the official link when there's no verified site", () => {
+    expect(brandLinks("Sp5der", null).map((l) => l.id)).toEqual(["depop", "grailed"])
   })
 })

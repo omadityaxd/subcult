@@ -1,3 +1,4 @@
+import Image from "next/image"
 import Link from "next/link"
 import { Cover } from "@/components/ds/cover"
 import { cn } from "@/lib/utils"
@@ -7,6 +8,8 @@ export interface NicheCardData {
   name: string
   tagline: string
   palette: readonly string[]
+  /** Top artist photo; the generative cover shows beneath it (and instead of it). */
+  imageUrl?: string | null
 }
 
 interface NicheCardProps {
@@ -38,9 +41,22 @@ export function NicheCard({ niche, shape = "portrait", isNew, className }: Niche
           shape === "portrait" ? "aspect-[4/5]" : "aspect-[16/10]",
         )}
       >
+        {niche.imageUrl ? (
+          <Image
+            src={niche.imageUrl}
+            alt=""
+            fill
+            unoptimized
+            sizes="(min-width: 1024px) 22vw, (min-width: 768px) 30vw, 46vw"
+            className="rounded-2xl object-cover saturate-[0.9]"
+          />
+        ) : null}
         <span
           aria-hidden
-          className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/45 to-transparent"
+          className={cn(
+            "absolute inset-x-0 bottom-0 rounded-b-2xl bg-gradient-to-t from-black/45 to-transparent",
+            niche.imageUrl ? "h-2/3 from-black/70" : "h-1/2",
+          )}
         />
         {isNew ? (
           <span className="absolute top-3 left-3 rounded-full bg-white/90 px-2.5 py-1 text-overline font-semibold text-black uppercase">

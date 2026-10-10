@@ -1,0 +1,123 @@
+{
+  "slug": "new-gen-underground-rap",
+  "schemaVersion": 1,
+  "name": "new-gen underground rap",
+  "emoji": "🩸",
+  "tagline": "you heard it on a leak before it was on spotify",
+  "description": "The post-Whole Lotta Red underground: rage, jerk, plugg and tread all feeding one restless scene. Distorted 808s, snippet culture, Discord leak hunts and shows that turn into stampedes. Mostly teenagers, mostly online, mostly louder than whatever's on the radio.",
+  "palette": ["#0b0809", "#2a0f14", "#7a1424", "#d23a3a", "#f2e6e3"],
+  "vibeWords": [
+    "distorted",
+    "snippet culture",
+    "mosh pit",
+    "leaked",
+    "vamp",
+    "chaotic",
+    "online",
+    "DIY"
+  ],
+  "artists": [
+    {
+      "name": "Playboi Carti",
+      "why": "Whole Lotta Red is the scene's founding text"
+    },
+    {
+      "name": "Ken Carson",
+      "why": "turned rage into a full-blown aesthetic"
+    },
+    {
+      "name": "Destroy Lonely",
+      "why": "the moody, slow-motion side of Opium"
+    },
+    {
+      "name": "Yeat",
+      "why": "bell synths and his own language"
+    },
+    {
+      "name": "Nettspend",
+      "why": "the Virginia teen who made the underground go viral"
+    },
+    {
+      "name": "OsamaSon",
+      "why": "blown-out, punk-volume rage"
+    },
+    {
+      "name": "Che",
+      "why": "Atlanta rager behind Rest in Bass"
+    },
+    {
+      "name": "Xaviersobased",
+      "why": "the face of jerk and the 1c34 crew"
+    },
+    {
+      "name": "Summrs",
+      "why": "pluggnb pioneer the scene still borrows from"
+    },
+    {
+      "name": "Homixide Gang",
+      "why": "Opium's Atlanta duo with nonstop energy"
+    },
+    {
+      "name": "Fakemink",
+      "why": "London's breakout from the new wave"
+    },
+    {
+      "name": "EsDeeKid",
+      "why": "Liverpool rapper who crossed the scene over the Atlantic"
+    }
+  ],
+  "spotifyQueries": [
+    "underground rap 2026",
+    "rage rap",
+    "new gen underground",
+    "jerk rap",
+    "opium"
+  ],
+  "subreddits": ["hiphopheads", "playboicarti", "rap"],
+  "newsQueries": ["underground rap new album", "Nettspend", "OsamaSon", "Ken Carson"],
+  "youtubeQueries": [
+    "underground rap live",
+    "rage rap mosh pit",
+    "Nettspend live",
+    "Ken Carson live"
+  ],
+  "brands": [
+    {
+      "name": "Rick Owens",
+      "priceTier": "$$$",
+      "why": "the platform boots every rager is saving up for"
+    },
+    {
+      "name": "Chrome Hearts",
+      "priceTier": "$$$",
+      "why": "silver crosses and cemetery-chic hardware"
+    },
+    {
+      "name": "Balenciaga",
+      "priceTier": "$$$",
+      "why": "oversized everything, Whole Lotta Red energy"
+    },
+    {
+      "name": "Vivienne Westwood",
+      "priceTier": "$$$",
+      "why": "punk pearls and orb chokers"
+    },
+    {
+      "name": "Hellstar",
+      "priceTier": "$$",
+      "why": "loud graphics for the mosh pit"
+    }
+  ],
+  "shopKeywords": [
+    "leather flare pants",
+    "platform boots",
+    "graphic long sleeve",
+    "studded belt",
+    "black skinny denim",
+    "mohair cardigan"
+  ],
+  "pinterestQueries": ["underground rapper outfits", "rage aesthetic", "opium fashion"],
+  "instagramHashtags": ["undergroundrap", "ragerap", "opium", "newgen"],
+  "tiktokQueries": ["underground rap", "rage rap", "new underground artists"],
+  "relatedNiches": ["rage", "jerk", "plugg", "vamp", "soundcloud rap"]
+}

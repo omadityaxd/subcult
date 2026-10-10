@@ -5,21 +5,35 @@ import { type CSSProperties, useState } from "react"
 import { ResponsiveSheet } from "@/components/ds/responsive-sheet"
 import { SectionHeader } from "@/components/ds/section-header"
 import type { NicheBrand } from "@/lib/engine/profile-schema"
-import { type ShopConfig, storeLinks } from "@/lib/links"
+import { type ExtraStoreId, type ShopConfig, brandLinks, storeLinks } from "@/lib/links"
 
 interface DripSectionProps {
   brands: readonly NicheBrand[]
   shopKeywords: readonly string[]
   shopConfig: ShopConfig
   themeStyle: CSSProperties
+  /** Designer resale (SSENSE, Vestiaire) for archive and designer niches. */
+  extraStores?: readonly ExtraStoreId[]
+  /**
+   * Brands the taxonomy knows, by display name → verified official site (or
+   * null). These link to the official site + resale only, never marketplaces.
+   */
+  brandSites?: Readonly<Record<string, string | null>>
 }
 
-type ShopTarget = { query: string; title: string; description: string }
+type ShopTarget = { query: string; title: string; description: string; brand?: boolean }
 
 const TIER_LABEL = { $: "Budget", $$: "Mid", $$$: "Splurge" } as const
 
 /** Brands and pieces; tapping either opens store searches (sheet on phones, modal on desktop). */
-export function DripSection({ brands, shopKeywords, shopConfig, themeStyle }: DripSectionProps) {
+export function DripSection({
+  brands,
+  shopKeywords,
+  shopConfig,
+  themeStyle,
+  extraStores = [],
+  brandSites = {},
+}: DripSectionProps) {
   const [target, setTarget] = useState<ShopTarget | null>(null)
 
   return (
@@ -32,7 +46,12 @@ export function DripSection({ brands, shopKeywords, shopConfig, themeStyle }: Dr
               <button
                 type="button"
                 onClick={() =>
-                  setTarget({ query: brand.name, title: brand.name, description: brand.why })
+                  setTarget({
+                    query: brand.name,
+                    title: brand.name,
+                    description: brand.why,
+                    brand: true,
+                  })
                 }
                 className="flex h-full w-full flex-col rounded-2xl border border-border bg-card p-5 text-left transition-[transform,background-color] duration-200 hover:bg-muted active:scale-[0.98]"
               >
@@ -88,7 +107,10 @@ export function DripSection({ brands, shopKeywords, shopConfig, themeStyle }: Dr
       >
         {target ? (
           <ul className="divide-y divide-border">
-            {storeLinks(target.query, shopConfig).map((store) => (
+            {(target.brand && target.query in brandSites
+              ? brandLinks(target.query, brandSites[target.query] ?? null)
+              : storeLinks(target.query, shopConfig, extraStores)
+            ).map((store) => (
               <li key={store.id}>
                 <a
                   href={store.url}

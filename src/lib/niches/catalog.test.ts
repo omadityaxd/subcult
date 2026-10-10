@@ -10,8 +10,8 @@ const DATA_DIR = join(process.cwd(), "data", "niches")
 const files = readdirSync(DATA_DIR).filter((file) => file.endsWith(".json"))
 
 describe("seed niche files", () => {
-  it("has 30 curated niches", () => {
-    expect(files).toHaveLength(30)
+  it("has 55 curated niches (30 originals + the underground cluster)", () => {
+    expect(files).toHaveLength(55)
   })
 
   it.each(files)("%s matches the NicheProfile schema", (file) => {

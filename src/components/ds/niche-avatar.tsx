@@ -1,3 +1,4 @@
+import Image from "next/image"
 import { coverBackground } from "@/lib/design/cover"
 import { cn } from "@/lib/utils"
 
@@ -5,19 +6,28 @@ interface NicheAvatarProps {
   slug: string
   name: string
   palette: readonly string[]
+  /** The niche's top artist photo. Without one, the cover + serif monogram stands in. */
+  imageUrl?: string | null
   /** Gradient ring = there's something new here (Instagram-style). */
   unseen?: boolean
-  size?: "sm" | "md" | "lg"
+  size?: "xs" | "sm" | "md" | "lg"
   className?: string
 }
 
-const SIZE = { sm: "size-10 text-[18px]", md: "size-16 text-[26px]", lg: "size-24 text-[40px]" }
+const SIZE = {
+  xs: "size-8 text-[14px]",
+  sm: "size-10 text-[18px]",
+  md: "size-16 text-[26px]",
+  lg: "size-24 text-[40px]",
+}
+const PIXELS = { xs: 32, sm: 40, md: 64, lg: 96 }
 
-/** Circular niche mark: its cover plus a serif monogram. No emoji. */
+/** Circular niche mark: the top artist's photo, or its cover plus a serif monogram. No emoji. */
 export function NicheAvatar({
   slug,
   name,
   palette,
+  imageUrl,
   unseen,
   size = "md",
   className,
@@ -33,7 +43,7 @@ export function NicheAvatar({
       <span className="rounded-full bg-background p-[2px]">
         <span
           className={cn(
-            "grain grid place-items-center rounded-full font-serif text-white/90 italic",
+            "grain relative grid place-items-center overflow-hidden rounded-full font-serif text-white/90 italic",
             SIZE[size],
           )}
           style={coverBackground(palette, slug)}
@@ -41,6 +51,17 @@ export function NicheAvatar({
           <span aria-hidden className="-translate-y-px drop-shadow-sm">
             {name.charAt(0)}
           </span>
+          {imageUrl ? (
+            // Sits over the monogram, so a slow or failed image still shows the fallback.
+            <Image
+              src={imageUrl}
+              alt=""
+              width={PIXELS[size] * 2}
+              height={PIXELS[size] * 2}
+              unoptimized
+              className="absolute inset-0 size-full object-cover"
+            />
+          ) : null}
         </span>
       </span>
     </span>

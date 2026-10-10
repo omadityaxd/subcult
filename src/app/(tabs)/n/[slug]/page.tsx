@@ -1,6 +1,6 @@
 import { CloudOff } from "lucide-react"
 import type { Metadata } from "next"
-import { notFound } from "next/navigation"
+import { notFound, permanentRedirect } from "next/navigation"
 import { Suspense } from "react"
 import { ButtonLink } from "@/components/ds/button"
 import {
@@ -12,11 +12,19 @@ import {
   LiveWatch,
   TopTracks,
 } from "@/components/niche/feed/live-panels"
+import { ArtistsRow } from "@/components/niche/artists-row"
+import {
+  AdjacentNiches,
+  GoDeeper,
+  NicheTrail,
+  SceneCommunities,
+  TwoHops,
+} from "@/components/niche/graph-sections"
 import { NicheHero } from "@/components/niche/niche-hero"
 import { NicheTabs } from "@/components/niche/niche-tabs"
 import { CommunitySection } from "@/components/niche/sections/community-section"
 import { DripSection } from "@/components/niche/sections/drip-section"
-import { ForYouSection, RelatedNiches } from "@/components/niche/sections/for-you-section"
+import { ForYouSection } from "@/components/niche/sections/for-you-section"
 import { MoodboardSection } from "@/components/niche/sections/moodboard-section"
 import { EmptyState } from "@/components/shell/empty-state"
 import { PullToRefresh } from "@/components/shell/pull-to-refresh"
@@ -24,7 +32,7 @@ import { Screen } from "@/components/shell/screen"
 import { Skeleton } from "@/components/ui/skeleton"
 import type { NicheProfile } from "@/lib/engine/profile-schema"
 import { env } from "@/lib/env"
-import { type NichePreset, findSeedProfileByName } from "@/lib/niches/catalog"
+import { TAXONOMY, nicheImage } from "@/lib/niches/catalog"
 import { isNew } from "@/lib/niches/lifecycle"
 import { type NicheMeta, type NicheSource, lookupNicheProfile } from "@/lib/niches/lookup"
 import { nicheTheme } from "@/lib/niches/theme"
@@ -58,7 +66,14 @@ export default function NichePage({ params }: PageProps<"/n/[slug]">) {
 async function NicheContent({ params }: Pick<PageProps<"/n/[slug]">, "params">) {
   const { slug } = await params
   const lookup = await lookupNicheProfile(slug)
-  if (lookup.status === "missing") notFound()
+  if (lookup.status === "missing") {
+    // Aliases ("/n/opium-fashion") and hubs ("/n/underground") have a canonical home.
+    const canonical = TAXONOMY.resolve(slug)
+    const node = canonical ? TAXONOMY.node(canonical) : undefined
+    if (node?.type === "niche" && canonical !== slug) permanentRedirect(`/n/${canonical}`)
+    if (node?.type === "hub") permanentRedirect(`/explore/${canonical}`)
+    notFound()
+  }
   if (lookup.status === "unavailable") return <NicheUnavailable />
   return <NicheWorld profile={lookup.profile} meta={lookup.meta} source={lookup.source} />
 }
@@ -80,24 +95,27 @@ function NicheWorld({
   source: NicheSource
 }) {
   const theme = nicheTheme(profile.palette)
-  const related = profile.relatedNiches
-    .map((name) => findSeedProfileByName(name))
-    .filter((match): match is NonNullable<typeof match> => match !== undefined)
-    .map(({ slug, name, emoji, tagline, palette }): NichePreset => ({
-      slug,
-      name,
-      emoji,
-      tagline,
-      palette,
-    }))
   const shopConfig = { amazonDomain: env.AMAZON_DOMAIN, amazonTag: env.AMAZON_AFFILIATE_TAG }
+  const curation = TAXONOMY.curation(profile.slug)
+  const brandSites = Object.fromEntries(
+    profile.brands.flatMap((brand) => {
+      const node = TAXONOMY.resolve(brand.name, "brand")
+      const known = TAXONOMY.brandsOf(profile.slug).find((b) => b.slug === node)
+      return known ? [[brand.name, known.officialUrl]] : []
+    }),
+  )
+  const artists = TAXONOMY.artistsOf(profile.slug).map(({ slug, name, imageUrl }) => ({
+    slug,
+    name,
+    imageUrl,
+  }))
 
   return (
     <PullToRefresh>
       <div data-niche="" data-niche-source={source} style={theme.style}>
         <NicheHero
           profile={profile}
-          themeStyle={theme.style}
+          imageUrl={nicheImage(profile.slug)}
           badge={trendBadge(meta)}
           mosaic={
             <Suspense fallback={null}>
@@ -106,17 +124,26 @@ function NicheWorld({
           }
         />
 
+        <div className="container-page mt-5 space-y-5 empty:hidden md:mt-8">
+          <NicheTrail slug={profile.slug} />
+          <GoDeeper slug={profile.slug} />
+        </div>
+
         <div className="container-page mt-2 md:mt-8 lg:grid lg:grid-cols-[minmax(0,1fr)_18rem] lg:gap-14">
           <div className="min-w-0">
             <NicheTabs
               panels={{
                 "for-you": (
                   <>
-                    <ForYouSection
-                      profile={profile}
-                      related={related}
-                      sources={meta?.sources ?? []}
-                    />
+                    <ForYouSection profile={profile} sources={meta?.sources ?? []} />
+                    <div className="mt-10 space-y-10">
+                      <ArtistsRow artists={artists} themeStyle={theme.style} />
+                      <AdjacentNiches slug={profile.slug} />
+                      <SceneCommunities slug={profile.slug} className="lg:hidden" />
+                      <div className="lg:hidden">
+                        <TwoHops slug={profile.slug} />
+                      </div>
+                    </div>
                     <Suspense fallback={<FeedSkeleton />}>
                       <LiveForYou profile={profile} />
                     </Suspense>
@@ -144,6 +171,8 @@ function NicheWorld({
                     shopKeywords={profile.shopKeywords}
                     shopConfig={shopConfig}
                     themeStyle={theme.style}
+                    extraStores={curation?.extraStores}
+                    brandSites={brandSites}
                   />
                 ),
                 moodboard: (
@@ -184,14 +213,8 @@ function NicheWorld({
               <Suspense fallback={<Skeleton className="h-64 rounded-2xl" />}>
                 <TopTracks profile={profile} />
               </Suspense>
-              {related.length > 0 ? (
-                <section>
-                  <p className="mb-3 text-overline font-medium text-muted-foreground uppercase">
-                    You might also be into
-                  </p>
-                  <RelatedNiches related={related} vertical />
-                </section>
-              ) : null}
+              <SceneCommunities slug={profile.slug} />
+              <TwoHops slug={profile.slug} vertical />
             </div>
           </aside>
         </div>

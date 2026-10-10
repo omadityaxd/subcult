@@ -1,0 +1,153 @@
+[
+  {
+    "slug": "new-gen-underground-rap",
+    "aliases": ["new gen underground rap", "new-gen rap", "new wave underground"],
+    "featuredOrder": 1
+  },
+  {
+    "slug": "rage",
+    "aliases": ["rage rap"],
+    "featuredOrder": 2
+  },
+  {
+    "slug": "jerk",
+    "aliases": ["jerk rap", "jerk music"],
+    "featuredOrder": 3
+  },
+  {
+    "slug": "vamp",
+    "aliases": [
+      "vamp aesthetic",
+      "opium fashion",
+      "rage rap fashion",
+      "vamp / opium-inspired",
+      "opium-inspired"
+    ],
+    "featuredOrder": 4,
+    "extraStores": ["ssense", "vestiaire"]
+  },
+  {
+    "slug": "digicore",
+    "aliases": ["digi core"],
+    "featuredOrder": 5
+  },
+  {
+    "slug": "plugg",
+    "aliases": ["plug music", "plugg music", "plug"],
+    "featuredOrder": 6
+  },
+  {
+    "slug": "pluggnb",
+    "aliases": ["plug n b", "pluggrnb", "plugg n b"],
+    "featuredOrder": 7
+  },
+  {
+    "slug": "dark-plugg",
+    "aliases": ["dark plug"],
+    "featuredOrder": 8
+  },
+  {
+    "slug": "sigilkore",
+    "aliases": ["sigil core", "sigilcore"],
+    "featuredOrder": 9
+  },
+  {
+    "slug": "archive-fashion",
+    "aliases": ["archive streetwear", "underground designer fashion", "archive"],
+    "featuredOrder": 10,
+    "extraStores": ["ssense", "vestiaire"]
+  },
+  {
+    "slug": "dark-avant-garde",
+    "aliases": ["avant-garde fashion", "avant garde", "rick owens-inspired"],
+    "featuredOrder": 11,
+    "extraStores": ["ssense", "vestiaire"]
+  },
+  {
+    "slug": "graphic-gothic-streetwear",
+    "aliases": ["tribal graphic fashion", "gothic streetwear"],
+    "featuredOrder": 12
+  },
+  {
+    "slug": "deftones-core",
+    "aliases": ["nu-metal revival", "deftonescore", "deftones-core / nu-metal revival"],
+    "featuredOrder": 13
+  },
+  {
+    "slug": "nu-gaze",
+    "aliases": ["nugaze"],
+    "featuredOrder": 14
+  },
+  {
+    "slug": "soundcloud-rap",
+    "aliases": ["soundcloud era"],
+    "featuredOrder": 15
+  },
+  {
+    "slug": "cloud-rap",
+    "aliases": ["cloud trap"],
+    "featuredOrder": 16
+  },
+  {
+    "slug": "tread",
+    "aliases": ["tread rap", "philly tread"],
+    "featuredOrder": 17
+  },
+  {
+    "slug": "experimental-rap",
+    "aliases": ["experimental hip-hop", "noise rap"],
+    "featuredOrder": 18
+  },
+  {
+    "slug": "glitchcore",
+    "aliases": ["glitch core"],
+    "featuredOrder": 19
+  },
+  {
+    "slug": "trap",
+    "aliases": ["trap music", "atlanta trap"],
+    "featuredOrder": 20
+  },
+  {
+    "slug": "dark-streetwear",
+    "aliases": ["all black streetwear", "black streetwear"],
+    "featuredOrder": 21
+  },
+  {
+    "slug": "underground-graphic-streetwear",
+    "aliases": ["graphic streetwear", "underground streetwear"],
+    "featuredOrder": 22
+  },
+  {
+    "slug": "diy-reworked",
+    "aliases": [
+      "distressed streetwear",
+      "reworked fashion",
+      "diy / reworked & distressed",
+      "reworked and distressed",
+      "diy fashion"
+    ],
+    "featuredOrder": 23
+  },
+  {
+    "slug": "mcbling-revival",
+    "aliases": ["mcbling", "mc bling"],
+    "featuredOrder": 24
+  },
+  {
+    "slug": "underground-sneaker-culture",
+    "aliases": ["designer sneakers", "underground sneakers"],
+    "featuredOrder": 25,
+    "extraStores": ["ssense"]
+  },
+  {
+    "slug": "hyperpop",
+    "aliases": [],
+    "featuredOrder": 26
+  },
+  {
+    "slug": "underground-rap",
+    "aliases": ["underground hip-hop"],
+    "featuredOrder": 27
+  }
+]

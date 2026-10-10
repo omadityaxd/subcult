@@ -42,17 +42,65 @@ export interface ShopConfig {
 export const DEFAULT_SHOP_CONFIG: ShopConfig = { amazonDomain: "amazon.com" }
 
 export const STORE_IDS = ["amazon", "depop", "etsy", "asos", "grailed", "google"] as const
-export type StoreId = (typeof STORE_IDS)[number]
+/** Designer and luxury resale, added only for archive / designer niches. */
+export const EXTRA_STORE_IDS = ["ssense", "vestiaire"] as const
+export type ExtraStoreId = (typeof EXTRA_STORE_IDS)[number]
+export type StoreId = (typeof STORE_IDS)[number] | ExtraStoreId
 
 export interface StoreLink {
-  id: StoreId
+  id: StoreId | "official"
   label: string
   /** One-line reason to pick this store, shown in the shop sheet. */
   blurb: string
   url: string
 }
 
-export function storeLinks(query: string, config: ShopConfig = DEFAULT_SHOP_CONFIG): StoreLink[] {
+const EXTRA_STORES: Record<ExtraStoreId, (query: string) => StoreLink> = {
+  ssense: (query) => ({
+    id: "ssense",
+    label: "SSENSE",
+    blurb: "designer and avant-garde, new season",
+    url: `https://www.ssense.com/en-us/search?q=${q(query)}`,
+  }),
+  vestiaire: (query) => ({
+    id: "vestiaire",
+    label: "Vestiaire Collective",
+    blurb: "authenticated designer resale",
+    url: `https://www.vestiairecollective.com/search/?q=${q(query)}`,
+  }),
+}
+
+/** Every default store, plus any designer extras the niche opted into. */
+export function storeLinks(
+  query: string,
+  config: ShopConfig = DEFAULT_SHOP_CONFIG,
+  extras: readonly ExtraStoreId[] = [],
+): StoreLink[] {
+  return [...baseStoreLinks(query, config), ...extras.map((id) => EXTRA_STORES[id](query))]
+}
+
+/**
+ * For a named brand: its verified official site plus resale searches only
+ * (Grailed, Depop). No marketplace searches that surface counterfeits.
+ */
+export function brandLinks(name: string, officialUrl: string | null): StoreLink[] {
+  const official: StoreLink[] = officialUrl
+    ? [
+        {
+          id: "official",
+          label: "Official site",
+          blurb: new URL(officialUrl).hostname.replace(/^www\./, ""),
+          url: officialUrl,
+        },
+      ]
+    : []
+  const resale = baseStoreLinks(name, DEFAULT_SHOP_CONFIG).filter(
+    (link) => link.id === "grailed" || link.id === "depop",
+  )
+  return [...official, ...resale]
+}
+
+function baseStoreLinks(query: string, config: ShopConfig): StoreLink[] {
   const amazonTag = config.amazonTag ? `&tag=${encodeURIComponent(config.amazonTag)}` : ""
   return [
     {

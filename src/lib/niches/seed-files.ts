@@ -30,6 +30,31 @@ import coastalCowboy from "../../../data/niches/coastal-cowboy.json"
 import bedroomPop from "../../../data/niches/bedroom-pop.json"
 import blokecore from "../../../data/niches/blokecore.json"
 import rave from "../../../data/niches/rave.json"
+import newGenUndergroundRap from "../../../data/niches/new-gen-underground-rap.json"
+import rage from "../../../data/niches/rage.json"
+import jerk from "../../../data/niches/jerk.json"
+import soundcloudRap from "../../../data/niches/soundcloud-rap.json"
+import plugg from "../../../data/niches/plugg.json"
+import pluggnb from "../../../data/niches/pluggnb.json"
+import darkPlugg from "../../../data/niches/dark-plugg.json"
+import tread from "../../../data/niches/tread.json"
+import cloudRap from "../../../data/niches/cloud-rap.json"
+import experimentalRap from "../../../data/niches/experimental-rap.json"
+import trap from "../../../data/niches/trap.json"
+import digicore from "../../../data/niches/digicore.json"
+import sigilkore from "../../../data/niches/sigilkore.json"
+import glitchcore from "../../../data/niches/glitchcore.json"
+import deftonesCore from "../../../data/niches/deftones-core.json"
+import nuGaze from "../../../data/niches/nu-gaze.json"
+import vamp from "../../../data/niches/vamp.json"
+import graphicGothicStreetwear from "../../../data/niches/graphic-gothic-streetwear.json"
+import darkStreetwear from "../../../data/niches/dark-streetwear.json"
+import darkAvantGarde from "../../../data/niches/dark-avant-garde.json"
+import archiveFashion from "../../../data/niches/archive-fashion.json"
+import undergroundGraphicStreetwear from "../../../data/niches/underground-graphic-streetwear.json"
+import diyReworked from "../../../data/niches/diy-reworked.json"
+import mcblingRevival from "../../../data/niches/mcbling-revival.json"
+import undergroundSneakerCulture from "../../../data/niches/underground-sneaker-culture.json"
 
 export const SEED_FILES: readonly unknown[] = [
   undergroundRap,
@@ -62,4 +87,29 @@ export const SEED_FILES: readonly unknown[] = [
   bedroomPop,
   blokecore,
   rave,
+  newGenUndergroundRap,
+  rage,
+  jerk,
+  soundcloudRap,
+  plugg,
+  pluggnb,
+  darkPlugg,
+  tread,
+  cloudRap,
+  experimentalRap,
+  trap,
+  digicore,
+  sigilkore,
+  glitchcore,
+  deftonesCore,
+  nuGaze,
+  vamp,
+  graphicGothicStreetwear,
+  darkStreetwear,
+  darkAvantGarde,
+  archiveFashion,
+  undergroundGraphicStreetwear,
+  diyReworked,
+  mcblingRevival,
+  undergroundSneakerCulture,
 ]

@@ -1,0 +1,81 @@
+{
+  "slug": "dark-plugg",
+  "schemaVersion": 1,
+  "name": "dark plugg",
+  "emoji": "🕳️",
+  "tagline": "plugg, but the lights are off and the 808 is screaming",
+  "description": "A DMV-rooted turn on plugg with minor keys, menacing synths and increasingly harsh, screechy 808s. Slimesito and Fluhkunxhkos laid the groundwork; Smokingskul and Glokk40Spaz pushed it wider, and producers like boolymon made it noisier still.",
+  "palette": ["#050506", "#141018", "#3a2140", "#7d2d4a", "#d9cbd4"],
+  "vibeWords": ["menacing", "noisy", "minor key", "DMV", "distorted", "raw"],
+  "artists": [
+    {
+      "name": "Slimesito",
+      "why": "credited with pioneering the style"
+    },
+    {
+      "name": "Fluhkunxhkos",
+      "why": "co-pioneer of the dark plugg sound"
+    },
+    {
+      "name": "Smokingskul",
+      "why": "helped the genre's rise"
+    },
+    {
+      "name": "Glokk40Spaz",
+      "why": "hardcore plugg rap that broke out in 2022"
+    },
+    {
+      "name": "Squillo",
+      "why": "harsher, noisier dark plugg"
+    },
+    {
+      "name": "Mxlachi",
+      "why": "distorted, screechy 808s"
+    },
+    {
+      "name": "boolymon",
+      "why": "producer behind the scene's noisiest beats"
+    },
+    {
+      "name": "Lil Dude",
+      "why": "DMV-style rapping that shaped it"
+    }
+  ],
+  "spotifyQueries": ["dark plugg", "dark plug", "dmv plugg"],
+  "subreddits": ["hiphopheads", "makinghiphop", "rap"],
+  "newsQueries": ["dark plugg", "Glokk40Spaz"],
+  "youtubeQueries": ["dark plugg", "dark plugg beat", "Glokk40Spaz"],
+  "brands": [
+    {
+      "name": "Hellstar",
+      "priceTier": "$$",
+      "why": "dark graphics for dark beats"
+    },
+    {
+      "name": "Chrome Hearts",
+      "priceTier": "$$$",
+      "why": "silver everything"
+    },
+    {
+      "name": "Nike",
+      "priceTier": "$$",
+      "why": "Tns and tech fleece"
+    },
+    {
+      "name": "Balenciaga",
+      "priceTier": "$$$",
+      "why": "the oversized hoodie"
+    }
+  ],
+  "shopKeywords": [
+    "black ski mask",
+    "tech fleece",
+    "skull rings",
+    "black cargo pants",
+    "graphic hoodie"
+  ],
+  "pinterestQueries": ["dark plugg aesthetic", "dark plugg cover art"],
+  "instagramHashtags": ["darkplugg", "plugg", "dmvrap"],
+  "tiktokQueries": ["dark plugg", "dark plugg beat"],
+  "relatedNiches": ["plugg", "rage", "pluggnb", "new-gen underground rap"]
+}

@@ -1,0 +1,91 @@
+{
+  "slug": "underground-graphic-streetwear",
+  "schemaVersion": 1,
+  "name": "underground graphic streetwear",
+  "emoji": "🎨",
+  "tagline": "the logo is the whole outfit and it sold out in 4 minutes",
+  "description": "Small, loud labels that run on drops and graphics: puff prints, cracked screen prints, flames and slogans. Hellstar, Sp5der, Corteiz and Broken Planet built cult followings straight from Instagram, and a hoodie can resell for triple before it ships.",
+  "palette": ["#0a0909", "#2c1410", "#c2410c", "#facc15", "#fafaf5"],
+  "vibeWords": ["puff print", "drops", "loud", "limited", "slogans", "flames"],
+  "artists": [
+    {
+      "name": "Nettspend",
+      "why": "wears the labels the scene buys next"
+    },
+    {
+      "name": "Che",
+      "why": "Hellstar-core on stage"
+    },
+    {
+      "name": "Yeat",
+      "why": "loud graphic hoodies"
+    },
+    {
+      "name": "Lil Uzi Vert",
+      "why": "early adopter of the cult labels"
+    },
+    {
+      "name": "Fakemink",
+      "why": "London drop culture"
+    },
+    {
+      "name": "EsDeeKid",
+      "why": "UK graphic streetwear energy"
+    },
+    {
+      "name": "Xaviersobased",
+      "why": "jerk fits are graphic-heavy"
+    },
+    {
+      "name": "Central Cee",
+      "why": "made Corteiz a global name"
+    }
+  ],
+  "spotifyQueries": ["underground rap 2026", "uk underground rap", "jerk rap"],
+  "subreddits": ["streetwear", "Sneakers", "malefashion"],
+  "newsQueries": ["Hellstar drop", "Corteiz drop", "Sp5der hoodie", "Broken Planet"],
+  "youtubeQueries": ["streetwear drop haul", "Corteiz drop", "Hellstar review"],
+  "brands": [
+    {
+      "name": "Hellstar",
+      "priceTier": "$$",
+      "why": "planets, flames and loud graphics"
+    },
+    {
+      "name": "Sp5der",
+      "priceTier": "$$$",
+      "why": "puffy web-print hoodies"
+    },
+    {
+      "name": "Corteiz",
+      "priceTier": "$$",
+      "why": "London's drop-culture phenomenon"
+    },
+    {
+      "name": "Broken Planet",
+      "priceTier": "$$",
+      "why": "slogan sweats with a cult following"
+    },
+    {
+      "name": "Minus Two",
+      "priceTier": "$$",
+      "why": "graphic denim from the new wave"
+    },
+    {
+      "name": "Denim Tears",
+      "priceTier": "$$$",
+      "why": "cotton-wreath denim with a story"
+    }
+  ],
+  "shopKeywords": [
+    "puff print hoodie",
+    "graphic sweatpants",
+    "flame graphic tee",
+    "trucker hat",
+    "baggy jeans"
+  ],
+  "pinterestQueries": ["hellstar outfit", "graphic streetwear fit", "corteiz outfit"],
+  "instagramHashtags": ["streetwear", "hellstar", "corteiz", "sp5der"],
+  "tiktokQueries": ["streetwear drops", "hellstar", "corteiz"],
+  "relatedNiches": ["graphic gothic streetwear", "sneakerheads", "skater", "diy reworked"]
+}

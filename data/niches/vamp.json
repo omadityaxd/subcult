@@ -1,0 +1,92 @@
+{
+  "slug": "vamp",
+  "schemaVersion": 1,
+  "name": "vamp",
+  "emoji": "🦇",
+  "tagline": "all black, leather flares, looks like you sleep in a coffin (you might)",
+  "description": "The Opium-inspired look that grew out of Playboi Carti's Whole Lotta Red era: black leather, flared denim, stacked silver, platform boots and a gothic, almost theatrical edge. Ken Carson and Destroy Lonely made it a uniform; the underground copied it fast.",
+  "palette": ["#050405", "#1a0c10", "#4d0f1c", "#a31f34", "#ead9dc"],
+  "vibeWords": ["vamp", "leather", "gothic", "theatrical", "all black", "silver", "nocturnal"],
+  "artists": [
+    {
+      "name": "Playboi Carti",
+      "why": "the vamp era started with him"
+    },
+    {
+      "name": "Ken Carson",
+      "why": "turned the look into a uniform"
+    },
+    {
+      "name": "Destroy Lonely",
+      "why": "leather, fur and slow-motion menace"
+    },
+    {
+      "name": "Homixide Gang",
+      "why": "Opium's on-stage vamp energy"
+    },
+    {
+      "name": "OsamaSon",
+      "why": "spiked, shredded, all black"
+    },
+    {
+      "name": "Che",
+      "why": "industrial vamp for the new wave"
+    },
+    {
+      "name": "Lazer Dim 700",
+      "why": "chaos styling to match the music"
+    },
+    {
+      "name": "Nettspend",
+      "why": "the next generation's take on the look"
+    }
+  ],
+  "spotifyQueries": ["opium", "whole lotta red", "vamp anthems", "rage rap"],
+  "subreddits": ["playboicarti", "malefashion", "rickowens"],
+  "newsQueries": ["Opium label fashion", "Playboi Carti style", "Ken Carson outfit"],
+  "youtubeQueries": ["opium fashion breakdown", "vamp aesthetic outfit", "playboi carti outfits"],
+  "brands": [
+    {
+      "name": "Rick Owens",
+      "priceTier": "$$$",
+      "why": "Geobaskets and drop-crotch everything"
+    },
+    {
+      "name": "Chrome Hearts",
+      "priceTier": "$$$",
+      "why": "the cross on every finger"
+    },
+    {
+      "name": "Balenciaga",
+      "priceTier": "$$$",
+      "why": "oversized leather and Whole Lotta Red-era fits"
+    },
+    {
+      "name": "Vivienne Westwood",
+      "priceTier": "$$$",
+      "why": "orb necklaces and punk tailoring"
+    },
+    {
+      "name": "Raf Simons",
+      "priceTier": "$$$",
+      "why": "archive pieces the scene hunts for"
+    },
+    {
+      "name": "Hellstar",
+      "priceTier": "$$",
+      "why": "the accessible graphic layer"
+    }
+  ],
+  "shopKeywords": [
+    "leather flare pants",
+    "platform boots",
+    "studded belt",
+    "silver cross necklace",
+    "black mohair sweater",
+    "leather jacket"
+  ],
+  "pinterestQueries": ["opium fashion", "vamp aesthetic outfits", "rage rapper fits"],
+  "instagramHashtags": ["vampaesthetic", "opium", "yvl", "ragefashion"],
+  "tiktokQueries": ["vamp aesthetic", "opium fashion", "rage rap outfits"],
+  "relatedNiches": ["goth", "dark avant-garde", "graphic gothic streetwear", "rage"]
+}

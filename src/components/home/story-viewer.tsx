@@ -189,7 +189,13 @@ export function StoryViewer({ niches, startIndex, onSeen, onClose }: StoryViewer
             onClick={onClose}
             className="flex min-w-0 flex-1 items-center gap-2.5"
           >
-            <NicheAvatar slug={niche.slug} name={niche.name} palette={niche.palette} size="sm" />
+            <NicheAvatar
+              slug={niche.slug}
+              name={niche.name}
+              palette={niche.palette}
+              imageUrl={niche.imageUrl}
+              size="sm"
+            />
             <span className="truncate font-serif text-title-3 italic">{niche.name}</span>
           </Link>
           <button
