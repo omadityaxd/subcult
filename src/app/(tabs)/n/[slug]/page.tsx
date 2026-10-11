@@ -24,6 +24,8 @@ import {
   TwoHops,
 } from "@/components/niche/graph-sections"
 import { NicheHero } from "@/components/niche/niche-hero"
+import { WhoToFollow } from "@/components/niche/who-to-follow"
+import { whoToFollow } from "@/lib/social/instagram"
 import { NicheVisit } from "@/components/wrapped/trackers"
 import { NicheTabs } from "@/components/niche/niche-tabs"
 import { CommunitySection } from "@/components/niche/sections/community-section"
@@ -157,6 +159,7 @@ function NicheWorld({
                     <ForYouSection profile={profile} sources={meta?.sources ?? []} />
                     <div className="mt-10 space-y-10">
                       <ArtistsRow artists={artists} themeStyle={theme.style} />
+                      <WhoToFollow cards={whoToFollow(profile.slug)} />
                       <AdjacentNiches slug={profile.slug} />
                       <SceneCommunities slug={profile.slug} className="lg:hidden" />
                       <div className="lg:hidden">

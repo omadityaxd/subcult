@@ -1,0 +1,1597 @@
+{
+  "verifiedAt": "2026-10-11",
+  "artists": {
+    "100-gecs": {
+      "handle": "100gecs",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q67556784",
+        "https://musicbrainz.org/artist/d6d45dda-2377-4faa-947b-e071efa085c0"
+      ]
+    },
+    "21-savage": {
+      "handle": "21savage",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q25095399",
+        "https://musicbrainz.org/artist/37b2cb82-ef79-4d46-a184-a549450aa231"
+      ]
+    },
+    "a-ap-rocky": {
+      "handle": "asaprocky",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q129910",
+        "https://musicbrainz.org/artist/25b7b584-d952-4662-a8b9-dd8cdfbfeb64"
+      ]
+    },
+    "a-g-cook": {
+      "handle": "agcook404",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q18763975",
+        "https://musicbrainz.org/artist/b12ef43e-72ad-43d0-b216-a8cd32f78852"
+      ]
+    },
+    "a-tribe-called-quest": {
+      "handle": "atcq",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q300602",
+        "https://musicbrainz.org/artist/9689aa5a-4471-4fb4-9721-07cecda0fa9f"
+      ]
+    },
+    "aaliyah": {
+      "handle": "aaliyah",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q11617",
+        "https://musicbrainz.org/artist/bc85da58-52d9-457d-ae8d-5d8d4ec870a9"
+      ]
+    },
+    "ado": {
+      "handle": "ado1024sweetpotet",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q104012678",
+        "https://musicbrainz.org/artist/e134b52f-2e9e-4734-9bc3-bea9648d1fa1"
+      ]
+    },
+    "adrianne-lenker": {
+      "handle": "adriannelenker",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q64875564",
+        "https://musicbrainz.org/artist/763cb144-afdb-471e-bd86-d4f5b9b58641"
+      ]
+    },
+    "aespa": {
+      "handle": "aespa_official",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q100877982",
+        "https://musicbrainz.org/artist/b51c672b-85e0-48fe-8648-470a2422229f"
+      ]
+    },
+    "aimer": {
+      "handle": "aimer_0907_official",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q4697155",
+        "https://musicbrainz.org/artist/9388cee2-7d57-4598-905f-106019b267d3"
+      ]
+    },
+    "aldn": {
+      "handle": "hereisalden",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q111678322",
+        "https://musicbrainz.org/artist/fa01a34e-05f3-424c-8fd0-390840f51d74"
+      ]
+    },
+    "alice-in-chains": {
+      "handle": "aliceinchains",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q484255",
+        "https://musicbrainz.org/artist/4bd95eea-b9f6-4d70-a36c-cfea77431553"
+      ]
+    },
+    "amelie-lens": {
+      "handle": "amelie_lens",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q27902902",
+        "https://musicbrainz.org/artist/67db280d-c3e4-49d9-978e-4050f4e209ef"
+      ]
+    },
+    "american-football": {
+      "handle": "americfootball",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q464369",
+        "https://musicbrainz.org/artist/4ebb5ad3-9018-407d-8c24-c03011ab9ac6"
+      ]
+    },
+    "anri": {
+      "handle": "anri1105",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q2761128",
+        "https://musicbrainz.org/artist/2e178faf-fbe6-44b3-8339-1b13e8ecc754"
+      ]
+    },
+    "arctic-monkeys": {
+      "handle": "arcticmonkeys",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q170599",
+        "https://musicbrainz.org/artist/ada7a83c-e3e1-40f1-93f9-3e73dbc9298a"
+      ]
+    },
+    "ateez": {
+      "handle": "ateez_official_",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q59793088",
+        "https://musicbrainz.org/artist/cf0dbc16-4e24-4957-b5b4-955c8978f690"
+      ]
+    },
+    "avril-lavigne": {
+      "handle": "avrillavigne",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q30449",
+        "https://musicbrainz.org/artist/0103c1cc-4a09-4a5d-a344-56ad99a77193"
+      ]
+    },
+    "ayra-starr": {
+      "handle": "ayrastarr",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q106462586",
+        "https://musicbrainz.org/artist/c4ac4b97-2eac-46f6-85ae-f916c93847e4"
+      ]
+    },
+    "backxwash": {
+      "handle": "backxwash",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q96474820",
+        "https://musicbrainz.org/artist/859ba379-1201-4ed0-8a57-d31650cc36f1"
+      ]
+    },
+    "bad-bunny": {
+      "handle": "badbunnypr",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q44333953",
+        "https://musicbrainz.org/artist/89aa5ecb-59ad-46f5-b3eb-2d424e941f19"
+      ]
+    },
+    "bauhaus": {
+      "handle": "bauhausmusik",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q180582",
+        "https://musicbrainz.org/artist/0688add2-c282-4ee2-ba61-223ffdb3c201"
+      ]
+    },
+    "beabadoobee": {
+      "handle": "radvxz",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q66817366",
+        "https://musicbrainz.org/artist/88d17133-abbc-42db-9526-4e2c1db60336"
+      ]
+    },
+    "beyonce": {
+      "handle": "beyonce",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q36153",
+        "https://musicbrainz.org/artist/859d0860-d480-4efd-970c-c05d5f1776b8"
+      ]
+    },
+    "big-thief": {
+      "handle": "bigthiefmusic",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q28228836",
+        "https://musicbrainz.org/artist/9f81247f-7f57-42f3-a8ba-75bef554e591"
+      ]
+    },
+    "bill-evans": {
+      "handle": "billevansofficial",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q208205",
+        "https://musicbrainz.org/artist/8247a3f2-3a8e-4256-b322-6c57b03a4e36"
+      ]
+    },
+    "black-flag": {
+      "handle": "blackflagband",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q464476",
+        "https://musicbrainz.org/artist/9941a936-196a-4a62-ae53-a69cbc33f20e"
+      ]
+    },
+    "blackpink": {
+      "handle": "blackpinkofficial",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q25056945",
+        "https://musicbrainz.org/artist/48646387-1664-4c9a-9139-9bfd091b823c"
+      ]
+    },
+    "bladee": {
+      "handle": "dg_bladee",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q55433897",
+        "https://musicbrainz.org/artist/cd689e77-dfdd-4f81-b50c-5e5a3f5e38a4"
+      ]
+    },
+    "blank-banshee": {
+      "handle": "blank_banshee",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q60194398",
+        "https://musicbrainz.org/artist/8626ae12-6dd3-4a0c-8e83-ac9e6f0a32ef"
+      ]
+    },
+    "bloc-party": {
+      "handle": "thisisblocparty",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q205838",
+        "https://musicbrainz.org/artist/8c538f11-c141-4588-8ecb-931083524186"
+      ]
+    },
+    "blur": {
+      "handle": "blurofficial",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q485820",
+        "https://musicbrainz.org/artist/ba853904-ae25-4ebb-89d6-c44cfbd71bd2"
+      ]
+    },
+    "bon-iver": {
+      "handle": "boniver",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q357340",
+        "https://musicbrainz.org/artist/437a0e49-c6ae-42f6-a6c1-84f25ed366bc"
+      ]
+    },
+    "bones": {
+      "handle": "teamseshbones",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q21857084",
+        "https://musicbrainz.org/artist/e3f7631b-e50b-4923-9049-2fa84dfcaf71"
+      ]
+    },
+    "boy-harsher": {
+      "handle": "boyharsher",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q60834610",
+        "https://musicbrainz.org/artist/6dc9bc09-a0c7-40f9-b491-f90845927533"
+      ]
+    },
+    "boy-pablo": {
+      "handle": "soypablo777",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q52387717",
+        "https://musicbrainz.org/artist/512171a4-d41a-4df6-838d-de0a47aea068"
+      ]
+    },
+    "britney-spears": {
+      "handle": "britneyspears",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q11975",
+        "https://musicbrainz.org/artist/45a663b5-b1cb-4a91-bff6-2bef7bbfdd76"
+      ]
+    },
+    "bts": {
+      "handle": "bts.bighitofficial",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q13580495",
+        "https://musicbrainz.org/artist/0d79fe8e-ba27-4859-bb8c-2f255f346853"
+      ]
+    },
+    "burna-boy": {
+      "handle": "burnaboygram",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q17305712",
+        "https://musicbrainz.org/artist/78a19169-ac75-4868-b504-7e2e073118e0"
+      ]
+    },
+    "carpenter-brut": {
+      "handle": "carpenterbrut",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q24666176",
+        "https://musicbrainz.org/artist/303abdee-ffca-4685-a582-6aaaefd81b01"
+      ]
+    },
+    "central-cee": {
+      "handle": "centralcee",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q106078330",
+        "https://musicbrainz.org/artist/b0337af1-8d93-4671-b6c9-ba306bf942bf"
+      ]
+    },
+    "chappell-roan": {
+      "handle": "chappellroan",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q110281146",
+        "https://musicbrainz.org/artist/56a55378-f155-48de-80a5-d80104221267"
+      ]
+    },
+    "charli-xcx": {
+      "handle": "charli_xcx",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q5084390",
+        "https://musicbrainz.org/artist/260b6184-8828-48eb-945c-bc4cb6fc34ca"
+      ]
+    },
+    "charlotte-de-witte": {
+      "handle": "charlottedewittemusic",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q22668666",
+        "https://musicbrainz.org/artist/1de4e373-e597-4087-bf3d-256ec597749e"
+      ]
+    },
+    "christina-aguilera": {
+      "handle": "xtina",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q41594",
+        "https://musicbrainz.org/artist/b202beb7-99bd-47e7-8b72-195c8d72ebdd"
+      ]
+    },
+    "ciara": {
+      "handle": "ciara",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q203223",
+        "https://musicbrainz.org/artist/03172286-f7ed-4864-a4db-459cd5ca9790"
+      ]
+    },
+    "cigarettes-after-sex": {
+      "handle": "cigsaftersex",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q25349372",
+        "https://musicbrainz.org/artist/34557d8f-ee4a-44ab-ae6e-49bb8ac604d0"
+      ]
+    },
+    "clairo": {
+      "handle": "clairo",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q52433533",
+        "https://musicbrainz.org/artist/d786f59b-1836-4ddb-8393-ab753edbe984"
+      ]
+    },
+    "clams-casino": {
+      "handle": "instaclam",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q23787695",
+        "https://musicbrainz.org/artist/772a0eb3-fe31-4a08-b583-690296f44900"
+      ]
+    },
+    "clipping": {
+      "handle": "clppng",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q17299778",
+        "https://musicbrainz.org/artist/84ca8fa4-7cca-4948-a90a-cb44db29853d"
+      ]
+    },
+    "crystal-castles": {
+      "handle": "crystalcastles",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q766824",
+        "https://musicbrainz.org/artist/b1570544-93ab-4b2b-8398-131735394202"
+      ]
+    },
+    "cuco": {
+      "handle": "cucopuffs",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q66551093",
+        "https://musicbrainz.org/artist/ff1cafa3-7ed4-4ed2-afbb-d1f263d607a8"
+      ]
+    },
+    "daft-punk": {
+      "handle": "daftpunk",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q185828",
+        "https://musicbrainz.org/artist/056e4f3e-d505-4dad-8ec1-d04f521cbb56"
+      ]
+    },
+    "daniel-deluxe": {
+      "handle": "danieldeluxemusic",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q55608964",
+        "https://musicbrainz.org/artist/20e17bb3-4b34-48d3-bc35-d8e6638e3b4d"
+      ]
+    },
+    "danny-brown": {
+      "handle": "xdannyxbrownx",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q2337999",
+        "https://musicbrainz.org/artist/960afc67-9c21-46dd-9c7f-ff2b509e3150"
+      ]
+    },
+    "danny-l-harle": {
+      "handle": "dannylharle",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q19873918",
+        "https://musicbrainz.org/artist/1fd94d42-5e6a-46f2-84bf-9cc0be6c009f"
+      ]
+    },
+    "dean-martin": {
+      "handle": "deanmartinofficial",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q215359",
+        "https://musicbrainz.org/artist/5e6c760b-42e0-4df4-a221-0269355da00a"
+      ]
+    },
+    "deftones": {
+      "handle": "deftones",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q485039",
+        "https://musicbrainz.org/artist/7527f6c2-d762-4b88-b5e2-9244f1e34c46"
+      ]
+    },
+    "destiny-s-child": {
+      "handle": "destinyschild",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q153056",
+        "https://musicbrainz.org/artist/a796b92e-c137-4895-9c89-10f900617a4f"
+      ]
+    },
+    "destroy-lonely": {
+      "handle": "destroylonely",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q113510276",
+        "https://musicbrainz.org/artist/987d3d86-0d7a-4292-ae96-a8d59e456436"
+      ]
+    },
+    "disclosure": {
+      "handle": "disclosure",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q1228440",
+        "https://musicbrainz.org/artist/ae65c507-d9a0-4d42-9a6c-2b1f82158b9f"
+      ]
+    },
+    "doja-cat": {
+      "handle": "dojacat",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q51120673",
+        "https://musicbrainz.org/artist/5df62a88-cac9-490a-b62c-c7c88f4020f4"
+      ]
+    },
+    "dolly-parton": {
+      "handle": "dollyparton",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q180453",
+        "https://musicbrainz.org/artist/1d543e07-d0d2-4834-a8db-d65c50c2a856"
+      ]
+    },
+    "don-toliver": {
+      "handle": "dontoliver",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q56513383",
+        "https://musicbrainz.org/artist/a0723a3c-4135-438e-85c5-012712144ede"
+      ]
+    },
+    "dorian-electra": {
+      "handle": "dorianelectra",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q5297785",
+        "https://musicbrainz.org/artist/aefba883-dfc2-45ee-bce4-1dd903b13341"
+      ]
+    },
+    "drake": {
+      "handle": "champagnepapi",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q33240",
+        "https://musicbrainz.org/artist/9fff2f8a-21e6-47de-a2b8-7f449929d43f"
+      ]
+    },
+    "dvrst": {
+      "handle": "valery_dvrst_",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q115750132",
+        "https://musicbrainz.org/artist/b04b7c24-59d2-47f8-8ca8-bcf6f6d106ed"
+      ]
+    },
+    "earl-sweatshirt": {
+      "handle": "soapmanwun",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q1033188",
+        "https://musicbrainz.org/artist/8b22acd6-20e6-4463-a75c-c14b5cfdb666"
+      ]
+    },
+    "ed-sheeran": {
+      "handle": "teddysphotos",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q47447",
+        "https://musicbrainz.org/artist/b8a7c51f-362c-4dcb-a259-bc6e0095f0a6"
+      ]
+    },
+    "elyotto": {
+      "handle": "ely0tto",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q105856817",
+        "https://musicbrainz.org/artist/c5b50d12-9a13-4a0a-bfab-a27e03b7c87f"
+      ]
+    },
+    "eminem": {
+      "handle": "eminem",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q5608",
+        "https://musicbrainz.org/artist/b95ce3ff-3d05-4e87-9e01-c97b66af13d4"
+      ]
+    },
+    "esdeekid": {
+      "handle": "esdeekid",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q136490481",
+        "https://musicbrainz.org/artist/3d253cbd-fb66-4752-a8d1-f9b0db75bcea"
+      ]
+    },
+    "fela-kuti": {
+      "handle": "felakutiofficial",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q313868",
+        "https://musicbrainz.org/artist/6514cffa-fbe0-4965-ad88-e998ead8a82a"
+      ]
+    },
+    "fleet-foxes": {
+      "handle": "fleetfoxes",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q852335",
+        "https://musicbrainz.org/artist/fa97dd36-1b82-43d7-a6e4-2adeafd59cef"
+      ]
+    },
+    "florence-the-machine": {
+      "handle": "florenceandthemachine",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q217360",
+        "https://musicbrainz.org/artist/5fee3020-513b-48c2-b1f7-4681b01db0c6"
+      ]
+    },
+    "four-tet": {
+      "handle": "fourtetkieran",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q959655",
+        "https://musicbrainz.org/artist/3bcff06f-675a-451f-9075-99e8657047e8"
+      ]
+    },
+    "frank-ocean": {
+      "handle": "blonded",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q357645",
+        "https://musicbrainz.org/artist/e520459c-dff4-491d-a6e4-c97be35e0044"
+      ]
+    },
+    "fred-again": {
+      "handle": "fredagainagainagainagainagain",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q64009886",
+        "https://musicbrainz.org/artist/bca46a0c-25c9-42ca-98c2-e64c8a5e337e"
+      ]
+    },
+    "future": {
+      "handle": "future",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q3445057",
+        "https://musicbrainz.org/artist/48262e82-db9f-4a92-b650-dfef979b73ec"
+      ]
+    },
+    "gesaffelstein": {
+      "handle": "gesaffelsteinmusic",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q381562",
+        "https://musicbrainz.org/artist/cc3e537d-ff34-423f-8cd6-635a80f4dba7"
+      ]
+    },
+    "girl-in-red": {
+      "handle": "girlinred",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q62140662",
+        "https://musicbrainz.org/artist/4ae429fe-735c-4968-8253-a591421b1bd0"
+      ]
+    },
+    "glaive": {
+      "handle": "1glaive",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q100978614",
+        "https://musicbrainz.org/artist/fd36f43e-5bd1-488e-b844-0e059250ef78"
+      ]
+    },
+    "gregory-alan-isakov": {
+      "handle": "gregoryalanisakov",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q3266712",
+        "https://musicbrainz.org/artist/5c61efe6-3cdf-4160-b43c-9274944369e6"
+      ]
+    },
+    "grimes": {
+      "handle": "grimes",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q117970",
+        "https://musicbrainz.org/artist/7e5a2a59-6d9f-4a17-b7c2-e1eedb7bd222"
+      ]
+    },
+    "gucci-mane": {
+      "handle": "laflare1017",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q206032",
+        "https://musicbrainz.org/artist/36494952-f434-45d8-a958-8b4acdbcf8a8"
+      ]
+    },
+    "gunna": {
+      "handle": "gunna",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q55613105",
+        "https://musicbrainz.org/artist/100b8734-f4f0-4536-9960-47f7c59d1b4c"
+      ]
+    },
+    "gunship": {
+      "handle": "gunshipmusic",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q28146294",
+        "https://musicbrainz.org/artist/df1356d3-3c66-48bc-ac79-475c6cf76266"
+      ]
+    },
+    "gus-dapperton": {
+      "handle": "gusdapperton",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q51858412",
+        "https://musicbrainz.org/artist/dd158dc3-33a8-45aa-af0c-d9bf13905d0a"
+      ]
+    },
+    "gwen-stefani": {
+      "handle": "gwenstefani",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q483379",
+        "https://musicbrainz.org/artist/2e41ae9c-afd2-4f20-8f1e-17281ce9b472"
+      ]
+    },
+    "hans-zimmer": {
+      "handle": "hanszimmer",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q76364",
+        "https://musicbrainz.org/artist/e6de1f3b-6484-491c-88dd-6d619f142abc"
+      ]
+    },
+    "hozier": {
+      "handle": "hozier",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q16233232",
+        "https://musicbrainz.org/artist/b4691384-50c3-4afd-9988-51d3ec5db65d"
+      ]
+    },
+    "ice-spice": {
+      "handle": "icespice",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q114114977",
+        "https://musicbrainz.org/artist/6f2c949d-9540-4421-bf02-27ae27e00e33"
+      ]
+    },
+    "injury-reserve": {
+      "handle": "injuryreserve",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q24075128",
+        "https://musicbrainz.org/artist/4c4fa077-b351-4558-9013-b31e1fbd1d24"
+      ]
+    },
+    "iron-and-wine": {
+      "handle": "ironandwinetour",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q361881",
+        "https://musicbrainz.org/artist/c3f28da8-662d-4f09-bdc7-3084bf685930"
+      ]
+    },
+    "joji": {
+      "handle": "sushitrash",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q23826617",
+        "https://musicbrainz.org/artist/8264722b-df00-467a-858e-5c97cda169c9"
+      ]
+    },
+    "joni-mitchell": {
+      "handle": "jonimitchell",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q205721",
+        "https://musicbrainz.org/artist/a6de8ef9-b1a1-4756-97aa-481bbb8a4069"
+      ]
+    },
+    "joy-division": {
+      "handle": "officialjoydivision",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q172763",
+        "https://musicbrainz.org/artist/9a58fda3-f4ed-4080-a3a5-f457aac9fcdd"
+      ]
+    },
+    "jpegmafia": {
+      "handle": "jpegmafia",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q50415953",
+        "https://musicbrainz.org/artist/c42e60f4-4520-4954-b6e4-82bbdf532c11"
+      ]
+    },
+    "juice-wrld": {
+      "handle": "juicewrld999",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q52151598",
+        "https://musicbrainz.org/artist/4e4ebde4-0c56-4dec-844b-6c73adcdd92d"
+      ]
+    },
+    "justice": {
+      "handle": "etjusticepourtous",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q329178",
+        "https://musicbrainz.org/artist/860b2707-6153-4e3a-aa57-74d2b42c55b5"
+      ]
+    },
+    "kacey-musgraves": {
+      "handle": "spaceykacey",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q2783855",
+        "https://musicbrainz.org/artist/d1393ecb-431b-4fde-a6ea-d769f2f040cb"
+      ]
+    },
+    "kasabian": {
+      "handle": "kasabianofficial",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q272517",
+        "https://musicbrainz.org/artist/69b39eab-6577-46a4-a9f5-817839092033"
+      ]
+    },
+    "kavinsky": {
+      "handle": "kavinsky",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q982784",
+        "https://musicbrainz.org/artist/eb6de5f6-98f8-4b5a-bfdc-f87fa4936baa"
+      ]
+    },
+    "ken-carson": {
+      "handle": "kencarson",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q114050700",
+        "https://musicbrainz.org/artist/860d7dc2-618d-437e-a3bb-7b91c2d40095"
+      ]
+    },
+    "kendrick-lamar": {
+      "handle": "jojoruski",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q130798",
+        "https://musicbrainz.org/artist/381086ea-f511-4aba-bdf9-71c753dc5077"
+      ]
+    },
+    "kenshi-yonezu": {
+      "handle": "hachi_08",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q11604296",
+        "https://musicbrainz.org/artist/09d4a85c-4916-4b4e-bc96-c4cfcf371046"
+      ]
+    },
+    "khruangbin": {
+      "handle": "khruangbin",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q54555985",
+        "https://musicbrainz.org/artist/aea4c9b9-9f8d-49dc-b2ca-57d6f26e8634"
+      ]
+    },
+    "kim-petras": {
+      "handle": "kimpetras",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q60964",
+        "https://musicbrainz.org/artist/54fc0558-12b5-4854-9d57-9441bcd73a72"
+      ]
+    },
+    "king-gnu": {
+      "handle": "kinggnu.jp",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q48760263",
+        "https://musicbrainz.org/artist/338f5d97-3133-4bf8-a58e-068ff9b5405d"
+      ]
+    },
+    "korn": {
+      "handle": "korn_official",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q80304",
+        "https://musicbrainz.org/artist/ac865b2e-bba8-4f5a-8756-dd40d5e39f46"
+      ]
+    },
+    "lana-del-rey": {
+      "handle": "honeymoon",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q37150",
+        "https://musicbrainz.org/artist/b7539c32-53e7-4908-bda3-81449c367da6"
+      ]
+    },
+    "laufey": {
+      "handle": "laufey",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q61973202",
+        "https://musicbrainz.org/artist/21a89505-10a9-4ac0-8388-833bc07b9f86"
+      ]
+    },
+    "lcd-soundsystem": {
+      "handle": "lcdsoundsystem",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q45752",
+        "https://musicbrainz.org/artist/2aaf7396-6ab8-40f3-9776-a41c42c8e26b"
+      ]
+    },
+    "le-sserafim": {
+      "handle": "le_sserafim",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q111381707",
+        "https://musicbrainz.org/artist/1ee37742-1e3d-4e61-84d2-bc85f4c1459a"
+      ]
+    },
+    "lil-b": {
+      "handle": "lilbisgod",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q5951242",
+        "https://musicbrainz.org/artist/1550f952-c91b-40d7-9b4d-d26a259ee932"
+      ]
+    },
+    "lil-peep": {
+      "handle": "lilpeep",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q29388200",
+        "https://musicbrainz.org/artist/92da4329-77a4-425c-8e92-4280110cace9"
+      ]
+    },
+    "lil-pump": {
+      "handle": "lilpump",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q38002101",
+        "https://musicbrainz.org/artist/65a01fd2-35fb-4817-90d5-ab5506b21161"
+      ]
+    },
+    "lil-tracy": {
+      "handle": "tracyminajj",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q45898064",
+        "https://musicbrainz.org/artist/ff94e0f3-8f1a-418a-a0f4-4c4a100603dc"
+      ]
+    },
+    "lil-uzi-vert": {
+      "handle": "liluzivert",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q23771950",
+        "https://musicbrainz.org/artist/8837b875-3689-4646-b3fd-d8b53815c7a8"
+      ]
+    },
+    "linkin-park": {
+      "handle": "linkinpark",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q261",
+        "https://musicbrainz.org/artist/f59c5520-5f46-4d2c-b2c4-822eabf53419"
+      ]
+    },
+    "lisa": {
+      "handle": "lalalalisa_m",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q26707663",
+        "https://musicbrainz.org/artist/30aeb57f-bb16-47fa-86ca-79fc57b4d12c"
+      ]
+    },
+    "loathe": {
+      "handle": "loatheasone",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q30610109",
+        "https://musicbrainz.org/artist/56eb02c4-1f16-4613-8bb3-b4a752283fc3"
+      ]
+    },
+    "lucki": {
+      "handle": "deadboylife",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q23008072",
+        "https://musicbrainz.org/artist/9ccaca30-60aa-4890-ae6c-ab55225ee274"
+      ]
+    },
+    "ludovico-einaudi": {
+      "handle": "ludovico_einaudi",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q83182",
+        "https://musicbrainz.org/artist/fa34b363-79df-434f-a5b8-be4e6898543f"
+      ]
+    },
+    "mac-demarco": {
+      "handle": "macdemarco",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q14517",
+        "https://musicbrainz.org/artist/f2492c31-54a8-4347-a1fc-f81f72873bbf"
+      ]
+    },
+    "machine-girl": {
+      "handle": "machin3gir1",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q105038535",
+        "https://musicbrainz.org/artist/c7df5ec5-380a-40f9-856f-28fb4a33d946"
+      ]
+    },
+    "max-richter": {
+      "handle": "maxrichtermusic",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q714325",
+        "https://musicbrainz.org/artist/509f20b2-5df3-4aec-9bbc-002131fb3f99"
+      ]
+    },
+    "melanie-martinez": {
+      "handle": "littlebodybigheart",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q16211162",
+        "https://musicbrainz.org/artist/0df563ec-1a79-486e-a46d-5b9862a40311"
+      ]
+    },
+    "melvins": {
+      "handle": "melvinsdotcom",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q385618",
+        "https://musicbrainz.org/artist/9ccfbc94-a4f4-42f7-b6f5-d903ab77cccb"
+      ]
+    },
+    "men-i-trust": {
+      "handle": "menitrust",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q54901464",
+        "https://musicbrainz.org/artist/25ab7547-a4d2-480b-b028-c7f3497bc858"
+      ]
+    },
+    "metro-boomin": {
+      "handle": "metroboomin",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q16235273",
+        "https://musicbrainz.org/artist/59db3d82-86ea-451f-881f-dffc8ec387c9"
+      ]
+    },
+    "mf-doom": {
+      "handle": "mfdoom",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q304675",
+        "https://musicbrainz.org/artist/188711ed-c99b-439c-844a-ca831f63a727"
+      ]
+    },
+    "mgmt": {
+      "handle": "whoismgmt",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q391969",
+        "https://musicbrainz.org/artist/c485632c-b784-4ee9-8ea1-c5fb365681fc"
+      ]
+    },
+    "midwxst": {
+      "handle": "midwxst",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q111472061",
+        "https://musicbrainz.org/artist/2cc8fd8a-4c22-4905-8a8f-86f076d50497"
+      ]
+    },
+    "migos": {
+      "handle": "migos",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q15777045",
+        "https://musicbrainz.org/artist/0221734a-35a8-40f7-b5c5-2f61a200bc7c"
+      ]
+    },
+    "miles-davis": {
+      "handle": "milesdavis",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q93341",
+        "https://musicbrainz.org/artist/561d854a-6a28-4aa7-8c99-323e6ce46c2a"
+      ]
+    },
+    "mitski": {
+      "handle": "mitskileaks",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q23761694",
+        "https://musicbrainz.org/artist/fa58cf24-0e44-421d-8519-8bf461dcfaa5"
+      ]
+    },
+    "momoko-kikuchi": {
+      "handle": "momoko_kikuchi_official",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q11619792",
+        "https://musicbrainz.org/artist/909b72fe-1582-4bda-aba5-b6b2ed01a729"
+      ]
+    },
+    "mudhoney": {
+      "handle": "mudhoney_",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q898820",
+        "https://musicbrainz.org/artist/e675295a-1efe-4247-aa3b-53b78d0cdffc"
+      ]
+    },
+    "mxmtoon": {
+      "handle": "mxmtoon",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q66809901",
+        "https://musicbrainz.org/artist/ccbced49-2689-46f8-9101-1c265d6f7b8f"
+      ]
+    },
+    "my-bloody-valentine": {
+      "handle": "mbvofficial",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q841042",
+        "https://musicbrainz.org/artist/8ca01f46-53ac-4af2-8516-55a909c0905e"
+      ]
+    },
+    "navy-blue": {
+      "handle": "sageelsesser",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q64875639",
+        "https://musicbrainz.org/artist/304c731f-ea4f-407c-b4fc-65131b1b2b37"
+      ]
+    },
+    "nelly": {
+      "handle": "nelly",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q218992",
+        "https://musicbrainz.org/artist/811900b2-68fc-4d41-8bad-69b7a1f4d628"
+      ]
+    },
+    "nelly-furtado": {
+      "handle": "nellyfurtado",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q80424",
+        "https://musicbrainz.org/artist/13655113-cd16-4b43-9dca-cadbbf26ee05"
+      ]
+    },
+    "newjeans": {
+      "handle": "newjeans_official",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q113189277",
+        "https://musicbrainz.org/artist/49204a7a-ed85-407a-828f-6fd46f1d8126"
+      ]
+    },
+    "nicki-minaj": {
+      "handle": "nickiminaj",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q162202",
+        "https://musicbrainz.org/artist/1036b808-f58c-4a3e-b461-a2c4492ecf1b"
+      ]
+    },
+    "nine-inch-nails": {
+      "handle": "nineinchnails",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q11647",
+        "https://musicbrainz.org/artist/b7ffd2af-418f-4be2-bdd1-22f8b48613da"
+      ]
+    },
+    "norah-jones": {
+      "handle": "norahjones",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q549981",
+        "https://musicbrainz.org/artist/985c709c-7771-4de3-9024-7bda29ebe3f9"
+      ]
+    },
+    "nsync": {
+      "handle": "nsync",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q154454",
+        "https://musicbrainz.org/artist/603ba565-3967-4be1-931e-9cb945394e86"
+      ]
+    },
+    "oasis": {
+      "handle": "oasis",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q382890",
+        "https://musicbrainz.org/artist/39ab1aed-75e0-4140-bd47-540276886b60"
+      ]
+    },
+    "odetari": {
+      "handle": "odetari",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q123241445",
+        "https://musicbrainz.org/artist/2d8be86e-dccf-481a-a01c-faf9e48edd6d"
+      ]
+    },
+    "olafur-arnalds": {
+      "handle": "olafurarnalds",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q292972",
+        "https://musicbrainz.org/artist/6655955b-1c1e-4bcb-84e4-81bcd9efab30"
+      ]
+    },
+    "olivia-rodrigo": {
+      "handle": "oliviarodrigo",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q63243883",
+        "https://musicbrainz.org/artist/6925db17-f35e-42f3-a4eb-84ee6bf5d4b0"
+      ]
+    },
+    "orville-peck": {
+      "handle": "orvillepeck",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q64729746",
+        "https://musicbrainz.org/artist/437b356d-88f1-4dde-af5e-dec1c9d7dde4"
+      ]
+    },
+    "parannoul": {
+      "handle": "parannoul",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q106350497",
+        "https://musicbrainz.org/artist/7d517c2e-ea8a-4401-935b-42f9343630c7"
+      ]
+    },
+    "paris-hilton": {
+      "handle": "parishilton",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q47899",
+        "https://musicbrainz.org/artist/0d9ff9c7-394e-4228-93aa-c4afd4765324"
+      ]
+    },
+    "pearl-jam": {
+      "handle": "pearljam",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q142701",
+        "https://musicbrainz.org/artist/83b9cbe7-9857-49e2-ab8e-b57b01038103"
+      ]
+    },
+    "peggy-gou": {
+      "handle": "peggygou_",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q64158576",
+        "https://musicbrainz.org/artist/4c41d78d-9dd5-430d-81ea-286052158293"
+      ]
+    },
+    "perturbator": {
+      "handle": "perturbatormusic",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q20685120",
+        "https://musicbrainz.org/artist/45c25199-fa62-4d4c-b0a2-11eeed6923c3"
+      ]
+    },
+    "pharrell-williams": {
+      "handle": "pharrell",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q14313",
+        "https://musicbrainz.org/artist/149f91ef-1287-46da-9a8e-87fee02f1471"
+      ]
+    },
+    "phoebe-bridgers": {
+      "handle": "phoebebridgers",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q24883319",
+        "https://musicbrainz.org/artist/96855c21-b832-4366-ba12-0d2330c36a86"
+      ]
+    },
+    "pinkpantheress": {
+      "handle": "pinkpantheress",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q107570416",
+        "https://musicbrainz.org/artist/7441014f-f8f5-494f-81db-ff166fbc078d"
+      ]
+    },
+    "playboi-carti": {
+      "handle": "playboicarti",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q27671080",
+        "https://musicbrainz.org/artist/2baf3276-ed6a-4349-8d2e-f4601e7b2167"
+      ]
+    },
+    "potsu": {
+      "handle": "potsubeats",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q95999850",
+        "https://musicbrainz.org/artist/a0a7501e-e0b2-4d7d-a813-ee2668bcb2eb"
+      ]
+    },
+    "radwimps": {
+      "handle": "radwimps_jp",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q1196122",
+        "https://musicbrainz.org/artist/6f500293-7396-4903-b4fd-118127d06f9e"
+      ]
+    },
+    "rema": {
+      "handle": "heisrema",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q65071082",
+        "https://musicbrainz.org/artist/720c46ba-a0e4-4b58-aee2-3bd70c70901f"
+      ]
+    },
+    "rex-orange-county": {
+      "handle": "rexorangecounty",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q46994463",
+        "https://musicbrainz.org/artist/883cbf1f-dcaa-4d17-b9ed-394e1fdabc87"
+      ]
+    },
+    "rose": {
+      "handle": "roses_are_rosie",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q27655344",
+        "https://musicbrainz.org/artist/7f233cda-eacb-4235-b681-5f7be343a1a2"
+      ]
+    },
+    "sabrina-carpenter": {
+      "handle": "sabrinacarpenter",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q7396400",
+        "https://musicbrainz.org/artist/1882fe91-cdd9-49c9-9956-8e06a3810bd4"
+      ]
+    },
+    "seventeen": {
+      "handle": "saythename_17",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q14524548",
+        "https://musicbrainz.org/artist/e04d239e-9fa8-49b3-b9b7-9e439c3cb1d1"
+      ]
+    },
+    "sex-pistols": {
+      "handle": "sexpistols",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q82545",
+        "https://musicbrainz.org/artist/e5db18cb-4b1f-496d-a308-548b611090d3"
+      ]
+    },
+    "shaboozey": {
+      "handle": "shaboozey",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q125295750",
+        "https://musicbrainz.org/artist/0b427dad-1ee5-48f1-aa4b-026680a3338e"
+      ]
+    },
+    "siouxsie-and-the-banshees": {
+      "handle": "siouxsieandthebanshees",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q323834",
+        "https://musicbrainz.org/artist/78ea5ea1-3c4d-4b7e-ac5d-68900319ebe2"
+      ]
+    },
+    "ski-mask-the-slump-god": {
+      "handle": "theslumpgod",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q42224353",
+        "https://musicbrainz.org/artist/faf916e0-ffc5-4345-a10b-b79ed8c9b8f6"
+      ]
+    },
+    "skrillex": {
+      "handle": "skrillex",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q19004",
+        "https://musicbrainz.org/artist/ae002c5d-aac6-490b-a39a-30aa9e2edf2b"
+      ]
+    },
+    "slowdive": {
+      "handle": "slowdiveofficial",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q1502037",
+        "https://musicbrainz.org/artist/a16371b9-7d36-497a-a9d4-42b0a0440c5e"
+      ]
+    },
+    "smokepurpp": {
+      "handle": "smokepurpp",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q42211709",
+        "https://musicbrainz.org/artist/5a42040d-2ae5-4e2a-a362-22e7b19d993c"
+      ]
+    },
+    "sonic-youth": {
+      "handle": "sonicyouth_official",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q188626",
+        "https://musicbrainz.org/artist/5cbef01b-cc35-4f52-af7b-d0df0c4f61b9"
+      ]
+    },
+    "sophie": {
+      "handle": "sophie_msmsmsm",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q18161827",
+        "https://musicbrainz.org/artist/774b02d7-5056-4b0f-9d69-a82b6ae27cde"
+      ]
+    },
+    "soundgarden": {
+      "handle": "soundgarden",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q174817",
+        "https://musicbrainz.org/artist/153c9281-268f-4cf3-8938-f5a4593e5df4"
+      ]
+    },
+    "spiritbox": {
+      "handle": "spiritboxmusic",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q104881702",
+        "https://musicbrainz.org/artist/9c935736-7530-41e4-b776-1dbcf534c061"
+      ]
+    },
+    "steve-lacy": {
+      "handle": "steve.lacy",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q56733980",
+        "https://musicbrainz.org/artist/b29020d6-5dbf-4c99-b16f-c009f8a712ff"
+      ]
+    },
+    "stray-kids": {
+      "handle": "realstraykids",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q46134670",
+        "https://musicbrainz.org/artist/142b343d-bf5a-428c-a64f-6d1a7566bbe9"
+      ]
+    },
+    "sufjan-stevens": {
+      "handle": "sufjan",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q319502",
+        "https://musicbrainz.org/artist/01d3c51b-9b98-418a-8d8e-37f6fab59d8c"
+      ]
+    },
+    "swervedriver": {
+      "handle": "swervedriverofficial",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q924292",
+        "https://musicbrainz.org/artist/fa6c7999-ff65-486b-9e18-bcb59d6db2f0"
+      ]
+    },
+    "tate-mcrae": {
+      "handle": "tatemcrae",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q95129121",
+        "https://musicbrainz.org/artist/f9133869-f87c-459c-9aa7-2f176cda7e06"
+      ]
+    },
+    "taylor-swift": {
+      "handle": "taylorswift",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q26876",
+        "https://musicbrainz.org/artist/20244d07-534f-4eff-b4d4-930878889970"
+      ]
+    },
+    "tems": {
+      "handle": "temsbaby",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q72759173",
+        "https://musicbrainz.org/artist/5b2a8faa-ffee-4706-a1a8-58f109bc8ca2"
+      ]
+    },
+    "the-chemical-brothers": {
+      "handle": "thechemicalbrothers",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q208507",
+        "https://musicbrainz.org/artist/1946a82a-f927-40c2-8235-38d64f50d043"
+      ]
+    },
+    "the-cure": {
+      "handle": "thecure",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q484427",
+        "https://musicbrainz.org/artist/69ee3720-a7cb-4402-b48d-a02c366f2bcf"
+      ]
+    },
+    "the-kills": {
+      "handle": "thekills",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q959681",
+        "https://musicbrainz.org/artist/2c629b8c-d751-4131-b785-5690bb5e0fd7"
+      ]
+    },
+    "the-lightning-seeds": {
+      "handle": "lightningseedsofficial",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q1973228",
+        "https://musicbrainz.org/artist/1ba601a0-3401-4b28-8ddd-9af8203661e8"
+      ]
+    },
+    "the-pussycat-dolls": {
+      "handle": "pussycatdolls",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q102385",
+        "https://musicbrainz.org/artist/1fda852b-92e9-4562-82fa-c52820a77b23"
+      ]
+    },
+    "the-smashing-pumpkins": {
+      "handle": "smashingpumpkins",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q184217",
+        "https://musicbrainz.org/artist/ba0d6274-db14-4ef5-b28d-657ebde1a396"
+      ]
+    },
+    "the-strokes": {
+      "handle": "thestrokes",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q211583",
+        "https://musicbrainz.org/artist/f181961b-20f7-459e-89de-920ef03c7ed0"
+      ]
+    },
+    "tiwa-savage": {
+      "handle": "tiwasavage",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q7810465",
+        "https://musicbrainz.org/artist/9d9f7ce8-e1cf-4413-b2c9-b90b69bc17f6"
+      ]
+    },
+    "travis-scott": {
+      "handle": "travisscott",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q13605596",
+        "https://musicbrainz.org/artist/e4a51f17-a57b-47b1-b37b-f552d0f8e9e6"
+      ]
+    },
+    "trippie-redd": {
+      "handle": "trippieredd",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q40890697",
+        "https://musicbrainz.org/artist/8032cf05-d916-4b2a-9c53-6e75d4a24bd8"
+      ]
+    },
+    "twice": {
+      "handle": "jypetwice_japan",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q20645861",
+        "https://musicbrainz.org/artist/8da127cc-c432-418f-b356-ef36210d82ac"
+      ]
+    },
+    "tyler-the-creator": {
+      "handle": "feliciathegoat",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q167635",
+        "https://musicbrainz.org/artist/f6beac20-5dfe-4d1f-ae02-0b0a740aafd6"
+      ]
+    },
+    "uffie": {
+      "handle": "uffieufficial",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q238827",
+        "https://musicbrainz.org/artist/818be9a0-e5a7-4ff5-a190-98d2411d0cbf"
+      ]
+    },
+    "uicideboy": {
+      "handle": "suicideboys",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q30196568",
+        "https://musicbrainz.org/artist/ef326b3d-61f0-4379-aca0-21237d696d63"
+      ]
+    },
+    "underscores": {
+      "handle": "underscoresplus",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q110852201",
+        "https://musicbrainz.org/artist/ab1a3f85-e0ea-470a-af5c-175447ae774c"
+      ]
+    },
+    "underworld": {
+      "handle": "underworld",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q849429",
+        "https://musicbrainz.org/artist/ba2f4f3b-0293-4bc8-bb94-2f73b5207343"
+      ]
+    },
+    "vektroid": {
+      "handle": "vektroid",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q16235124",
+        "https://musicbrainz.org/artist/ace273a8-a660-4bce-8d8f-569502346e4b"
+      ]
+    },
+    "willie-nelson": {
+      "handle": "willienelsonofficial",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q206112",
+        "https://musicbrainz.org/artist/668fd73c-bf54-4310-a139-305517f05311"
+      ]
+    },
+    "wisp": {
+      "handle": "whirrwhoreforlyfe",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q125546993",
+        "https://musicbrainz.org/artist/ca02d886-40fc-4bc9-9785-5c97eb37acaa"
+      ]
+    },
+    "wizkid": {
+      "handle": "wizkidayo",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q16233663",
+        "https://musicbrainz.org/artist/efc5d365-a448-4e2f-9b5f-4a7c84be725c"
+      ]
+    },
+    "xxxtentacion": {
+      "handle": "xxxtentacion",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q28561969",
+        "https://musicbrainz.org/artist/61af87f4-16ee-4431-8504-cc06187079fb"
+      ]
+    },
+    "yeah-yeah-yeahs": {
+      "handle": "yeahyeahyeahs",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q641858",
+        "https://musicbrainz.org/artist/584c04d2-4acc-491b-8a0a-e63133f4bfc4"
+      ]
+    },
+    "yeat": {
+      "handle": "yeat",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q108761978",
+        "https://musicbrainz.org/artist/9e6a6a2f-f696-4cc0-87f1-e4f712e46802"
+      ]
+    },
+    "young-thug": {
+      "handle": "thuggerthugger1",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q15637814",
+        "https://musicbrainz.org/artist/800760de-bdf8-43a2-8fe0-44a2401a5515"
+      ]
+    },
+    "yung-lean": {
+      "handle": "yunglean2001",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q15281410",
+        "https://musicbrainz.org/artist/757ed661-fbad-4e45-b1cd-a6b09f06f54a"
+      ]
+    },
+    "zach-bryan": {
+      "handle": "zachlanebryan",
+      "sources": [
+        "https://www.wikidata.org/wiki/Q106770023",
+        "https://musicbrainz.org/artist/51e90731-08c0-4f60-89b6-5b78e5844de8"
+      ]
+    }
+  },
+  "brands": {
+    "vivet": {
+      "handle": "vivetofficial",
+      "sources": ["https://vivetofficial.com/"]
+    },
+    "chrome-hearts": {
+      "handle": "chromeheartsofficial",
+      "sources": ["https://www.chromehearts.com/"]
+    },
+    "hellstar": {
+      "handle": "hellstar",
+      "sources": ["https://hellstar.com/"]
+    },
+    "corteiz": {
+      "handle": "corteiz",
+      "sources": ["https://www.corteiz.com/"]
+    },
+    "denim-tears": {
+      "handle": "denimtears",
+      "sources": ["https://denimtears.com/"]
+    },
+    "raf-simons": {
+      "handle": "rafsimons",
+      "sources": ["https://www.rafsimons.com/"]
+    },
+    "undercover": {
+      "handle": "undercover_lab",
+      "sources": ["https://undercoverism.com/"]
+    },
+    "maison-margiela": {
+      "handle": "maisonmargiela",
+      "sources": ["https://www.maisonmargiela.com/"]
+    },
+    "ann-demeulemeester": {
+      "handle": "anndemeulemeester_official",
+      "sources": ["https://anndemeulemeester.com/"]
+    },
+    "yohji-yamamoto": {
+      "handle": "yohjiyamamotoinc",
+      "sources": ["https://www.yohjiyamamoto.co.jp/"]
+    },
+    "julius": {
+      "handle": "_julius7official",
+      "sources": ["https://www.julius-garden.jp/"]
+    },
+    "kapital": {
+      "handle": "kapitalglobal",
+      "sources": ["https://www.kapital.jp/"]
+    },
+    "who-decides-war": {
+      "handle": "whodecideswar",
+      "sources": ["https://whodecideswar.com/"]
+    },
+    "ed-hardy": {
+      "handle": "edhardy",
+      "sources": ["https://edhardyoriginals.com/"]
+    },
+    "juicy-couture": {
+      "handle": "juicycouture",
+      "sources": ["https://juicycouture.com/"]
+    },
+    "von-dutch": {
+      "handle": "vondutch",
+      "sources": ["https://vondutch.com/"]
+    },
+    "salomon": {
+      "handle": "salomon",
+      "sources": ["https://www.salomon.com/"]
+    },
+    "bape": {
+      "handle": "bape_japan",
+      "sources": ["https://www.bape.com/"]
+    },
+    "fear-of-god": {
+      "handle": "fearofgod",
+      "sources": ["https://fearofgod.com/"]
+    },
+    "entire-studios": {
+      "handle": "entire_studios",
+      "sources": ["https://www.entirestudios.com/"]
+    },
+    "balenciaga": {
+      "handle": "balenciaga",
+      "sources": ["https://www.balenciaga.com/"]
+    },
+    "vivienne-westwood": {
+      "handle": "viviennewestwood",
+      "sources": ["https://www.viviennewestwood.com/"]
+    },
+    "vetements": {
+      "handle": "vetements_official",
+      "sources": ["https://www.vetements.com/"]
+    }
+  }
+}
