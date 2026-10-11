@@ -73,3 +73,51 @@ export function getPreviewLimiter(): RateLimiter {
   }
   return previewLimiter
 }
+
+const limiters = new Map<string, RateLimiter>()
+type Window = `${number} ${"s" | "m" | "h" | "d"}`
+const WINDOW_MS = { s: 1_000, m: 60_000, h: 3_600_000, d: 86_400_000 } as const
+
+/**
+ * A named sliding-window limiter (Upstash, or memory without Redis). Fails
+ * closed: when counting fails, the action is refused, since these guard writes.
+ */
+export function getLimiter(
+  name: string,
+  max: number,
+  window: Window,
+  { durable = false }: { durable?: boolean } = {},
+): RateLimiter {
+  const key = `${name}:${max}:${window}:${durable}`
+  const existing = limiters.get(key)
+  if (existing) return existing
+  const [amount, unit] = window.split(" ") as [string, keyof typeof WINDOW_MS]
+  const redis = getRedis()
+  let limiter: RateLimiter
+  if (!redis && durable && process.env.NODE_ENV === "production") {
+    // Per-instance memory limits mean nothing on serverless: refuse guarded writes instead.
+    log.error("rate-limit.durable_unavailable", { name, reason: "UPSTASH_REDIS_* not set" })
+    limiter = { limit: async () => ({ success: false, remaining: 0, resetAt: Date.now() }) }
+  } else if (!redis) {
+    limiter = createMemoryLimiter(max, Number(amount) * WINDOW_MS[unit])
+  } else {
+    const upstash = new Ratelimit({
+      redis,
+      limiter: Ratelimit.slidingWindow(max, window),
+      prefix: `subcult:rl:${name}`,
+    })
+    limiter = {
+      async limit(identifier) {
+        try {
+          const result = await upstash.limit(identifier)
+          return { success: result.success, remaining: result.remaining, resetAt: result.reset }
+        } catch (error) {
+          log.error("rate-limit.error", { name, identifier, error: errorMessage(error) })
+          return { success: false, remaining: 0, resetAt: Date.now() }
+        }
+      },
+    }
+  }
+  limiters.set(key, limiter)
+  return limiter
+}

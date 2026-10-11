@@ -7,6 +7,7 @@ import {
   ArchiveGrails,
   FeedSkeleton,
   LiveArchive,
+  LiveFits,
   HeroMosaic,
   LiveForYou,
   LiveSounds,
@@ -178,6 +179,9 @@ function NicheWorld({
                 ),
                 fits: (
                   <div className="space-y-12">
+                    <Suspense fallback={<FeedSkeleton count={4} />}>
+                      <LiveFits profile={profile} />
+                    </Suspense>
                     <Suspense fallback={<FeedSkeleton count={3} />}>
                       <ArchiveGrails profile={profile} />
                     </Suspense>

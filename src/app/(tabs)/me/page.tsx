@@ -1,6 +1,9 @@
-import { ArrowRight, UserRound } from "lucide-react"
+import { ArrowRight } from "lucide-react"
 import type { Metadata } from "next"
 import Link from "next/link"
+import { Suspense } from "react"
+import { AccountSection } from "@/components/me/account-section"
+import { Skeleton } from "@/components/ui/skeleton"
 import { Cover } from "@/components/ds/cover"
 import { SectionHeader } from "@/components/ds/section-header"
 import { AutoplaySetting } from "@/components/me/autoplay-setting"
@@ -29,19 +32,11 @@ export default function MePage() {
   )
   return (
     <Screen>
-      <LargeTitle overline="Browsing as a guest" title="Me" />
+      <LargeTitle overline="Your corner" title="Me" />
       <div className="container-page space-y-12">
-        <section className="flex items-center gap-4">
-          <span className="grid size-16 shrink-0 place-items-center rounded-full border border-border-strong text-muted-foreground">
-            <UserRound aria-hidden className="size-7" strokeWidth={1.5} />
-          </span>
-          <div className="min-w-0">
-            <p className="text-headline font-semibold">Guest</p>
-            <p className="text-callout text-muted-foreground">
-              Accounts are coming. Saves stay on this device until then.
-            </p>
-          </div>
-        </section>
+        <Suspense fallback={<Skeleton className="h-16 w-full rounded-2xl" />}>
+          <AccountSection />
+        </Suspense>
 
         <VibeResultCard niches={cardNiches} fallback={<NicheCardTeaser />} />
 

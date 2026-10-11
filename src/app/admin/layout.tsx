@@ -20,6 +20,9 @@ export default function AdminLayout({ children }: LayoutProps<"/admin">) {
           <Link href="/admin/niches" className="hover:text-foreground">
             niches
           </Link>
+          <Link href="/admin/fits" className="hover:text-foreground">
+            fits
+          </Link>
         </nav>
       </header>
       <main className="pb-10">{children}</main>

@@ -13,6 +13,7 @@ import type { FeedItem } from "@/lib/feed/types"
 import { useMediaQuery } from "@/lib/design/use-media-query"
 import { formatAge } from "@/lib/time"
 import { cn } from "@/lib/utils"
+import { FitFeedCard } from "@/components/fits/fit-tile"
 import { PinCard } from "@/components/moodboard/pin-card"
 import { ProductCard } from "@/components/shop/product-card"
 import { VideoCard } from "@/components/video/video-card"
@@ -78,6 +79,7 @@ interface FeedCardProps {
  * touch / hover on desktop opens a peek preview; a normal tap links out.
  */
 export function FeedCard({ item, context, now }: FeedCardProps) {
+  if (item.type === "fit") return <FitFeedCard item={item} />
   if (item.type === "pin") return <PinCard item={item} />
   if (item.source === "ebay") return <ProductCard item={item} />
   if (item.source === "subcult") return <SubcultCard item={item} />

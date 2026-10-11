@@ -1,4 +1,9 @@
+import Link from "next/link"
 import { connection } from "next/server"
+import { FitGrid } from "@/components/fits/fit-tile"
+import { fitFeedItems, nicheFits } from "@/lib/fits/server"
+import { postingEnabled } from "@/lib/supabase/admin"
+import { getViewer } from "@/lib/supabase/server"
 import { cache } from "react"
 import { ExternalChips } from "@/components/ds/external-chips"
 import { ArchiveBoard } from "@/components/shop/archive-board"
@@ -60,17 +65,19 @@ function Masonry({
 
 /** The ranked feed, with the niche's tag chips (only those that match something) as filters. */
 export async function LiveForYou({ profile }: { profile: NicheProfile }) {
-  const [feed, soundtrack, board, archives] = await Promise.all([
+  const [feed, soundtrack, board, archives, fits] = await Promise.all([
     getNicheFeed(profile),
     getSoundtrack(profile.slug),
     getMoodboard(profile.slug),
     getArchive(profile.slug),
+    nicheFits(profile.slug, 12),
   ])
   // Every kind of content, interleaved to the niche's target mix.
   const items = buildForYou(profile.slug, feed, {
     music: soundtrack ? soundtrackFeedItems(soundtrack) : [],
     moodboard: moodboardFeedItems(board.pins),
-    fashion: archiveFeedItems(archives ?? []),
+    // People's fits lead the fashion share, then live archive pieces.
+    fashion: [...fitFeedItems(fits), ...archiveFeedItems(archives ?? [])],
   })
   if (items.length === 0) return null
   const tagged = tagFeedItems(items, TAXONOMY.tagsOf(profile.slug))
@@ -322,6 +329,37 @@ export async function ArchiveGrails({ profile }: { profile: NicheProfile }) {
           </li>
         ))}
       </ul>
+    </section>
+  )
+}
+
+/** Fits tab: people's fits for this niche, with the way in to posting one. */
+export async function LiveFits({ profile }: { profile: NicheProfile }) {
+  await connection()
+  const [fits, viewer] = await Promise.all([nicheFits(profile.slug), getViewer()])
+  return (
+    <section>
+      <div className="mb-4 flex items-end justify-between gap-3">
+        <SectionHeader overline="From the community" title="Fits" />
+        {postingEnabled() ? (
+          <Link
+            href="/fits/new"
+            className="mb-1 inline-flex h-10 shrink-0 items-center rounded-full bg-foreground px-4 text-footnote font-semibold text-background"
+          >
+            Post your fit
+          </Link>
+        ) : null}
+      </div>
+      {fits.length > 0 ? (
+        <FitGrid fits={fits} signedIn={viewer !== null} />
+      ) : (
+        <div className="rounded-2xl border border-dashed border-border-strong p-8 text-center">
+          <p className="font-serif text-title-3 italic">No {profile.name} fits yet</p>
+          <p className="mt-2 text-callout text-muted-foreground">
+            {postingEnabled() ? "Be the first: post yours." : "Posting opens soon."}
+          </p>
+        </div>
+      )}
     </section>
   )
 }

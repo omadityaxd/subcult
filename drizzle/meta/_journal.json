@@ -22,6 +22,27 @@
       "when": 1791620769557,
       "tag": "0002_trend_lifecycle",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1791719057404,
+      "tag": "0003_social_fits",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1791719065492,
+      "tag": "0004_fits_storage",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1791719994668,
+      "tag": "0005_fits_storage_server_only",
+      "breakpoints": true
     }
   ]
 }
