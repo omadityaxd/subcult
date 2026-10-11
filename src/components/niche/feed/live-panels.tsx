@@ -9,7 +9,7 @@ import { appFeedDeps } from "@/lib/feed/app-deps"
 import type { FeedItem } from "@/lib/feed/types"
 import { googleNews, spotify, youtube } from "@/lib/links"
 import { TAXONOMY, findPreset } from "@/lib/niches/catalog"
-import { buildForYou } from "@/lib/feed/for-you"
+import { buildForYou, withVideoNiches } from "@/lib/feed/for-you"
 import { tagFeedItems } from "@/lib/taxonomy/tagging"
 import { cn } from "@/lib/utils"
 import { LinkList } from "../link-card"
@@ -197,7 +197,7 @@ export async function LiveTea({ profile }: { profile: NicheProfile }) {
 
 export async function LiveWatch({ profile }: { profile: NicheProfile }) {
   const feed = await getNicheFeed(profile)
-  const items = feed.bySource.youtube ?? []
+  const items = withVideoNiches(feed.bySource.youtube ?? [], profile.slug)
   const now = feed.generatedAt
   return (
     <div className="space-y-12">

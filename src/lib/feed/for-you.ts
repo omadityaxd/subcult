@@ -2,6 +2,7 @@ import { normalizeTitle } from "@/lib/music/itunes"
 import { TAXONOMY, findPreset, nicheArtistsLeadFirst } from "@/lib/niches/catalog"
 import type { NicheFeed } from "./feed"
 import { type MixKind, type MixShares, mixFeed, resolveMix } from "./mix"
+import { encodeRelatedNiches } from "./related-niches"
 import type { FeedItem } from "./types"
 
 const ARTIST_CARDS = 6
@@ -73,6 +74,24 @@ export function withArtistSlugs(items: readonly FeedItem[]): FeedItem[] {
   })
 }
 
+const VIDEO_NICHES = 4
+
+/** Videos carry the niche and its neighbours, for the viewer's "related niches" chips. */
+export function withVideoNiches(items: readonly FeedItem[], slug: string): FeedItem[] {
+  const niches = [slug, ...TAXONOMY.adjacent(slug).map((adjacent) => adjacent.slug)]
+    .flatMap((target) => {
+      const preset = findPreset(target)
+      return preset ? [{ slug: target, name: preset.name }] : []
+    })
+    .filter((niche, i, all) => all.findIndex((other) => other.slug === niche.slug) === i)
+    .slice(0, VIDEO_NICHES)
+  return items.map((item) =>
+    item.source === "youtube"
+      ? { ...item, meta: { ...item.meta, niches: encodeRelatedNiches(niches) } }
+      : item,
+  )
+}
+
 /** The niche's target shares: default ← its branch ← its own override. */
 export function nicheMix(slug: string): MixShares {
   return resolveMix(TAXONOMY.branchOf(slug), TAXONOMY.curation(slug)?.mix)
@@ -97,7 +116,7 @@ export function buildForYou(
       ...extra,
       // Spotify results first (fresh), then the niche's soundtrack (always playable in-app).
       music: [...spotifyItems, ...soundtrack],
-      video: feed.bySource.youtube ?? [],
+      video: withVideoNiches(feed.bySource.youtube ?? [], slug),
       news: feed.bySource.news ?? [],
       artists: artistCards(slug),
       discovery: discoveryCards(slug),
