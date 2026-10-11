@@ -3,16 +3,18 @@
 import { useCallback, useEffect, useRef, useState } from "react"
 import { FeedCard } from "@/components/niche/feed/feed-card"
 import { Skeleton } from "@/components/ui/skeleton"
+import { type FeedFilter, applyFilter } from "@/lib/feed/filters"
 import type { HomePage } from "@/lib/feed/home"
 import type { ApiResponse } from "@/lib/request"
 
 interface InfiniteFeedProps {
   initial: HomePage | null
   now: number
+  filter?: FeedFilter
 }
 
 /** Masonry home feed that loads the next niche's page as you near the end. */
-export function InfiniteFeed({ initial, now }: InfiniteFeedProps) {
+export function InfiniteFeed({ initial, now, filter = "all" }: InfiniteFeedProps) {
   const [pages, setPages] = useState<HomePage[]>(initial ? [initial] : [])
   const [cursor, setCursor] = useState<number | null>(initial ? initial.nextCursor : 0)
   const [loading, setLoading] = useState(false)
@@ -49,7 +51,7 @@ export function InfiniteFeed({ initial, now }: InfiniteFeedProps) {
   }, [cursor, failed, loadMore])
 
   const items = pages.flatMap((page) =>
-    page.items.map((item) => ({
+    applyFilter(page.items, filter).map((item) => ({
       item,
       context: page.niche.name,
       key: `${page.niche.slug}:${item.id}`,
@@ -58,6 +60,11 @@ export function InfiniteFeed({ initial, now }: InfiniteFeedProps) {
 
   return (
     <>
+      {items.length === 0 && filter !== "all" && cursor === null ? (
+        <p className="py-10 text-center text-callout text-muted-foreground">
+          Nothing here yet for this filter.
+        </p>
+      ) : null}
       <ul className="columns-1 gap-5 sm:columns-2 xl:columns-3">
         {items.map(({ item, context, key }) => (
           <li key={key} className="mb-7 break-inside-avoid">

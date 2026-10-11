@@ -1,8 +1,9 @@
 import { Search } from "lucide-react"
 import { connection } from "next/server"
 import { Suspense } from "react"
-import { SectionHeader } from "@/components/ds/section-header"
-import { InfiniteFeed } from "@/components/home/infinite-feed"
+import { DailyPicks } from "@/components/home/daily-picks"
+import { ForYouFeed } from "@/components/home/for-you-feed"
+import { NowSpinning } from "@/components/home/now-spinning"
 import { StoriesRow } from "@/components/home/stories-row"
 import { VibeCheckCard } from "@/components/home/vibe-check-card"
 import { FeedSkeleton } from "@/components/niche/feed/live-panels"
@@ -11,6 +12,7 @@ import { Screen } from "@/components/shell/screen"
 import { SearchButton } from "@/components/shell/search-button"
 import { Skeleton } from "@/components/ui/skeleton"
 import { featuredOrder } from "@/lib/feed/featured"
+import { getDailyPicks } from "@/lib/feed/daily"
 import { getHomePage } from "@/lib/feed/home"
 import { TAXONOMY } from "@/lib/niches/catalog"
 
@@ -36,16 +38,11 @@ export default function ForYouPage() {
             <Stories />
           </Suspense>
 
-          <div className="mt-8 md:mt-10">
-            <VibeCheckCard />
-          </div>
-
-          <section className="mt-12">
-            <SectionHeader overline="Across the niches" title="Latest" />
-            <Suspense fallback={<FeedSkeleton count={6} />}>
+          <div className="mt-6">
+            <Suspense fallback={<FeedSkeleton count={3} />}>
               <HomeFeed />
             </Suspense>
-          </section>
+          </div>
         </div>
       </PullToRefresh>
     </Screen>
@@ -66,8 +63,20 @@ async function Stories() {
 async function HomeFeed() {
   await connection()
   const now = new Date()
-  const first = await getHomePage(0, now)
-  return <InfiniteFeed initial={first} now={now.getTime()} />
+  const [first, picks] = await Promise.all([getHomePage(0, now), getDailyPicks(now)])
+  return (
+    <ForYouFeed
+      initial={first}
+      now={now.getTime()}
+      picks={
+        <>
+          <DailyPicks look={picks.look} brand={picks.brand} />
+          <VibeCheckCard />
+        </>
+      }
+      spinning={<NowSpinning tracks={picks.spinning} />}
+    />
+  )
 }
 
 function StoriesSkeleton() {

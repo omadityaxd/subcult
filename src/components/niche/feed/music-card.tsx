@@ -31,7 +31,10 @@ export function MusicCard({ item, meta }: { item: FeedItem; meta: string }) {
   return <TrackCard item={item} meta={meta} />
 }
 
-/** Tap plays the 30s preview in our player; "Spotify" is a small secondary link. */
+/**
+ * Music is the soundtrack layer, so in feeds a song is a compact row, never a
+ * full-bleed album-art card: small art, title, tap to play the 30s preview.
+ */
 function TrackCard({ item, meta }: { item: FeedItem; meta: string }) {
   const tracks = useMemo(() => [feedItemTrack(item)], [item])
   const { play, currentId, playing, pendingId, missing } = useTrackPlayer(tracks, "For you")
@@ -39,55 +42,60 @@ function TrackCard({ item, meta }: { item: FeedItem; meta: string }) {
   const unavailable = missing.has(item.id)
 
   return (
-    <article className="relative">
+    <article className="flex items-center gap-1 rounded-2xl border border-border p-1.5 pr-2">
       <button
         type="button"
         onClick={() => play(0)}
         aria-label={`${current && playing ? "Pause" : "Play"} ${item.title}${item.subtitle ? ` by ${item.subtitle}` : ""}`}
-        className="group block w-full text-left"
+        className="group flex min-w-0 flex-1 items-center gap-3 rounded-xl p-1 text-left transition-colors hover:bg-muted"
       >
-        <span className="relative block aspect-square overflow-hidden rounded-2xl bg-muted transition-transform duration-300 ease-out group-active:scale-[0.98]">
-          {item.imageUrl ? (
-            <MediaImage src={item.imageUrl} alt="" sizes="(max-width: 640px) 100vw, 33vw" />
-          ) : null}
+        <span className="relative size-12 shrink-0 overflow-hidden rounded-lg bg-muted">
+          {item.imageUrl ? <MediaImage src={item.imageUrl} alt="" sizes="48px" /> : null}
           <span
             className={cn(
-              "absolute bottom-3 left-3 grid size-12 place-items-center rounded-full bg-niche text-niche-foreground shadow-pop transition-all",
+              "absolute inset-0 grid place-items-center bg-black/35 text-white transition-opacity",
               current || pendingId === item.id
-                ? "scale-100 opacity-100"
-                : "scale-90 opacity-0 group-hover:scale-100 group-hover:opacity-100 max-md:scale-100 max-md:opacity-100",
+                ? "opacity-100"
+                : "opacity-0 group-hover:opacity-100",
             )}
           >
             {pendingId === item.id ? (
-              <Loader2 aria-hidden className="size-5 animate-spin" />
+              <Loader2 aria-hidden className="size-4 animate-spin" />
             ) : current && playing ? (
-              <Pause aria-hidden className="size-5" fill="currentColor" strokeWidth={0} />
+              <Equalizer />
             ) : (
               <Play
                 aria-hidden
-                className="size-5 translate-x-0.5"
+                className="size-4 translate-x-px"
                 fill="currentColor"
                 strokeWidth={0}
               />
             )}
           </span>
         </span>
-        <span className="mt-2.5 flex items-center gap-2 px-0.5">
-          {current && playing ? <Equalizer /> : null}
-          <span className={cn("line-clamp-2 text-headline font-semibold", current && "text-niche")}>
+        <span className="min-w-0 flex-1">
+          <span
+            className={cn("block truncate text-callout font-semibold", current && "text-niche")}
+          >
             {item.title}
           </span>
+          <span className="block truncate text-footnote text-muted-foreground">
+            {unavailable
+              ? "No preview for this one"
+              : [item.subtitle, meta].filter(Boolean).join(" · ")}
+          </span>
         </span>
-        <span className="mt-0.5 block truncate px-0.5 text-footnote text-muted-foreground">
-          {unavailable
-            ? "No preview for this one"
-            : [item.subtitle, meta].filter(Boolean).join(" · ")}
-        </span>
+        {current && playing ? (
+          <Pause
+            aria-hidden
+            className="size-4 shrink-0 text-niche"
+            fill="currentColor"
+            strokeWidth={0}
+          />
+        ) : null}
       </button>
-      <div className="absolute top-2.5 right-2.5 flex items-center gap-1.5">
-        <SpotifyLink href={item.url} tone="overlay" />
-        <SaveButton item={savedShape(item)} tone="overlay" />
-      </div>
+      <SpotifyLink href={item.url} label="Spotify" />
+      <SaveButton item={savedShape(item)} className="size-9 shrink-0" />
     </article>
   )
 }
