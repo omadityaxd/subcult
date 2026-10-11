@@ -180,7 +180,7 @@ export function NowPlaying({ accent, onClose }: { accent: string; onClose: () =>
 
         <section
           aria-label="Queue"
-          className="mt-10 shrink-0 md:mt-16 md:min-h-0 md:overflow-y-auto"
+          className="mt-10 no-scrollbar shrink-0 md:mt-16 md:min-h-0 md:overflow-y-auto"
         >
           <p className="mb-3 text-overline font-medium text-white/60 uppercase">Queue</p>
           <ol className="space-y-1">
