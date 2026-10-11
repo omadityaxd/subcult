@@ -4,6 +4,7 @@ import { lookupNicheProfile } from "@/lib/niches/lookup"
 import { buildNicheFeed } from "./feed"
 import { featuredOrder, type HomeNiche } from "./featured"
 import { appFeedDeps } from "./app-deps"
+import { capVideos, storyOrder } from "./video-cap"
 import type { FeedItem } from "./types"
 
 export interface HomePage {
@@ -43,16 +44,18 @@ export async function getHomePage(
   const result = await feedFor(target.slug)
   const nextCursor = cursor + 1 < order.length ? cursor + 1 : null
   if (!result) return { niche: target, items: [], nextCursor }
-  return { niche: result.niche, items: result.items.slice(0, ITEMS_PER_NICHE), nextCursor }
+  return {
+    niche: result.niche,
+    items: capVideos(result.items, undefined, ITEMS_PER_NICHE),
+    nextCursor,
+  }
 }
 
-/** Story frames for one niche: visual items first, then headlines. */
+/** Story frames for one niche: music first, other visuals, then headlines; video capped. */
 export async function getStory(
   slug: string,
 ): Promise<{ niche: HomeNiche; items: FeedItem[] } | null> {
   const result = await feedFor(slug)
   if (!result) return null
-  const visual = result.items.filter((item) => item.imageUrl)
-  const text = result.items.filter((item) => !item.imageUrl)
-  return { niche: result.niche, items: [...visual, ...text].slice(0, STORY_ITEMS) }
+  return { niche: result.niche, items: storyOrder(result.items, STORY_ITEMS) }
 }

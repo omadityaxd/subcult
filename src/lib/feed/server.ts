@@ -1,4 +1,5 @@
 import type { Redis } from "@upstash/redis"
+import type { NicheProfile } from "@/lib/engine/profile-schema"
 import type { Logger } from "@/lib/log"
 import { memoryStore, redisStore } from "./cache"
 import type { FeedDeps } from "./feed"
@@ -6,7 +7,7 @@ import { newsFetcher } from "./fetchers/news"
 import { redisBreaker } from "@/lib/sources/redis-breaker"
 import { memoryBreaker } from "@/lib/sources/spotify"
 import { spotifyFetcher } from "./fetchers/spotify"
-import { youtubeFetcher } from "./fetchers/youtube"
+import { type YoutubeRelevance, youtubeFetcher } from "./fetchers/youtube"
 import { memoryQuota, redisQuota } from "./quota"
 import type { FeedSource, Fetcher } from "./types"
 
@@ -23,6 +24,8 @@ export interface FeedSettings {
   youtubeDailySearches?: number
   /** Verified Spotify artist IDs from the taxonomy, so artist tracks are exact. */
   artistIdFor?: (name: string) => string | undefined
+  /** Verified artists + entity/phrase terms that a video must match to be kept. */
+  youtubeRelevance?: (profile: NicheProfile) => YoutubeRelevance
   /** null → per-process memory cache and quota (dev / demo). */
   redis: Redis | null
   logger: Logger
@@ -64,7 +67,7 @@ export function createFeedDeps(settings: FeedSettings): FeedDeps {
     const quota = settings.redis
       ? redisQuota(settings.redis, "yt:searches", perDay)
       : localYoutubeQuota
-    fetchers.push(youtubeFetcher(settings.youtubeApiKey, quota))
+    fetchers.push(youtubeFetcher(settings.youtubeApiKey, quota, fetch, settings.youtubeRelevance))
   } else {
     disabled.push("youtube")
   }

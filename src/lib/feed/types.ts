@@ -29,5 +29,10 @@ export interface Fetcher {
   freshSeconds: number
   /** How long results stay usable as a fallback when the source is failing. */
   staleSeconds: number
+  /**
+   * Bump to refresh just this source's cache when its output changes (the
+   * global CACHE_VERSION would also orphan every other source's stale copy).
+   */
+  cacheVersion?: string
   fetch(profile: NicheProfile): Promise<FeedItem[]>
 }

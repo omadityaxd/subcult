@@ -40,8 +40,8 @@ export interface FeedDeps {
   feedback?: ReadonlyMap<string, number>
 }
 
-export const feedCacheKey = (source: FeedSource, slug: string) =>
-  `subcult:feed:${CACHE_VERSION}:${source}:${slug}`
+export const feedCacheKey = (source: FeedSource, slug: string, sourceVersion?: string) =>
+  `subcult:feed:${CACHE_VERSION}:${source}${sourceVersion ? `.${sourceVersion}` : ""}:${slug}`
 
 /**
  * Fan out to every enabled fetcher in parallel (Promise.allSettled), each
@@ -55,7 +55,7 @@ export async function buildNicheFeed(profile: NicheProfile, deps: FeedDeps): Pro
     deps.fetchers.map((fetcher) =>
       cached(
         deps.cache,
-        feedCacheKey(fetcher.source, profile.slug),
+        feedCacheKey(fetcher.source, profile.slug, fetcher.cacheVersion),
         { freshSeconds: fetcher.freshSeconds, staleSeconds: fetcher.staleSeconds },
         () => withTimeout(fetcher.fetch(profile), timeoutMs, fetcher.source),
         {

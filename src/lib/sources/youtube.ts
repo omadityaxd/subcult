@@ -17,6 +17,10 @@ interface YoutubeSearchOptions {
   order?: "date" | "relevance" | "viewCount"
   /** "medium" = 4-20 min: excludes Shorts, which dominate unfiltered results. */
   videoDuration?: "any" | "short" | "medium" | "long"
+  /** ISO 3166-1 alpha-2, e.g. "US": results viewable/popular in that region. */
+  regionCode?: string
+  /** ISO 639-1, e.g. "en": prefer results in that language. */
+  relevanceLanguage?: string
   timeoutMs?: number
   fetchImpl?: typeof fetch
 }
@@ -50,6 +54,8 @@ export async function searchYoutube(
     maxResults = 8,
     order = "date",
     videoDuration = "any",
+    regionCode,
+    relevanceLanguage,
     timeoutMs = 6_000,
     fetchImpl = fetch,
   }: YoutubeSearchOptions,
@@ -64,6 +70,8 @@ export async function searchYoutube(
   })
   if (publishedAfter) params.set("publishedAfter", publishedAfter.toISOString())
   if (videoDuration !== "any") params.set("videoDuration", videoDuration)
+  if (regionCode) params.set("regionCode", regionCode)
+  if (relevanceLanguage) params.set("relevanceLanguage", relevanceLanguage)
 
   const response = await fetchImpl(`https://www.googleapis.com/youtube/v3/search?${params}`, {
     signal: AbortSignal.timeout(timeoutMs),
