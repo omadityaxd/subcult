@@ -22,6 +22,7 @@ import {
   TwoHops,
 } from "@/components/niche/graph-sections"
 import { NicheHero } from "@/components/niche/niche-hero"
+import { NicheVisit } from "@/components/wrapped/trackers"
 import { NicheTabs } from "@/components/niche/niche-tabs"
 import { CommunitySection } from "@/components/niche/sections/community-section"
 import { DripSection } from "@/components/niche/sections/drip-section"
@@ -128,6 +129,7 @@ function NicheWorld({
         <Suspense fallback={null}>
           <NicheSoundtrack slug={profile.slug} />
         </Suspense>
+        <NicheVisit slug={profile.slug} />
 
         <div className="container-page mt-5 space-y-5 empty:hidden md:mt-8">
           <NicheTrail slug={profile.slug} />

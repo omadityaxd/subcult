@@ -1,6 +1,7 @@
 import { Suspense } from "react"
 import { MiniPlayer } from "@/components/player/mini-player"
 import { CommandPalette } from "@/components/shell/command-palette"
+import { WrappedTracker } from "@/components/wrapped/trackers"
 import { Sidebar, SidebarView } from "@/components/shell/sidebar"
 import { TabBar, TabBarView } from "@/components/shell/tab-bar"
 import { NICHE_PRESETS } from "@/lib/niches/catalog"
@@ -22,6 +23,7 @@ export default function TabsLayout({ children }: LayoutProps<"/">) {
       </Suspense>
       {/* Audio lives in a module singleton; this UI follows it across pages. */}
       <MiniPlayer />
+      <WrappedTracker />
       <CommandPalette presets={NICHE_PRESETS} />
     </div>
   )

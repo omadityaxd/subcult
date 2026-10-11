@@ -1,29 +1,6 @@
-import { readFile } from "node:fs/promises"
-import { join } from "node:path"
 import { ImageResponse } from "next/og"
+import { loadOgFonts, ogFonts, paletteBackdrop } from "@/lib/og/brand"
 import type { MixNiche } from "./data"
-
-const FONT_DIR = join(process.cwd(), "src", "assets", "fonts")
-
-let fonts: Promise<{ serif: Buffer; sans: Buffer }> | null = null
-function loadFonts() {
-  fonts ??= Promise.all([
-    readFile(join(FONT_DIR, "InstrumentSerif-Italic.ttf")),
-    readFile(join(FONT_DIR, "Geist-Medium.ttf")),
-  ]).then(([serif, sans]) => ({ serif, sans }))
-  return fonts
-}
-
-/** Mesh-ish gradient from a niche palette (Satori supports layered radial gradients). */
-function backdrop(palette: readonly string[]): string {
-  const [ink, deep, mid, bright] = palette
-  return [
-    `radial-gradient(circle at 18% 22%, ${bright}cc 0%, transparent 45%)`,
-    `radial-gradient(circle at 85% 30%, ${mid}cc 0%, transparent 50%)`,
-    `radial-gradient(circle at 60% 90%, ${deep} 0%, transparent 60%)`,
-    `linear-gradient(160deg, ${deep} 0%, ${ink} 100%)`,
-  ].join(", ")
-}
 
 interface ShareCardOptions {
   width: number
@@ -35,7 +12,7 @@ export async function renderVibeCard(
   mix: readonly MixNiche[],
   { width, height }: ShareCardOptions,
 ): Promise<ImageResponse> {
-  const { serif, sans } = await loadFonts()
+  const fonts = await loadOgFonts()
   const [top] = mix
   const scale = width / 1200
   const portrait = height > width
@@ -49,7 +26,7 @@ export async function renderVibeCard(
         flexDirection: "column",
         justifyContent: "space-between",
         padding: 72 * scale,
-        backgroundImage: backdrop(top.palette),
+        backgroundImage: paletteBackdrop(top.palette),
         backgroundColor: top.palette[0],
         color: "#ffffff",
         fontFamily: "Geist",
@@ -133,10 +110,7 @@ export async function renderVibeCard(
     {
       width,
       height,
-      fonts: [
-        { name: "Instrument Serif", data: serif, style: "italic", weight: 400 },
-        { name: "Geist", data: sans, style: "normal", weight: 500 },
-      ],
+      fonts: ogFonts(fonts),
     },
   )
 }

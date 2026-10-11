@@ -7,7 +7,9 @@ import { AutoplaySetting } from "@/components/me/autoplay-setting"
 import { FollowingRail } from "@/components/me/following-rail"
 import { SavedGrid } from "@/components/me/saved-grid"
 import { VibeResultCard } from "@/components/me/vibe-result-card"
+import { WrappedCard } from "@/components/wrapped/wrapped-card"
 import { NICHE_PRESETS } from "@/lib/niches/catalog"
+import ARTISTS from "../../../../data/taxonomy/artists.json"
 import { LargeTitle } from "@/components/shell/large-title"
 import { Screen } from "@/components/shell/screen"
 import { ThemeToggle } from "@/components/shell/theme-toggle"
@@ -19,6 +21,9 @@ const CARD_PALETTE = ["#101014", "#24324a", "#5b7fa6", "#c9a27e", "#efe6da"]
 export default function MePage() {
   const cardNiches = Object.fromEntries(
     NICHE_PRESETS.map((preset) => [preset.slug, { name: preset.name, palette: preset.palette }]),
+  )
+  const artistImages = Object.fromEntries(
+    ARTISTS.flatMap((artist) => (artist.imageUrl ? [[artist.name, artist.imageUrl]] : [])),
   )
   return (
     <Screen>
@@ -37,6 +42,8 @@ export default function MePage() {
         </section>
 
         <VibeResultCard niches={cardNiches} fallback={<NicheCardTeaser />} />
+
+        <WrappedCard niches={cardNiches} artistImages={artistImages} />
 
         <FollowingRail />
 
