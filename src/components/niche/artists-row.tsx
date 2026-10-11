@@ -71,7 +71,7 @@ export function ArtistsRow({
   )
 }
 
-function ArtistSheet({
+export function ArtistSheet({
   artist,
   themeStyle,
   onClose,

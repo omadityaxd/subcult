@@ -21,6 +21,11 @@ const OPEN_LABEL: Record<FeedItem["source"], string> = {
   spotify: "Listen on Spotify",
   youtube: "Watch on YouTube",
   news: "Read the story",
+  arena: "Open on Are.na",
+  unsplash: "View on Unsplash",
+  pexels: "View on Pexels",
+  ebay: "Buy on eBay",
+  subcult: "Open",
 }
 
 interface StoryViewerProps {

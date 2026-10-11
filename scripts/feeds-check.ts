@@ -10,7 +10,8 @@ import { memoryStore } from "../src/lib/feed/cache"
 import { buildNicheFeed } from "../src/lib/feed/feed"
 import { createFeedDeps } from "../src/lib/feed/server"
 import { errorMessage, log } from "../src/lib/log"
-import { findSeedProfile } from "../src/lib/niches/catalog"
+import { nicheRelevance } from "../src/lib/feed/niche-relevance"
+import { artistSpotifyId, findSeedProfile } from "../src/lib/niches/catalog"
 import { loadLocalEnv } from "./load-env"
 
 async function main(): Promise<void> {
@@ -30,6 +31,9 @@ async function main(): Promise<void> {
     spotifyClientId: process.env.SPOTIFY_CLIENT_ID,
     spotifyClientSecret: process.env.SPOTIFY_CLIENT_SECRET,
     youtubeApiKey: process.env.YOUTUBE_API_KEY,
+    // Same settings as the app: these write to the same cache keys.
+    artistIdFor: artistSpotifyId,
+    youtubeRelevance: nicheRelevance,
     redis,
     logger: log,
   })

@@ -1,4 +1,5 @@
 import { z } from "zod"
+import { MIX_KINDS as MIX_KIND_IDS } from "@/lib/feed/mix"
 import { EXTRA_STORE_IDS } from "@/lib/links"
 
 /**
@@ -83,6 +84,8 @@ export const nicheCurationSchema = z.object({
   /** Lower comes first in For You stories and on Explore. Omit for non-featured. */
   featuredOrder: z.number().int().min(1).optional(),
   extraStores: z.array(z.enum(EXTRA_STORE_IDS)).default([]),
+  /** Per-niche content-mix override (shares by kind; normalized with the defaults). */
+  mix: z.record(z.enum(MIX_KIND_IDS), z.number().min(0).max(1)).optional(),
 })
 
 export const edgeSchema = z.object({

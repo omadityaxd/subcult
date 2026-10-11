@@ -1,3 +1,4 @@
+import type { FeedItem } from "@/lib/feed/types"
 import type { Artist } from "@/lib/taxonomy/schema"
 import { type Preview, normalizeTitle } from "./itunes"
 
@@ -87,4 +88,28 @@ export function formatDuration(ms: number | null): string {
   if (!ms || ms <= 0) return ""
   const total = Math.round(ms / 1000)
   return `${Math.floor(total / 60)}:${String(total % 60).padStart(2, "0")}`
+}
+
+/**
+ * A soundtrack song as a feed item: counts as music in the For You mix and
+ * plays in-app from its 30s preview (meta.previewUrl).
+ */
+export function soundtrackFeedItems(soundtrack: Soundtrack): FeedItem[] {
+  return soundtrack.tracks.map((track) => ({
+    id: `soundtrack:${track.id}`,
+    source: "spotify" as const,
+    type: "track" as const,
+    title: track.title,
+    subtitle: track.artist,
+    imageUrl: track.artworkUrl,
+    url: track.spotifyUrl,
+    publishedAt: null,
+    score: 1,
+    meta: {
+      previewUrl: track.previewUrl,
+      appleUrl: track.appleUrl,
+      niche: soundtrack.slug,
+      soundtrack: soundtrack.title,
+    },
+  }))
 }

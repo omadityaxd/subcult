@@ -17,6 +17,11 @@ export const SOURCE_WEIGHT: Record<FeedSource, number> = {
   spotify: 1,
   youtube: 0.9,
   news: 0.8,
+  arena: 0.9,
+  unsplash: 0.8,
+  pexels: 0.8,
+  ebay: 0.9,
+  subcult: 1,
 }
 
 /** Hours for an item's recency weight to halve. null = timeless source. */
@@ -24,6 +29,11 @@ export const HALF_LIFE_HOURS: Record<FeedSource, number | null> = {
   spotify: null,
   youtube: 24 * 7,
   news: 48,
+  arena: null,
+  unsplash: null,
+  pexels: null,
+  ebay: 24 * 14,
+  subcult: null,
 }
 
 const BASE_RELEVANCE = 0.4

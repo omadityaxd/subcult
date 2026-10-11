@@ -1,10 +1,23 @@
 import type { NicheProfile } from "@/lib/engine/profile-schema"
 
 /** Live sources. Reddit is deliberately absent: its API closed (see ARCHITECTURE.md). */
-export const FEED_SOURCES = ["spotify", "youtube", "news"] as const
+export const FEED_SOURCES = [
+  "spotify",
+  "youtube",
+  "news",
+  /** Moodboard pins */
+  "arena",
+  "unsplash",
+  "pexels",
+  /** Shop listings */
+  "ebay",
+  /** Our own cards: artists (open the in-app sheet), niches, quick actions */
+  "subcult",
+] as const
 export type FeedSource = (typeof FEED_SOURCES)[number]
 
-export type FeedItemType = "track" | "artist" | "playlist" | "video" | "article"
+export type FeedItemType =
+  "track" | "artist" | "playlist" | "video" | "article" | "pin" | "product" | "niche" | "prompt"
 
 /** Every source normalizes into this one shape so ranking can mix them. */
 export interface FeedItem {

@@ -13,17 +13,28 @@ import type { FeedItem } from "@/lib/feed/types"
 import { useMediaQuery } from "@/lib/design/use-media-query"
 import { formatAge } from "@/lib/time"
 import { cn } from "@/lib/utils"
+import { SubcultCard } from "./subcult-card"
 
 const SOURCE_LABEL: Record<FeedItem["source"], string> = {
   spotify: "Spotify",
   youtube: "YouTube",
   news: "News",
+  arena: "Are.na",
+  unsplash: "Unsplash",
+  pexels: "Pexels",
+  ebay: "eBay",
+  subcult: "subcult",
 }
 
 const OPEN_LABEL: Record<FeedItem["source"], string> = {
   spotify: "Open in Spotify",
   youtube: "Watch on YouTube",
   news: "Read the story",
+  arena: "Open on Are.na",
+  unsplash: "View on Unsplash",
+  pexels: "View on Pexels",
+  ebay: "Buy on eBay",
+  subcult: "Open",
 }
 
 const hostOf = (url: string) => {
@@ -63,6 +74,11 @@ interface FeedCardProps {
  * touch / hover on desktop opens a peek preview; a normal tap links out.
  */
 export function FeedCard({ item, context, now }: FeedCardProps) {
+  if (item.source === "subcult") return <SubcultCard item={item} />
+  return <ExternalCard item={item} context={context} now={now} />
+}
+
+function ExternalCard({ item, context, now }: FeedCardProps) {
   const [peekOpen, setPeekOpen] = useState(false)
   const pressTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const longPressed = useRef(false)

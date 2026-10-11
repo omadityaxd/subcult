@@ -9,11 +9,13 @@ import { appFeedDeps } from "@/lib/feed/app-deps"
 import type { FeedItem } from "@/lib/feed/types"
 import { googleNews, spotify, youtube } from "@/lib/links"
 import { TAXONOMY } from "@/lib/niches/catalog"
+import { buildForYou } from "@/lib/feed/for-you"
 import { tagFeedItems } from "@/lib/taxonomy/tagging"
 import { cn } from "@/lib/utils"
 import { LinkList } from "../link-card"
 import { NicheAutoplay } from "@/components/music/niche-autoplay"
 import { SoundtrackHeader, TrackList } from "@/components/music/track-list"
+import { soundtrackFeedItems } from "@/lib/music/soundtrack"
 import { getSoundtrack } from "@/lib/music/soundtrack-server"
 import { ArtistsRow } from "../artists-row"
 import { SoundsSection } from "../sections/sounds-section"
@@ -48,9 +50,13 @@ function Masonry({
 
 /** The ranked feed, with the niche's tag chips (only those that match something) as filters. */
 export async function LiveForYou({ profile }: { profile: NicheProfile }) {
-  const feed = await getNicheFeed(profile)
-  if (feed.items.length === 0) return null
-  const tagged = tagFeedItems(feed.items, TAXONOMY.tagsOf(profile.slug))
+  const [feed, soundtrack] = await Promise.all([getNicheFeed(profile), getSoundtrack(profile.slug)])
+  // Every kind of content, interleaved to the niche's target mix.
+  const items = buildForYou(profile.slug, feed, {
+    music: soundtrack ? soundtrackFeedItems(soundtrack) : [],
+  })
+  if (items.length === 0) return null
+  const tagged = tagFeedItems(items, TAXONOMY.tagsOf(profile.slug))
   return (
     <section className="mt-10">
       <SectionHeader overline="Ranked for you" title="Latest" />
