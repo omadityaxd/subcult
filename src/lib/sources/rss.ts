@@ -6,6 +6,8 @@ export interface RssItem {
   publishedAt: Date | null
   /** Publisher name when the feed provides one (Google News does, via <source>). */
   source: string | null
+  /** Publisher homepage from <source url="…"> (Google News), for allowlisting. */
+  sourceUrl: string | null
 }
 
 const parser = new XMLParser({
@@ -50,7 +52,15 @@ export function parseRss(xml: string): RssItem[] {
     const title = text(item.title)
     const link = text(item.link)
     if (!title || !link || !/^https?:\/\//.test(link)) return []
-    return [{ title, link, publishedAt: parseDate(item.pubDate), source: text(item.source) }]
+    return [
+      {
+        title,
+        link,
+        publishedAt: parseDate(item.pubDate),
+        source: text(item.source),
+        sourceUrl: isRecord(item.source) ? text(item.source["@_url"]) : null,
+      },
+    ]
   })
 }
 

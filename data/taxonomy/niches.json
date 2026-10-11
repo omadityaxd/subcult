@@ -2,17 +2,38 @@
   {
     "slug": "new-gen-underground-rap",
     "aliases": ["new gen underground rap", "new-gen rap", "new wave underground"],
-    "featuredOrder": 1
+    "featuredOrder": 1,
+    "negativeKeywords": ["climate", "best of 2006", "turning 30", "years ago today"]
   },
   {
     "slug": "rage",
     "aliases": ["rage rap"],
-    "featuredOrder": 2
+    "featuredOrder": 2,
+    "negativeKeywords": [
+      "road rage",
+      "rage against the machine",
+      "rage room",
+      "rage quit",
+      "rage bait",
+      "ragebait",
+      "all the rage"
+    ]
   },
   {
     "slug": "jerk",
     "aliases": ["jerk rap", "jerk music"],
-    "featuredOrder": 3
+    "featuredOrder": 3,
+    "negativeKeywords": [
+      "drill",
+      "beat",
+      "beats",
+      "type beat",
+      "free beat",
+      "jerk chicken",
+      "knee jerk",
+      "chicken",
+      "recipe"
+    ]
   },
   {
     "slug": "vamp",
@@ -24,44 +45,81 @@
       "opium-inspired"
     ],
     "featuredOrder": 4,
-    "extraStores": ["ssense", "vestiaire"]
+    "extraStores": ["ssense", "vestiaire"],
+    "negativeKeywords": [
+      "opium war",
+      "opium wars",
+      "china",
+      "britain",
+      "history",
+      "drug",
+      "drugs",
+      "heroin",
+      "police",
+      "vampire",
+      "twilight",
+      "vampire diaries"
+    ]
   },
   {
     "slug": "digicore",
     "aliases": ["digi core"],
-    "featuredOrder": 5
+    "featuredOrder": 5,
+    "negativeKeywords": [
+      "claypot",
+      "restaurant",
+      "buy 1 get 1",
+      "nett spend",
+      "voucher",
+      "free beat",
+      "monster hunter",
+      "star citizen"
+    ]
   },
   {
     "slug": "plugg",
     "aliases": ["plug music", "plugg music", "plug"],
-    "featuredOrder": 6
+    "featuredOrder": 6,
+    "negativeKeywords": ["spark plug", "plug in", "plug-in", "electric", "ev charging", "charger"]
   },
   {
     "slug": "pluggnb",
     "aliases": ["plug n b", "pluggrnb", "plugg n b"],
-    "featuredOrder": 7
+    "featuredOrder": 7,
+    "negativeKeywords": ["spark plug", "plug in", "charger"]
   },
   {
     "slug": "dark-plugg",
     "aliases": ["dark plug"],
-    "featuredOrder": 8
+    "featuredOrder": 8,
+    "negativeKeywords": ["spark plug", "plug in"]
   },
   {
     "slug": "sigilkore",
     "aliases": ["sigil core", "sigilcore"],
-    "featuredOrder": 9
+    "featuredOrder": 9,
+    "negativeKeywords": ["occult", "witchcraft"]
   },
   {
     "slug": "archive-fashion",
     "aliases": ["archive streetwear", "underground designer fashion", "archive"],
     "featuredOrder": 10,
-    "extraStores": ["ssense", "vestiaire"]
+    "extraStores": ["ssense", "vestiaire"],
+    "negativeKeywords": [
+      "dolly parton",
+      "barbie",
+      "regency",
+      "jane austen",
+      "sex and the city",
+      "ready-to-wear collection"
+    ]
   },
   {
     "slug": "dark-avant-garde",
     "aliases": ["avant-garde fashion", "avant garde", "rick owens-inspired"],
     "featuredOrder": 11,
-    "extraStores": ["ssense", "vestiaire"]
+    "extraStores": ["ssense", "vestiaire"],
+    "negativeKeywords": ["architecture"]
   },
   {
     "slug": "graphic-gothic-streetwear",
@@ -71,12 +129,24 @@
   {
     "slug": "deftones-core",
     "aliases": ["nu-metal revival", "deftonescore", "deftones-core / nu-metal revival"],
-    "featuredOrder": 13
+    "featuredOrder": 13,
+    "negativeKeywords": [
+      "cover",
+      "drum cover",
+      "bass cover",
+      "guitar cover",
+      "tutorial",
+      "lesson",
+      "got talent",
+      "golden buzzer",
+      "halftime"
+    ]
   },
   {
     "slug": "nu-gaze",
     "aliases": ["nugaze"],
-    "featuredOrder": 14
+    "featuredOrder": 14,
+    "negativeKeywords": ["cover", "tutorial", "lesson"]
   },
   {
     "slug": "soundcloud-rap",
@@ -91,7 +161,8 @@
   {
     "slug": "tread",
     "aliases": ["tread rap", "philly tread"],
-    "featuredOrder": 17
+    "featuredOrder": 17,
+    "negativeKeywords": ["tyre", "tire", "treadmill", "tread lightly"]
   },
   {
     "slug": "experimental-rap",
@@ -101,12 +172,21 @@
   {
     "slug": "glitchcore",
     "aliases": ["glitch core"],
-    "featuredOrder": 19
+    "featuredOrder": 19,
+    "negativeKeywords": ["glitch fix", "bug fix", "patch notes"]
   },
   {
     "slug": "trap",
     "aliases": ["trap music", "atlanta trap"],
-    "featuredOrder": 20
+    "featuredOrder": 20,
+    "negativeKeywords": [
+      "trap door",
+      "mouse trap",
+      "tourist trap",
+      "honey trap",
+      "speed trap",
+      "thirst trap"
+    ]
   },
   {
     "slug": "dark-streetwear",
@@ -132,13 +212,15 @@
   {
     "slug": "mcbling-revival",
     "aliases": ["mcbling", "mc bling"],
-    "featuredOrder": 24
+    "featuredOrder": 24,
+    "negativeKeywords": ["mcdonald"]
   },
   {
     "slug": "underground-sneaker-culture",
     "aliases": ["designer sneakers", "underground sneakers"],
     "featuredOrder": 25,
-    "extraStores": ["ssense"]
+    "extraStores": ["ssense"],
+    "negativeKeywords": ["running shoes review", "marathon"]
   },
   {
     "slug": "hyperpop",
@@ -148,6 +230,7 @@
   {
     "slug": "underground-rap",
     "aliases": ["underground hip-hop"],
-    "featuredOrder": 27
+    "featuredOrder": 27,
+    "negativeKeywords": ["climate", "turning 30", "years ago today"]
   }
 ]

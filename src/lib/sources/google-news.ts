@@ -4,6 +4,8 @@ export interface NewsArticle {
   title: string
   url: string
   outlet: string | null
+  /** Publisher hostname without www. ("complex.com"), when the feed names it. */
+  domain: string | null
   publishedAt: Date | null
 }
 
@@ -28,6 +30,15 @@ export function stripOutlet(title: string, outlet: string | null): string {
   return title.endsWith(suffix) ? title.slice(0, -suffix.length) : title
 }
 
+export function hostOf(url: string | null): string | null {
+  if (!url) return null
+  try {
+    return new URL(url).hostname.toLowerCase().replace(/^www\./, "")
+  } catch {
+    return null
+  }
+}
+
 /** Google News RSS search: public, keyless, parsed server-side. */
 export async function fetchGoogleNews(
   query: string,
@@ -42,6 +53,7 @@ export async function fetchGoogleNews(
     title: stripOutlet(item.title, item.source),
     url: item.link,
     outlet: item.source,
+    domain: hostOf(item.sourceUrl),
     publishedAt: item.publishedAt,
   }))
 }

@@ -28,6 +28,7 @@ describe("parseRss", () => {
       link: "https://news.google.com/articles/abc",
       publishedAt: new Date("2026-10-08T14:00:00.000Z"),
       source: "Vogue",
+      sourceUrl: "https://www.vogue.com",
     })
   })
 

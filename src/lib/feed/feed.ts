@@ -1,6 +1,7 @@
 import { withTimeout } from "@/lib/concurrency"
 import type { NicheProfile } from "@/lib/engine/profile-schema"
 import { type Logger, errorMessage } from "@/lib/log"
+import { type CleanContext, cleanFeed } from "./clean"
 import { type CacheState, type CacheStore, cached } from "./cache"
 import { interleave, nicheKeywords, rankFeed } from "./rank"
 import type { FeedItem, FeedSource, Fetcher } from "./types"
@@ -38,6 +39,8 @@ export interface FeedDeps {
   now?: () => Date
   timeoutMs?: number
   feedback?: ReadonlyMap<string, number>
+  /** The niche's relevance pipeline; applied on read, so it also cleans cached items. */
+  cleanContext?: (profile: NicheProfile) => CleanContext
 }
 
 export const feedCacheKey = (source: FeedSource, slug: string, sourceVersion?: string) =>
@@ -92,7 +95,9 @@ export async function buildNicheFeed(profile: NicheProfile, deps: FeedDeps): Pro
     })
   })
 
-  const ranked = rankFeed(collected, {
+  const context = deps.cleanContext?.(profile)
+  const kept = context ? cleanFeed(collected, context) : collected
+  const ranked = rankFeed(kept, {
     keywords: nicheKeywords(profile),
     now,
     feedback: deps.feedback,

@@ -26,6 +26,8 @@ export interface FeedSettings {
   artistIdFor?: (name: string) => string | undefined
   /** Verified artists + entity/phrase terms that a video must match to be kept. */
   youtubeRelevance?: (profile: NicheProfile) => YoutubeRelevance
+  /** The niche's relevance pipeline (spam, language, negatives, source tiers, dedupe). */
+  cleanContext?: FeedDeps["cleanContext"]
   /** null → per-process memory cache and quota (dev / demo). */
   redis: Redis | null
   logger: Logger
@@ -77,5 +79,6 @@ export function createFeedDeps(settings: FeedSettings): FeedDeps {
     disabled,
     cache: settings.redis ? redisStore(settings.redis) : localCache,
     logger: settings.logger,
+    cleanContext: settings.cleanContext,
   }
 }

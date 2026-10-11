@@ -4,7 +4,7 @@ import { log } from "@/lib/log"
 import { artistSpotifyId } from "@/lib/niches/catalog"
 import { getRedis } from "@/lib/redis"
 import type { FeedDeps } from "./feed"
-import { nicheRelevance } from "./niche-relevance"
+import { nicheCleanContext, nicheRelevance } from "./niche-relevance"
 import { createFeedDeps } from "./server"
 
 /** Feed dependencies wired from the app's env, Redis and verified artist IDs. */
@@ -15,6 +15,7 @@ export function appFeedDeps(): FeedDeps {
     youtubeApiKey: env.YOUTUBE_API_KEY,
     artistIdFor: artistSpotifyId,
     youtubeRelevance: nicheRelevance,
+    cleanContext: nicheCleanContext,
     redis: getRedis(),
     logger: log,
   })

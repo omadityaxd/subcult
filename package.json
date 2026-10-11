@@ -22,7 +22,8 @@
     "db:status": "tsx scripts/db-status.ts",
     "feeds:check": "tsx scripts/feeds-check.ts",
     "taxonomy:verify-artists": "tsx scripts/verify-artists.ts",
-    "feeds:mix": "tsx scripts/feed-mix.ts"
+    "feeds:mix": "tsx scripts/feed-mix.ts",
+    "feeds:audit": "tsx scripts/feed-audit.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.133.0",

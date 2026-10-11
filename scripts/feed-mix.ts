@@ -9,7 +9,7 @@ import { Redis } from "@upstash/redis"
 import { buildNicheFeed } from "../src/lib/feed/feed"
 import { buildForYou, nicheMix } from "../src/lib/feed/for-you"
 import { MIX_KINDS, measureMix } from "../src/lib/feed/mix"
-import { nicheRelevance } from "../src/lib/feed/niche-relevance"
+import { nicheCleanContext, nicheRelevance } from "../src/lib/feed/niche-relevance"
 import { createFeedDeps } from "../src/lib/feed/server"
 import { log } from "../src/lib/log"
 import { type SoundtrackTrack, soundtrackFeedItems } from "../src/lib/music/soundtrack"
@@ -29,6 +29,7 @@ async function main(): Promise<void> {
     youtubeApiKey: process.env.YOUTUBE_API_KEY,
     artistIdFor: artistSpotifyId,
     youtubeRelevance: nicheRelevance,
+    cleanContext: nicheCleanContext,
     redis,
     logger: { info: () => undefined, warn: () => undefined, error: log.error },
   })

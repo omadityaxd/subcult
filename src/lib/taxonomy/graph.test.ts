@@ -127,7 +127,16 @@ describe("validation", () => {
   it("rejects an alias that duplicates another niche", () => {
     const files = {
       ...FILES,
-      niches: [...FILES.niches, { slug: "jerk", aliases: ["vamp aesthetic"], extraStores: [] }],
+      niches: [
+        ...FILES.niches,
+        {
+          slug: "jerk",
+          aliases: ["vamp aesthetic"],
+          extraStores: [],
+          negativeKeywords: [],
+          languages: ["en"],
+        },
+      ],
     }
     const problems = validateTaxonomy({ profiles: PROFILES, files })
     expect(problems.some((p) => /"vamp aesthetic".*collides with (vamp|jerk)/.test(p))).toBe(true)

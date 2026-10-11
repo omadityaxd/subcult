@@ -19,6 +19,8 @@ export function newsFetcher(fetchImpl: typeof fetch = fetch): Fetcher {
     source: "news",
     freshSeconds: 3600,
     staleSeconds: 24 * 3600,
+    // d1: items carry the publisher domain (meta.domain) for source allowlists.
+    cacheVersion: "d1",
     async fetch(profile: NicheProfile) {
       const settled = await Promise.allSettled(
         profile.newsQueries
@@ -44,7 +46,7 @@ export function newsFetcher(fetchImpl: typeof fetch = fetch): Fetcher {
           url: article.url,
           publishedAt: article.publishedAt?.toISOString() ?? null,
           score: 0,
-          meta: { outlet: article.outlet },
+          meta: { outlet: article.outlet, domain: article.domain },
         }))
     },
   }
