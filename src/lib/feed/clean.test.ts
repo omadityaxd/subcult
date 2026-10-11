@@ -150,6 +150,19 @@ describe("judgeItem keeps the real thing", () => {
   })
 })
 
+describe("Spotify results", () => {
+  it("drops type-beat playlists but keeps real tracks", () => {
+    const ctx = contextFor("rage")
+    const spotify = (title: string, type: FeedItem["type"]) => ({
+      ...video(title, "x"),
+      source: "spotify" as const,
+      type,
+    })
+    expect(judgeItem(spotify("YEAT TYPE BEATS", "playlist"), ctx)).toBe("spam")
+    expect(judgeItem(spotify("Magnolia", "track"), ctx)).toBeNull()
+  })
+})
+
 describe("foreignLanguages", () => {
   it("spots Vietnamese, Indic and Romance titles; English stays clean", () => {
     expect(foreignLanguages("Playlist Việt Jerk Drill")).toContain("vi")

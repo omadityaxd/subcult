@@ -2,22 +2,31 @@
 
 Key decisions and the trade-offs behind them. The README covers setup; this file covers _why_.
 
-## Aggregate by link, don't host
+## Culture first, music as the soundtrack
 
-subcult curates and links out (Spotify, YouTube, news, shops, social search). It never stores
-or re-serves third-party content. That keeps it within every platform's terms, avoids storage
-and moderation cost, and means a dead API degrades one section instead of the product.
+subcult is a culture and fashion app (fits, archive pieces, brands, visual references, scenes)
+with music as its soundtrack layer. Third-party content plays and opens **in-app** through each
+platform's official surface (30s iTunes previews, Spotify's embed, YouTube's IFrame player,
+eBay listings in our product sheet); external links are small secondary buttons. subcult never
+re-hosts third-party media. The only content it stores is what people post themselves (fits),
+which is why that layer comes with moderation, rate limits and metadata stripping.
 
 ## Data sources (verified October 2026)
 
-| Section   | Source                                           | Fallback when unavailable          |
-| --------- | ------------------------------------------------ | ---------------------------------- |
-| Sounds    | Spotify Web API, Client Credentials, `/search`   | Spotify search + artist deep links |
-| Tea       | Google News RSS search (no key)                  | Section hidden                     |
-| Watch     | YouTube Data API v3 `search` (recent first)      | YouTube search deep links          |
-| Community | **Deep links only** to the niche's subreddits    | n/a (no API involved)              |
-| Drip      | Generated store search links                     | n/a                                |
-| Moodboard | Pinterest / Instagram / TikTok search deep links | n/a                                |
+| Section   | Source                                                             | Fallback when unavailable            |
+| --------- | ------------------------------------------------------------------ | ------------------------------------ |
+| Fits      | User posts (Supabase Auth + Storage), looks from the board         | Board imagery only                   |
+| Archive   | eBay Browse API (client credentials), cached ≤6h                   | Tab says it's offline; nothing faked |
+| Sounds    | iTunes previews (soundtracks), Spotify `/search` (≤10), embeds     | Search chips                         |
+| Moodboard | Are.na public channels (no key), Unsplash, Pexels, own imagery     | Own imagery (album art, photos)      |
+| Scene     | YouTube Data API v3, Google News RSS, subreddit deep links         | Deep links                           |
+| Brands    | Taxonomy data (verified), eBay, Unsplash/Pexels                    | Description, niches, sourced artists |
+| Follow    | Instagram handles verified by Wikidata + MusicBrainz / brand sites | Row hidden                           |
+
+**Are.na:** search is Premium-only, so niches list curated public channels (checked readable as a
+guest, 30 req/min). **Instagram:** profiles can't be checked by fetching them (same login wall
+for real and fake handles), so handles need two independent sources; oEmbed needs Meta App
+Review, so there are no Instagram embeds.
 
 **Reddit: no fetcher.** Reddit closed self-service API access in November 2025, shut off
 unauthenticated `.json` endpoints in May 2026, and stops accepting new public API requests on
@@ -121,7 +130,57 @@ searches at 80/day. Past the cap the fetcher stops and the stale cache covers th
 - sourceWeight: Spotify 1.0, YouTube 0.9, news 0.8.
 - feedbackBoost ∈ [-1, 1] from saves and "not my vibe" (Phase 6); −1 removes an item.
 
-The For You feed interleaves sources so no source appears more than twice in a row.
+## Content mix (lib/feed/mix.ts)
+
+Every feed page is built to target shares instead of "whatever the fetchers returned":
+fashion 35% (fits, archive listings, brands), moodboard 20%, music 20%, video 10%, news 10%,
+discovery 5%. Fashion niches lean further into fits and visuals; music never goes up anywhere.
+
+- **Weighted interleave:** each slot goes to the kind furthest behind its target share, never a
+  third of the same kind in a row.
+- **Caps per 20-item window** ("any page"): music 20%, video 10%, news 15%, discovery 10%.
+- **Redistribution:** a missing source's share goes only to the live visual kinds (fashion,
+  moodboard), never to music. With no visual source live, capped kinds absorb a little and the
+  feed ends short rather than being padded.
+- `pnpm feeds:mix` prints target vs measured for For You and niches.
+
+## Relevance pipeline and source tiers (lib/feed/clean.ts, source-tiers.ts)
+
+Applied on read, so it also cleans cached items: spam (type beats, free beats, producer
+tutorials, AI covers) → language/region (non-Latin scripts, Vietnamese, Romance function words,
+regional compilations; non-English niches opt in) → per-niche negative keywords (niche data) →
+source tier + entity match → dedupe (canonical URL, near-identical titles by token Jaccard).
+
+- **Trusted sources** (per-branch allowlists of news domains and YouTube channels, verified):
+  a verified entity or a multi-word niche phrase qualifies an item.
+- **Unknown sources** need more: news must name an unambiguous verified entity; videos must come
+  from the artist's own channel or credit them up front ("Artist - Song").
+- Ambiguous words (opium, jerk, rage, vamp, plugg, glaive…) never qualify an item alone.
+- Regression tests use the real junk that leaked into feeds; `pnpm feeds:audit` prints
+  keep/drop decisions against the live cache.
+
+## In-app media
+
+One audio engine (two decks, Web Audio crossfades, Media Session) plays every preview. A handoff
+registry keeps exactly one thing audible: the engine, Spotify's embed, the Web Playback SDK (behind
+a flag, Premium, 5 dev-mode users) and unmuted YouTube players pause each other. YouTube follows
+Required Minimum Functionality: ≥200×200 players, autoplay (muted) only when more than half
+visible, one autoplaying player, nothing drawn over the player. The mini-player stays hidden
+until something is played on purpose; niche soundtrack autoplay is opt-in.
+
+## Social layer: fits
+
+- **Auth:** Supabase Auth via `@supabase/ssr`; the proxy refreshes sessions with `getClaims()`
+  (signature-checked). Server code never trusts `getSession()`.
+- **Writes** go through route handlers that verify the session, check Origin, rate-limit with
+  Upstash (refused in production without Redis), and validate with Zod (known niches/brands only,
+  song URLs pinned to the catalog's hosts).
+- **Photos** are compressed on the phone, then always re-encoded server-side with sharp (upright,
+  ≤1440px, WebP, no metadata: EXIF and GPS are gone). Only the server writes to Storage (service
+  key); users have no storage write policies, so nothing skips the re-encode.
+- **Moderation:** one report per person; 3 reports hide a fit and move its photo to a private
+  quarantine bucket; `/admin/fits` restores (clearing reports) or hides.
+- **RLS:** public reads of visible fits and handles only; likes, saves and reports are server-only.
 
 ## Database connections
 

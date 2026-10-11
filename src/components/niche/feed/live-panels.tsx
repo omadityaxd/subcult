@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { connection } from "next/server"
 import { FitGrid } from "@/components/fits/fit-tile"
+import { PinCard } from "@/components/moodboard/pin-card"
 import { fitFeedItems, nicheFits } from "@/lib/fits/server"
 import { postingEnabled } from "@/lib/supabase/admin"
 import { getViewer } from "@/lib/supabase/server"
@@ -333,10 +334,19 @@ export async function ArchiveGrails({ profile }: { profile: NicheProfile }) {
   )
 }
 
+const LOOKS_UNTIL = 6
+const LOOKS = 12
+
 /** Fits tab: people's fits for this niche, with the way in to posting one. */
 export async function LiveFits({ profile }: { profile: NicheProfile }) {
   await connection()
-  const [fits, viewer] = await Promise.all([nicheFits(profile.slug), getViewer()])
+  const [fits, viewer, board] = await Promise.all([
+    nicheFits(profile.slug),
+    getViewer(),
+    getMoodboard(profile.slug),
+  ])
+  // Until the community fills the tab, real looks from the scene keep it visual.
+  const looks = fits.length < LOOKS_UNTIL ? moodboardFeedItems(board.pins).slice(0, LOOKS) : []
   return (
     <section>
       <div className="mb-4 flex items-end justify-between gap-3">
@@ -360,6 +370,18 @@ export async function LiveFits({ profile }: { profile: NicheProfile }) {
           </p>
         </div>
       )}
+      {looks.length > 0 ? (
+        <div className="mt-10">
+          <SectionHeader overline="Visual references" title="Looks from the scene" />
+          <ul className="columns-2 gap-3 sm:columns-3">
+            {looks.map((item) => (
+              <li key={item.id} className="mb-3 break-inside-avoid">
+                <PinCard item={item} />
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
     </section>
   )
 }

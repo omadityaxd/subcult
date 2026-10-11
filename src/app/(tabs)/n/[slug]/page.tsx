@@ -231,11 +231,14 @@ function NicheWorld({
                   {profile.description}
                 </p>
               </section>
-              <Suspense fallback={<Skeleton className="h-64 rounded-2xl" />}>
-                <TopTracks profile={profile} />
-              </Suspense>
               <SceneCommunities slug={profile.slug} />
               <TwoHops slug={profile.slug} vertical />
+              {/* Music is the soundtrack layer: last in the rail, and fashion niches keep it on Sounds. */}
+              {TAXONOMY.branchOf(profile.slug) === "underground-fashion" ? null : (
+                <Suspense fallback={<Skeleton className="h-64 rounded-2xl" />}>
+                  <TopTracks profile={profile} />
+                </Suspense>
+              )}
             </div>
           </aside>
         </div>

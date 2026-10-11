@@ -33,7 +33,7 @@ export function DailyPicks({
             type="button"
             onClick={() => setOpenPin(look.pin)}
             aria-label={`Look of the day: ${look.pin.title ?? look.niche.name}`}
-            className="group relative block aspect-[4/5] w-full overflow-hidden rounded-3xl bg-muted active:scale-[0.99]"
+            className="group relative block aspect-[4/5] w-full overflow-hidden rounded-3xl bg-muted active:scale-[0.99] md:aspect-[5/4]"
             style={{ backgroundColor: look.pin.color ?? undefined }}
           >
             <MediaImage
@@ -54,9 +54,9 @@ export function DailyPicks({
               <span className="mt-1 block font-serif text-title-1 leading-none italic">
                 {look.niche.name}
               </span>
-              {look.pin.credit ? (
+              {look.pin.credit || look.pin.title ? (
                 <span className="mt-2 block truncate text-caption opacity-75">
-                  {look.pin.credit.label}
+                  {look.pin.credit?.label ?? look.pin.title}
                 </span>
               ) : null}
             </span>

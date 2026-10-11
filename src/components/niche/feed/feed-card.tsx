@@ -229,7 +229,7 @@ function Headline({ item }: { item: FeedItem }) {
         ) : null}
         <span className="truncate text-footnote font-medium text-muted-foreground">{outlet}</span>
       </div>
-      <p className="mt-3 font-serif text-title-3 leading-snug text-balance">{item.title}</p>
+      <p className="mt-3 text-headline leading-snug font-semibold text-balance">{item.title}</p>
     </div>
   )
 }

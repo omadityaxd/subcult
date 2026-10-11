@@ -94,7 +94,6 @@ function TrackCard({ item, meta }: { item: FeedItem; meta: string }) {
           />
         ) : null}
       </button>
-      <SpotifyLink href={item.url} label="Spotify" />
       <SaveButton item={savedShape(item)} className="size-9 shrink-0" />
     </article>
   )

@@ -47,9 +47,9 @@ export function PinCard({ item }: { item: FeedItem }) {
       >
         <MediaImage src={pin.imageUrl} alt="" sizes="(max-width: 640px) 100vw, 33vw" />
       </button>
-      {pin.credit ? (
+      {pin.credit || artistSlug ? (
         <p className="mt-1.5 truncate px-0.5 text-caption text-muted-foreground">
-          {pin.credit.label}
+          {pin.credit?.label ?? item.title}
         </p>
       ) : null}
       {open && artistSlug ? (
