@@ -77,10 +77,10 @@ interface FeedCardProps {
  * touch / hover on desktop opens a peek preview; a normal tap links out.
  */
 export function FeedCard({ item, context, now }: FeedCardProps) {
+  if (item.type === "pin") return <PinCard item={item} />
   if (item.source === "subcult") return <SubcultCard item={item} />
   if (item.source === "spotify") return <MusicCard item={item} meta={context ?? ""} />
   if (item.source === "youtube") return <VideoCard item={item} meta={context ?? ""} />
-  if (item.type === "pin") return <PinCard item={item} />
   return <ExternalCard item={item} context={context} now={now} />
 }
 

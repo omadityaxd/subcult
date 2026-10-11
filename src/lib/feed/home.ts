@@ -63,7 +63,7 @@ export async function getHomePage(
       result.feed,
       {
         music: soundtrack ? soundtrackFeedItems(soundtrack) : [],
-        pin: moodboardFeedItems(board.pins),
+        moodboard: moodboardFeedItems(board.pins),
       },
       ITEMS_PER_NICHE,
     ),

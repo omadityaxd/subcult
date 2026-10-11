@@ -17,7 +17,17 @@ export const FEED_SOURCES = [
 export type FeedSource = (typeof FEED_SOURCES)[number]
 
 export type FeedItemType =
-  "track" | "artist" | "playlist" | "video" | "article" | "pin" | "product" | "niche" | "prompt"
+  | "track"
+  | "artist"
+  | "playlist"
+  | "video"
+  | "article"
+  | "pin"
+  | "product"
+  | "fit"
+  | "brand"
+  | "niche"
+  | "prompt"
 
 /** Every source normalizes into this one shape so ranking can mix them. */
 export interface FeedItem {

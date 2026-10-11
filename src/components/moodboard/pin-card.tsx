@@ -4,6 +4,7 @@ import { useState } from "react"
 import { MediaImage } from "@/components/ds/media-image"
 import type { FeedItem } from "@/lib/feed/types"
 import type { Pin, PinSource } from "@/lib/moodboard/types"
+import { ArtistSheet } from "@/components/niche/artists-row"
 import { PinSheet } from "./pin-sheet"
 
 const num = (value: unknown) => (typeof value === "number" ? value : null)
@@ -14,7 +15,7 @@ export function feedItemPin(item: FeedItem): Pin {
   const creditUrl = str(item.meta.creditUrl)
   return {
     id: item.id.replace(/^pin:/, ""),
-    source: item.source as PinSource,
+    source: (item.source === "subcult" ? "artist" : item.source) as PinSource,
     imageUrl: item.imageUrl ?? "",
     largeUrl: str(item.meta.largeUrl) ?? item.imageUrl ?? "",
     width: num(item.meta.width),
@@ -31,6 +32,7 @@ export function feedItemPin(item: FeedItem): Pin {
 export function PinCard({ item }: { item: FeedItem }) {
   const [open, setOpen] = useState<Pin | null>(null)
   const pin = feedItemPin(item)
+  const artistSlug = str(item.meta.artistSlug)
   return (
     <article>
       <button
@@ -50,7 +52,12 @@ export function PinCard({ item }: { item: FeedItem }) {
           {pin.credit.label}
         </p>
       ) : null}
-      {open ? (
+      {open && artistSlug ? (
+        <ArtistSheet
+          artist={{ slug: artistSlug, name: item.title, imageUrl: item.imageUrl }}
+          onClose={() => setOpen(null)}
+        />
+      ) : open ? (
         <PinSheet
           key={open.id}
           pin={open}

@@ -99,6 +99,10 @@ export interface Taxonomy {
   tagsOf(nicheSlug: string): Tag[]
   tag(slug: string): Tag | undefined
   artist(slug: string): Artist | undefined
+  brand(slug: string): Brand | undefined
+  allBrands(): Brand[]
+  /** Niches a brand belongs to (brand_of edges; tags excluded). */
+  nichesOfBrand(brandSlug: string): string[]
   /** Directly connected niches (not parents/children), labeled by relationship. */
   adjacent(nicheSlug: string): Adjacent[]
   /** Less obvious niches two hops away, best first. Never direct neighbours. */
@@ -287,6 +291,9 @@ export function buildTaxonomy(input: BuildInput): Taxonomy {
     tagsOf: (slug) => pick(out(slug, "tagged"), tags),
     tag: (slug) => tags.get(slug),
     artist: (slug) => artists.get(slug),
+    brand: (slug) => brands.get(slug),
+    allBrands: () => [...brands.values()],
+    nichesOfBrand: (slug) => out(slug, "brand_of").filter(isNiche),
     adjacent,
     recommend,
     featured: () =>

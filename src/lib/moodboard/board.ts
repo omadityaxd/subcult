@@ -54,13 +54,12 @@ const FEED_SOURCES: Partial<Record<PinSource, FeedItem["source"]>> = {
   arena: "arena",
   unsplash: "unsplash",
   pexels: "pexels",
+  // Artist photos are scene imagery (tap opens the artist); album art and
+  // video stills stay on the board, in the feed they'd repeat other cards.
+  artist: "subcult",
 }
 
-/**
- * External pins as For You items (the "moodboard" share of the mix). Our own
- * album art and video stills stay on the board: in the feed they'd just
- * repeat the music and video cards.
- */
+/** Pins as For You items: the "moodboard" share of the mix. */
 export function moodboardFeedItems(pins: readonly Pin[]): FeedItem[] {
   return pins.flatMap((pin) => {
     const source = FEED_SOURCES[pin.source]
@@ -83,6 +82,7 @@ export function moodboardFeedItems(pins: readonly Pin[]): FeedItem[] {
           width: pin.width,
           height: pin.height,
           downloadLocation: pin.downloadLocation ?? null,
+          artistSlug: pin.source === "artist" ? pin.id.replace(/^artist:/, "") : null,
         },
       },
     ]

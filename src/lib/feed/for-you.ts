@@ -7,6 +7,7 @@ import type { FeedItem } from "./types"
 
 const ARTIST_CARDS = 6
 const DISCOVERY_CARDS = 6
+const BRAND_CARDS = 8
 
 /** Verified artists as in-app cards (tap → artist sheet, not Spotify). */
 export function artistCards(slug: string): FeedItem[] {
@@ -23,6 +24,41 @@ export function artistCards(slug: string): FeedItem[] {
       publishedAt: null,
       score: 1,
       meta: { artistSlug: artist.slug },
+    }))
+}
+
+/**
+ * A niche's brands: its own, then those of the niches that dress it ("The fit"
+ * edges), so a music niche like rage still surfaces what its scene wears.
+ */
+export function nicheBrands(slug: string) {
+  const fits = TAXONOMY.adjacent(slug)
+    .filter((adjacent) => adjacent.label === "The fit")
+    .map((adjacent) => adjacent.slug)
+  const seen = new Set<string>()
+  return [slug, ...fits]
+    .flatMap((niche) => TAXONOMY.brandsOf(niche))
+    .filter((brand) => !seen.has(brand.slug) && seen.add(brand.slug))
+}
+
+/**
+ * The niche's verified brands as in-app cards (tap → brand sheet). Text-led:
+ * brand logos are never used as artwork.
+ */
+export function brandCards(slug: string): FeedItem[] {
+  return nicheBrands(slug)
+    .slice(0, BRAND_CARDS)
+    .map((brand) => ({
+      id: `subcult:brand:${brand.slug}`,
+      source: "subcult",
+      type: "brand",
+      title: brand.name,
+      subtitle: brand.description,
+      imageUrl: null,
+      url: `/n/${slug}`,
+      publishedAt: null,
+      score: 1,
+      meta: { brandSlug: brand.slug },
     }))
 }
 
@@ -99,8 +135,8 @@ export function nicheMix(slug: string): MixShares {
 
 /**
  * A niche's For You stream: every content kind, interleaved to hit the
- * niche's shares. Extra buckets (moodboard pins, shop listings) slot in
- * as those sources come online.
+ * niche's shares. Fashion leads (brands now; fits and archive listings as
+ * they come in), music is the capped soundtrack layer.
  */
 export function buildForYou(
   slug: string,
@@ -118,10 +154,18 @@ export function buildForYou(
       music: [...spotifyItems, ...soundtrack],
       video: withVideoNiches(feed.bySource.youtube ?? [], slug),
       news: feed.bySource.news ?? [],
-      artists: artistCards(slug),
-      discovery: discoveryCards(slug),
+      fashion: [...(extra.fashion ?? []), ...brandCards(slug)],
+      // Artists are scene people here: a little discovery, not more music.
+      discovery: interleaveLists(discoveryCards(slug), artistCards(slug)),
     },
     nicheMix(slug),
     limit,
+  )
+}
+
+/** a1, b1, a2, b2, …: keeps two card families alternating inside one bucket. */
+function interleaveLists<T>(a: readonly T[], b: readonly T[]): T[] {
+  return Array.from({ length: Math.max(a.length, b.length) }, (_, i) => [a[i], b[i]]).flatMap(
+    (pair) => pair.filter((value): value is T => value !== undefined),
   )
 }

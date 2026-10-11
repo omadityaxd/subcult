@@ -65,7 +65,7 @@ export async function LiveForYou({ profile }: { profile: NicheProfile }) {
   // Every kind of content, interleaved to the niche's target mix.
   const items = buildForYou(profile.slug, feed, {
     music: soundtrack ? soundtrackFeedItems(soundtrack) : [],
-    pin: moodboardFeedItems(board.pins),
+    moodboard: moodboardFeedItems(board.pins),
   })
   if (items.length === 0) return null
   const tagged = tagFeedItems(items, TAXONOMY.tagsOf(profile.slug))

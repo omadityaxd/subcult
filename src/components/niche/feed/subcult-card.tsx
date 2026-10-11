@@ -6,12 +6,14 @@ import Link from "next/link"
 import { useState } from "react"
 import { Cover } from "@/components/ds/cover"
 import type { FeedItem } from "@/lib/feed/types"
+import { BrandSheet } from "@/components/brand/brand-sheet"
 import { ArtistSheet } from "../artists-row"
 
 /** Our own cards in the feed: artists (in-app sheet), niches and quick actions. */
 export function SubcultCard({ item }: { item: FeedItem }) {
   if (item.type === "artist") return <ArtistCard item={item} />
   if (item.type === "prompt") return <PromptCard item={item} />
+  if (item.type === "brand") return <BrandCard item={item} />
   return <NicheTile item={item} />
 }
 
@@ -57,6 +59,42 @@ function ArtistCard({ item }: { item: FeedItem }) {
           artist={{ slug, name: item.title, imageUrl: item.imageUrl }}
           onClose={() => setOpen(false)}
         />
+      ) : null}
+    </>
+  )
+}
+
+/** A brand, set in type (never its logo): tap for the brand sheet. */
+function BrandCard({ item }: { item: FeedItem }) {
+  const [open, setOpen] = useState(false)
+  const slug = typeof item.meta.brandSlug === "string" ? item.meta.brandSlug : null
+  return (
+    <>
+      <button
+        type="button"
+        onClick={() => setOpen(true)}
+        className="group block w-full rounded-2xl border border-border bg-card p-5 text-left transition-colors hover:bg-muted active:scale-[0.99]"
+      >
+        <span className="block text-overline font-medium text-muted-foreground uppercase">
+          Brand
+        </span>
+        <span className="mt-2 block font-serif text-title-1 leading-none italic">{item.title}</span>
+        {item.subtitle ? (
+          <span className="mt-3 line-clamp-3 block text-footnote text-muted-foreground">
+            {item.subtitle}
+          </span>
+        ) : null}
+        <span className="mt-4 inline-flex items-center gap-1.5 text-footnote font-semibold">
+          Open brand
+          <ArrowRight
+            aria-hidden
+            className="size-4 transition-transform group-hover:translate-x-0.5"
+            strokeWidth={1.75}
+          />
+        </span>
+      </button>
+      {open && slug ? (
+        <BrandSheet brand={{ slug, name: item.title }} onClose={() => setOpen(false)} />
       ) : null}
     </>
   )

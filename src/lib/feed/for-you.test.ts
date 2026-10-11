@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest"
 import { artistCards, buildForYou, discoveryCards, nicheMix } from "./for-you"
-import { MIX_KINDS, measureMix, mixKind } from "./mix"
+import { MIX_KINDS, measureMix } from "./mix"
 import type { FeedItem, FeedSource } from "./types"
 
 const fake = (source: FeedSource, type: FeedItem["type"], n: number): FeedItem[] =>
@@ -32,12 +32,13 @@ describe("For You builder", () => {
     expect(cards.filter((c) => c.type === "niche").every((c) => c.url.startsWith("/n/"))).toBe(true)
   })
 
-  it("uses the fashion mix for fashion niches and the music mix for music niches", () => {
-    expect(nicheMix("vamp").shop).toBeGreaterThan(nicheMix("rage").shop)
-    expect(nicheMix("rage").music).toBeGreaterThan(nicheMix("vamp").music)
+  it("uses the fashion mix for fashion niches; music stays capped everywhere", () => {
+    expect(nicheMix("vamp").fashion).toBeGreaterThan(nicheMix("rage").fashion)
+    expect(nicheMix("rage").music).toBeLessThanOrEqual(0.2)
+    expect(nicheMix("vamp").music).toBeLessThanOrEqual(0.2)
   })
 
-  it("mixes sources to the niche's shares, redistributing missing kinds", () => {
+  it("leads with fashion and keeps music to the soundtrack share, even in a music niche", () => {
     const feed = buildForYou(
       "rage",
       {
@@ -51,12 +52,11 @@ describe("For You builder", () => {
       20,
     )
     const measured = measureMix(feed)
-    expect(measured.pin).toBe(0)
-    expect(measured.shop).toBe(0)
-    expect(feed).toHaveLength(20)
-    // Music niches lead with music.
+    expect(measured.moodboard).toBe(0)
+    expect(measured.music).toBeLessThanOrEqual(0.2 + 1e-9)
+    // Brand cards are always there: fashion is the largest kind.
     const top = [...MIX_KINDS].sort((a, b) => measured[b] - measured[a])[0]
-    expect(top).toBe("music")
-    expect(feed.slice(0, 3).some((item) => mixKind(item) === "music")).toBe(true)
+    expect(top).toBe("fashion")
+    expect(feed.some((item) => item.type === "brand")).toBe(true)
   })
 })

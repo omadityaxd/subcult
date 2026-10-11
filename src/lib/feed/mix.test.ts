@@ -4,6 +4,9 @@ import {
   MAX_RUN,
   MIX_KINDS,
   type MixKind,
+  WINDOW,
+  liveTargets,
+  maxWindowShare,
   measureMix,
   mixFeed,
   mixKind,
@@ -12,12 +15,11 @@ import {
 import type { FeedItem, FeedSource } from "./types"
 
 const SOURCE: Record<MixKind, { source: FeedSource; type: FeedItem["type"] }> = {
+  fashion: { source: "ebay", type: "product" },
+  moodboard: { source: "arena", type: "pin" },
   music: { source: "spotify", type: "track" },
-  pin: { source: "arena", type: "pin" },
-  shop: { source: "ebay", type: "product" },
   video: { source: "youtube", type: "video" },
   news: { source: "news", type: "article" },
-  artists: { source: "subcult", type: "artist" },
   discovery: { source: "subcult", type: "niche" },
 }
 
@@ -34,7 +36,8 @@ const item = (kind: MixKind, i: number): FeedItem => ({
 })
 
 const bucket = (kind: MixKind, n: number) => Array.from({ length: n }, (_, i) => item(kind, i))
-const ample = () => Object.fromEntries(MIX_KINDS.map((kind) => [kind, bucket(kind, 60)]))
+const ample = (): Partial<Record<MixKind, FeedItem[]>> =>
+  Object.fromEntries(MIX_KINDS.map((kind) => [kind, bucket(kind, 80)]))
 
 const longestRun = (items: readonly FeedItem[]) => {
   let best = 0
@@ -47,13 +50,24 @@ const longestRun = (items: readonly FeedItem[]) => {
 }
 
 describe("resolveMix", () => {
-  it("normalizes default + branch + niche overrides", () => {
-    const fashion = resolveMix("underground-fashion")
-    expect(fashion.shop).toBeGreaterThan(DEFAULT_MIX.shop)
-    expect(fashion.music).toBeLessThan(DEFAULT_MIX.music)
-    expect(resolveMix("underground-music").music).toBeGreaterThan(DEFAULT_MIX.music)
-    const total = MIX_KINDS.reduce((sum, kind) => sum + fashion[kind], 0)
+  it("is culture-first by default: fashion leads, music is the soundtrack", () => {
+    expect(DEFAULT_MIX).toEqual({
+      fashion: 0.35,
+      moodboard: 0.2,
+      music: 0.2,
+      video: 0.1,
+      news: 0.1,
+      discovery: 0.05,
+    })
+    const total = MIX_KINDS.reduce((sum, kind) => sum + DEFAULT_MIX[kind], 0)
     expect(total).toBeCloseTo(1)
+  })
+
+  it("leans fashion niches further into fits and never raises music anywhere", () => {
+    const fashion = resolveMix("underground-fashion")
+    expect(fashion.fashion).toBeGreaterThan(DEFAULT_MIX.fashion)
+    expect(fashion.music).toBeLessThanOrEqual(DEFAULT_MIX.music)
+    expect(resolveMix("underground-music").music).toBeCloseTo(DEFAULT_MIX.music)
     expect(resolveMix(undefined, { video: 0 }).video).toBe(0)
   })
 })
@@ -73,61 +87,90 @@ describe("mixFeed", () => {
   })
 
   it("never puts more than two of a kind in a row while others remain", () => {
-    const feed = mixFeed(ample(), resolveMix("underground-music"), 120)
+    const feed = mixFeed(ample(), resolveMix("underground-fashion"), 120)
     expect(longestRun(feed)).toBeLessThanOrEqual(MAX_RUN)
-  })
-
-  it("redistributes a missing source's share instead of padding", () => {
-    const buckets = ample()
-    delete buckets.shop
-    delete buckets.pin
-    const shares = resolveMix(undefined)
-    const feed = mixFeed(buckets, shares, 50)
-    const measured = measureMix(feed)
-    expect(measured.shop).toBe(0)
-    expect(measured.pin).toBe(0)
-    // Freed 30% spreads proportionally (music 0.30 / 0.70 ≈ 43%), but video is
-    // held at its 10% cap, and that excess goes to the rest too: music ≈ 45%.
-    expect(Math.abs(measured.music - 0.45)).toBeLessThanOrEqual(0.05)
-    expect(measured.video).toBeLessThanOrEqual(0.1 + 1e-9)
-    expect(feed).toHaveLength(50)
   })
 
   it("keeps rank order within a kind and stops when everything runs out", () => {
     const feed = mixFeed(
-      { music: bucket("music", 3), news: bucket("news", 2) },
-      resolveMix(undefined),
+      { fashion: bucket("fashion", 3), moodboard: bucket("moodboard", 2) },
+      DEFAULT_MIX,
     )
-    expect(feed.filter((i) => mixKind(i) === "music").map((i) => i.id)).toEqual([
-      "music:0",
-      "music:1",
-      "music:2",
+    expect(feed.filter((i) => mixKind(i) === "fashion").map((i) => i.id)).toEqual([
+      "fashion:0",
+      "fashion:1",
+      "fashion:2",
     ])
     expect(feed).toHaveLength(5)
   })
 })
 
-describe("caps", () => {
-  it("never lets redistribution push video past 10%", () => {
+describe("music is the soundtrack layer", () => {
+  it("never exceeds 20% of any 20-item page, even when everything else is thin", () => {
     const feed = mixFeed(
-      { video: bucket("video", 40), news: bucket("news", 6), artists: bucket("artists", 6) },
-      resolveMix(undefined),
-      40,
+      {
+        music: bucket("music", 200),
+        fashion: bucket("fashion", 6),
+        news: bucket("news", 4),
+        discovery: bucket("discovery", 3),
+      },
+      DEFAULT_MIX,
+      60,
     )
-    const videos = feed.filter((i) => mixKind(i) === "video").length
-    expect(videos / feed.length).toBeLessThanOrEqual(0.15) // ≤10% plus the 1-item floor on short lists
-    expect(feed.length).toBeLessThan(40) // stops rather than padding with video
+    expect(maxWindowShare(feed, "music")).toBeLessThanOrEqual(0.2 + 1e-9)
+    // Stops short rather than padding with music.
+    expect(feed.length).toBeLessThan(60)
+  })
+
+  it("redistributes a missing source's share to fashion and moodboard, never to music", () => {
+    const buckets = ample()
+    delete buckets.video
+    delete buckets.news
+    const feed = mixFeed(buckets, DEFAULT_MIX, 100)
+    const measured = measureMix(feed)
+    expect(measured.music).toBeLessThanOrEqual(0.2 + 1e-9)
+    // Freed 20% splits 35:20 over fashion and moodboard.
+    expect(Math.abs(measured.fashion - (0.35 + 0.2 * (0.35 / 0.55)))).toBeLessThanOrEqual(0.05)
+    expect(Math.abs(measured.moodboard - (0.2 + 0.2 * (0.2 / 0.55)))).toBeLessThanOrEqual(0.05)
+  })
+
+  it("liveTargets only sends freed share to visual kinds while any are live", () => {
+    const targets = liveTargets(DEFAULT_MIX, ["fashion", "music", "news"])
+    expect(targets.get("music")).toBeCloseTo(0.2)
+    expect(targets.get("news")).toBeCloseTo(0.1)
+    expect(targets.get("fashion")).toBeCloseTo(0.7)
+  })
+
+  it("falls back to the other non-music kinds when no visual kind is left", () => {
+    const targets = liveTargets(DEFAULT_MIX, ["music", "news", "discovery"])
+    expect(targets.get("music")).toBeCloseTo(0.2)
+    expect((targets.get("news") ?? 0) + (targets.get("discovery") ?? 0)).toBeCloseTo(0.8)
+  })
+})
+
+describe("caps", () => {
+  it("keeps video within 10% of any window", () => {
+    const feed = mixFeed(
+      { video: bucket("video", 40), fashion: bucket("fashion", 30), news: bucket("news", 10) },
+      DEFAULT_MIX,
+      60,
+    )
+    expect(maxWindowShare(feed, "video")).toBeLessThanOrEqual(0.1 + 1e-9)
+    expect(WINDOW).toBe(20)
   })
 })
 
 describe("mixKind", () => {
   it("counts tracks and playlists as music whatever the source", () => {
-    expect(mixKind({ ...item("artists", 0), type: "track" })).toBe("music")
+    expect(mixKind({ ...item("discovery", 0), type: "track" })).toBe("music")
   })
 
-  it("files fit pics under artists & fits, other pins under moodboard", () => {
-    expect(mixKind({ ...item("pin", 0), meta: { fit: true } })).toBe("artists")
-    expect(mixKind(item("pin", 0))).toBe("pin")
-    expect(mixKind(item("discovery", 0))).toBe("discovery")
+  it("files fits, brands, archive and fit pics under fashion; other pins under moodboard", () => {
+    expect(mixKind({ ...item("discovery", 0), type: "fit" })).toBe("fashion")
+    expect(mixKind({ ...item("discovery", 0), type: "brand" })).toBe("fashion")
+    expect(mixKind(item("fashion", 0))).toBe("fashion")
+    expect(mixKind({ ...item("moodboard", 0), meta: { fit: true } })).toBe("fashion")
+    expect(mixKind(item("moodboard", 0))).toBe("moodboard")
+    expect(mixKind({ ...item("discovery", 0), type: "artist" })).toBe("discovery")
   })
 })
