@@ -40,6 +40,33 @@ const CLUSTER = [
 ]
 
 describe("taxonomy data", () => {
+  it("only links brands to verified artists, each with a source", () => {
+    for (const brand of TAXONOMY.allBrands()) {
+      for (const entry of brand.wornBy) {
+        expect(TAXONOMY.artist(entry.artist), `${brand.slug} → ${entry.artist}`).toBeDefined()
+        expect(entry.source.startsWith("https://")).toBe(true)
+      }
+    }
+    expect(TAXONOMY.brand("raf-simons")?.wornBy.length).toBeGreaterThan(0)
+  })
+
+  it("covers the brands the direction brief names (that could be verified)", () => {
+    for (const slug of [
+      "rick-owens",
+      "raf-simons",
+      "undercover",
+      "number-nine",
+      "vivienne-westwood",
+      "chrome-hearts",
+      "balenciaga",
+      "vetements",
+      "vivet",
+    ]) {
+      expect(TAXONOMY.brand(slug), slug).toBeDefined()
+      expect(TAXONOMY.nichesOfBrand(slug).length, slug).toBeGreaterThan(0)
+    }
+  })
+
   it("places every cluster niche under a hub branch", () => {
     const orphans = CLUSTER.filter((slug) => !TAXONOMY.branchOf(slug))
     expect(orphans).toEqual([])

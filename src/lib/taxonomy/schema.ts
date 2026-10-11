@@ -131,6 +131,10 @@ export const brandSchema = z.object({
   officialUrl: z.string().url().nullable(),
   /** Niches and tags this brand belongs to. */
   linkedTo: z.array(slug).min(1),
+  /** Verified artists publicly associated with wearing it, each with its source. */
+  wornBy: z
+    .array(z.object({ artist: slug, note: z.string().min(3).max(120), source: z.string().url() }))
+    .default([]),
 })
 
 export const communitySchema = z.object({

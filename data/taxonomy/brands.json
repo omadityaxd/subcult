@@ -11,6 +11,18 @@
       "vamp",
       "underground-sneaker-culture",
       "dark-streetwear"
+    ],
+    "wornBy": [
+      {
+        "artist": "playboi-carti",
+        "note": "Wore all-black Rick Owens for his 2021 Crack Magazine interview",
+        "source": "https://crackmagazine.net/article/profiles/playboi-carti-interview/2"
+      },
+      {
+        "artist": "travis-scott",
+        "note": "Rick Owens on Saturday Night Live",
+        "source": "https://highsnobiety.com/p/travis-scott-snl-rick-owens-outfit"
+      }
     ]
   },
   {
@@ -27,7 +39,14 @@
     "aliases": [],
     "description": "LA label known for sterling-silver crosses, gothic hardware and leather.",
     "officialUrl": "https://www.chromehearts.com/",
-    "linkedTo": ["vamp", "graphic-gothic-streetwear", "statement-accessories"]
+    "linkedTo": ["vamp", "graphic-gothic-streetwear", "statement-accessories"],
+    "wornBy": [
+      {
+        "artist": "drake",
+        "note": "Certified Lover Boy collaboration (2021)",
+        "source": "https://stockx.com/news/the-drake-chrome-hearts-connection/"
+      }
+    ]
   },
   {
     "slug": "hellstar",
@@ -75,7 +94,29 @@
     "aliases": [],
     "description": "Belgian designer whose past collections are among the most hunted in archive menswear.",
     "officialUrl": "https://www.rafsimons.com/",
-    "linkedTo": ["archive-fashion"]
+    "linkedTo": ["archive-fashion"],
+    "wornBy": [
+      {
+        "artist": "a-ap-rocky",
+        "note": "\"Raf\" (2017), a tribute to the designer",
+        "source": "https://en.wikipedia.org/wiki/Raf_(song)"
+      },
+      {
+        "artist": "frank-ocean",
+        "note": "Two verses on \"Raf\" (2017)",
+        "source": "https://en.wikipedia.org/wiki/Raf_(song)"
+      },
+      {
+        "artist": "playboi-carti",
+        "note": "On \"Raf\" (2017)",
+        "source": "https://en.wikipedia.org/wiki/Raf_(song)"
+      },
+      {
+        "artist": "lil-uzi-vert",
+        "note": "On \"Raf\" (2017)",
+        "source": "https://en.wikipedia.org/wiki/Raf_(song)"
+      }
+    ]
   },
   {
     "slug": "helmut-lang",
@@ -227,6 +268,37 @@
     "aliases": [],
     "description": "Paris house whose oversized silhouettes shaped the underground uniform.",
     "officialUrl": "https://www.balenciaga.com/",
-    "linkedTo": ["vamp", "dark-streetwear"]
+    "linkedTo": ["vamp", "dark-streetwear"],
+    "wornBy": [
+      {
+        "artist": "playboi-carti",
+        "note": "Balenciaga in his viral gas-station fit",
+        "source": "https://www.complex.com/style/a/jaelaniturnerwilliams/playboi-carti-viral-outfit-balenciaga-tom-ford-nike"
+      }
+    ]
+  },
+  {
+    "slug": "number-nine",
+    "name": "Number (N)ine",
+    "aliases": ["Number Nine", "Number N ine"],
+    "description": "Takahiro Miyashita's Tokyo label (1997-2009): rock-and-grunge tailoring with a gothic edge, Kurt Cobain its constant muse. Its archive is among the most collected in Japanese fashion.",
+    "officialUrl": null,
+    "linkedTo": ["archive-fashion", "dark-streetwear"]
+  },
+  {
+    "slug": "vivienne-westwood",
+    "name": "Vivienne Westwood",
+    "aliases": ["Westwood"],
+    "description": "The London label that dressed punk from 430 King's Road (Let It Rock, SEX, Seditionaries). The orb logo dates to 1986; the orb pearls became a Y2K-revival staple.",
+    "officialUrl": "https://www.viviennewestwood.com/",
+    "linkedTo": ["archive-fashion", "mcbling-revival"]
+  },
+  {
+    "slug": "vetements",
+    "name": "Vetements",
+    "aliases": [],
+    "description": "Founded in 2014 by Demna and Guram Gvasalia as a design collective: oversized proportions, reconstructed garments and reworked everyday clothing.",
+    "officialUrl": "https://www.vetements.com/",
+    "linkedTo": ["dark-streetwear", "underground-graphic-streetwear"]
   }
 ]

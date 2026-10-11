@@ -2,6 +2,7 @@
 
 import { ArrowUpRight, Plus } from "lucide-react"
 import { type CSSProperties, useState } from "react"
+import { BrandSheet } from "@/components/brand/brand-sheet"
 import { ResponsiveSheet } from "@/components/ds/responsive-sheet"
 import { SectionHeader } from "@/components/ds/section-header"
 import type { NicheBrand } from "@/lib/engine/profile-schema"
@@ -19,6 +20,8 @@ interface DripSectionProps {
    * null). These link to the official site + resale only, never marketplaces.
    */
   brandSites?: Readonly<Record<string, string | null>>
+  /** Brands the taxonomy knows (display name → slug) open their in-app brand sheet. */
+  brandSlugs?: Readonly<Record<string, string>>
 }
 
 type ShopTarget = { query: string; title: string; description: string; brand?: boolean }
@@ -33,8 +36,10 @@ export function DripSection({
   themeStyle,
   extraStores = [],
   brandSites = {},
+  brandSlugs = {},
 }: DripSectionProps) {
   const [target, setTarget] = useState<ShopTarget | null>(null)
+  const [brandSheet, setBrandSheet] = useState<{ slug: string; name: string } | null>(null)
 
   return (
     <div className="space-y-12">
@@ -46,12 +51,14 @@ export function DripSection({
               <button
                 type="button"
                 onClick={() =>
-                  setTarget({
-                    query: brand.name,
-                    title: brand.name,
-                    description: brand.why,
-                    brand: true,
-                  })
+                  brandSlugs[brand.name]
+                    ? setBrandSheet({ slug: brandSlugs[brand.name], name: brand.name })
+                    : setTarget({
+                        query: brand.name,
+                        title: brand.name,
+                        description: brand.why,
+                        brand: true,
+                      })
                 }
                 className="flex h-full w-full flex-col rounded-2xl border border-border bg-card p-5 text-left transition-[transform,background-color] duration-200 hover:bg-muted active:scale-[0.98]"
               >
@@ -134,6 +141,7 @@ export function DripSection({
           </ul>
         ) : null}
       </ResponsiveSheet>
+      {brandSheet ? <BrandSheet brand={brandSheet} onClose={() => setBrandSheet(null)} /> : null}
     </div>
   )
 }

@@ -109,6 +109,12 @@ function NicheWorld({
       return known ? [[brand.name, known.officialUrl]] : []
     }),
   )
+  const brandSlugs = Object.fromEntries(
+    profile.brands.flatMap((brand) => {
+      const node = TAXONOMY.resolve(brand.name, "brand")
+      return node && TAXONOMY.brand(node) ? [[brand.name, node]] : []
+    }),
+  )
   const artists = TAXONOMY.artistsOf(profile.slug).map(({ slug, name, imageUrl }) => ({
     slug,
     name,
@@ -179,6 +185,7 @@ function NicheWorld({
                       themeStyle={theme.style}
                       extraStores={curation?.extraStores}
                       brandSites={brandSites}
+                      brandSlugs={brandSlugs}
                     />
                   </div>
                 ),

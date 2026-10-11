@@ -2,6 +2,7 @@ import "server-only"
 import { cache } from "react"
 import { cached } from "@/lib/feed/cache"
 import { nicheBrands } from "@/lib/feed/for-you"
+import { TAXONOMY } from "@/lib/niches/catalog"
 import type { FeedItem } from "@/lib/feed/types"
 import { env } from "@/lib/env"
 import { errorMessage, log } from "@/lib/log"
@@ -97,4 +98,12 @@ export async function getListingDetail(id: string): Promise<ListingDetail | null
     { onStoreError },
   )
   return value
+}
+
+/** One brand's live archive (brand sheet). Null without eBay. */
+export async function getBrandArchive(brandSlug: string): Promise<BrandArchive | null> {
+  const credentials = ebayCredentials()
+  const brand = TAXONOMY.brand(brandSlug)
+  if (!credentials || !brand) return null
+  return brandArchive(brand, await brandListings(brand, credentials))
 }

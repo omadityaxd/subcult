@@ -166,3 +166,34 @@ export const getMoodboard = cache(async (slug: string): Promise<Moodboard> => {
     return { slug, pins: [], disabled: [] }
   }
 })
+
+const BRAND_PINS = 9
+
+/**
+ * A brand's visual board: Unsplash/Pexels photography for the brand name
+ * (never its logo as artwork). Empty when neither key is configured.
+ */
+export async function getBrandBoard(brandName: string, brandSlug: string): Promise<Pin[]> {
+  const jobs: (() => Promise<Pin[]>)[] = []
+  if (env.UNSPLASH_ACCESS_KEY) {
+    const key = env.UNSPLASH_ACCESS_KEY
+    jobs.push(() => unsplashPins(`${brandName} fashion`, { key, per: BRAND_PINS }))
+  }
+  if (env.PEXELS_API_KEY) {
+    const key = env.PEXELS_API_KEY
+    jobs.push(() => pexelsPins(`${brandName} fashion`, { key, per: BRAND_PINS }))
+  }
+  if (jobs.length === 0) return []
+  try {
+    const { value } = await cached(
+      getCacheStore(),
+      `subcult:moodboard:v1:brand:${brandSlug}`,
+      BOARD_POLICY,
+      async () => assembleBoard(await Promise.all(jobs.map((job) => job().catch(() => [])))),
+    )
+    return value.slice(0, BRAND_PINS)
+  } catch (error) {
+    log.warn("moodboard.brand_failed", { brandSlug, error: errorMessage(error) })
+    return []
+  }
+}
