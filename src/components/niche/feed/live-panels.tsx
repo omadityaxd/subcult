@@ -1,5 +1,8 @@
 import { connection } from "next/server"
 import { cache } from "react"
+import { ExternalChips } from "@/components/ds/external-chips"
+import { moodboardFeedItems } from "@/lib/moodboard/board"
+import { getMoodboard } from "@/lib/moodboard/server"
 import { MediaImage } from "@/components/ds/media-image"
 import { SectionHeader } from "@/components/ds/section-header"
 import { Skeleton } from "@/components/ui/skeleton"
@@ -15,7 +18,6 @@ import { cn } from "@/lib/utils"
 import { LinkList } from "../link-card"
 import { NicheAutoplay } from "@/components/music/niche-autoplay"
 import { type ShelfNiche, SoundtrackShelf } from "@/components/music/soundtrack-shelf"
-import { SpotifyLink } from "@/components/music/spotify-link"
 import { PlayableList, SoundtrackHeader, TrackList } from "@/components/music/track-list"
 import type { PlayableTrack } from "@/lib/music/playable"
 import { soundtrackFeedItems } from "@/lib/music/soundtrack"
@@ -55,10 +57,15 @@ function Masonry({
 
 /** The ranked feed, with the niche's tag chips (only those that match something) as filters. */
 export async function LiveForYou({ profile }: { profile: NicheProfile }) {
-  const [feed, soundtrack] = await Promise.all([getNicheFeed(profile), getSoundtrack(profile.slug)])
+  const [feed, soundtrack, board] = await Promise.all([
+    getNicheFeed(profile),
+    getSoundtrack(profile.slug),
+    getMoodboard(profile.slug),
+  ])
   // Every kind of content, interleaved to the niche's target mix.
   const items = buildForYou(profile.slug, feed, {
     music: soundtrack ? soundtrackFeedItems(soundtrack) : [],
+    pin: moodboardFeedItems(board.pins),
   })
   if (items.length === 0) return null
   const tagged = tagFeedItems(items, TAXONOMY.tagsOf(profile.slug))
@@ -108,11 +115,12 @@ export async function LiveSounds({ profile }: { profile: NicheProfile }) {
           />
         </section>
       ) : null}
-      <SearchChips
+      <ExternalChips
         label="Search Spotify"
         links={profile.spotifyQueries.map((query) => ({
           title: query,
           href: spotify.playlistSearch(query),
+          site: "Spotify",
         }))}
       />
     </div>
@@ -136,33 +144,6 @@ function soundtrackShelf(slug: string): ShelfNiche[] {
     .slice(0, SHELF_SIZE)
 }
 
-/** External searches as a compact secondary row, never as cards. */
-function SearchChips({
-  label,
-  links,
-}: {
-  label: string
-  links: readonly { title: string; href: string }[]
-}) {
-  if (links.length === 0) return null
-  return (
-    <section aria-label={label} className="flex flex-wrap items-center gap-2">
-      <span className="mr-1 text-overline font-medium text-muted-foreground uppercase">
-        {label}
-      </span>
-      {links.map((link) => (
-        <SpotifyLink
-          key={link.href}
-          href={link.href}
-          label={link.title}
-          className="border border-border"
-        />
-      ))}
-    </section>
-  )
-}
-
-/** Starts the niche's soundtrack when allowed, else offers a tap-to-play pill. */
 export async function NicheSoundtrack({ slug }: { slug: string }) {
   const soundtrack = await getSoundtrack(slug)
   return soundtrack && soundtrack.tracks.length > 0 ? (

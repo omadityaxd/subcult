@@ -5,11 +5,13 @@ import {
   type KeyboardEvent,
   type PointerEvent,
   type ReactNode,
+  useEffect,
   useId,
   useRef,
   useState,
 } from "react"
 import { gestures, springs } from "@/lib/design/tokens"
+import { useNicheUi } from "@/lib/niches/niche-ui-store"
 import { cn } from "@/lib/utils"
 
 export const NICHE_TABS = [
@@ -49,6 +51,15 @@ export function NicheTabs({ panels }: NicheTabsProps) {
       bar.scrollIntoView({ block: "start", behavior: "smooth" })
     }
   }
+
+  // Other parts of the page can switch tabs ("shop this color" → the shop).
+  const { requestedTab } = useNicheUi()
+  useEffect(() => {
+    const id = NICHE_TABS.find((tab) => tab.id === requestedTab?.id)?.id
+    // An external request is an event, not derived state: apply it once.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    if (id) select(id)
+  }, [requestedTab])
 
   function step(direction: 1 | -1) {
     const index = NICHE_TABS.findIndex((tab) => tab.id === active)

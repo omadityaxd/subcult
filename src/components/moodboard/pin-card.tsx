@@ -1,0 +1,65 @@
+"use client"
+
+import { useState } from "react"
+import { MediaImage } from "@/components/ds/media-image"
+import type { FeedItem } from "@/lib/feed/types"
+import type { Pin, PinSource } from "@/lib/moodboard/types"
+import { PinSheet } from "./pin-sheet"
+
+const num = (value: unknown) => (typeof value === "number" ? value : null)
+const str = (value: unknown) => (typeof value === "string" ? value : null)
+
+/** A moodboard feed item back as a pin (meta carries what the sheet needs). */
+export function feedItemPin(item: FeedItem): Pin {
+  const creditUrl = str(item.meta.creditUrl)
+  return {
+    id: item.id.replace(/^pin:/, ""),
+    source: item.source as PinSource,
+    imageUrl: item.imageUrl ?? "",
+    largeUrl: str(item.meta.largeUrl) ?? item.imageUrl ?? "",
+    width: num(item.meta.width),
+    height: num(item.meta.height),
+    color: str(item.meta.color),
+    title: item.title,
+    credit: item.subtitle && creditUrl ? { label: item.subtitle, url: creditUrl } : null,
+    pageUrl: item.url,
+    downloadLocation: str(item.meta.downloadLocation) ?? undefined,
+  }
+}
+
+/** Image-only feed card: tap opens the pin sheet in-app. */
+export function PinCard({ item }: { item: FeedItem }) {
+  const [open, setOpen] = useState<Pin | null>(null)
+  const pin = feedItemPin(item)
+  return (
+    <article>
+      <button
+        type="button"
+        onClick={() => setOpen(pin)}
+        aria-label={pin.title ?? "Open pin"}
+        className="relative block w-full overflow-hidden rounded-2xl bg-muted transition-transform active:scale-[0.98]"
+        style={{
+          aspectRatio: pin.width && pin.height ? `${pin.width} / ${pin.height}` : "4 / 5",
+          backgroundColor: pin.color ?? undefined,
+        }}
+      >
+        <MediaImage src={pin.imageUrl} alt="" sizes="(max-width: 640px) 100vw, 33vw" />
+      </button>
+      {pin.credit ? (
+        <p className="mt-1.5 truncate px-0.5 text-caption text-muted-foreground">
+          {pin.credit.label}
+        </p>
+      ) : null}
+      {open ? (
+        <PinSheet
+          key={open.id}
+          pin={open}
+          pins={[pin]}
+          pinterestQuery={null}
+          onOpen={setOpen}
+          onClose={() => setOpen(null)}
+        />
+      ) : null}
+    </article>
+  )
+}

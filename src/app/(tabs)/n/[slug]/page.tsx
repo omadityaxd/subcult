@@ -27,7 +27,8 @@ import { NicheTabs } from "@/components/niche/niche-tabs"
 import { CommunitySection } from "@/components/niche/sections/community-section"
 import { DripSection } from "@/components/niche/sections/drip-section"
 import { ForYouSection } from "@/components/niche/sections/for-you-section"
-import { MoodboardSection } from "@/components/niche/sections/moodboard-section"
+import { LiveMoodboard } from "@/components/moodboard/live-moodboard"
+import { TintRoot } from "@/components/niche/tint-root"
 import { EmptyState } from "@/components/shell/empty-state"
 import { PullToRefresh } from "@/components/shell/pull-to-refresh"
 import { Screen } from "@/components/shell/screen"
@@ -114,7 +115,7 @@ function NicheWorld({
 
   return (
     <PullToRefresh>
-      <div data-niche="" data-niche-source={source} style={theme.style}>
+      <TintRoot slug={profile.slug} baseStyle={theme.style} source={source}>
         <NicheHero
           profile={profile}
           imageUrl={nicheImage(profile.slug)}
@@ -183,15 +184,9 @@ function NicheWorld({
                   />
                 ),
                 moodboard: (
-                  <MoodboardSection
-                    profile={{
-                      palette: profile.palette,
-                      vibeWords: profile.vibeWords,
-                      pinterestQueries: profile.pinterestQueries,
-                      instagramHashtags: profile.instagramHashtags,
-                      tiktokQueries: profile.tiktokQueries,
-                    }}
-                  />
+                  <Suspense fallback={<FeedSkeleton count={6} />}>
+                    <LiveMoodboard profile={profile} />
+                  </Suspense>
                 ),
               }}
             />
@@ -207,16 +202,6 @@ function NicheWorld({
                   {profile.description}
                 </p>
               </section>
-              <section>
-                <p className="mb-3 text-overline font-medium text-muted-foreground uppercase">
-                  Palette
-                </p>
-                <ul className="flex h-12 overflow-hidden rounded-xl">
-                  {profile.palette.map((hex) => (
-                    <li key={hex} className="flex-1" style={{ backgroundColor: hex }} title={hex} />
-                  ))}
-                </ul>
-              </section>
               <Suspense fallback={<Skeleton className="h-64 rounded-2xl" />}>
                 <TopTracks profile={profile} />
               </Suspense>
@@ -225,7 +210,7 @@ function NicheWorld({
             </div>
           </aside>
         </div>
-      </div>
+      </TintRoot>
     </PullToRefresh>
   )
 }

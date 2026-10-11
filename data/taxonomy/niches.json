@@ -140,13 +140,15 @@
       "got talent",
       "golden buzzer",
       "halftime"
-    ]
+    ],
+    "arenaChannels": ["nu-metal"]
   },
   {
     "slug": "nu-gaze",
     "aliases": ["nugaze"],
     "featuredOrder": 14,
-    "negativeKeywords": ["cover", "tutorial", "lesson"]
+    "negativeKeywords": ["cover", "tutorial", "lesson"],
+    "arenaChannels": ["nu-metal"]
   },
   {
     "slug": "soundcloud-rap",
@@ -213,7 +215,8 @@
     "slug": "mcbling-revival",
     "aliases": ["mcbling", "mc bling"],
     "featuredOrder": 24,
-    "negativeKeywords": ["mcdonald"]
+    "negativeKeywords": ["mcdonald"],
+    "arenaChannels": ["mcbling", "y2k-fashion", "y2k-aesthetic"]
   },
   {
     "slug": "underground-sneaker-culture",

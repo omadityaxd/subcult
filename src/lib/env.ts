@@ -28,6 +28,11 @@ const serverEnvSchema = z.object({
   SPOTIFY_CLIENT_ID: optional,
   SPOTIFY_CLIENT_SECRET: optional,
   YOUTUBE_API_KEY: optional,
+  /** Moodboard image sources, each optional (missing = skipped, share redistributed). */
+  UNSPLASH_ACCESS_KEY: optional,
+  PEXELS_API_KEY: optional,
+  /** Are.na channels are readable without it; a token only raises the rate limit. */
+  ARENA_ACCESS_TOKEN: optional,
   /** "1" turns on Spotify Connect (Web Playback SDK + save to library). Dev mode = 5 users. */
   NEXT_PUBLIC_SPOTIFY_CONNECT: optional,
   NEXT_PUBLIC_POSTHOG_KEY: optional,

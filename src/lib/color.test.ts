@@ -3,10 +3,16 @@ import {
   INK_DARK,
   INK_LIGHT,
   MIN_TEXT_CONTRAST,
+  NEAR_COLOR,
+  colorDistance,
   contrastRatio,
+  ensureContrast,
   hexToRgb,
   isHexColor,
+  luminance,
+  mixHex,
   readableTextColor,
+  rgbToHex,
   withAlpha,
 } from "./color"
 
@@ -59,5 +65,32 @@ describe("withAlpha", () => {
   it("formats and clamps alpha", () => {
     expect(withAlpha("#ffffff", 0.5)).toBe("rgb(255 255 255 / 0.5)")
     expect(withAlpha("#000000", 2)).toBe("rgb(0 0 0 / 1)")
+  })
+})
+
+describe("ensureContrast", () => {
+  it("keeps readable colors and lifts unreadable ones on dark backgrounds", () => {
+    expect(ensureContrast("#ff4d6d", "#0b0a10")).toBe("#ff4d6d")
+    const lifted = ensureContrast("#1a0c10", "#0b0a10")
+    expect(contrastRatio(lifted, "#0b0a10")).toBeGreaterThanOrEqual(3)
+  })
+
+  it("darkens on light backgrounds", () => {
+    const darkened = ensureContrast("#ead9dc", "#f2f2f7")
+    expect(contrastRatio(darkened, "#f2f2f7")).toBeGreaterThanOrEqual(3)
+    expect(luminance(darkened)).toBeLessThan(luminance("#ead9dc"))
+  })
+})
+
+describe("colorDistance", () => {
+  it("puts shades of one family closer than different hues", () => {
+    expect(colorDistance("#a31f34", "#a31f34")).toBe(0)
+    expect(colorDistance("#a31f34", "#8a1a2c")).toBeLessThan(NEAR_COLOR)
+    expect(colorDistance("#a31f34", "#1f6fa3")).toBeGreaterThan(NEAR_COLOR)
+  })
+
+  it("round-trips hex through rgb and mixes linearly", () => {
+    expect(rgbToHex(hexToRgb("#0b0a10"))).toBe("#0b0a10")
+    expect(mixHex("#000000", "#ffffff", 0.5)).toBe("#808080")
   })
 })

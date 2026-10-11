@@ -7,7 +7,7 @@ import {
   readableTextColor,
 } from "@/lib/color"
 import { SEED_PROFILES } from "./catalog"
-import { PAGE_BACKGROUND, nicheTheme } from "./theme"
+import { PAGE_BACKGROUND, nicheTheme, tintTheme } from "./theme"
 
 describe("pickAccent", () => {
   it("prefers the most saturated color that still reads on the background", () => {
@@ -45,4 +45,17 @@ describe("seed palettes", () => {
       }
     },
   )
+})
+
+describe("tintTheme", () => {
+  it("re-centres the accent on any color, readable in both themes", () => {
+    const style = tintTheme("#1a0c10") as Record<string, string>
+    expect(
+      contrastRatio(style["--niche-accent-dark"], PAGE_BACKGROUND.dark),
+    ).toBeGreaterThanOrEqual(3)
+    expect(
+      contrastRatio(style["--niche-accent-light"], PAGE_BACKGROUND.light),
+    ).toBeGreaterThanOrEqual(3)
+    expect(style["--niche-gradient"]).toContain("#1a0c10")
+  })
 })

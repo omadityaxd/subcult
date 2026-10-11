@@ -88,6 +88,8 @@ export const nicheCurationSchema = z.object({
   mix: z.record(z.enum(MIX_KIND_IDS), z.number().min(0).max(1)).optional(),
   /** Phrases that disqualify a news/video item for this niche ("opium war", "type beat"). */
   negativeKeywords: z.array(z.string().min(2).max(40)).default([]),
+  /** Public Are.na channel slugs for the moodboard (checked readable without a key). */
+  arenaChannels: z.array(z.string().regex(/^[a-z0-9-]+$/)).default([]),
   /** ISO 639-1 languages the niche's content is in; anything else is dropped. */
   languages: z.array(z.string().regex(/^[a-z]{2}$/)).default(["en"]),
 })

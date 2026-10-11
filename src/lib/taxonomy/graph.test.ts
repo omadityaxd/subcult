@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest"
 import { type ProfileRef, TaxonomyError, buildTaxonomy, validateTaxonomy } from "./graph"
-import { type TaxonomyFiles, taxonomyFilesSchema } from "./schema"
+import { type TaxonomyFiles, nicheCurationSchema, taxonomyFilesSchema } from "./schema"
 
 const profile = (slug: string, artists: string[] = [], related: string[] = []): ProfileRef => ({
   slug,
@@ -129,13 +129,7 @@ describe("validation", () => {
       ...FILES,
       niches: [
         ...FILES.niches,
-        {
-          slug: "jerk",
-          aliases: ["vamp aesthetic"],
-          extraStores: [],
-          negativeKeywords: [],
-          languages: ["en"],
-        },
+        nicheCurationSchema.parse({ slug: "jerk", aliases: ["vamp aesthetic"] }),
       ],
     }
     const problems = validateTaxonomy({ profiles: PROFILES, files })

@@ -91,3 +91,56 @@ export function pickAccent(palette: readonly string[], background: string): stri
     contrastRatio(color, background) > contrastRatio(best, background) ? color : best,
   )
 }
+
+export function rgbToHex({ r, g, b }: Rgb): string {
+  const part = (value: number) =>
+    Math.round(Math.min(255, Math.max(0, value)))
+      .toString(16)
+      .padStart(2, "0")
+  return `#${part(r)}${part(g)}${part(b)}`
+}
+
+/** Linear blend in sRGB: t = 0 → a, t = 1 → b. */
+export function mixHex(a: string, b: string, t: number): string {
+  const x = hexToRgb(a)
+  const y = hexToRgb(b)
+  return rgbToHex({ r: x.r + (y.r - x.r) * t, g: x.g + (y.g - x.g) * t, b: x.b + (y.b - x.b) * t })
+}
+
+/**
+ * The same hue, nudged lighter (dark backgrounds) or darker (light ones)
+ * until it reads as UI. Lets any picked swatch become an accessible accent.
+ */
+export function ensureContrast(
+  color: string,
+  background: string,
+  min: number = MIN_UI_CONTRAST,
+): string {
+  if (contrastRatio(color, background) >= min) return color
+  const target = luminance(background) < 0.5 ? "#ffffff" : "#000000"
+  for (let t = 0.1; t <= 1; t += 0.1) {
+    const candidate = mixHex(color, target, t)
+    if (contrastRatio(candidate, background) >= min) return candidate
+  }
+  return target
+}
+
+/**
+ * Perceptual-ish distance between two colors ("redmean" weighted RGB):
+ * 0 = identical, ~765 = black vs white. Cheap and good enough for "near
+ * this swatch" filtering.
+ */
+export function colorDistance(a: string, b: string): number {
+  const x = hexToRgb(a)
+  const y = hexToRgb(b)
+  const meanRed = (x.r + y.r) / 2
+  const dr = x.r - y.r
+  const dg = x.g - y.g
+  const db = x.b - y.b
+  return Math.sqrt(
+    (2 + meanRed / 256) * dr * dr + 4 * dg * dg + (2 + (255 - meanRed) / 256) * db * db,
+  )
+}
+
+/** Below this distance two colors read as "the same family" in filters. */
+export const NEAR_COLOR = 150
