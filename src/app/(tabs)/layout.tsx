@@ -1,4 +1,5 @@
 import { Suspense } from "react"
+import { MiniPlayer } from "@/components/player/mini-player"
 import { CommandPalette } from "@/components/shell/command-palette"
 import { Sidebar, SidebarView } from "@/components/shell/sidebar"
 import { TabBar, TabBarView } from "@/components/shell/tab-bar"
@@ -19,6 +20,8 @@ export default function TabsLayout({ children }: LayoutProps<"/">) {
       <Suspense fallback={<TabBarView pathname={null} />}>
         <TabBar />
       </Suspense>
+      {/* Audio lives in a module singleton; this UI follows it across pages. */}
+      <MiniPlayer />
       <CommandPalette presets={NICHE_PRESETS} />
     </div>
   )

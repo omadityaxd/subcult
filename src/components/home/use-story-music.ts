@@ -61,8 +61,20 @@ export function useStoryMusic(slug: string, paused: boolean): StoryMusic | null 
     else engine.resume()
   }, [paused, current])
 
-  // Closing the viewer stops only story audio (never someone else's track).
-  useEffect(() => () => getAudioEngine().stop("story"), [])
+  // Opening a story pauses the player; closing it stops only story audio and
+  // hands the player's queue back (paused, ready to resume where it was).
+  useEffect(() => {
+    const engine = getAudioEngine()
+    const before = engine.getState()
+    const handBack = before.owner === "player" && before.track ? before : null
+    if (handBack) engine.pause()
+    return () => {
+      engine.stop("story")
+      if (handBack && engine.getState().track === null) {
+        engine.cue(handBack.queue, handBack.index, { owner: "player", context: handBack.context })
+      }
+    }
+  }, [])
 
   return current
 }

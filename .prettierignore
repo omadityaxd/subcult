@@ -4,3 +4,6 @@ pnpm-lock.yaml
 next-env.d.ts
 coverage
 drizzle
+
+# User-authored briefs: never reformat
+docs/screenshots/*.md

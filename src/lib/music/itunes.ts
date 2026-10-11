@@ -29,6 +29,8 @@ export interface Preview {
   title: string
   artist: string
   artworkUrl: string | null
+  /** Full song length (the preview itself is ~30s). */
+  durationMs: number | null
 }
 
 /** Strip "(feat. …)", "[Remix]", " - Remastered" and punctuation for title comparison. */
@@ -68,6 +70,7 @@ const toPreview = (result: ItunesResult): Preview => ({
   artist: result.artistName,
   // 100px art upscaled by Apple's CDN naming scheme.
   artworkUrl: result.artworkUrl100?.replace("100x100bb", "600x600bb") ?? null,
+  durationMs: result.trackTimeMillis ?? null,
 })
 
 /** Best result that credits the artist and has the same (normalized) title. */
@@ -132,4 +135,40 @@ export async function findArtistPreview(
 ): Promise<Preview | null> {
   const results = await search({ term: artist, attribute: "artistTerm", limit: "15" }, options)
   return pickArtistSong(results, artist)
+}
+
+/**
+ * Several songs for an artist, lead credits first (features after), one per
+ * normalized title so remixes and explicit/clean twins don't repeat.
+ */
+export function pickArtistSongs(
+  results: readonly ItunesResult[],
+  artist: string,
+  limit: number,
+): Preview[] {
+  const target = lookupKey(artist)
+  const lead = results.filter((result) => lookupKey(primaryCredit(result.artistName)) === target)
+  const featured = results.filter(
+    (result) => !lead.includes(result) && creditsArtist(result.artistName, artist),
+  )
+  const seen = new Set<string>()
+  return [...lead, ...featured]
+    .filter((result) => {
+      const key = normalizeTitle(result.trackName)
+      if (seen.has(key)) return false
+      seen.add(key)
+      return true
+    })
+    .slice(0, limit)
+    .map(toPreview)
+}
+
+/** Up to `limit` songs credited to the artist (soundtrack queues). */
+export async function findArtistSongs(
+  artist: string,
+  limit: number,
+  options: SearchOptions = {},
+): Promise<Preview[]> {
+  const results = await search({ term: artist, attribute: "artistTerm", limit: "25" }, options)
+  return pickArtistSongs(results, artist, limit)
 }

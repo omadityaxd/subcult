@@ -6,6 +6,7 @@ import {
   findTrackPreview,
   normalizeTitle,
   pickArtistSong,
+  pickArtistSongs,
   pickExactMatch,
 } from "./itunes"
 
@@ -108,5 +109,27 @@ describe("iTunes requests", () => {
     await expect(findArtistPreview("Che", { fetchImpl: failing })).rejects.toThrow("403")
     const junk = vi.fn(async () => new Response(JSON.stringify({ nope: true })))
     expect(await findArtistPreview("Che", { fetchImpl: junk })).toBeNull()
+  })
+})
+
+describe("pickArtistSongs", () => {
+  it("lists lead credits first, then features, without title repeats", () => {
+    const results = [
+      result({
+        trackId: 1,
+        artistName: "Alan Walker & A$AP Rocky",
+        trackName: "Live Fast (PUBGM)",
+      }),
+      result({ trackId: 2, artistName: "A$AP Rocky", trackName: "L$D" }),
+      result({ trackId: 3, artistName: "A$AP Rocky", trackName: "L$D (Clean)" }),
+      result({ trackId: 4, artistName: "A$AP Rocky & Skepta", trackName: "Praise the Lord" }),
+      result({ trackId: 5, artistName: "Someone Else", trackName: "Nope" }),
+    ]
+    expect(pickArtistSongs(results, "A$AP Rocky", 5).map((p) => p.title)).toEqual([
+      "L$D",
+      "Praise the Lord",
+      "Live Fast (PUBGM)",
+    ])
+    expect(pickArtistSongs(results, "A$AP Rocky", 1)).toHaveLength(1)
   })
 })

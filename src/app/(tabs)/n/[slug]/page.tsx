@@ -10,6 +10,7 @@ import {
   LiveSounds,
   LiveTea,
   LiveWatch,
+  NicheSoundtrack,
   TopTracks,
 } from "@/components/niche/feed/live-panels"
 import { ArtistsRow } from "@/components/niche/artists-row"
@@ -123,6 +124,10 @@ function NicheWorld({
             </Suspense>
           }
         />
+
+        <Suspense fallback={null}>
+          <NicheSoundtrack slug={profile.slug} />
+        </Suspense>
 
         <div className="container-page mt-5 space-y-5 empty:hidden md:mt-8">
           <NicheTrail slug={profile.slug} />

@@ -12,6 +12,10 @@ import { TAXONOMY } from "@/lib/niches/catalog"
 import { tagFeedItems } from "@/lib/taxonomy/tagging"
 import { cn } from "@/lib/utils"
 import { LinkList } from "../link-card"
+import { NicheAutoplay } from "@/components/music/niche-autoplay"
+import { SoundtrackHeader, TrackList } from "@/components/music/track-list"
+import { getSoundtrack } from "@/lib/music/soundtrack-server"
+import { ArtistsRow } from "../artists-row"
 import { SoundsSection } from "../sections/sounds-section"
 import { FeedCard } from "./feed-card"
 import { ProgressiveList } from "./progressive-list"
@@ -55,66 +59,37 @@ export async function LiveForYou({ profile }: { profile: NicheProfile }) {
   )
 }
 
+/**
+ * Sounds tab, Spotify-style: "This is <niche>" soundtrack (playable here),
+ * the verified artists (tap for the artist sheet), then related playlists.
+ */
 export async function LiveSounds({ profile }: { profile: NicheProfile }) {
-  const feed = await getNicheFeed(profile)
-  const items = feed.bySource.spotify ?? []
-  if (items.length === 0) return <SoundsSection profile={profile} />
-
-  const spotlight = items.find((item) => item.type === "track")
-  const embedUrl = typeof spotlight?.meta.embedUrl === "string" ? spotlight.meta.embedUrl : null
-  const artists = items.filter((item) => item.type === "artist")
-  const rest = items.filter((item) => item.type !== "artist")
+  const [soundtrack, feed] = await Promise.all([getSoundtrack(profile.slug), getNicheFeed(profile)])
+  const playlists = (feed.bySource.spotify ?? []).filter((item) => item.type === "playlist")
+  const artists = TAXONOMY.artistsOf(profile.slug).map(({ slug, name, imageUrl }) => ({
+    slug,
+    name,
+    imageUrl,
+  }))
+  if (!soundtrack || soundtrack.tracks.length === 0) return <SoundsSection profile={profile} />
 
   return (
-    <div className="space-y-12">
-      {spotlight && embedUrl ? (
+    <div className="space-y-12 pt-2">
+      <section className="space-y-6">
+        <SoundtrackHeader soundtrack={soundtrack} />
+        <TrackList soundtrack={soundtrack} />
+      </section>
+      <ArtistsRow artists={artists} />
+      {playlists.length > 0 ? (
         <section>
-          <SectionHeader overline="Press play" title="On rotation" />
-          <iframe
-            src={`${embedUrl}?utm_source=subcult&theme=0`}
-            title={`${spotlight.title} on Spotify`}
-            width="100%"
-            height="152"
-            loading="lazy"
-            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-            className="rounded-2xl border-0"
+          <SectionHeader title="Related playlists" />
+          <Masonry
+            items={playlists}
+            now={feed.generatedAt}
+            className="columns-2 sm:columns-3 xl:columns-4"
           />
         </section>
       ) : null}
-      {artists.length > 0 ? (
-        <section>
-          <SectionHeader title="Artists" />
-          <ul className="-mx-(--gutter) no-scrollbar flex gap-5 overflow-x-auto px-(--gutter)">
-            {artists.map((artist) => (
-              <li key={artist.id} className="w-24 shrink-0 text-center">
-                <a
-                  href={artist.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group block"
-                >
-                  <span className="relative block aspect-square overflow-hidden rounded-full bg-muted transition-transform group-hover:scale-[1.03]">
-                    {artist.imageUrl ? (
-                      <MediaImage src={artist.imageUrl} alt="" sizes="96px" />
-                    ) : null}
-                  </span>
-                  <span className="mt-2 block truncate text-footnote font-medium">
-                    {artist.title}
-                  </span>
-                </a>
-              </li>
-            ))}
-          </ul>
-        </section>
-      ) : null}
-      <section>
-        <SectionHeader title="Tracks & playlists" />
-        <Masonry
-          items={rest}
-          now={feed.generatedAt}
-          className="columns-2 sm:columns-3 xl:columns-4"
-        />
-      </section>
       <section>
         <SectionHeader title="Dig deeper" />
         <LinkList
@@ -127,6 +102,14 @@ export async function LiveSounds({ profile }: { profile: NicheProfile }) {
       </section>
     </div>
   )
+}
+
+/** Starts the niche's soundtrack when allowed, else offers a tap-to-play pill. */
+export async function NicheSoundtrack({ slug }: { slug: string }) {
+  const soundtrack = await getSoundtrack(slug)
+  return soundtrack && soundtrack.tracks.length > 0 ? (
+    <NicheAutoplay soundtrack={soundtrack} />
+  ) : null
 }
 
 export async function LiveTea({ profile }: { profile: NicheProfile }) {

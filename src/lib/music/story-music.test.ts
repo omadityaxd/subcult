@@ -22,6 +22,7 @@ const preview = (title: string, artist: string): Preview => ({
   title,
   artist,
   artworkUrl: null,
+  durationMs: null,
 })
 
 const ARTISTS = [

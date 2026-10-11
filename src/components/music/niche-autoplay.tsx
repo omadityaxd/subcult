@@ -1,0 +1,62 @@
+"use client"
+
+import { Play } from "lucide-react"
+import { useEffect, useState } from "react"
+import {
+  autoplayEnabled,
+  hasUserActivation,
+  isSoundtrackLoaded,
+  playSoundtrack,
+} from "@/lib/audio/player"
+import { getAudioEngine, useAudioState } from "@/lib/audio/use-audio"
+import type { Soundtrack } from "@/lib/music/soundtrack"
+
+/** How long to wait for autoplay to actually start before offering the pill. */
+const AUTOPLAY_GRACE_MS = 1500
+
+/**
+ * Opening a niche starts its soundtrack, but only when the browser allows
+ * sound (you arrived by tapping inside the app) and the "Autoplay niche
+ * soundtrack" setting is on. Otherwise, or if the browser refuses, a
+ * "tap to play the vibe" pill appears instead.
+ */
+export function NicheAutoplay({ soundtrack }: { soundtrack: Soundtrack }) {
+  const state = useAudioState()
+  const [offer, setOffer] = useState(false)
+  const loaded = state.owner === "player" && state.queue[0]?.niche === soundtrack.slug
+
+  useEffect(() => {
+    if (soundtrack.tracks.length === 0 || isSoundtrackLoaded(soundtrack.slug)) return
+    const engine = getAudioEngine()
+    // A story playing over the page keeps priority.
+    if (engine.getState().owner === "story") return
+    const tryAutoplay = autoplayEnabled() && hasUserActivation()
+    if (tryAutoplay) playSoundtrack(soundtrack, 0)
+    const timer = setTimeout(
+      () => {
+        const now = engine.getState()
+        const started =
+          now.owner === "player" && now.playing && now.queue[0]?.niche === soundtrack.slug
+        if (!started) setOffer(true)
+      },
+      tryAutoplay ? AUTOPLAY_GRACE_MS : 0,
+    )
+    return () => clearTimeout(timer)
+  }, [soundtrack])
+
+  if (!offer || loaded || soundtrack.tracks.length === 0) return null
+
+  return (
+    <button
+      type="button"
+      onClick={() => {
+        playSoundtrack(soundtrack, 0)
+        setOffer(false)
+      }}
+      className="fixed bottom-[calc(var(--tab-bar-height)+env(safe-area-inset-bottom)+0.75rem+var(--player-space,0px))] left-1/2 z-40 inline-flex h-12 -translate-x-1/2 items-center gap-2 rounded-full bg-niche px-5 text-callout font-semibold whitespace-nowrap text-niche-foreground shadow-pop transition-transform active:scale-95 md:bottom-[calc(1.5rem+var(--player-space,0px))] md:left-[calc(50%+var(--rail-width)/2)] xl:left-[calc(50%+var(--sidebar-width)/2)]"
+    >
+      <Play aria-hidden className="size-4" fill="currentColor" strokeWidth={0} />
+      Tap to play the vibe
+    </button>
+  )
+}

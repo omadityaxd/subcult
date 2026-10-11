@@ -204,10 +204,13 @@
 }
 
 /* Space under scrolling content so the mobile tab bar never covers it. */
+/* Clears the tab bar and, while it's showing, the mini-player (--player-space). */
 @utility pb-tab-bar {
-  padding-bottom: calc(var(--tab-bar-height) + env(safe-area-inset-bottom) + 2rem);
+  padding-bottom: calc(
+    var(--tab-bar-height) + env(safe-area-inset-bottom) + 2rem + var(--player-space, 0px)
+  );
   @media (min-width: 768px) {
-    padding-bottom: 4rem;
+    padding-bottom: calc(4rem + var(--player-space, 0px));
   }
 }
 
