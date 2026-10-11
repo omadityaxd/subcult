@@ -41,3 +41,35 @@ export function getNicheGenerationLimiter(): RateLimiter {
   }
   return nicheLimiter
 }
+
+/** Preview lookups per IP per minute: generous for real taps, a wall for scrapers. */
+export const PREVIEW_LOOKUPS_PER_MINUTE = 60
+
+let previewLimiter: RateLimiter | undefined
+
+export function getPreviewLimiter(): RateLimiter {
+  if (previewLimiter) return previewLimiter
+  const redis = getRedis()
+  if (!redis) {
+    previewLimiter = createMemoryLimiter(PREVIEW_LOOKUPS_PER_MINUTE, 60_000)
+    return previewLimiter
+  }
+  const upstash = new Ratelimit({
+    redis,
+    limiter: Ratelimit.slidingWindow(PREVIEW_LOOKUPS_PER_MINUTE, "1 m"),
+    prefix: "subcult:rl:preview",
+  })
+  previewLimiter = {
+    async limit(identifier) {
+      try {
+        const result = await upstash.limit(identifier)
+        return { success: result.success, remaining: result.remaining, resetAt: result.reset }
+      } catch (error) {
+        // Fail open: previews are cached and cheap; a Redis blip shouldn't mute the app.
+        log.warn("rate-limit.preview_error", { identifier, error: errorMessage(error) })
+        return { success: true, remaining: 0, resetAt: Date.now() }
+      }
+    },
+  }
+  return previewLimiter
+}

@@ -64,6 +64,15 @@ export function discoveryCards(slug: string): FeedItem[] {
   return [...niches.slice(0, 2), vibeCheck, ...niches.slice(2)].slice(0, DISCOVERY_CARDS)
 }
 
+/** Spotify artist results that are verified artists open our artist sheet, not Spotify. */
+export function withArtistSlugs(items: readonly FeedItem[]): FeedItem[] {
+  return items.map((item) => {
+    if (item.source !== "spotify" || item.type !== "artist") return item
+    const slug = TAXONOMY.resolve(item.title, "artist")
+    return slug ? { ...item, meta: { ...item.meta, artistSlug: slug } } : item
+  })
+}
+
 /** The niche's target shares: default ← its branch ← its own override. */
 export function nicheMix(slug: string): MixShares {
   return resolveMix(TAXONOMY.branchOf(slug), TAXONOMY.curation(slug)?.mix)
@@ -80,7 +89,7 @@ export function buildForYou(
   extra: Partial<Record<MixKind, readonly FeedItem[]>> = {},
   limit = 40,
 ): FeedItem[] {
-  const spotifyItems = feed.bySource.spotify ?? []
+  const spotifyItems = withArtistSlugs(feed.bySource.spotify ?? [])
   const seen = new Set(spotifyItems.map((item) => normalizeTitle(item.title)))
   const soundtrack = (extra.music ?? []).filter((item) => !seen.has(normalizeTitle(item.title)))
   return mixFeed(

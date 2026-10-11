@@ -4,6 +4,8 @@ import Link from "next/link"
 import { Cover } from "@/components/ds/cover"
 import { SectionHeader } from "@/components/ds/section-header"
 import { AutoplaySetting } from "@/components/me/autoplay-setting"
+import { SpotifyConnectSetting } from "@/components/me/spotify-connect-setting"
+import { env, features } from "@/lib/env"
 import { FollowingRail } from "@/components/me/following-rail"
 import { SavedGrid } from "@/components/me/saved-grid"
 import { VibeResultCard } from "@/components/me/vibe-result-card"
@@ -56,6 +58,9 @@ export default function MePage() {
           <SectionHeader title="Settings" />
           <div className="space-y-3">
             <AutoplaySetting />
+            {features.spotifyConnect && env.SPOTIFY_CLIENT_ID ? (
+              <SpotifyConnectSetting clientId={env.SPOTIFY_CLIENT_ID} />
+            ) : null}
             <div className="flex items-center justify-between gap-4 rounded-2xl bg-card px-4 py-3 hairline-b">
               <span className="text-body">Appearance</span>
               <ThemeToggle />

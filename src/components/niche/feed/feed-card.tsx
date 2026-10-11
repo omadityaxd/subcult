@@ -13,6 +13,7 @@ import type { FeedItem } from "@/lib/feed/types"
 import { useMediaQuery } from "@/lib/design/use-media-query"
 import { formatAge } from "@/lib/time"
 import { cn } from "@/lib/utils"
+import { MusicCard } from "./music-card"
 import { SubcultCard } from "./subcult-card"
 
 const SOURCE_LABEL: Record<FeedItem["source"], string> = {
@@ -75,6 +76,7 @@ interface FeedCardProps {
  */
 export function FeedCard({ item, context, now }: FeedCardProps) {
   if (item.source === "subcult") return <SubcultCard item={item} />
+  if (item.source === "spotify") return <MusicCard item={item} meta={context ?? ""} />
   return <ExternalCard item={item} context={context} now={now} />
 }
 

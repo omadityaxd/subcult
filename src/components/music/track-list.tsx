@@ -1,50 +1,90 @@
 "use client"
 
-import { Pause, Play } from "lucide-react"
+import { Loader2, Pause, Play } from "lucide-react"
 import Image from "next/image"
+import { useMemo } from "react"
+import type { PlayableTrack } from "@/lib/audio/play-tracks"
 import { playSoundtrack } from "@/lib/audio/player"
 import { getAudioEngine, useAudioState } from "@/lib/audio/use-audio"
 import { type Soundtrack, formatDuration } from "@/lib/music/soundtrack"
 import { cn } from "@/lib/utils"
+import { SpotifyLink } from "./spotify-link"
+import { useTrackPlayer } from "./use-track-player"
 
-/** Spotify-style numbered list: tap a row to play the soundtrack from there. */
+/** A niche soundtrack as a playable list. */
 export function TrackList({ soundtrack }: { soundtrack: Soundtrack }) {
-  const state = useAudioState()
-  const playingId = state.owner === "player" ? state.track?.id : undefined
+  const tracks = useMemo(() => soundtrackTracks(soundtrack), [soundtrack])
+  return <PlayableList tracks={tracks} context={soundtrack.title} showDuration />
+}
+
+export function soundtrackTracks(soundtrack: Soundtrack): PlayableTrack[] {
+  return soundtrack.tracks.map((track) => ({
+    id: track.id,
+    title: track.title,
+    artist: track.artist,
+    artworkUrl: track.artworkUrl,
+    spotifyUrl: track.spotifyUrl,
+    previewUrl: track.previewUrl,
+    appleUrl: track.appleUrl,
+    niche: soundtrack.slug,
+    durationMs: track.durationMs,
+  }))
+}
+
+/**
+ * Numbered list: tap a row to play from there (queue = the whole list),
+ * tap the playing row to pause. "Spotify" is a small secondary link.
+ */
+export function PlayableList({
+  tracks,
+  context,
+  showDuration = false,
+  numbered = true,
+}: {
+  tracks: readonly (PlayableTrack & { durationMs?: number | null })[]
+  context: string | null
+  showDuration?: boolean
+  numbered?: boolean
+}) {
+  const { play, currentId, playing, pendingId, missing } = useTrackPlayer(tracks, context)
 
   return (
     <ol className="-mx-2">
-      {soundtrack.tracks.map((track, index) => {
-        const current = track.id === playingId
+      {tracks.map((track, index) => {
+        const current = track.id === currentId
+        const unavailable = missing.has(track.id)
         return (
-          <li key={track.id}>
+          <li key={track.id} className="flex items-center gap-1">
             <button
               type="button"
-              onClick={() =>
-                current ? getAudioEngine().toggle() : playSoundtrack(soundtrack, index)
-              }
+              onClick={() => play(index)}
               aria-current={current ? "true" : undefined}
-              aria-label={`${current && state.playing ? "Pause" : "Play"} ${track.title} by ${track.artist}`}
+              aria-label={`${current && playing ? "Pause" : "Play"} ${track.title} by ${track.artist}`}
               className={cn(
-                "group grid w-full grid-cols-[1.75rem_2.75rem_minmax(0,1fr)_auto] items-center gap-3 rounded-xl px-2 py-2 text-left transition-colors hover:bg-muted",
+                "group grid min-w-0 flex-1 items-center gap-3 rounded-xl px-2 py-2 text-left transition-colors hover:bg-muted",
+                numbered
+                  ? "grid-cols-[1.75rem_2.75rem_minmax(0,1fr)_auto]"
+                  : "grid-cols-[2.75rem_minmax(0,1fr)_auto]",
                 current && "bg-muted",
               )}
             >
-              <span className="grid place-items-center text-footnote text-muted-foreground tabular-nums">
-                {current && state.playing ? (
-                  <Equalizer />
-                ) : (
-                  <>
-                    <span className="group-hover:hidden">{index + 1}</span>
-                    <Play
-                      aria-hidden
-                      className="hidden size-4 text-foreground group-hover:block"
-                      fill="currentColor"
-                      strokeWidth={0}
-                    />
-                  </>
-                )}
-              </span>
+              {numbered ? (
+                <span className="grid place-items-center text-footnote text-muted-foreground tabular-nums">
+                  {current && playing ? (
+                    <Equalizer />
+                  ) : (
+                    <>
+                      <span className="group-hover:hidden">{index + 1}</span>
+                      <Play
+                        aria-hidden
+                        className="hidden size-4 text-foreground group-hover:block"
+                        fill="currentColor"
+                        strokeWidth={0}
+                      />
+                    </>
+                  )}
+                </span>
+              ) : null}
               <span className="relative size-11 overflow-hidden rounded-md bg-muted">
                 {track.artworkUrl ? (
                   <Image
@@ -56,6 +96,11 @@ export function TrackList({ soundtrack }: { soundtrack: Soundtrack }) {
                     className="object-cover"
                   />
                 ) : null}
+                {!numbered && current && playing ? (
+                  <span className="absolute inset-0 grid place-items-center bg-black/40">
+                    <Equalizer />
+                  </span>
+                ) : null}
               </span>
               <span className="min-w-0">
                 <span
@@ -64,13 +109,20 @@ export function TrackList({ soundtrack }: { soundtrack: Soundtrack }) {
                   {track.title}
                 </span>
                 <span className="block truncate text-footnote text-muted-foreground">
-                  {track.artist}
+                  {unavailable ? "No preview for this one" : track.artist}
                 </span>
               </span>
               <span className="text-footnote text-muted-foreground tabular-nums">
-                {formatDuration(track.durationMs)}
+                {pendingId === track.id ? (
+                  <Loader2 aria-label="Loading" className="size-4 animate-spin" />
+                ) : showDuration ? (
+                  formatDuration(track.durationMs ?? null)
+                ) : null}
               </span>
             </button>
+            {track.spotifyUrl && (unavailable || current) ? (
+              <SpotifyLink href={track.spotifyUrl} />
+            ) : null}
           </li>
         )
       })}
@@ -78,7 +130,7 @@ export function TrackList({ soundtrack }: { soundtrack: Soundtrack }) {
   )
 }
 
-function Equalizer() {
+export function Equalizer() {
   return (
     <span aria-hidden className="flex h-3.5 items-end gap-[2px] text-niche">
       {[0, 1, 2].map((bar) => (

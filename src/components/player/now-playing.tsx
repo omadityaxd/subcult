@@ -1,17 +1,21 @@
 "use client"
 
-import { ArrowUpRight, ChevronDown, SkipBack, SkipForward } from "lucide-react"
+import { ChevronDown, SkipBack, SkipForward } from "lucide-react"
 import { type PanInfo, motion, useReducedMotion } from "motion/react"
 import Image from "next/image"
 import { useEffect } from "react"
 import { createPortal } from "react-dom"
 import { SaveButton } from "@/components/ds/save-button"
+import { SpotifyEmbed } from "@/components/music/spotify-embed"
+import { SpotifyLink } from "@/components/music/spotify-link"
 import { getAudioEngine, useAudioState } from "@/lib/audio/use-audio"
 import { gestures, springs } from "@/lib/design/tokens"
 import { cn } from "@/lib/utils"
 import { GenerativeVisual } from "./generative-visual"
 import { PlayPause } from "./mini-player"
 import { ProgressBar } from "./progress-bar"
+import { SaveToSpotify } from "./save-to-spotify"
+import { useFullSong } from "./use-full-song"
 
 /** Full-screen Now Playing: big art over a drifting generative field, the queue, save and links. */
 export function NowPlaying({ accent, onClose }: { accent: string; onClose: () => void }) {
@@ -19,6 +23,7 @@ export function NowPlaying({ accent, onClose }: { accent: string; onClose: () =>
   const reduceMotion = useReducedMotion()
   const track = state.track
   const engine = getAudioEngine()
+  const full = useFullSong(track)
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
@@ -126,7 +131,22 @@ export function NowPlaying({ accent, onClose }: { accent: string; onClose: () =>
               />
             </div>
 
-            <ProgressBar variant="scrubber" accent={accent} className="mt-6" />
+            {full.active && full.uri && full.mode === "embed" ? (
+              <SpotifyEmbed
+                key={full.uri}
+                uri={full.uri}
+                height={80}
+                autoPlay
+                {...full.embedProps}
+                className="mt-6"
+              />
+            ) : full.active ? (
+              <p className="mt-6 text-center text-footnote text-white/75">
+                Full song via Spotify Connect
+              </p>
+            ) : (
+              <ProgressBar variant="scrubber" accent={accent} className="mt-6" />
+            )}
 
             <div className="mt-4 flex items-center justify-center gap-8">
               <button
@@ -137,7 +157,11 @@ export function NowPlaying({ accent, onClose }: { accent: string; onClose: () =>
               >
                 <SkipBack aria-hidden className="size-6" fill="currentColor" strokeWidth={0} />
               </button>
-              <PlayPause playing={state.playing} onClick={() => engine.toggle()} large />
+              <PlayPause
+                playing={full.active ? full.playing : state.playing}
+                onClick={() => (full.active ? full.toggle() : engine.toggle())}
+                large
+              />
               <button
                 type="button"
                 aria-label="Next"
@@ -149,20 +173,23 @@ export function NowPlaying({ accent, onClose }: { accent: string; onClose: () =>
               </button>
             </div>
 
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-footnote">
-              <span className="rounded-full border border-white/25 px-3 py-1 text-white/80">
-                30s preview
-              </span>
-              {track.spotifyUrl ? (
-                <a
-                  href={track.spotifyUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 font-semibold text-white hover:underline"
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-footnote">
+              {full.uri ? (
+                <button
+                  type="button"
+                  onClick={() => (full.active ? full.stop() : full.start())}
+                  aria-pressed={full.active}
+                  className="h-8 rounded-full bg-white px-4 font-semibold text-black transition-transform active:scale-95"
                 >
-                  Play full song on Spotify
-                  <ArrowUpRight aria-hidden className="size-3.5" strokeWidth={1.75} />
-                </a>
+                  {full.active ? "Back to preview" : "Play full song"}
+                </button>
+              ) : (
+                <span className="rounded-full border border-white/25 px-3 py-1 text-white/80">
+                  30s preview
+                </span>
+              )}
+              {track.spotifyUrl ? (
+                <SpotifyLink href={track.spotifyUrl} label="Open in Spotify" tone="overlay" />
               ) : null}
               {track.appleUrl ? (
                 <a
@@ -175,6 +202,21 @@ export function NowPlaying({ accent, onClose }: { accent: string; onClose: () =>
                 </a>
               ) : null}
             </div>
+            {full.uri && full.mode === "sdk" ? (
+              <div className="mt-3 flex justify-center">
+                <SaveToSpotify uri={full.uri} />
+              </div>
+            ) : null}
+            {full.error ? (
+              <p role="alert" className="mt-3 text-center text-caption text-white/80">
+                {full.error}
+              </p>
+            ) : full.active && full.mode === "embed" ? (
+              <p className="mt-3 text-center text-caption text-white/60">
+                Full songs play when you&apos;re logged in to Spotify Premium in this browser;
+                otherwise Spotify plays its preview.
+              </p>
+            ) : null}
           </div>
         </div>
 

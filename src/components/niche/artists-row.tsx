@@ -1,6 +1,6 @@
 "use client"
 
-import { ArrowUpRight } from "lucide-react"
+import { Pause, Play } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { type CSSProperties, useEffect, useState } from "react"
@@ -8,7 +8,12 @@ import type { ArtistSheetData } from "@/app/api/artists/[slug]/route"
 import { MediaImage } from "@/components/ds/media-image"
 import { NicheAvatar } from "@/components/ds/niche-avatar"
 import { ResponsiveSheet } from "@/components/ds/responsive-sheet"
+import { PlayableList } from "@/components/music/track-list"
+import { SpotifyLink } from "@/components/music/spotify-link"
+import { useTrackPlayer } from "@/components/music/use-track-player"
 import { Skeleton } from "@/components/ui/skeleton"
+import type { PlayableTrack } from "@/lib/music/playable"
+import { getAudioEngine } from "@/lib/audio/use-audio"
 import type { ApiResponse } from "@/lib/request"
 
 export interface ArtistRef {
@@ -72,12 +77,35 @@ export function ArtistsRow({
 }
 
 export function ArtistSheet({
-  artist,
+  artist: initial,
   themeStyle,
   onClose,
 }: {
   artist: ArtistRef
   themeStyle?: CSSProperties
+  onClose: () => void
+}) {
+  // Related artists open in place: the sheet walks the graph without stacking.
+  const [artist, setArtist] = useState(initial)
+  return (
+    <ResponsiveSheet
+      open
+      onOpenChange={(next) => (next ? undefined : onClose())}
+      title={artist.name}
+      themeStyle={themeStyle}
+    >
+      <ArtistSheetBody key={artist.slug} artist={artist} onOpen={setArtist} onClose={onClose} />
+    </ResponsiveSheet>
+  )
+}
+
+function ArtistSheetBody({
+  artist,
+  onOpen,
+  onClose,
+}: {
+  artist: ArtistRef
+  onOpen: (artist: ArtistRef) => void
   onClose: () => void
 }) {
   const [data, setData] = useState<ArtistSheetData | null>(null)
@@ -100,33 +128,22 @@ export function ArtistSheet({
     }
   }, [artist.slug])
 
+  const tracks = data?.tracks ?? []
   return (
-    <ResponsiveSheet
-      open
-      onOpenChange={(next) => (next ? undefined : onClose())}
-      title={artist.name}
-      themeStyle={themeStyle}
-    >
-      <div className="flex items-center gap-4">
+    <>
+      <div className="flex items-end gap-4">
         <span className="relative size-24 shrink-0 overflow-hidden rounded-2xl bg-muted">
           {artist.imageUrl ? (
             <MediaImage src={artist.imageUrl} alt={artist.name} sizes="96px" />
           ) : null}
         </span>
-        {data ? (
-          <a
-            href={data.artist.spotifyUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex h-10 items-center gap-2 rounded-full bg-foreground px-5 text-callout font-semibold text-background active:scale-[0.97]"
-          >
-            Open in Spotify
-            <ArrowUpRight aria-hidden className="size-4" strokeWidth={1.75} />
-          </a>
-        ) : null}
+        <div className="flex min-w-0 flex-1 items-center justify-between gap-2">
+          <PlayAll tracks={tracks} context={artist.name} />
+          {data ? <SpotifyLink href={data.artist.spotifyUrl} /> : null}
+        </div>
       </div>
 
-      <p className="mt-6 mb-2 text-overline font-medium text-muted-foreground uppercase">
+      <p className="mt-6 mb-1 text-overline font-medium text-muted-foreground uppercase">
         Top tracks
       </p>
       {!data && !failed ? (
@@ -135,39 +152,45 @@ export function ArtistSheet({
             <Skeleton key={i} className="h-12 rounded-xl" />
           ))}
         </div>
-      ) : data && data.tracks.length > 0 ? (
-        <ul className="divide-y divide-border">
-          {data.tracks.map((track) => (
-            <li key={track.id}>
-              <a
-                href={track.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-3 py-2.5"
-              >
-                <span className="relative size-11 shrink-0 overflow-hidden rounded-lg bg-muted">
-                  {track.imageUrl ? <MediaImage src={track.imageUrl} alt="" sizes="44px" /> : null}
-                </span>
-                <span className="min-w-0 flex-1">
-                  <span className="block truncate text-callout font-medium">{track.title}</span>
-                  <span className="block truncate text-footnote text-muted-foreground">
-                    {track.album}
-                  </span>
-                </span>
-                <ArrowUpRight
-                  aria-hidden
-                  className="size-4 shrink-0 text-muted-foreground"
-                  strokeWidth={1.5}
-                />
-              </a>
-            </li>
-          ))}
-        </ul>
+      ) : tracks.length > 0 ? (
+        <PlayableList tracks={tracks} context={artist.name} />
       ) : (
         <p className="text-callout text-muted-foreground">
-          Tracks are taking a breather. Open Spotify for the full catalogue.
+          No previews matched for {artist.name} yet.
         </p>
       )}
+
+      {data && data.related.length > 0 ? (
+        <>
+          <p className="mt-6 mb-3 text-overline font-medium text-muted-foreground uppercase">
+            Fans also dig
+          </p>
+          <ul className="-mx-1 no-scrollbar flex gap-3 overflow-x-auto px-1 pb-1">
+            {data.related.map((other) => (
+              <li key={other.slug} className="w-16 shrink-0">
+                <button
+                  type="button"
+                  onClick={() => onOpen(other)}
+                  className="group block w-full text-center"
+                >
+                  <span className="relative mx-auto block size-16 overflow-hidden rounded-full bg-muted transition-transform group-active:scale-95">
+                    {other.imageUrl ? (
+                      <MediaImage src={other.imageUrl} alt="" sizes="64px" />
+                    ) : (
+                      <span className="grid size-full place-items-center font-serif text-title-3 italic">
+                        {other.name.charAt(0)}
+                      </span>
+                    )}
+                  </span>
+                  <span className="mt-1.5 block truncate text-caption font-medium">
+                    {other.name}
+                  </span>
+                </button>
+              </li>
+            ))}
+          </ul>
+        </>
+      ) : null}
 
       {data && data.niches.length > 0 ? (
         <>
@@ -197,6 +220,26 @@ export function ArtistSheet({
           </ul>
         </>
       ) : null}
-    </ResponsiveSheet>
+    </>
+  )
+}
+
+function PlayAll({ tracks, context }: { tracks: readonly PlayableTrack[]; context: string }) {
+  const { play, currentId, playing } = useTrackPlayer(tracks, context)
+  const active = playing && tracks.some((track) => track.id === currentId)
+  return (
+    <button
+      type="button"
+      disabled={tracks.length === 0}
+      onClick={() => (active ? getAudioEngine().toggle() : play(0))}
+      aria-label={active ? `Pause ${context}` : `Play ${context}`}
+      className="grid size-12 place-items-center rounded-full bg-foreground text-background shadow-pop transition-transform hover:scale-105 active:scale-95 disabled:opacity-40"
+    >
+      {active ? (
+        <Pause aria-hidden className="size-5" fill="currentColor" strokeWidth={0} />
+      ) : (
+        <Play aria-hidden className="size-5 translate-x-0.5" fill="currentColor" strokeWidth={0} />
+      )}
+    </button>
   )
 }

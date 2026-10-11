@@ -28,6 +28,8 @@ const serverEnvSchema = z.object({
   SPOTIFY_CLIENT_ID: optional,
   SPOTIFY_CLIENT_SECRET: optional,
   YOUTUBE_API_KEY: optional,
+  /** "1" turns on Spotify Connect (Web Playback SDK + save to library). Dev mode = 5 users. */
+  NEXT_PUBLIC_SPOTIFY_CONNECT: optional,
   NEXT_PUBLIC_POSTHOG_KEY: optional,
   NEXT_PUBLIC_POSTHOG_HOST: optionalUrl,
   AMAZON_AFFILIATE_TAG: optional,
@@ -71,6 +73,7 @@ export const features = {
   cache: Boolean(env.UPSTASH_REDIS_REST_URL && env.UPSTASH_REDIS_REST_TOKEN),
   spotify: Boolean(env.SPOTIFY_CLIENT_ID && env.SPOTIFY_CLIENT_SECRET),
   youtube: Boolean(env.YOUTUBE_API_KEY),
+  spotifyConnect: env.NEXT_PUBLIC_SPOTIFY_CONNECT === "1" && Boolean(env.SPOTIFY_CLIENT_ID),
   analytics: Boolean(env.NEXT_PUBLIC_POSTHOG_KEY),
 } as const
 

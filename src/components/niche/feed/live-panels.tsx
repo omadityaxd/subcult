@@ -8,13 +8,16 @@ import { type NicheFeed, buildNicheFeed } from "@/lib/feed/feed"
 import { appFeedDeps } from "@/lib/feed/app-deps"
 import type { FeedItem } from "@/lib/feed/types"
 import { googleNews, spotify, youtube } from "@/lib/links"
-import { TAXONOMY } from "@/lib/niches/catalog"
+import { TAXONOMY, findPreset } from "@/lib/niches/catalog"
 import { buildForYou } from "@/lib/feed/for-you"
 import { tagFeedItems } from "@/lib/taxonomy/tagging"
 import { cn } from "@/lib/utils"
 import { LinkList } from "../link-card"
 import { NicheAutoplay } from "@/components/music/niche-autoplay"
-import { SoundtrackHeader, TrackList } from "@/components/music/track-list"
+import { type ShelfNiche, SoundtrackShelf } from "@/components/music/soundtrack-shelf"
+import { SpotifyLink } from "@/components/music/spotify-link"
+import { PlayableList, SoundtrackHeader, TrackList } from "@/components/music/track-list"
+import type { PlayableTrack } from "@/lib/music/playable"
 import { soundtrackFeedItems } from "@/lib/music/soundtrack"
 import { getSoundtrack } from "@/lib/music/soundtrack-server"
 import { ArtistsRow } from "../artists-row"
@@ -22,6 +25,8 @@ import { SoundsSection } from "../sections/sounds-section"
 import { FeedCard } from "./feed-card"
 import { ProgressiveList } from "./progressive-list"
 import { TaggedFeed } from "./tagged-feed"
+
+const SHELF_SIZE = 8
 
 /** One feed build per request, shared by every tab, the hero and the rail. */
 export const getNicheFeed = cache(async (profile: NicheProfile): Promise<NicheFeed> => {
@@ -78,6 +83,7 @@ export async function LiveSounds({ profile }: { profile: NicheProfile }) {
     imageUrl,
   }))
   if (!soundtrack || soundtrack.tracks.length === 0) return <SoundsSection profile={profile} />
+  const shelf = soundtrackShelf(profile.slug)
 
   return (
     <div className="space-y-12 pt-2">
@@ -86,9 +92,15 @@ export async function LiveSounds({ profile }: { profile: NicheProfile }) {
         <TrackList soundtrack={soundtrack} />
       </section>
       <ArtistsRow artists={artists} />
+      {shelf.length > 0 ? (
+        <section>
+          <SectionHeader title="More soundtracks" />
+          <SoundtrackShelf niches={shelf} />
+        </section>
+      ) : null}
       {playlists.length > 0 ? (
         <section>
-          <SectionHeader title="Related playlists" />
+          <SectionHeader title="Playlists on Spotify" />
           <Masonry
             items={playlists}
             now={feed.generatedAt}
@@ -96,17 +108,57 @@ export async function LiveSounds({ profile }: { profile: NicheProfile }) {
           />
         </section>
       ) : null}
-      <section>
-        <SectionHeader title="Dig deeper" />
-        <LinkList
-          links={profile.spotifyQueries.map((query) => ({
-            title: query,
-            href: spotify.playlistSearch(query),
-            meta: "Spotify playlists",
-          }))}
-        />
-      </section>
+      <SearchChips
+        label="Search Spotify"
+        links={profile.spotifyQueries.map((query) => ({
+          title: query,
+          href: spotify.playlistSearch(query),
+        }))}
+      />
     </div>
+  )
+}
+
+/** Neighbouring niches (then two-hop picks) whose soundtracks open as in-app playlists. */
+function soundtrackShelf(slug: string): ShelfNiche[] {
+  const picks = [
+    ...TAXONOMY.adjacent(slug).map(({ slug: target, label }) => ({ target, label: String(label) })),
+    ...TAXONOMY.recommend(slug).map((target) => ({ target, label: "Two hops away" })),
+  ]
+  const seen = new Set<string>()
+  return picks
+    .flatMap(({ target, label }) => {
+      const preset = findPreset(target)
+      if (!preset || seen.has(target)) return []
+      seen.add(target)
+      return [{ slug: target, name: preset.name, imageUrl: preset.imageUrl, label }]
+    })
+    .slice(0, SHELF_SIZE)
+}
+
+/** External searches as a compact secondary row, never as cards. */
+function SearchChips({
+  label,
+  links,
+}: {
+  label: string
+  links: readonly { title: string; href: string }[]
+}) {
+  if (links.length === 0) return null
+  return (
+    <section aria-label={label} className="flex flex-wrap items-center gap-2">
+      <span className="mr-1 text-overline font-medium text-muted-foreground uppercase">
+        {label}
+      </span>
+      {links.map((link) => (
+        <SpotifyLink
+          key={link.href}
+          href={link.href}
+          label={link.title}
+          className="border border-border"
+        />
+      ))}
+    </section>
   )
 }
 
@@ -205,39 +257,25 @@ export async function HeroMosaic({ profile }: { profile: NicheProfile }) {
   )
 }
 
-/** Right-rail list of the top tracks (desktop). */
+/** Right-rail list of the top tracks (desktop): playable here, queue = the list. */
 export async function TopTracks({ profile }: { profile: NicheProfile }) {
   const feed = await getNicheFeed(profile)
-  const tracks = (feed.bySource.spotify ?? []).filter((item) => item.type === "track").slice(0, 5)
+  const tracks = (feed.bySource.spotify ?? [])
+    .filter((item) => item.type === "track")
+    .slice(0, 5)
+    .map((item): PlayableTrack => ({
+      id: item.id,
+      title: item.title,
+      artist: item.subtitle ?? "",
+      artworkUrl: item.imageUrl,
+      spotifyUrl: item.url,
+      niche: profile.slug,
+    }))
   if (tracks.length === 0) return null
   return (
     <section>
-      <p className="mb-3 text-overline font-medium text-muted-foreground uppercase">Top tracks</p>
-      <ol className="space-y-3">
-        {tracks.map((track, index) => (
-          <li key={track.id}>
-            <a
-              href={track.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex items-center gap-3"
-            >
-              <span className="w-4 text-footnote text-subtle tabular-nums">{index + 1}</span>
-              <span className="relative size-11 shrink-0 overflow-hidden rounded-lg bg-muted">
-                {track.imageUrl ? <MediaImage src={track.imageUrl} alt="" sizes="44px" /> : null}
-              </span>
-              <span className="min-w-0">
-                <span className="block truncate text-callout font-medium group-hover:underline">
-                  {track.title}
-                </span>
-                <span className="block truncate text-footnote text-muted-foreground">
-                  {track.subtitle}
-                </span>
-              </span>
-            </a>
-          </li>
-        ))}
-      </ol>
+      <p className="mb-2 text-overline font-medium text-muted-foreground uppercase">Top tracks</p>
+      <PlayableList tracks={tracks} context={`Top tracks · ${profile.name}`} />
     </section>
   )
 }
