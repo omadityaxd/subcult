@@ -14,6 +14,7 @@ import { useMediaQuery } from "@/lib/design/use-media-query"
 import { formatAge } from "@/lib/time"
 import { cn } from "@/lib/utils"
 import { PinCard } from "@/components/moodboard/pin-card"
+import { ProductCard } from "@/components/shop/product-card"
 import { VideoCard } from "@/components/video/video-card"
 import { MusicCard } from "./music-card"
 import { SubcultCard } from "./subcult-card"
@@ -78,6 +79,7 @@ interface FeedCardProps {
  */
 export function FeedCard({ item, context, now }: FeedCardProps) {
   if (item.type === "pin") return <PinCard item={item} />
+  if (item.source === "ebay") return <ProductCard item={item} />
   if (item.source === "subcult") return <SubcultCard item={item} />
   if (item.source === "spotify") return <MusicCard item={item} meta={context ?? ""} />
   if (item.source === "youtube") return <VideoCard item={item} meta={context ?? ""} />

@@ -4,7 +4,9 @@ import { notFound, permanentRedirect } from "next/navigation"
 import { Suspense } from "react"
 import { ButtonLink } from "@/components/ds/button"
 import {
+  ArchiveGrails,
   FeedSkeleton,
+  LiveArchive,
   HeroMosaic,
   LiveForYou,
   LiveSounds,
@@ -140,6 +142,9 @@ function NicheWorld({
         <div className="container-page mt-2 md:mt-8 lg:grid lg:grid-cols-[minmax(0,1fr)_18rem] lg:gap-14">
           <div className="min-w-0">
             <NicheTabs
+              initialTab={
+                TAXONOMY.branchOf(profile.slug) === "underground-fashion" ? "fits" : "for-you"
+              }
               panels={{
                 "for-you": (
                   <>
@@ -162,26 +167,36 @@ function NicheWorld({
                     <LiveSounds profile={profile} />
                   </Suspense>
                 ),
-                tea: (
-                  <Suspense fallback={<FeedSkeleton count={4} />}>
-                    <LiveTea profile={profile} />
+                fits: (
+                  <div className="space-y-12">
+                    <Suspense fallback={<FeedSkeleton count={3} />}>
+                      <ArchiveGrails profile={profile} />
+                    </Suspense>
+                    <DripSection
+                      brands={profile.brands}
+                      shopKeywords={profile.shopKeywords}
+                      shopConfig={shopConfig}
+                      themeStyle={theme.style}
+                      extraStores={curation?.extraStores}
+                      brandSites={brandSites}
+                    />
+                  </div>
+                ),
+                archive: (
+                  <Suspense fallback={<FeedSkeleton count={6} />}>
+                    <LiveArchive profile={profile} />
                   </Suspense>
                 ),
-                community: <CommunitySection profile={profile} />,
-                watch: (
-                  <Suspense fallback={<FeedSkeleton count={3} />}>
-                    <LiveWatch profile={profile} />
-                  </Suspense>
-                ),
-                drip: (
-                  <DripSection
-                    brands={profile.brands}
-                    shopKeywords={profile.shopKeywords}
-                    shopConfig={shopConfig}
-                    themeStyle={theme.style}
-                    extraStores={curation?.extraStores}
-                    brandSites={brandSites}
-                  />
+                scene: (
+                  <div className="space-y-12">
+                    <Suspense fallback={<FeedSkeleton count={3} />}>
+                      <LiveWatch profile={profile} />
+                    </Suspense>
+                    <Suspense fallback={<FeedSkeleton count={4} />}>
+                      <LiveTea profile={profile} />
+                    </Suspense>
+                    <CommunitySection profile={profile} />
+                  </div>
                 ),
                 moodboard: (
                   <Suspense fallback={<FeedSkeleton count={6} />}>

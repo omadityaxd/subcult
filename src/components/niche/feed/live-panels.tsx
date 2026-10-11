@@ -1,6 +1,9 @@
 import { connection } from "next/server"
 import { cache } from "react"
 import { ExternalChips } from "@/components/ds/external-chips"
+import { ArchiveBoard } from "@/components/shop/archive-board"
+import { ProductCard } from "@/components/shop/product-card"
+import { archiveFeedItems, getArchive } from "@/lib/shop/server"
 import { moodboardFeedItems } from "@/lib/moodboard/board"
 import { getMoodboard } from "@/lib/moodboard/server"
 import { MediaImage } from "@/components/ds/media-image"
@@ -57,15 +60,17 @@ function Masonry({
 
 /** The ranked feed, with the niche's tag chips (only those that match something) as filters. */
 export async function LiveForYou({ profile }: { profile: NicheProfile }) {
-  const [feed, soundtrack, board] = await Promise.all([
+  const [feed, soundtrack, board, archives] = await Promise.all([
     getNicheFeed(profile),
     getSoundtrack(profile.slug),
     getMoodboard(profile.slug),
+    getArchive(profile.slug),
   ])
   // Every kind of content, interleaved to the niche's target mix.
   const items = buildForYou(profile.slug, feed, {
     music: soundtrack ? soundtrackFeedItems(soundtrack) : [],
     moodboard: moodboardFeedItems(board.pins),
+    fashion: archiveFeedItems(archives ?? []),
   })
   if (items.length === 0) return null
   const tagged = tagFeedItems(items, TAXONOMY.tagsOf(profile.slug))
@@ -277,5 +282,46 @@ export function FeedSkeleton({ count = 3 }: { count?: number }) {
         </div>
       ))}
     </div>
+  )
+}
+
+/** Archive tab: live eBay listings for the niche's brands, by brand and era. */
+export async function LiveArchive({ profile }: { profile: NicheProfile }) {
+  await connection()
+  const archives = await getArchive(profile.slug)
+  if (archives === null || archives.length === 0) {
+    return (
+      <div className="rounded-2xl border border-dashed border-border-strong p-8 text-center">
+        <p className="font-serif text-title-3 italic">The archive is offline right now</p>
+        <p className="mt-2 text-callout text-muted-foreground">
+          {archives === null
+            ? "Live eBay listings for these brands will show up here."
+            : "No live listings for these brands at the moment. Check back soon."}
+        </p>
+      </div>
+    )
+  }
+  return <ArchiveBoard archives={archives} />
+}
+
+const FITS_GRAILS = 8
+
+/** Top grails across the niche's brands: a strip on the Fits tab. */
+export async function ArchiveGrails({ profile }: { profile: NicheProfile }) {
+  await connection()
+  const archives = await getArchive(profile.slug)
+  const items = archiveFeedItems(archives ?? []).slice(0, FITS_GRAILS)
+  if (items.length === 0) return null
+  return (
+    <section>
+      <SectionHeader overline="Live on eBay" title="From the archive" />
+      <ul className="-mx-(--gutter) no-scrollbar flex gap-3 overflow-x-auto px-(--gutter) pb-1">
+        {items.map((item) => (
+          <li key={item.id} className="w-40 shrink-0 sm:w-48">
+            <ProductCard item={item} />
+          </li>
+        ))}
+      </ul>
+    </section>
   )
 }

@@ -14,28 +14,30 @@ import { gestures, springs } from "@/lib/design/tokens"
 import { useNicheUi } from "@/lib/niches/niche-ui-store"
 import { cn } from "@/lib/utils"
 
+/** Culture first: fits and archive ahead of sounds; news, video and community live in Scene. */
 export const NICHE_TABS = [
   { id: "for-you", label: "For you" },
+  { id: "fits", label: "Fits" },
+  { id: "archive", label: "Archive" },
   { id: "sounds", label: "Sounds" },
-  { id: "tea", label: "Tea" },
-  { id: "community", label: "Community" },
-  { id: "watch", label: "Watch" },
-  { id: "drip", label: "Drip" },
   { id: "moodboard", label: "Moodboard" },
+  { id: "scene", label: "Scene" },
 ] as const
 
 export type NicheTabId = (typeof NICHE_TABS)[number]["id"]
 
 interface NicheTabsProps {
   panels: Record<NicheTabId, ReactNode>
+  /** Fashion niches open on Fits; music niches on the mixed For you. */
+  initialTab?: NicheTabId
 }
 
 /**
  * Sticky underline segmented control + panels. On touch screens a horizontal
  * swipe on the content moves between tabs; vertical scrolling is untouched.
  */
-export function NicheTabs({ panels }: NicheTabsProps) {
-  const [active, setActive] = useState<NicheTabId>("for-you")
+export function NicheTabs({ panels, initialTab = "for-you" }: NicheTabsProps) {
+  const [active, setActive] = useState<NicheTabId>(initialTab)
   const baseId = useId()
   const tabRefs = useRef<Map<NicheTabId, HTMLButtonElement>>(new Map())
   const stickyRef = useRef<HTMLDivElement>(null)

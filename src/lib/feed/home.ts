@@ -10,6 +10,7 @@ import { buildForYou } from "./for-you"
 import { storyOrder } from "./video-cap"
 import { moodboardFeedItems } from "@/lib/moodboard/board"
 import { getMoodboard } from "@/lib/moodboard/server"
+import { archiveFeedItems, getArchive } from "@/lib/shop/server"
 import type { FeedItem } from "./types"
 
 export interface HomePage {
@@ -49,10 +50,11 @@ export async function getHomePage(
   const order = featuredOrder(now)
   const target = order[cursor]
   if (!target) return null
-  const [result, soundtrack, board] = await Promise.all([
+  const [result, soundtrack, board, archives] = await Promise.all([
     feedFor(target.slug),
     getSoundtrack(target.slug),
     getMoodboard(target.slug),
+    getArchive(target.slug),
   ])
   const nextCursor = cursor + 1 < order.length ? cursor + 1 : null
   if (!result) return { niche: target, items: [], nextCursor }
@@ -64,6 +66,7 @@ export async function getHomePage(
       {
         music: soundtrack ? soundtrackFeedItems(soundtrack) : [],
         moodboard: moodboardFeedItems(board.pins),
+        fashion: archiveFeedItems(archives ?? []),
       },
       ITEMS_PER_NICHE,
     ),

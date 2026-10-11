@@ -31,6 +31,11 @@ const serverEnvSchema = z.object({
   /** Moodboard image sources, each optional (missing = skipped, share redistributed). */
   UNSPLASH_ACCESS_KEY: optional,
   PEXELS_API_KEY: optional,
+  /** eBay Browse API (archive listings, product sheets). Both required; else the shop hides. */
+  EBAY_CLIENT_ID: optional,
+  EBAY_CLIENT_SECRET: optional,
+  /** Optional eBay Partner Network campaign id: "Buy on eBay" then uses affiliate links. */
+  EBAY_CAMPAIGN_ID: optional,
   /** Are.na channels are readable without it; a token only raises the rate limit. */
   ARENA_ACCESS_TOKEN: optional,
   /** "1" turns on Spotify Connect (Web Playback SDK + save to library). Dev mode = 5 users. */
@@ -78,6 +83,7 @@ export const features = {
   cache: Boolean(env.UPSTASH_REDIS_REST_URL && env.UPSTASH_REDIS_REST_TOKEN),
   spotify: Boolean(env.SPOTIFY_CLIENT_ID && env.SPOTIFY_CLIENT_SECRET),
   youtube: Boolean(env.YOUTUBE_API_KEY),
+  ebay: Boolean(env.EBAY_CLIENT_ID && env.EBAY_CLIENT_SECRET),
   spotifyConnect: env.NEXT_PUBLIC_SPOTIFY_CONNECT === "1" && Boolean(env.SPOTIFY_CLIENT_ID),
   analytics: Boolean(env.NEXT_PUBLIC_POSTHOG_KEY),
 } as const

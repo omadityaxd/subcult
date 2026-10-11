@@ -6,6 +6,8 @@ import { useState } from "react"
 import { BrandSheet } from "@/components/brand/brand-sheet"
 import { MediaImage } from "@/components/ds/media-image"
 import { PinSheet } from "@/components/moodboard/pin-sheet"
+import { ProductCard } from "@/components/shop/product-card"
+import type { FeedItem } from "@/lib/feed/types"
 import type { DailyPicks as Picks } from "@/lib/feed/daily"
 import type { Pin } from "@/lib/moodboard/types"
 
@@ -110,5 +112,19 @@ export function DailyPicks({
         />
       ) : null}
     </section>
+  )
+}
+
+/** "Archive grail of the day": one real live listing, tap for the product sheet. */
+export function GrailOfTheDay({ item }: { item: FeedItem }) {
+  return (
+    <article className="rounded-3xl border border-border p-4">
+      <p className="mb-3 text-overline font-medium text-muted-foreground uppercase">
+        Archive grail of the day
+      </p>
+      <div className="max-w-56">
+        <ProductCard item={item} />
+      </div>
+    </article>
   )
 }

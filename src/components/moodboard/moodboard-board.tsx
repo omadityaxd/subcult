@@ -161,7 +161,7 @@ function PalettePicker({ palette, swatch }: { palette: readonly string[]; swatch
         <div className="mt-3 flex flex-wrap gap-2">
           <button
             type="button"
-            onClick={() => requestTab("drip")}
+            onClick={() => requestTab("archive")}
             className="inline-flex h-9 items-center gap-1.5 rounded-full border border-border-strong px-3.5 text-footnote font-medium hover:bg-muted"
           >
             <ShoppingBag aria-hidden className="size-3.5" strokeWidth={1.75} />

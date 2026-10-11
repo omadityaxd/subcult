@@ -1,7 +1,7 @@
 import { Search } from "lucide-react"
 import { connection } from "next/server"
 import { Suspense } from "react"
-import { DailyPicks } from "@/components/home/daily-picks"
+import { DailyPicks, GrailOfTheDay } from "@/components/home/daily-picks"
 import { ForYouFeed } from "@/components/home/for-you-feed"
 import { NowSpinning } from "@/components/home/now-spinning"
 import { StoriesRow } from "@/components/home/stories-row"
@@ -70,7 +70,11 @@ async function HomeFeed() {
       now={now.getTime()}
       picks={
         <>
-          <DailyPicks look={picks.look} brand={picks.brand} />
+          <DailyPicks
+            look={picks.look}
+            brand={picks.brand}
+            grail={picks.grail ? <GrailOfTheDay item={picks.grail} /> : null}
+          />
           <VibeCheckCard />
         </>
       }

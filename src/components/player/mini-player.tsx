@@ -110,7 +110,7 @@ export function MiniPlayer() {
             ) : null}
           </button>
         ) : (
-          <div className="pointer-events-auto relative w-full max-w-[17rem] md:max-w-[22rem] overflow-hidden rounded-full bg-[color-mix(in_srgb,var(--accent)_30%,#0b0b0b)] text-white shadow-pop ring-1 ring-white/10 backdrop-blur-xl">
+          <div className="pointer-events-auto relative w-full max-w-[17rem] overflow-hidden rounded-full bg-[color-mix(in_srgb,var(--accent)_30%,#0b0b0b)] text-white shadow-pop ring-1 ring-white/10 backdrop-blur-xl md:max-w-[22rem]">
             <div className="flex h-12 items-center gap-2 pr-1.5 pl-1.5">
               <button
                 type="button"

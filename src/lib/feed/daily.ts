@@ -5,7 +5,9 @@ import type { Pin } from "@/lib/moodboard/types"
 import type { PlayableTrack } from "@/lib/music/playable"
 import { getSoundtrack } from "@/lib/music/soundtrack-server"
 import { TAXONOMY, findPreset } from "@/lib/niches/catalog"
+import { archiveFeedItems, getArchive } from "@/lib/shop/server"
 import { featuredOrder } from "./featured"
+import type { FeedItem } from "./types"
 
 /** Visual references worth leading with: external boards first, then scene photos. */
 const LOOK_SOURCES: readonly Pin["source"][] = ["arena", "unsplash", "pexels", "artist"]
@@ -18,6 +20,8 @@ export interface DailyPicks {
   brand: { brand: Brand; niches: { slug: string; name: string }[] } | null
   /** Compact "now spinning" row: the day's first niches' soundtracks, interleaved. */
   spinning: PlayableTrack[]
+  /** A real live eBay grail from a fashion niche's brands; null without eBay. */
+  grail: FeedItem | null
 }
 
 /** Stable per-day pick: same answer all day, different tomorrow. */
@@ -83,9 +87,23 @@ async function nowSpinning(order: readonly string[]): Promise<PlayableTrack[]> {
   return out
 }
 
+async function grailOfTheDay(day: string, order: readonly string[]): Promise<FeedItem | null> {
+  const fashion = order.filter(isFashionNiche)
+  const slug = fashion[dayIndex(day, fashion.length, "grail")]
+  if (!slug) return null
+  const grails = archiveFeedItems((await getArchive(slug)) ?? []).filter(
+    (item) => item.meta.grail === true && item.imageUrl,
+  )
+  return grails[dayIndex(day, grails.length, "grail-item")] ?? null
+}
+
 export async function getDailyPicks(now: Date = new Date()): Promise<DailyPicks> {
   const day = now.toISOString().slice(0, 10)
   const order = featuredOrder(now).map((niche) => niche.slug)
-  const [look, spinning] = await Promise.all([lookOfTheDay(day, order), nowSpinning(order)])
-  return { look, brand: brandOfTheDay(day), spinning }
+  const [look, spinning, grail] = await Promise.all([
+    lookOfTheDay(day, order),
+    nowSpinning(order),
+    grailOfTheDay(day, order).catch(() => null),
+  ])
+  return { look, brand: brandOfTheDay(day), spinning, grail }
 }
