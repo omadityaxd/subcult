@@ -15,10 +15,10 @@ import type { Soundtrack } from "@/lib/music/soundtrack"
 const AUTOPLAY_GRACE_MS = 1500
 
 /**
- * Opening a niche starts its soundtrack, but only when the browser allows
- * sound (you arrived by tapping inside the app) and the "Autoplay niche
- * soundtrack" setting is on. Otherwise, or if the browser refuses, a
- * "tap to play the vibe" pill appears instead.
+ * Opt-in only (Me → Settings, off by default): with the setting on, opening a
+ * niche starts its soundtrack when the browser allows sound; if the browser
+ * refuses, a "tap to play the vibe" pill offers it instead. With the setting
+ * off, nothing plays and nothing is offered: music waits to be asked for.
  */
 export function NicheAutoplay({ soundtrack }: { soundtrack: Soundtrack }) {
   const state = useAudioState()
@@ -29,8 +29,8 @@ export function NicheAutoplay({ soundtrack }: { soundtrack: Soundtrack }) {
     if (soundtrack.tracks.length === 0 || isSoundtrackLoaded(soundtrack.slug)) return
     const engine = getAudioEngine()
     // A story playing over the page keeps priority.
-    if (engine.getState().owner === "story") return
-    const tryAutoplay = autoplayEnabled() && hasUserActivation()
+    if (engine.getState().owner === "story" || !autoplayEnabled()) return
+    const tryAutoplay = hasUserActivation()
     if (tryAutoplay) playSoundtrack(soundtrack, 0)
     const timer = setTimeout(
       () => {

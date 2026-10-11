@@ -35,16 +35,16 @@ export function isSoundtrackLoaded(slug: string): boolean {
   return owner === "player" && queue.length > 0 && queue[0]?.niche === slug
 }
 
-// --- "Autoplay niche soundtrack" setting (Me → Settings), on by default ---
+// --- "Autoplay niche soundtrack" setting (Me → Settings), off by default ---
 
 const AUTOPLAY_KEY = "subcult-autoplay-soundtrack"
 const autoplayListeners = new Set<() => void>()
 
 function readAutoplay(): boolean {
   try {
-    return localStorage.getItem(AUTOPLAY_KEY) !== "0"
+    return localStorage.getItem(AUTOPLAY_KEY) === "1"
   } catch {
-    return true
+    return false
   }
 }
 
@@ -64,7 +64,7 @@ export function useAutoplaySoundtrack(): boolean {
       return () => autoplayListeners.delete(listener)
     },
     readAutoplay,
-    () => true,
+    () => false,
   )
 }
 
@@ -81,4 +81,37 @@ export function hasUserActivation(): boolean {
     .userActivation
   // Older browsers without the API: assume no, and show the tap-to-play pill.
   return activation?.hasBeenActive ?? false
+}
+
+// --- Has the listener actually played something? (the mini-player waits for it) ---
+
+let engaged = false
+let watchingEngagement = false
+const engagedListeners = new Set<() => void>()
+
+function watchEngagement() {
+  if (watchingEngagement) return
+  watchingEngagement = true
+  const engine = getAudioEngine()
+  engine.subscribe(() => {
+    const { owner, playing, track } = engine.getState()
+    // A queue handed back paused (after a story) doesn't count; pressing play does.
+    const next = track === null ? false : engaged || (owner === "player" && playing)
+    if (next === engaged) return
+    engaged = next
+    engagedListeners.forEach((listener) => listener())
+  })
+}
+
+/** True once the player has played something intentionally; false again when it's cleared. */
+export function usePlayerEngaged(): boolean {
+  return useSyncExternalStore(
+    (listener) => {
+      watchEngagement()
+      engagedListeners.add(listener)
+      return () => engagedListeners.delete(listener)
+    },
+    () => engaged,
+    () => false,
+  )
 }
