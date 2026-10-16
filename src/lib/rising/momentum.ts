@@ -57,7 +57,7 @@ export function computeMomentum(events: readonly EntityEvent[], now: number): Mo
   >()
   for (const event of events) {
     const age = now - event.at
-    if (age < 0 || age > (RECENT_DAYS + BASELINE_DAYS) * DAY_MS) continue
+    if (age < 0 || age >= (RECENT_DAYS + BASELINE_DAYS) * DAY_MS) continue
     const weight = SOURCE_WEIGHT[event.source]
     const entry = byEntity.get(event.entity) ?? {
       label: event.label,
@@ -66,7 +66,8 @@ export function computeMomentum(events: readonly EntityEvent[], now: number): Mo
       prior28: 0,
     }
     entry.niches.add(event.niche)
-    if (age <= RECENT_DAYS * DAY_MS) entry.last7 += weight
+    // Half-open: an event exactly 7 days old belongs to the baseline, not this week.
+    if (age < RECENT_DAYS * DAY_MS) entry.last7 += weight
     else entry.prior28 += weight
     byEntity.set(event.entity, entry)
   }
