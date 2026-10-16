@@ -1,6 +1,7 @@
 "use client"
 
 import { Bookmark, Flag, Heart, Music2, Pause, Play, Trash2 } from "lucide-react"
+import { recordSignal } from "@/lib/taste/store"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useMemo, useState } from "react"
@@ -87,6 +88,13 @@ export function FitDetail({ fit, signedIn }: { fit: FitView; signedIn: boolean }
     if (!(await call(`/api/fits/${fit.id}/like`, next ? "POST" : "DELETE"))) {
       setLiked(!next)
       setLikes((count) => Math.max(0, count + (next ? -1 : 1)))
+      return
+    }
+    if (next) {
+      recordSignal("like", [
+        ...fit.brands.map((b) => ({ ref: `brand:${b.slug}` as const, label: b.name })),
+        ...fit.niches.map((n) => ({ ref: `niche:${n.slug}` as const, label: n.name })),
+      ])
     }
   }
 

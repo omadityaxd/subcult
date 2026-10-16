@@ -11,6 +11,7 @@ import {
   real,
   text,
   timestamp,
+  uniqueIndex,
   uuid,
 } from "drizzle-orm/pg-core"
 import { anonRole, authenticatedRole } from "drizzle-orm/supabase"
@@ -18,6 +19,7 @@ import type { GeneratedBy } from "../lib/engine/niche-service"
 import type { NicheProfile } from "../lib/engine/profile-schema"
 import type { UsagePurpose, UsageStatus } from "../lib/engine/usage"
 import type { NicheKind, NicheStatus, TrendSource } from "../lib/niches/lifecycle"
+import type { SignalKind } from "../lib/taste/model"
 
 /**
  * One row per niche, keyed by normalized slug. Profiles are written once
@@ -205,3 +207,27 @@ export const fitReports = pgTable(
   },
   (table) => [primaryKey({ columns: [table.fitId, table.reporterId] })],
 ).enableRLS()
+
+// --- Taste: implicit signals behind each person's affinity vector -----------
+// Written only through /api/taste for the signed-in user; never public.
+
+export const tasteSignals = pgTable(
+  "taste_signals",
+  {
+    id: bigint("id", { mode: "number" }).primaryKey().generatedAlwaysAsIdentity(),
+    userId: uuid("user_id").notNull(),
+    kind: text("kind").$type<SignalKind>().notNull(),
+    /** "artist:nettspend", "brand:rick-owens", "niche:rage", "tag:…" */
+    entity: text("entity").notNull(),
+    label: text("label").notNull(),
+    strength: real("strength").notNull().default(1),
+    /** When it happened on the device (ms epoch), so merges dedupe exactly. */
+    at: bigint("at", { mode: "number" }).notNull(),
+  },
+  (table) => [
+    uniqueIndex("taste_signals_event_idx").on(table.userId, table.kind, table.entity, table.at),
+    index("taste_signals_user_at_idx").on(table.userId, table.at.desc()),
+  ],
+).enableRLS()
+
+export type TasteSignalRow = typeof tasteSignals.$inferSelect

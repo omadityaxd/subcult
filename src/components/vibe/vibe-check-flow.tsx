@@ -5,6 +5,7 @@ import type { ApiResponse } from "@/lib/request"
 import type { DeckCard, MixNiche } from "@/lib/vibe/data"
 import { type Answer, type Blurbs, scoreVibe, templateBlurb, topMix } from "@/lib/vibe/score"
 import { saveVibeResult } from "@/lib/vibe/storage"
+import { recordVibeCheck } from "@/lib/taste/store"
 import { VibeDeck } from "./vibe-deck"
 import { VibeResult } from "./vibe-result"
 
@@ -47,6 +48,7 @@ export function VibeCheckFlow({ cards, niches, blurbs }: VibeCheckFlowProps) {
     setResult({ mix, blurb })
     if (mix.length === 0) return
     saveVibeResult({ mix: shares, blurb, takenAt: Date.now() })
+    recordVibeCheck(mix)
 
     void fetch("/api/vibe-check/blurb", {
       method: "POST",

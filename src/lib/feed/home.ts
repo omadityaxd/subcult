@@ -1,5 +1,6 @@
 import "server-only"
-import { nicheImage } from "@/lib/niches/catalog"
+import { TAXONOMY, nicheImage } from "@/lib/niches/catalog"
+import { type OrderedNiche, personalNicheOrder } from "@/lib/taste/rank"
 import { lookupNicheProfile } from "@/lib/niches/lookup"
 import { featuredOrder, type HomeNiche } from "./featured"
 import { appFeedDeps } from "./app-deps"
@@ -18,6 +19,22 @@ export interface HomePage {
   niche: HomeNiche
   items: FeedItem[]
   nextCursor: number | null
+  /** Why this niche is on this person's feed (taste, exploration, or today's default). */
+  why?: OrderedNiche["why"]
+  /** Exploration pages: the person's niche this one is two hops from. */
+  from?: string
+}
+
+/**
+ * Today's page order, personal when the client sends its top niche
+ * affinities (niche slug → score). The order is computed fresh per request
+ * from the same inputs, so a cursor stays stable for a session.
+ */
+export function homeOrder(now: Date, taste: ReadonlyMap<string, number> | null): OrderedNiche[] {
+  const base = featuredOrder(now).map((niche) => niche.slug)
+  return taste && taste.size > 0
+    ? personalNicheOrder(base, taste, (slug) => TAXONOMY.recommend(slug))
+    : base.map((slug) => ({ slug, why: "default" }))
 }
 
 const ITEMS_PER_NICHE = 8
@@ -47,10 +64,13 @@ async function feedFor(
 export async function getHomePage(
   cursor: number,
   now: Date = new Date(),
+  taste: ReadonlyMap<string, number> | null = null,
 ): Promise<HomePage | null> {
-  const order = featuredOrder(now)
-  const target = order[cursor]
-  if (!target) return null
+  const order = homeOrder(now, taste)
+  const placed = order[cursor]
+  const target = placed ? featuredOrder(now).find((niche) => niche.slug === placed.slug) : null
+  if (!placed || !target) return null
+  const placement = { why: placed.why, ...(placed.from ? { from: placed.from } : {}) }
   const [result, soundtrack, board, archives, fits] = await Promise.all([
     feedFor(target.slug),
     getSoundtrack(target.slug),
@@ -59,8 +79,9 @@ export async function getHomePage(
     nicheFits(target.slug, 6),
   ])
   const nextCursor = cursor + 1 < order.length ? cursor + 1 : null
-  if (!result) return { niche: target, items: [], nextCursor }
+  if (!result) return { niche: target, items: [], nextCursor, ...placement }
   return {
+    ...placement,
     niche: result.niche,
     items: buildForYou(
       target.slug,

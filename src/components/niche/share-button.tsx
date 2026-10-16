@@ -2,6 +2,7 @@
 
 import { Check, Share } from "lucide-react"
 import { useState } from "react"
+import { recordSignal } from "@/lib/taste/store"
 
 const COPIED_MS = 1800
 
@@ -14,6 +15,7 @@ export function ShareButton({ name, slug }: { name: string; slug: string }) {
     if (navigator.share) {
       try {
         await navigator.share({ title: `${name} · subcult`, url })
+        recordSignal("share", [{ ref: `niche:${slug}`, label: name }])
         return
       } catch {
         // Dismissed share sheet: nothing to do.
@@ -22,6 +24,7 @@ export function ShareButton({ name, slug }: { name: string; slug: string }) {
     }
     try {
       await navigator.clipboard.writeText(url)
+      recordSignal("share", [{ ref: `niche:${slug}`, label: name }])
       setCopied(true)
       setTimeout(() => setCopied(false), COPIED_MS)
     } catch {

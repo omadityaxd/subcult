@@ -159,6 +159,54 @@ source tier + entity match → dedupe (canonical URL, near-identical titles by t
 - Regression tests use the real junk that leaked into feeds; `pnpm feeds:audit` prints
   keep/drop decisions against the live cache.
 
+## Content correctness: vision tagging (lib/vision)
+
+External images (Are.na, Unsplash, Pexels) are classified by Claude Haiku 5.5 before they can
+reach a feed: kind (fit / product / album-art / artist-portrait / moodboard / other), quality 1-5,
+niche fit 0-1, dominant colors. URL image blocks, structured output, 6 images per request.
+
+- Tags are cached per image URL hash for 90 days; each request is logged to `llm_usage`
+  (purpose `vision-tag`) with its cost; `VISION_DAILY_BATCH_CAP` (default 60/day) is separate from
+  the generation cap. `/admin/usage` shows per-feature spend and both caps.
+- Without a key (or over the cap) nothing is tagged, and untagged external images stay on the
+  Moodboard only. Fits = posted fits + images tagged `fit` with quality ≥3; quality <3 never leads
+  a board; album art lives in Sounds.
+
+## Fresh news (lib/feed/fetchers/news.ts, lib/sources/scene-feeds.ts)
+
+Google News `when:7d` searched by the niche's entities: verified artists (scene niches only, so an
+aesthetic like cottagecore never pulls Taylor Swift gossip), brands anchored to "fashion", then
+the niche's own phrase. Seven scene outlets' RSS feeds (each checked live) add publisher images
+and ledes. `onTopic` guards fashion niches against their artists' music news and one-word brand
+names against homonyms. Each query gets its own share before the cap. Measured with
+`pnpm news:freshness`: 40 → 87 headlines across 20 niches, median age 208h → 70h.
+
+## Taste model (lib/taste)
+
+**Why would I open this today?** Because it knows my taste. The taxonomy and verified entities
+stay curated; what's learned is how much each person cares about each entity.
+
+- **Entities:** `artist:slug`, `brand:slug`, `niche:slug`, `tag:slug`. Cards carry them (meta or
+  their own ids); track credits split into artists (slugify matches all 375 verified artists).
+- **Signals and weights:** play 1, play-through (≥25s of a 30s preview) 2, skip (<5s) −1, open 1,
+  dwell (≥2s at ≥50% visible) 0.5, like 2, save 3, share 4, follow 5, vibe check 4 × share,
+  not my vibe −5. A card's niche gets a half-strength echo of signals about its artist/brand.
+- **Affinity:** Σ weight × strength × ½^(age/14 days) per entity. Pure, unit-tested
+  (`computeAffinity`); each entity remembers its strongest positive signal, which is what the
+  "because you…" line cites. Nothing is inferred that didn't happen.
+- **Ranking:** personal score = base score × (1 + 1.5·tanh(affinity/6)) × novelty (0.6 if already
+  opened/saved). Items only swap places with items of the same mix kind, so the content-mix rules
+  hold. Items under −3 (not my vibe) are hidden.
+- **Exploration:** the home feed's page order puts your niches first, with about one page in
+  seven (≈15%) drawn from niches two hops from them (`TAXONOMY.recommend`), labelled
+  "New to you · close to X". Disliked niches go last.
+- **Reasons:** artist/brand reasons on each card; niche-level ones once per page.
+- **Storage:** guests keep signals in localStorage (≤3000, 60 days). Signed-in users also sync
+  to `taste_signals` (unique per user/kind/entity/time, so merges are exact) via `/api/taste`;
+  sign-in merges both ways. "Reset taste" on Me clears both.
+- **Cold start:** the vibe check seeds the vector; without it the default order stands and Me
+  nudges toward the vibe check.
+
 ## In-app media
 
 One audio engine (two decks, Web Audio crossfades, Media Session) plays every preview. A handoff

@@ -12,6 +12,7 @@ import { env, features } from "@/lib/env"
 import { FollowingRail } from "@/components/me/following-rail"
 import { SavedGrid } from "@/components/me/saved-grid"
 import { VibeResultCard } from "@/components/me/vibe-result-card"
+import { TasteSection } from "@/components/me/taste-section"
 import { WrappedCard } from "@/components/wrapped/wrapped-card"
 import { NICHE_PRESETS } from "@/lib/niches/catalog"
 import ARTISTS from "../../../../data/taxonomy/artists.json"
@@ -41,6 +42,8 @@ export default function MePage() {
         <VibeResultCard niches={cardNiches} fallback={<NicheCardTeaser />} />
 
         <WrappedCard niches={cardNiches} artistImages={artistImages} />
+
+        <TasteSection />
 
         <FollowingRail />
 

@@ -1,11 +1,28 @@
 "use client"
 
-import { useCallback, useEffect, useRef, useState } from "react"
+import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { FeedCard } from "@/components/niche/feed/feed-card"
+import { TasteCard } from "@/components/taste/taste-card"
 import { Skeleton } from "@/components/ui/skeleton"
 import { type FeedFilter, applyFilter } from "@/lib/feed/filters"
 import type { HomePage } from "@/lib/feed/home"
 import type { ApiResponse } from "@/lib/request"
+import { type TasteVector, isColdStart } from "@/lib/taste/model"
+import { pageReasons, personalizePage } from "@/lib/taste/rank"
+import { readTasteVector, useSeen, useTasteVector } from "@/lib/taste/store"
+
+const TASTE_NICHES = 20
+
+/** "rage:5.2,jerk:3": the person's niche affinities, for a personal page order. */
+export function tasteParam(vector: TasteVector): string | null {
+  if (isColdStart(vector)) return null
+  const niches = [...vector.values()]
+    .filter((a) => a.entity.startsWith("niche:"))
+    .sort((a, b) => Math.abs(b.score) - Math.abs(a.score))
+    .slice(0, TASTE_NICHES)
+    .map((a) => `${a.entity.slice("niche:".length)}:${a.score.toFixed(2)}`)
+  return niches.length > 0 ? niches.join(",") : null
+}
 
 interface InfiniteFeedProps {
   initial: HomePage | null
@@ -16,19 +33,30 @@ interface InfiniteFeedProps {
 /** Masonry home feed that loads the next niche's page as you near the end. */
 export function InfiniteFeed({ initial, now, filter = "all" }: InfiniteFeedProps) {
   const [pages, setPages] = useState<HomePage[]>(initial ? [initial] : [])
-  const [cursor, setCursor] = useState<number | null>(initial ? initial.nextCursor : 0)
+  // Frozen once per visit so cursors keep pointing into the same order. Not rendered,
+  // so reading storage here can't cause a hydration mismatch.
+  const [taste] = useState(() => tasteParam(readTasteVector()))
+  // A personal order starts over; the first (default) page stays, deduped below.
+  const [cursor, setCursor] = useState<number | null>(taste ? 0 : initial ? initial.nextCursor : 0)
   const [loading, setLoading] = useState(false)
   const [failed, setFailed] = useState(false)
   const sentinel = useRef<HTMLDivElement>(null)
+  const vector = useTasteVector()
+  const seen = useSeen()
 
   const loadMore = useCallback(async () => {
     if (cursor === null || loading) return
     setLoading(true)
     try {
-      const response = await fetch(`/api/feed?cursor=${cursor}`)
+      const query = taste ? `&taste=${encodeURIComponent(taste)}` : ""
+      const response = await fetch(`/api/feed?cursor=${cursor}${query}`)
       const body = (await response.json()) as ApiResponse<HomePage>
       if (!body.success) throw new Error(body.error)
-      setPages((current) => (body.data.niche ? [...current, body.data] : current))
+      setPages((current) =>
+        body.data.niche && !current.some((page) => page.niche.slug === body.data.niche.slug)
+          ? [...current, body.data]
+          : current,
+      )
       setCursor(body.data.nextCursor)
       setFailed(false)
     } catch {
@@ -36,7 +64,7 @@ export function InfiniteFeed({ initial, now, filter = "all" }: InfiniteFeedProps
     } finally {
       setLoading(false)
     }
-  }, [cursor, loading])
+  }, [cursor, loading, taste])
 
   useEffect(() => {
     if (cursor === null || failed || !sentinel.current) return
@@ -50,12 +78,26 @@ export function InfiniteFeed({ initial, now, filter = "all" }: InfiniteFeedProps
     return () => observer.disconnect()
   }, [cursor, failed, loadMore])
 
-  const items = pages.flatMap((page) =>
-    applyFilter(page.items, filter).map((item) => ({
-      item,
-      context: page.niche.name,
-      key: `${page.niche.slug}:${item.id}`,
-    })),
+  const items = useMemo(
+    () =>
+      pages.flatMap((page) => {
+        const shown = applyFilter(
+          personalizePage(page.items, vector, seen, page.niche.slug),
+          filter,
+        )
+        const reasons = pageReasons(shown, vector, page.niche.slug, {
+          slug: page.niche.slug,
+          why: page.why ?? "default",
+          from: page.from,
+        })
+        return shown.map((item, i) => ({
+          item,
+          niche: page.niche,
+          reason: reasons[i] ?? null,
+          key: `${page.niche.slug}:${item.id}`,
+        }))
+      }),
+    [pages, vector, seen, filter],
   )
 
   return (
@@ -66,9 +108,11 @@ export function InfiniteFeed({ initial, now, filter = "all" }: InfiniteFeedProps
         </p>
       ) : null}
       <ul className="columns-1 gap-5 sm:columns-2 xl:columns-3">
-        {items.map(({ item, context, key }) => (
+        {items.map(({ item, niche, reason, key }) => (
           <li key={key} className="mb-7 break-inside-avoid">
-            <FeedCard item={item} context={context} now={now} />
+            <TasteCard item={item} niche={niche} reason={reason}>
+              <FeedCard item={item} context={niche.name} now={now} />
+            </TasteCard>
           </li>
         ))}
       </ul>

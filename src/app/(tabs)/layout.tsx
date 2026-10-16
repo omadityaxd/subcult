@@ -2,6 +2,8 @@ import { Suspense } from "react"
 import { MiniPlayer } from "@/components/player/mini-player"
 import { ReelsHost } from "@/components/video/reels-viewer"
 import { CommandPalette } from "@/components/shell/command-palette"
+import { TasteTrackerForViewer } from "@/components/taste/taste-tracker-server"
+import { TasteTracker } from "@/components/taste/taste-tracker"
 import { WrappedTracker } from "@/components/wrapped/trackers"
 import { Sidebar, SidebarView } from "@/components/shell/sidebar"
 import { TabBar, TabBarView } from "@/components/shell/tab-bar"
@@ -26,6 +28,10 @@ export default function TabsLayout({ children }: LayoutProps<"/">) {
       <MiniPlayer />
       <ReelsHost />
       <WrappedTracker />
+      {/* Guests learn on-device from the static shell; the session adds account sync. */}
+      <Suspense fallback={<TasteTracker signedIn={false} />}>
+        <TasteTrackerForViewer />
+      </Suspense>
       <CommandPalette presets={NICHE_PRESETS} />
     </div>
   )

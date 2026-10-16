@@ -76,12 +76,27 @@ export function useIsSaved(id: string): boolean {
   return useSaves().some((item) => item.id === id)
 }
 
+/** Fired on every save/unsave/follow change: { id, source, title, saved }. */
+export const SAVED_EVENT = "subcult:saved"
+
+function announce(item: Omit<SavedItem, "savedAt">, saved: boolean): void {
+  window.dispatchEvent(
+    new CustomEvent(SAVED_EVENT, {
+      detail: { id: item.id, source: item.source, title: item.title, saved },
+    }),
+  )
+}
+
 export function toggleSaved(item: Omit<SavedItem, "savedAt">): void {
+  const wasSaved = read().some((saved) => saved.id === item.id)
   write(toggleSave(read(), item, Date.now()))
+  announce(item, !wasSaved)
 }
 
 export function setSaved(item: Omit<SavedItem, "savedAt">, saved: boolean): void {
   const current = read()
   const isSaved = current.some((existing) => existing.id === item.id)
-  if (isSaved !== saved) write(toggleSave(current, item, Date.now()))
+  if (isSaved === saved) return
+  write(toggleSave(current, item, Date.now()))
+  announce(item, saved)
 }
