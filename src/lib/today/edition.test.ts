@@ -33,6 +33,7 @@ const empty: Candidates = {
   archive: [],
   fits: [],
   rising: [],
+  friends: [],
   more: [],
 }
 
@@ -63,6 +64,9 @@ describe("assembleEdition", () => {
     archive: many("listing", 10),
     fits: many("fit", 10),
     rising: [{ entity: "niche:rage", label: "rage", ratio: 2.4, href: "/n/rage" }],
+    friends: [
+      { entity: "artist:nettspend", label: "Nettspend", handles: ["a", "b"], href: "/n/jerk" },
+    ],
     more: many("more", 30),
   }
 
@@ -145,5 +149,23 @@ describe("quiet days", () => {
       { now: 0, mode: "day", cold: false },
     )
     expect(edition.sections.some((s) => s.id === "more")).toBe(false)
+  })
+})
+
+describe("friends row", () => {
+  it("shows what friends are into when there is something, never otherwise", () => {
+    const chip = {
+      entity: "artist:nettspend",
+      label: "Nettspend",
+      handles: ["sam"],
+      href: "/n/jerk",
+    }
+    const withFriends = assembleEdition(
+      { ...empty, friends: [chip] },
+      { now: 0, mode: "day", cold: false },
+    )
+    expect(withFriends.sections.find((s) => s.id === "friends")?.friends).toEqual([chip])
+    const alone = assembleEdition(empty, { now: 0, mode: "day", cold: false })
+    expect(alone.sections.some((s) => s.id === "friends")).toBe(false)
   })
 })

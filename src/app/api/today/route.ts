@@ -4,6 +4,7 @@ import { getLimiter } from "@/lib/rate-limit"
 import { apiError, apiOk, clientIp } from "@/lib/request"
 import { type EntityRef, isEntityRef } from "@/lib/taste/entities"
 import { buildToday } from "@/lib/today/server"
+import { getViewer } from "@/lib/supabase/server"
 
 const bodySchema = z.object({
   entities: z
@@ -36,8 +37,10 @@ export async function POST(request: Request): Promise<Response> {
   const parsed = bodySchema.safeParse(body)
   if (!parsed.success) return apiError("invalid Today request", 400, "invalid-input")
   try {
+    const viewer = await getViewer().catch(() => null)
     const edition = await buildToday({
       ...parsed.data,
+      viewerId: viewer?.id ?? null,
       entities: parsed.data.entities.map((e) => ({ ref: e.ref as EntityRef, score: e.score })),
     })
     return apiOk(edition)

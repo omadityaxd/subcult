@@ -5,7 +5,11 @@ import { useState } from "react"
 import type { ApiResponse } from "@/lib/request"
 
 /** First post: pick the public handle fits are credited to (never the email). */
-export function HandleForm() {
+export function HandleForm({
+  intro = "First, pick the handle your fits show up under.",
+}: {
+  intro?: string
+}) {
   const router = useRouter()
   const [handle, setHandle] = useState("")
   const [error, setError] = useState<string | null>(null)
@@ -28,9 +32,7 @@ export function HandleForm() {
 
   return (
     <form onSubmit={(event) => void submit(event)} className="max-w-sm space-y-3">
-      <p className="text-callout text-muted-foreground">
-        First, pick the handle your fits show up under.
-      </p>
+      <p className="text-callout text-muted-foreground">{intro}</p>
       <label className="block">
         <span className="text-footnote font-medium">Handle</span>
         <span className="mt-1.5 flex h-12 items-center rounded-xl border border-border-strong px-4 focus-within:border-foreground">

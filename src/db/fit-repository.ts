@@ -1,5 +1,6 @@
-import { and, arrayContains, desc, eq, gt, inArray, lt, sql } from "drizzle-orm"
+import { and, arrayContains, desc, eq, gt, inArray, lt, not, sql } from "drizzle-orm"
 import type { Database } from "./create-db"
+import { friendsOnlyOwner } from "./social-repository"
 import {
   type FitPiece,
   type FitRow,
@@ -69,6 +70,8 @@ export async function listFits(
     includeHidden ? undefined : eq(fits.status, "visible"),
     niche ? arrayContains(fits.niches, [niche]) : undefined,
     userId ? eq(fits.userId, userId) : undefined,
+    // Public lists leave out friends-only people; their profile decides who sees them.
+    userId ? undefined : not(friendsOnlyOwner(fits.userId)),
     before ? lt(fits.createdAt, before) : undefined,
   ].filter((condition) => condition !== undefined)
   const rows = await db

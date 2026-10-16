@@ -17,6 +17,7 @@ export const SECTION_IDS = [
   "rising",
   "archive",
   "fits",
+  "friends",
   "more",
 ] as const
 export type SectionId = (typeof SECTION_IDS)[number]
@@ -31,11 +32,20 @@ export interface RisingChip {
   href: string
 }
 
+export interface FriendChip {
+  entity: string
+  label: string
+  /** Friends into it, by handle. */
+  handles: string[]
+  href: string
+}
+
 export interface TodaySection {
   id: SectionId
   title: string
   items: FeedItem[]
   rising?: RisingChip[]
+  friends?: FriendChip[]
 }
 
 export interface TodayEdition {
@@ -77,10 +87,10 @@ export function todayMode({ hour, weekday }: { hour: number; weekday: number }):
 
 /** Section order by moment: morning reads first, nights listen first, weekends shop and look. */
 export const SECTION_ORDER: Record<TodayMode, readonly SectionId[]> = {
-  morning: ["digest", "drops", "headlines", "rising", "fits", "archive"],
-  day: ["drops", "headlines", "rising", "fits", "archive", "digest"],
-  night: ["late-night", "drops", "rising", "fits", "headlines", "archive"],
-  weekend: ["fits", "archive", "drops", "rising", "headlines", "late-night"],
+  morning: ["digest", "drops", "headlines", "friends", "rising", "fits", "archive"],
+  day: ["drops", "headlines", "friends", "rising", "fits", "archive", "digest"],
+  night: ["late-night", "drops", "friends", "rising", "fits", "headlines", "archive"],
+  weekend: ["fits", "archive", "friends", "drops", "rising", "headlines", "late-night"],
 }
 
 const TITLES: Record<SectionId, string> = {
@@ -91,6 +101,7 @@ const TITLES: Record<SectionId, string> = {
   rising: "What's rising in your niches",
   archive: "Just listed",
   fits: "New fits",
+  friends: "Your friends are into this week",
   more: "More from your scenes",
 }
 
@@ -103,6 +114,7 @@ const CAPS: Record<SectionId, number> = {
   rising: 6,
   archive: 6,
   fits: 6,
+  friends: 6,
   more: TODAY_MIN,
 }
 
@@ -114,6 +126,8 @@ export interface Candidates {
   archive: FeedItem[]
   fits: FeedItem[]
   rising: RisingChip[]
+  /** Signed-in only: what people you follow are into this week. */
+  friends: FriendChip[]
   /** The best of the person's niches right now: tops up a quiet day to TODAY_MIN. */
   more: FeedItem[]
 }
@@ -138,6 +152,7 @@ export function assembleEdition(
     rising: [],
     archive: candidates.archive,
     fits: [...candidates.fits].sort(newestFirst),
+    friends: [],
     more: [],
   }
   const used = new Set<string>()
@@ -149,6 +164,14 @@ export function assembleEdition(
       const chips = candidates.rising.slice(0, Math.min(CAPS.rising, TODAY_MAX - count))
       if (chips.length > 0) {
         sections.push({ id, title: TITLES[id], items: [], rising: chips })
+        count += chips.length
+      }
+      continue
+    }
+    if (id === "friends") {
+      const chips = candidates.friends.slice(0, Math.min(CAPS.friends, TODAY_MAX - count))
+      if (chips.length > 0) {
+        sections.push({ id, title: TITLES[id], items: [], friends: chips })
         count += chips.length
       }
       continue

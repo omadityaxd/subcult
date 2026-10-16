@@ -15,6 +15,7 @@ import { errorMessage, log } from "@/lib/log"
 import { TAXONOMY, findPreset } from "@/lib/niches/catalog"
 import { getStorageAdmin } from "@/lib/supabase/admin"
 import { type Viewer, getViewer } from "@/lib/supabase/server"
+import { notifyFollowersOfFit } from "@/lib/social/notify"
 import { processFitImage } from "./image"
 import type { FitInput } from "./schema"
 import type { FitView } from "./types"
@@ -155,6 +156,10 @@ export async function postFit(viewer: Viewer, photo: Uint8Array, input: FitInput
     pieces: input.pieces,
     song: input.song,
   })
+  // Friend activity: followers hear about it (best effort; posting never fails on this).
+  await notifyFollowersOfFit(viewer.id, profile.handle, id, publicImageUrl(path)).catch(
+    (error: unknown) => log.warn("fits.notify_failed", { error: errorMessage(error) }),
+  )
   return id
 }
 

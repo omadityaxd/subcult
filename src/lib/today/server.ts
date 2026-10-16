@@ -10,10 +10,12 @@ import { soundtrackFeedItems } from "@/lib/music/soundtrack"
 import { getSoundtrack } from "@/lib/music/soundtrack-server"
 import { TAXONOMY, findSeedProfile, nicheArtistsLeadFirst } from "@/lib/niches/catalog"
 import { getRisingSnapshot } from "@/lib/rising/server"
+import { friendsInto } from "@/lib/social/server"
 import { archiveFeedItems, getArchive } from "@/lib/shop/server"
 import { type EntityRef, encodeEntities, entitySlug, entityType } from "@/lib/taste/entities"
 import {
   type Candidates,
+  type FriendChip,
   type RisingChip,
   type TodayEdition,
   assembleEdition,
@@ -34,6 +36,8 @@ const FIT_DAYS = 7
 const MORE_VIDEOS = 2
 
 export interface TodayRequest {
+  /** Signed-in viewer (for the friends row); null for guests. */
+  viewerId?: string | null
   /** The person's strongest entities (from their on-device taste vector). */
   entities: readonly { ref: EntityRef; score: number }[]
   /** Saved brand slugs: archive listings for these come first. */
@@ -113,6 +117,23 @@ async function listings(
   const yours = fresh.filter((item) => brands.has(String(item.meta.brandSlug)))
   // Your brands first; otherwise the scene's grails.
   return yours.length > 0 ? yours : fresh.filter((item) => item.meta.grail === true)
+}
+
+async function friendsRow(viewerId: string, now: number): Promise<FriendChip[]> {
+  return (await friendsInto(viewerId, now)).flatMap((f) => {
+    const ref = f.entity as EntityRef
+    const niche =
+      entityType(ref) === "niche"
+        ? entitySlug(ref)
+        : entityType(ref) === "artist"
+          ? TAXONOMY.nichesOfArtist(entitySlug(ref))[0]
+          : entityType(ref) === "brand"
+            ? TAXONOMY.nichesOfBrand(entitySlug(ref))[0]
+            : undefined
+    return niche
+      ? [{ entity: f.entity, label: f.label, handles: f.handles, href: `/n/${niche}` }]
+      : []
+  })
 }
 
 /** The niches' own mixed feeds, interleaved: what a quiet day falls back on. */
@@ -227,7 +248,10 @@ export async function buildToday(req: TodayRequest, now = Date.now()): Promise<T
       risingChips(niches, new Set(req.entities.filter((e) => e.score > 0).map((e) => e.ref))),
     ),
   ])
-  const more = await settle("more", sceneHighlights(niches))
+  const [more, friendChips] = await Promise.all([
+    settle("more", sceneHighlights(niches)),
+    req.viewerId ? settle("friends", friendsRow(req.viewerId, now)) : Promise.resolve([]),
+  ])
   const headlines = news.filter((item) => ageMs(item, now) <= HEADLINE_HOURS * HOUR)
   const candidates: Candidates = {
     digest: headlines.filter((item) => ageMs(item, now) <= DIGEST_HOURS * HOUR),
@@ -237,6 +261,7 @@ export async function buildToday(req: TodayRequest, now = Date.now()): Promise<T
     archive,
     fits,
     rising,
+    friends: friendChips,
     more,
   }
   const mode = todayMode(localClock(now, req.timeZone))

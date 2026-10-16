@@ -169,7 +169,27 @@ function Section({
       <h3 id={`today-${section.id}`} className="mb-4 text-title-3 font-semibold">
         {section.title}
       </h3>
-      {section.id === "rising" && section.rising ? (
+      {section.id === "friends" && section.friends ? (
+        <ul className="flex flex-wrap gap-2">
+          {section.friends.map((chip) => (
+            <li key={chip.entity}>
+              <Link
+                href={chip.href}
+                className="inline-flex h-10 items-center gap-2 rounded-full border border-border-strong px-4 text-footnote font-semibold"
+              >
+                {chip.label}
+                <span className="font-normal text-muted-foreground">
+                  {chip.handles
+                    .slice(0, 2)
+                    .map((h) => `@${h}`)
+                    .join(", ")}
+                  {chip.handles.length > 2 ? ` +${chip.handles.length - 2}` : ""}
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      ) : section.id === "rising" && section.rising ? (
         <ul className="flex flex-wrap gap-2">
           {section.rising.map((chip) => (
             <li key={chip.entity}>

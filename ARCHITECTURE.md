@@ -270,6 +270,23 @@ The strongest reason to come back: something you care about happened.
   0007): RLS on with no policies, so only server routes (session + Origin check + rate limit +
   Zod; verified brands only) touch them. Alerts need an account.
 
+## Friends (lib/social)
+
+- **Follows** between handles (`user_follows`), invite link = your profile (`/u/handle`).
+  Profiles show fits, top niches (from that person's own taste vector) and, opt-in, what they're
+  playing (cleared after 20 minutes, forgotten when turned off).
+- **Privacy:** public or friends-only (`profile_settings`, server-only: `profiles` is readable via
+  the public Supabase API, so nothing private lives there). Friends-only = the owner and mutual
+  follows; their fits leave public lists (niche feeds, latest), direct fit links included.
+  Blocking removes follows both ways and hides each from the other; followers can be removed.
+- **Vibe Match** (pure, tested): √cosine of the two positive affinity vectors (sparse vectors put
+  real overlap at 0.3-0.6 raw; the root keeps 0→0% and 1→100%), the entities you share, and their
+  strongest artist/brand you've never touched ("what they'd put you on"; a skip counts as touched).
+  Share card: 1080×1920 PNG (`/u/handle/match/card`, needs your session), shared as a file.
+- **Friend activity:** a follow notifies with the vibe match %; a new fit notifies followers who
+  can see it (friends-only posters reach mutuals only), capped at 500 per post. Today shows
+  "your friends are into this week" from the last 7 days of visible friends' signals.
+
 ## In-app media
 
 One audio engine (two decks, Web Audio crossfades, Media Session) plays every preview. A handoff

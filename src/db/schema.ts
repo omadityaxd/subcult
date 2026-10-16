@@ -272,23 +272,24 @@ export const notifications = pgTable(
   ],
 ).enableRLS()
 
-export const alertPrefs = pgTable(
-  "alert_prefs",
-  {
-    userId: uuid("user_id").primaryKey(),
-    drops: boolean("drops").notNull().default(true),
-    grails: boolean("grails").notNull().default(true),
-    niches: boolean("niches").notNull().default(true),
-    friends: boolean("friends").notNull().default(true),
-    /** Minutes after local midnight; default 23:00–09:00. */
-    quietStart: integer("quiet_start").notNull().default(23 * 60),
-    quietEnd: integer("quiet_end").notNull().default(9 * 60),
-    timeZone: text("time_zone").notNull().default("UTC"),
-    lastPushAt: timestamp("last_push_at", { withTimezone: true }),
-    lastNicheAlertAt: timestamp("last_niche_alert_at", { withTimezone: true }),
-    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
-  },
-).enableRLS()
+export const alertPrefs = pgTable("alert_prefs", {
+  userId: uuid("user_id").primaryKey(),
+  drops: boolean("drops").notNull().default(true),
+  grails: boolean("grails").notNull().default(true),
+  niches: boolean("niches").notNull().default(true),
+  friends: boolean("friends").notNull().default(true),
+  /** Minutes after local midnight; default 23:00–09:00. */
+  quietStart: integer("quiet_start")
+    .notNull()
+    .default(23 * 60),
+  quietEnd: integer("quiet_end")
+    .notNull()
+    .default(9 * 60),
+  timeZone: text("time_zone").notNull().default("UTC"),
+  lastPushAt: timestamp("last_push_at", { withTimezone: true }),
+  lastNicheAlertAt: timestamp("last_niche_alert_at", { withTimezone: true }),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+}).enableRLS()
 
 export const grailSearches = pgTable(
   "grail_searches",
@@ -309,3 +310,49 @@ export const grailSearches = pgTable(
 export type NotificationRow = typeof notifications.$inferSelect
 export type AlertPrefsRow = typeof alertPrefs.$inferSelect
 export type GrailSearchRow = typeof grailSearches.$inferSelect
+
+// --- Friends: follows, blocks, privacy, opt-in listening ---------------------
+// Separate from `profiles` (which the public Supabase API can read): these are
+// server-only, so a friends-only profile or a listening status never leaks.
+
+export const PROFILE_VISIBILITY = ["public", "friends"] as const
+export type ProfileVisibility = (typeof PROFILE_VISIBILITY)[number]
+
+export interface NowPlaying {
+  title: string
+  artist: string
+  artworkUrl: string | null
+}
+
+export const profileSettings = pgTable("profile_settings", {
+  userId: uuid("user_id").primaryKey(),
+  /** "friends": only people you follow back see your fits, niches and listening. */
+  visibility: text("visibility").$type<ProfileVisibility>().notNull().default("public"),
+  /** Opt-in: show what you're playing on your profile. */
+  shareListening: boolean("share_listening").notNull().default(false),
+  listening: jsonb("listening").$type<NowPlaying | null>(),
+  listeningAt: timestamp("listening_at", { withTimezone: true }),
+}).enableRLS()
+
+export const userFollows = pgTable(
+  "user_follows",
+  {
+    followerId: uuid("follower_id").notNull(),
+    followeeId: uuid("followee_id").notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (table) => [
+    primaryKey({ columns: [table.followerId, table.followeeId] }),
+    index("user_follows_followee_idx").on(table.followeeId),
+  ],
+).enableRLS()
+
+export const userBlocks = pgTable(
+  "user_blocks",
+  {
+    blockerId: uuid("blocker_id").notNull(),
+    blockedId: uuid("blocked_id").notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (table) => [primaryKey({ columns: [table.blockerId, table.blockedId] })],
+).enableRLS()

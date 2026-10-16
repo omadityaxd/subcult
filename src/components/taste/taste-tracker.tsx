@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect } from "react"
+import { useEffect, useRef } from "react"
 import { getAudioEngine } from "@/lib/audio/use-audio"
 import { announceMeaningfulAction } from "@/lib/alerts/client"
 import type { ApiResponse } from "@/lib/request"
@@ -22,6 +22,8 @@ export function registerItemEntities(id: string, entities: LabeledEntity[]): voi
 }
 
 const SYNC_MS = 20_000
+/** At most one "currently playing" update a minute. */
+const SHARE_LISTENING_MS = 60_000
 const BATCH = 500
 
 /** Credit → labeled artist entities, plus the niche the track was queued from. */
@@ -65,8 +67,14 @@ export async function resetTaste(): Promise<boolean> {
  * and for signed-in users merges this device's signals with the account's.
  */
 export function TasteTracker({ signedIn }: { signedIn: boolean }) {
+  const signedInRef = useRef(signedIn)
+  useEffect(() => {
+    signedInRef.current = signedIn
+  }, [signedIn])
+
   useEffect(() => {
     let session: ListenSession | null = null
+    let lastShared = 0
     const finish = (done: ListenSession | null) => {
       if (done) recordSignal(listenSignal(done.seconds), listenEntities(done))
     }
@@ -77,8 +85,22 @@ export function TasteTracker({ signedIn }: { signedIn: boolean }) {
         niche: track.niche ?? null,
         seconds,
       })
+      const started = session?.trackId !== next.current.trackId
       session = next.current
       finish(next.finished)
+      // "Currently playing" on the profile: the server ignores it unless they opted in.
+      if (started && signedInRef.current && Date.now() - lastShared > SHARE_LISTENING_MS) {
+        lastShared = Date.now()
+        void fetch("/api/listening", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            title: track.title,
+            artist: track.artist,
+            artworkUrl: track.artworkUrl?.startsWith("https://") ? track.artworkUrl : null,
+          }),
+        }).catch(() => undefined)
+      }
     })
 
     const onSaved = (event: Event) => {
