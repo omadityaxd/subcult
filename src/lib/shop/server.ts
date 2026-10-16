@@ -62,7 +62,11 @@ export const getArchive = cache(async (slug: string): Promise<BrandArchive[] | n
 /** Archive listings as For You fashion cards (grails first). */
 export function archiveFeedItems(archives: readonly BrandArchive[]): FeedItem[] {
   return archives
-    .flatMap((archive) => archive.eras.flatMap((era) => era.listings))
+    .flatMap((archive) =>
+      archive.eras.flatMap((era) =>
+        era.listings.map((listing) => ({ ...listing, brandSlug: archive.brandSlug })),
+      ),
+    )
     .sort((a, b) => Number(b.grail) - Number(a.grail))
     .map((listing) => ({
       id: `ebay:${listing.id}`,
@@ -82,6 +86,7 @@ export function archiveFeedItems(archives: readonly BrandArchive[]): FeedItem[] 
         era: listing.era,
         season: listing.season,
         grail: listing.grail,
+        brandSlug: listing.brandSlug,
       },
     }))
 }

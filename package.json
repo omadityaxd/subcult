@@ -25,7 +25,9 @@
     "feeds:mix": "tsx scripts/feed-mix.ts",
     "feeds:audit": "tsx scripts/feed-audit.ts",
     "taxonomy:verify-instagram": "tsx scripts/verify-instagram.ts",
-    "news:freshness": "tsx scripts/news-freshness.ts"
+    "news:freshness": "tsx scripts/news-freshness.ts",
+    "rising:print": "tsx --conditions=react-server scripts/rising.ts",
+    "today:shots": "tsx scripts/today-shots.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.133.0",

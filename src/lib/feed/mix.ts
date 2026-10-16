@@ -59,7 +59,7 @@ export const REDISTRIBUTE_TO: readonly MixKind[] = ["fashion", "moodboard"]
 
 /** Which bucket an item counts toward. */
 export function mixKind(item: Pick<FeedItem, "source" | "type" | "meta">): MixKind {
-  if (item.type === "track" || item.type === "playlist") return "music"
+  if (item.type === "track" || item.type === "playlist" || item.type === "release") return "music"
   switch (item.source) {
     case "spotify":
       return "music"

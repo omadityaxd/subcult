@@ -26,7 +26,10 @@ export function DailyPicks({
   if (!look && !brand && !grail) return null
 
   return (
-    <section aria-label="Today" className="grid gap-4 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
+    <section
+      aria-label="Picks of the day"
+      className="grid gap-4 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]"
+    >
       {look ? (
         <article className="md:row-span-2">
           <button

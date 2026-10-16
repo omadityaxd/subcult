@@ -1,6 +1,6 @@
 "use client"
 
-import { X } from "lucide-react"
+import { TrendingUp, X } from "lucide-react"
 import { type ReactNode, useEffect, useRef, useState } from "react"
 import type { FeedItem } from "@/lib/feed/types"
 import { labeledEntitiesOfItem } from "@/lib/taste/entities"
@@ -15,6 +15,8 @@ interface TasteCardProps {
   niche: { slug: string; name: string } | null
   /** "Because you played Nettspend": only for personalized cards. */
   reason: string | null
+  /** One of the card's entities has real momentum right now (see lib/rising). */
+  rising?: boolean
   children: ReactNode
 }
 
@@ -22,7 +24,7 @@ interface TasteCardProps {
  * Wraps a feed card: learns from dwell and opens, says why it's here, and
  * takes "not my vibe" (which hides it and steers future ranking away).
  */
-export function TasteCard({ item, niche, reason, children }: TasteCardProps) {
+export function TasteCard({ item, niche, reason, rising = false, children }: TasteCardProps) {
   const ref = useRef<HTMLDivElement>(null)
   const [dismissed, setDismissed] = useState(false)
 
@@ -76,8 +78,14 @@ export function TasteCard({ item, niche, reason, children }: TasteCardProps) {
         recordItemSignal("open", item, niche)
       }}
     >
-      {reason ? (
+      {reason || rising ? (
         <div className="mb-1.5 flex items-center gap-2 px-0.5">
+          {rising ? (
+            <span className="inline-flex shrink-0 items-center gap-1 text-caption font-semibold text-accent">
+              <TrendingUp aria-hidden className="size-3.5" strokeWidth={2} />
+              Rising
+            </span>
+          ) : null}
           <p className="min-w-0 flex-1 truncate text-caption text-muted-foreground">{reason}</p>
           <button
             type="button"

@@ -5,6 +5,7 @@ import { FEED_FILTERS, type FeedFilter } from "@/lib/feed/filters"
 import type { HomePage } from "@/lib/feed/home"
 import { cn } from "@/lib/utils"
 import { InfiniteFeed } from "./infinite-feed"
+import { Today } from "./today"
 
 /**
  * For You: filter chips on top, today's visual picks under "All", then the
@@ -50,10 +51,19 @@ export function ForYouFeed({
         </ul>
       </nav>
 
-      {filter === "all" ? <div className="mt-4 space-y-8">{picks}</div> : null}
-      {filter === "all" || filter === "sounds" ? <div className="mt-8">{spinning}</div> : null}
+      {filter === "all" ? (
+        <div className="mt-4">
+          <Today coldExtras={picks} />
+        </div>
+      ) : null}
+      {filter === "sounds" ? <div className="mt-8">{spinning}</div> : null}
 
-      <section aria-label="Latest" className="mt-10">
+      <section id="latest" aria-label="Keep exploring" className="mt-16 scroll-mt-20">
+        {filter === "all" ? (
+          <h2 className="mb-6 text-overline font-medium text-muted-foreground uppercase">
+            Keep exploring
+          </h2>
+        ) : null}
         <InfiniteFeed initial={initial} now={now} filter={filter} />
       </section>
     </>

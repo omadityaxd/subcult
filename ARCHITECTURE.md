@@ -207,6 +207,46 @@ stay curated; what's learned is how much each person cares about each entity.
 - **Cold start:** the vibe check seeds the vector; without it the default order stands and Me
   nudges toward the vibe check.
 
+## Today (lib/today)
+
+The top of For You is a finite, personal daily edition, not an infinite feed.
+
+- **Built per request** from the person's strongest entities (sent by the client from its taste
+  vector; nothing is stored) by `/api/today`. Cold start uses today's featured niches and global
+  rising, with the vibe check card on top.
+- **Sections:** new drops (iTunes, ≤14 days, from your artists, then your niches' leads), fresh
+  tea (≤72h) and a 3-headline digest (≤24h), what's rising in your niches, new archive listings
+  (≤7 days, your saved brands first, else grails), new fits since your last visit, a late-night
+  rotation (your niches' soundtracks). A quiet day tops up to 15 from your niches' own feeds
+  (visual first); never more than 25. Nothing appears twice.
+- **Time-aware** in the person's IANA zone: morning = digest first; 10pm–5am = late-night
+  rotation first; weekends = fits and archive first.
+- **"N new since you were here Tuesday"**: the previous session's start (a session ends after
+  30 minutes away, so reloads don't reset it). Then "You're caught up" → "Keep exploring" into
+  the personalized infinite feed.
+- **Releases:** an artist resolves to its iTunes id by exact name (search is fuzzy: a
+  "nettspend" search returns tribute accounts), then `lookup?entity=album&sort=recent`, keeping
+  only releases whose credit names the artist (a composer's page lists everyone's compilations).
+  Ids cached 30 days, releases 12h.
+
+## Rising (lib/rising): trend detection from our own data
+
+Momentum per entity (artist, brand, niche) = its weighted event rate over the last 7 days vs the
+28 days before.
+
+- **Events:** headlines that name the entity (on-topic per the news rules), YouTube uploads,
+  releases (weight 3), and inside subcult saves/follows (2) and plays (0.5) from synced signals,
+  counted once per distinct user per day so one person can't make anything rise.
+- **Score:** ratio = (last7/7 + 0.25) / (prior28/28 + 0.25) (smoothing so one headline after
+  silence isn't infinite); score = log2(ratio) × √last7. Rising = last7 ≥ 3 and ratio ≥ 1.5.
+- **Measurement honesty:** Google News returns at most ~100 items per search, so every query is
+  run as five one-week windows (`after:`/`before:`); a query that hits the cap in any week is
+  saturated and doesn't vote (logged), rather than faking a rise. iTunes lookups run in their
+  own throttled pass (403 beyond ~20/min) with a 90s budget; the cache fills over days.
+- **Runs** daily (`/api/cron/rising`, ~45-60s for 64 niches) into Redis; Today reads the
+  snapshot. `pnpm rising:print [--save]` prints the top 10 with scores. First run (2026-10-16):
+  Gucci Mane 7.9× (16 vs 2 weighted events), afrobeats 3.6×, trap 2.0×, experimental rap 2.5×.
+
 ## In-app media
 
 One audio engine (two decks, Web Audio crossfades, Media Session) plays every preview. A handoff

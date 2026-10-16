@@ -2,7 +2,17 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "regions": ["bom1"],
   "crons": [
-    { "path": "/api/cron/keep-alive", "schedule": "0 12 * * *" },
-    { "path": "/api/cron/trends", "schedule": "0 9 1,15 * *" }
+    {
+      "path": "/api/cron/keep-alive",
+      "schedule": "0 12 * * *"
+    },
+    {
+      "path": "/api/cron/trends",
+      "schedule": "0 9 1,15 * *"
+    },
+    {
+      "path": "/api/cron/rising",
+      "schedule": "0 6 * * *"
+    }
   ]
 }

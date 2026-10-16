@@ -28,6 +28,8 @@ export type FeedItemType =
   | "brand"
   | "niche"
   | "prompt"
+  /** A new single/EP/album (iTunes), shown in Today's drops. */
+  | "release"
 
 /** Every source normalizes into this one shape so ranking can mix them. */
 export interface FeedItem {

@@ -33,6 +33,11 @@ export function toggleSave(
 let cache: readonly SavedItem[] | null = null
 const listeners = new Set<() => void>()
 
+/** Current saves outside React (effects that run before hooks see the client snapshot). */
+export function readSaves(): readonly SavedItem[] {
+  return typeof window === "undefined" ? EMPTY : read()
+}
+
 function read(): readonly SavedItem[] {
   if (cache) return cache
   try {
