@@ -7,6 +7,8 @@ export interface NewsArticle {
   /** Publisher hostname without www. ("complex.com"), when the feed names it. */
   domain: string | null
   publishedAt: Date | null
+  imageUrl: string | null
+  summary: string | null
 }
 
 interface GoogleNewsOptions {
@@ -55,5 +57,7 @@ export async function fetchGoogleNews(
     outlet: item.source,
     domain: hostOf(item.sourceUrl),
     publishedAt: item.publishedAt,
+    imageUrl: item.imageUrl,
+    summary: item.summary,
   }))
 }

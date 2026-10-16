@@ -24,7 +24,8 @@
     "taxonomy:verify-artists": "tsx scripts/verify-artists.ts",
     "feeds:mix": "tsx scripts/feed-mix.ts",
     "feeds:audit": "tsx scripts/feed-audit.ts",
-    "taxonomy:verify-instagram": "tsx scripts/verify-instagram.ts"
+    "taxonomy:verify-instagram": "tsx scripts/verify-instagram.ts",
+    "news:freshness": "tsx scripts/news-freshness.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.133.0",

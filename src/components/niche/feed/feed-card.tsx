@@ -11,7 +11,8 @@ import { SaveButton } from "@/components/ds/save-button"
 import { gestures } from "@/lib/design/tokens"
 import type { FeedItem } from "@/lib/feed/types"
 import { useMediaQuery } from "@/lib/design/use-media-query"
-import { formatAge } from "@/lib/time"
+import Link from "next/link"
+import { formatAge, isNew, relativeAge } from "@/lib/time"
 import { cn } from "@/lib/utils"
 import { FitFeedCard } from "@/components/fits/fit-tile"
 import { PinCard } from "@/components/moodboard/pin-card"
@@ -93,8 +94,16 @@ function ExternalCard({ item, context, now }: FeedCardProps) {
   const pressTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const longPressed = useRef(false)
   const canHover = useMediaQuery("(hover: hover) and (pointer: fine)")
-  const age = formatAge(item.publishedAt, now ? new Date(now) : new Date())
-  const meta = [context, SOURCE_LABEL[item.source], item.type === "track" ? null : age]
+  const nowDate = now ? new Date(now) : new Date()
+  const age = formatAge(item.publishedAt, nowDate)
+  const isNews = item.source === "news"
+  const fresh = isNews && isNew(item.publishedAt, nowDate)
+  // Headline cards already name their outlet; the age is what matters.
+  const meta = [
+    context,
+    isNews ? null : SOURCE_LABEL[item.source],
+    item.type === "track" ? null : age,
+  ]
     .filter(Boolean)
     .join(" · ")
 
@@ -115,20 +124,31 @@ function ExternalCard({ item, context, now }: FeedCardProps) {
       onPointerLeave={() => pressTimer.current && clearTimeout(pressTimer.current)}
       onPointerCancel={() => pressTimer.current && clearTimeout(pressTimer.current)}
       onClick={(event) => {
-        if (longPressed.current) event.preventDefault()
+        if (longPressed.current) {
+          event.preventDefault()
+          return
+        }
+        // Headlines open in-app first; modifier clicks still open the story directly.
+        if (isNews && !event.metaKey && !event.ctrlKey && !event.shiftKey) {
+          event.preventDefault()
+          setPeekOpen(true)
+        }
       }}
       onContextMenu={(event) => event.preventDefault()}
       className="group block select-none [-webkit-touch-callout:none]"
     >
-      {item.imageUrl ? <Artwork item={item} /> : <Headline item={item} />}
+      {item.imageUrl ? <Artwork item={item} /> : <Headline item={item} fresh={fresh} />}
       <div className="mt-2.5 flex items-start gap-2 px-0.5">
         <div className="min-w-0 flex-1">
           {item.imageUrl ? (
             <p className="line-clamp-2 text-headline font-semibold">{item.title}</p>
           ) : null}
-          <p className="mt-0.5 truncate text-footnote text-muted-foreground">
-            {item.subtitle && item.imageUrl ? `${item.subtitle} · ` : ""}
-            {meta}
+          <p className="mt-0.5 flex items-center gap-1.5 text-footnote text-muted-foreground">
+            {fresh && item.imageUrl ? <NewDot /> : null}
+            <span className="truncate">
+              {item.subtitle && item.imageUrl ? `${item.subtitle} · ` : ""}
+              {meta}
+            </span>
           </p>
         </div>
       </div>
@@ -158,15 +178,18 @@ function ExternalCard({ item, context, now }: FeedCardProps) {
         <SaveButton item={savedShape(item)} tone="overlay" className="absolute top-2.5 right-2.5" />
       ) : null}
       <ResponsiveSheet open={peekOpen} onOpenChange={setPeekOpen} title={SOURCE_LABEL[item.source]}>
-        <PeekBody item={item} meta={meta} />
+        {isNews ? <NewsBody item={item} now={nowDate} /> : <PeekBody item={item} meta={meta} />}
         <div className="mt-5 flex gap-2">
           <a
             href={item.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex h-11 flex-1 items-center justify-center gap-2 rounded-full bg-foreground text-callout font-medium text-background"
+            className={cn(
+              "inline-flex h-11 flex-1 items-center justify-center gap-2 rounded-full text-callout font-medium",
+              isNews ? "border border-border-strong" : "bg-foreground text-background",
+            )}
           >
-            {OPEN_LABEL[item.source]}{" "}
+            {isNews ? `Read on ${outletOf(item) ?? "the source"}` : OPEN_LABEL[item.source]}{" "}
             <ArrowUpRight aria-hidden className="size-4" strokeWidth={1.5} />
           </a>
           <SaveButton item={savedShape(item)} className="size-11 bg-muted" />
@@ -209,10 +232,65 @@ function Artwork({ item }: { item: FeedItem }) {
   )
 }
 
-/** Text-forward card for headlines (news RSS carries no images). */
-function Headline({ item }: { item: FeedItem }) {
-  const outlet = typeof item.meta.outlet === "string" ? item.meta.outlet : item.subtitle
-  const favicon = faviconFor(hostOf(item.url) === "news.google.com" ? outlet : hostOf(item.url))
+const str = (value: unknown) => (typeof value === "string" && value ? value : null)
+const outletOf = (item: FeedItem) => str(item.meta.outlet) ?? item.subtitle
+const faviconOf = (item: FeedItem) =>
+  faviconFor(hostOf(item.url) === "news.google.com" ? outletOf(item) : hostOf(item.url))
+
+function NewDot() {
+  return (
+    <span className="inline-flex shrink-0 items-center gap-1 text-caption font-semibold text-accent">
+      <span aria-hidden className="size-1.5 rounded-full bg-accent" />
+      New
+    </span>
+  )
+}
+
+/** The in-app read: image, outlet and date, the publisher's lede, where it belongs. */
+function NewsBody({ item, now }: { item: FeedItem; now: Date }) {
+  const outlet = outletOf(item)
+  const favicon = faviconOf(item)
+  const summary = str(item.meta.summary)
+  const nicheSlug = str(item.meta.nicheSlug)
+  const nicheName = str(item.meta.nicheName)
+  const when = relativeAge(item.publishedAt, now)
+  return (
+    <div>
+      {item.imageUrl ? (
+        <div className="relative aspect-[16/9] overflow-hidden rounded-xl bg-muted">
+          <MediaImage src={item.imageUrl} alt="" sizes="(max-width: 640px) 100vw, 480px" />
+        </div>
+      ) : null}
+      <div className={cn("flex items-center gap-2", item.imageUrl && "mt-4")}>
+        {favicon ? (
+          // eslint-disable-next-line @next/next/no-img-element -- tiny remote favicon
+          <img src={favicon} alt="" width={16} height={16} className="size-4 rounded-sm" />
+        ) : null}
+        <span className="truncate text-footnote font-medium text-muted-foreground">
+          {[outlet, when].filter(Boolean).join(" · ")}
+        </span>
+        {isNew(item.publishedAt, now) ? <NewDot /> : null}
+      </div>
+      <p className="mt-2 font-serif text-title-2 leading-tight text-balance">{item.title}</p>
+      {summary ? <p className="mt-3 text-callout text-muted-foreground">{summary}</p> : null}
+      {nicheSlug && nicheName ? (
+        <div className="mt-4 flex flex-wrap gap-2">
+          <Link
+            href={`/n/${nicheSlug}`}
+            className="inline-flex h-8 items-center rounded-full bg-muted px-3 text-footnote font-medium"
+          >
+            {nicheName}
+          </Link>
+        </div>
+      ) : null}
+    </div>
+  )
+}
+
+/** Text-forward card for headlines without an image (Google News carries none). */
+function Headline({ item, fresh }: { item: FeedItem; fresh: boolean }) {
+  const outlet = outletOf(item)
+  const favicon = faviconOf(item)
   return (
     <div className="rounded-2xl border border-border bg-card p-5 transition-transform duration-300 ease-out group-hover:-translate-y-0.5 group-active:scale-[0.98]">
       <div className="flex items-center gap-2">
@@ -228,6 +306,11 @@ function Headline({ item }: { item: FeedItem }) {
           />
         ) : null}
         <span className="truncate text-footnote font-medium text-muted-foreground">{outlet}</span>
+        {fresh ? (
+          <span className="ml-auto">
+            <NewDot />
+          </span>
+        ) : null}
       </div>
       <p className="mt-3 text-headline leading-snug font-semibold text-balance">{item.title}</p>
     </div>

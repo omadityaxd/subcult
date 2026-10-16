@@ -13,6 +13,7 @@ import { archiveFeedItems, getArchive } from "@/lib/shop/server"
 import { moodboardFeedItems } from "@/lib/moodboard/board"
 import { getMoodboard } from "@/lib/moodboard/server"
 import { MediaImage } from "@/components/ds/media-image"
+import { freshness } from "@/lib/time"
 import { SectionHeader } from "@/components/ds/section-header"
 import { Skeleton } from "@/components/ui/skeleton"
 import type { NicheProfile } from "@/lib/engine/profile-schema"
@@ -157,13 +158,27 @@ export async function NicheSoundtrack({ slug }: { slug: string }) {
 export async function LiveTea({ profile }: { profile: NicheProfile }) {
   const feed = await getNicheFeed(profile)
   const items = feed.bySource.news ?? []
+  const now = new Date(feed.generatedAt)
+  const today = items.filter((item) => freshness(item.publishedAt, now) === "today")
+  const week = items.filter((item) => freshness(item.publishedAt, now) !== "today")
   return (
     <div className="space-y-12">
-      {items.length > 0 ? (
+      {today.length > 0 ? (
         <section>
-          <SectionHeader overline="Last two weeks" title="The tea" />
-          <Masonry items={items} now={feed.generatedAt} className="sm:columns-2 xl:columns-2" />
+          <SectionHeader overline="The tea" title="Today" />
+          <Masonry items={today} now={feed.generatedAt} className="sm:columns-2 xl:columns-2" />
         </section>
+      ) : null}
+      {week.length > 0 ? (
+        <section>
+          <SectionHeader overline={today.length > 0 ? undefined : "The tea"} title="This week" />
+          <Masonry items={week} now={feed.generatedAt} className="sm:columns-2 xl:columns-2" />
+        </section>
+      ) : null}
+      {items.length === 0 ? (
+        <p className="rounded-2xl border border-dashed border-border-strong p-8 text-center text-callout text-muted-foreground">
+          Quiet week: no fresh headlines about this scene yet.
+        </p>
       ) : null}
       <section>
         <SectionHeader title="Keep digging" />

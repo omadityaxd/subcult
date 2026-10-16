@@ -8,6 +8,57 @@ export interface RssItem {
   source: string | null
   /** Publisher homepage from <source url="…"> (Google News), for allowlisting. */
   sourceUrl: string | null
+  /** The publisher's own image: media:content/thumbnail, an image enclosure, or the first <img>. */
+  imageUrl: string | null
+  /** First ~200 chars of the description as plain text; null when it only repeats the title. */
+  summary: string | null
+}
+
+const SUMMARY_MAX = 200
+const IMG_SRC = /<img[^>]+src=["']([^"']+)["']/i
+
+const httpsUrl = (value: string | null): string | null =>
+  value && /^https:\/\//.test(value) ? value.replace(/&amp;/g, "&") : null
+
+function attr(value: unknown, name: string): string | null {
+  const node = Array.isArray(value) ? value[0] : value
+  return isRecord(node) ? text(node[`@_${name}`]) : null
+}
+
+function imageOf(item: Record<string, unknown>, description: string | null): string | null {
+  const enclosure = item.enclosure
+  const enclosureType = attr(enclosure, "type") ?? ""
+  return (
+    httpsUrl(attr(item["media:content"], "url")) ??
+    httpsUrl(attr(item["media:thumbnail"], "url")) ??
+    (enclosureType.startsWith("image/") ? httpsUrl(attr(enclosure, "url")) : null) ??
+    httpsUrl(description?.match(IMG_SRC)?.[1] ?? null)
+  )
+}
+
+/** Plain-text lede from an HTML description, cut at a word boundary. */
+export function summarize(description: string | null, title: string): string | null {
+  if (!description) return null
+  const plain = decodeEntities(
+    description
+      .replace(/<[^>]+>/g, " ")
+      .replace(/&nbsp;|&#160;/g, " ")
+      .replace(/\s+/g, " ")
+      .trim(),
+  )
+    .replace(/^Summary\s+/i, "")
+    .trim()
+  if (plain.length < 40) return null
+  const head = (s: string) =>
+    s
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, " ")
+      .trim()
+  // Google News descriptions are just the headline again.
+  if (head(plain).startsWith(head(title).slice(0, 60))) return null
+  if (plain.length <= SUMMARY_MAX) return plain
+  const cut = plain.slice(0, SUMMARY_MAX)
+  return `${cut.slice(0, cut.lastIndexOf(" ")).replace(/[,;:.]$/, "")}…`
 }
 
 const parser = new XMLParser({
@@ -59,6 +110,8 @@ export function parseRss(xml: string): RssItem[] {
         publishedAt: parseDate(item.pubDate),
         source: text(item.source),
         sourceUrl: isRecord(item.source) ? text(item.source["@_url"]) : null,
+        imageUrl: imageOf(item, text(item.description)),
+        summary: summarize(text(item.description), title),
       },
     ]
   })

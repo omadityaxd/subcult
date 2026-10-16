@@ -60,7 +60,8 @@ export function containsTerm(text: string, term: string): boolean {
   return needle.length > 0 && haystack.includes(` ${needle} `)
 }
 
-const isAmbiguous = (term: string) => {
+/** Too short or too common to count as evidence on its own ("che", "rage"). */
+export const isAmbiguous = (term: string): boolean => {
   const value = normalize(term)
   return value.length <= 4 || COMMON_WORDS.has(value)
 }
