@@ -88,6 +88,11 @@ export const nicheCurationSchema = z.object({
   mix: z.record(z.enum(MIX_KIND_IDS), z.number().min(0).max(1)).optional(),
   /** Phrases that disqualify a news/video item for this niche ("opium war", "type beat"). */
   negativeKeywords: z.array(z.string().min(2).max(40)).default([]),
+  /**
+   * Artist whose photo is the niche's face. Set when the automatic pick's
+   * Spotify image isn't a readable portrait (e.g. a drawing).
+   */
+  coverArtist: slug.optional(),
   /** Public Are.na channel slugs for the moodboard (checked readable without a key). */
   arenaChannels: z.array(z.string().regex(/^[a-z0-9-]+$/)).default([]),
   /** ISO 639-1 languages the niche's content is in; anything else is dropped. */

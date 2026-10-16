@@ -29,32 +29,44 @@ async function UsageReport() {
   if (!db) return <Notice>DATABASE_URL isn&apos;t set, so there&apos;s no ledger yet.</Notice>
 
   const summary = await summarizeUsage(db, { startOfToday: startOfUtcDay() })
-  const cap = env.LLM_DAILY_GENERATION_CAP
-  const capShare = cap === 0 ? 1 : Math.min(1, summary.generationsToday / cap)
 
   return (
     <div className="mt-6 space-y-6">
-      <section className="rounded-2xl bg-card p-4">
-        <div className="flex items-baseline justify-between">
-          <h2 className="text-[15px] font-semibold">daily generation cap</h2>
-          <span className="text-[15px] tabular-nums">
-            {summary.generationsToday} / {cap}
-          </span>
-        </div>
-        <div className="mt-3 h-2 overflow-hidden rounded-full bg-muted">
-          <div
-            className={cn("h-full rounded-full", capShare >= 1 ? "bg-destructive" : "bg-accent")}
-            style={{ width: `${capShare * 100}%` }}
-          />
-        </div>
-        <p className="mt-2 text-[13px] text-muted-foreground">Resets at 00:00 UTC.</p>
-      </section>
+      <CapCard
+        label="daily generation cap"
+        used={summary.generationsToday}
+        cap={env.LLM_DAILY_GENERATION_CAP}
+      />
+      <CapCard
+        label="daily vision cap (batches)"
+        used={summary.visionBatchesToday}
+        cap={env.VISION_DAILY_BATCH_CAP}
+      />
 
       <section className="grid grid-cols-3 gap-3">
         <TotalsCard label="today" totals={summary.today} />
         <TotalsCard label="7 days" totals={summary.last7Days} />
         <TotalsCard label="all time" totals={summary.allTime} />
       </section>
+
+      {summary.byPurpose.length > 0 ? (
+        <section>
+          <h2 className="mb-2 text-[13px] tracking-wide text-muted-foreground uppercase">
+            by feature · 7 days
+          </h2>
+          <ul className="divide-y divide-border overflow-hidden rounded-2xl bg-card">
+            {summary.byPurpose.map((row) => (
+              <li key={row.purpose} className="flex items-center justify-between px-4 py-3">
+                <p className="text-[15px] font-medium">{row.purpose}</p>
+                <p className="text-[13px] text-muted-foreground tabular-nums">
+                  {row.jobs} jobs ·{" "}
+                  <span className="text-[15px] text-foreground">{formatUsd(row.costUsd)}</span>
+                </p>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
 
       <section>
         <h2 className="mb-2 text-[13px] tracking-wide text-muted-foreground uppercase">
@@ -85,6 +97,27 @@ async function UsageReport() {
         )}
       </section>
     </div>
+  )
+}
+
+function CapCard({ label, used, cap }: { label: string; used: number; cap: number }) {
+  const share = cap === 0 ? 1 : Math.min(1, used / cap)
+  return (
+    <section className="rounded-2xl bg-card p-4">
+      <div className="flex items-baseline justify-between">
+        <h2 className="text-[15px] font-semibold">{label}</h2>
+        <span className="text-[15px] tabular-nums">
+          {used} / {cap}
+        </span>
+      </div>
+      <div className="mt-3 h-2 overflow-hidden rounded-full bg-muted">
+        <div
+          className={cn("h-full rounded-full", share >= 1 ? "bg-destructive" : "bg-accent")}
+          style={{ width: `${share * 100}%` }}
+        />
+      </div>
+      <p className="mt-2 text-[13px] text-muted-foreground">Resets at 00:00 UTC.</p>
+    </section>
   )
 }
 

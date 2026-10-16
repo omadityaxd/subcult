@@ -1,6 +1,11 @@
 import type { GenerationStats } from "./generate"
 
-export const USAGE_PURPOSES = ["niche-generation", "trend-refresh", "vibe-blurb"] as const
+export const USAGE_PURPOSES = [
+  "niche-generation",
+  "trend-refresh",
+  "vibe-blurb",
+  "vision-tag",
+] as const
 export type UsagePurpose = (typeof USAGE_PURPOSES)[number]
 
 /** Request-path LLM jobs that share the global daily cap (LLM_DAILY_GENERATION_CAP). */

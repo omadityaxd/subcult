@@ -7,10 +7,12 @@ import {
 } from "@/lib/sources/spotify"
 import type { FeedItem, Fetcher } from "../types"
 
-/** Niche feed from Spotify search (see lib/sources/spotify for the API limits). */
-const PLAYLIST_LIMIT = 6 // ≤ 10 (dev-mode cap)
+/**
+ * Niche feed from Spotify search (see lib/sources/spotify for the API limits).
+ * Tracks by verified artists only: since February 2026 other people's
+ * playlists return metadata without their tracks, so we don't surface them.
+ */
 const TRACKS_PER_ARTIST = 2
-const QUERIES_USED = 2
 const ARTISTS_LOOKED_UP = 4
 
 const compact = <T>(items: readonly (T | null)[] | undefined): T[] =>
@@ -111,15 +113,10 @@ export function spotifyFetcher({ client, artistIdFor, ...options }: SpotifyOptio
     freshSeconds: 24 * 3600,
     staleSeconds: 7 * 24 * 3600,
     async fetch(profile: NicheProfile) {
-      const requests = [
-        ...profile.spotifyQueries
-          .slice(0, QUERIES_USED)
-          .map((query) => search(query, "playlist", PLAYLIST_LIMIT)),
-        ...profile.artists
-          .slice(0, ARTISTS_LOOKED_UP)
-          // Tracks come from the curated artists: generic query track search is noisy.
-          .map((artist) => artistItems(artist.name)),
-      ]
+      // Tracks come from the curated artists: generic query search is noisy.
+      const requests = profile.artists
+        .slice(0, ARTISTS_LOOKED_UP)
+        .map((artist) => artistItems(artist.name))
       const settled = await Promise.allSettled(requests)
       const results = settled.flatMap((r) => (r.status === "fulfilled" ? r.value : []))
       if (results.length === 0) {

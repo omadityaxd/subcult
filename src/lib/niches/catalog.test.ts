@@ -4,7 +4,7 @@ import { describe, expect, it } from "vitest"
 import { z } from "zod"
 import { nicheProfileSchema } from "@/lib/engine/profile-schema"
 import { toNicheSlug } from "@/lib/engine/slug"
-import { SEED_PROFILES } from "./catalog"
+import { SEED_PROFILES, TAXONOMY, nicheLeadArtist } from "./catalog"
 
 const DATA_DIR = join(process.cwd(), "data", "niches")
 const files = readdirSync(DATA_DIR).filter((file) => file.endsWith(".json"))
@@ -48,6 +48,20 @@ describe("seed niche files", () => {
       const brands = profile.brands.map((b) => b.name.toLowerCase())
       expect(new Set(artists).size, profile.slug).toBe(artists.length)
       expect(new Set(brands).size, profile.slug).toBe(brands.length)
+    }
+  })
+})
+
+describe("niche covers", () => {
+  it("regression: jerk's face is a real portrait, not xaviersobased's drawing", () => {
+    expect(nicheLeadArtist("jerk")?.slug).toBe("evilgiane")
+  })
+
+  it("every coverArtist override names one of the niche's pictured artists", () => {
+    for (const profile of SEED_PROFILES) {
+      const cover = TAXONOMY.curation(profile.slug)?.coverArtist
+      if (!cover) continue
+      expect(nicheLeadArtist(profile.slug)?.slug, profile.slug).toBe(cover)
     }
   })
 })

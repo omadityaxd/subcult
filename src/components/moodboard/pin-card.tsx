@@ -47,9 +47,15 @@ export function PinCard({ item }: { item: FeedItem }) {
       >
         <MediaImage src={pin.imageUrl} alt="" sizes="(max-width: 640px) 100vw, 33vw" />
       </button>
-      {pin.credit || artistSlug ? (
+      {artistSlug ? (
+        <SceneCaption
+          name={item.title}
+          note={str(item.meta.note)}
+          wearing={str(item.meta.wearingName)}
+        />
+      ) : pin.credit ? (
         <p className="mt-1.5 truncate px-0.5 text-caption text-muted-foreground">
-          {pin.credit?.label ?? item.title}
+          {pin.credit.label}
         </p>
       ) : null}
       {open && artistSlug ? (
@@ -68,5 +74,28 @@ export function PinCard({ item }: { item: FeedItem }) {
         />
       ) : null}
     </article>
+  )
+}
+
+/** Scene photo context: who, why they matter here, and what they're seen wearing. */
+function SceneCaption({
+  name,
+  note,
+  wearing,
+}: {
+  name: string
+  note: string | null
+  wearing: string | null
+}) {
+  return (
+    <div className="mt-1.5 px-0.5">
+      <p className="truncate text-footnote font-semibold">{name}</p>
+      {note ? <p className="line-clamp-2 text-caption text-muted-foreground">{note}</p> : null}
+      {wearing ? (
+        <span className="mt-1 inline-flex max-w-full items-center rounded-full border border-border px-2 py-0.5 text-caption text-muted-foreground">
+          <span className="truncate">Seen wearing {wearing}</span>
+        </span>
+      ) : null}
+    </div>
   )
 }

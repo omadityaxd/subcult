@@ -6,11 +6,12 @@ import type { PlayableTrack } from "@/lib/music/playable"
 import { getSoundtrack } from "@/lib/music/soundtrack-server"
 import { TAXONOMY, findPreset } from "@/lib/niches/catalog"
 import { archiveFeedItems, getArchive } from "@/lib/shop/server"
+import { isVerifiedFit } from "@/lib/vision/tag"
 import { featuredOrder } from "./featured"
 import type { FeedItem } from "./types"
 
-/** Visual references worth leading with: external boards first, then scene photos. */
-const LOOK_SOURCES: readonly Pin["source"][] = ["arena", "unsplash", "pexels", "artist"]
+/** The look of the day: an artist photo or an image vision-verified as a fit. */
+const isLook = (pin: Pin) => pin.source === "artist" || isVerifiedFit(pin.vision)
 const SPINNING_NICHES = 3
 const SPINNING_TRACKS = 12
 
@@ -38,7 +39,7 @@ async function lookOfTheDay(day: string, order: readonly string[]): Promise<Dail
   for (let attempt = 0; attempt < fashion.length; attempt++) {
     const slug = fashion[(dayIndex(day, fashion.length, "look") + attempt) % fashion.length]
     const board = await getMoodboard(slug)
-    const candidates = board.pins.filter((pin) => LOOK_SOURCES.includes(pin.source))
+    const candidates = board.pins.filter(isLook)
     const pin = candidates[dayIndex(day, candidates.length, slug)]
     const preset = findPreset(slug)
     if (pin && preset) return { pin, niche: { slug, name: preset.name } }

@@ -21,11 +21,18 @@ describe("For You filters", () => {
     expect(filterOf(item({ source: "ebay", type: "product" }))).toBe("archive")
     expect(filterOf(item({ type: "brand" }))).toBe("brands")
     expect(filterOf(item({ type: "fit" }))).toBe("fits")
-    expect(filterOf(item({ source: "arena", type: "pin" }))).toBe("fits")
+    expect(filterOf(item({ source: "arena", type: "pin", meta: { fit: true } }))).toBe("fits")
     expect(filterOf(item({ type: "pin", meta: { artistSlug: "che" } }))).toBe("scenes")
     expect(filterOf(item({ source: "spotify", type: "track" }))).toBe("sounds")
     expect(filterOf(item({ source: "news", type: "article" }))).toBe("scenes")
     expect(filterOf(item({ source: "youtube", type: "video" }))).toBe("scenes")
+  })
+
+  it("regression: a stock or Are.na pin is never a fit until vision verifies it", () => {
+    // The Slipknot photo that showed up under Fits for jerk.
+    const slipknot = item({ source: "arena", type: "pin", title: "Slipknot live", meta: {} })
+    expect(filterOf(slipknot)).toBe("scenes")
+    expect(filterOf({ ...slipknot, meta: { fit: false } })).toBe("scenes")
   })
 
   it("All keeps everything; a chip narrows", () => {

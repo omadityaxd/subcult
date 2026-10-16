@@ -137,7 +137,9 @@ export function isTrusted(item: FeedItem, sources: SourceAllowlist): boolean {
 
 /** Why an item doesn't belong in this niche's feed, or null when it does. */
 export function judgeItem(item: FeedItem, ctx: CleanContext): DropReason | null {
-  // Spotify search also surfaces "type beat" playlists; verified-artist tracks pass.
+  // Third-party playlists can't be shown as track lists any more (Feb 2026), and
+  // their names collide ("Jerk music" full of System of a Down): never shown.
+  if (item.source === "spotify" && item.type === "playlist") return "blocked"
   if (item.source === "spotify") return isSpam(item.title) ? "spam" : null
   if (!GATED_SOURCES.has(item.source)) return null
   const { title } = item

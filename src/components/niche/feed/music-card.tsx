@@ -1,6 +1,6 @@
 "use client"
 
-import { ListMusic, Loader2, Pause, Play } from "lucide-react"
+import { Loader2, Pause, Play } from "lucide-react"
 import { useMemo, useState } from "react"
 import { MediaImage } from "@/components/ds/media-image"
 import { ResponsiveSheet } from "@/components/ds/responsive-sheet"
@@ -26,7 +26,6 @@ const savedShape = (item: FeedItem) => ({
 
 /** Songs, playlists and Spotify artist results: every tap stays in the app. */
 export function MusicCard({ item, meta }: { item: FeedItem; meta: string }) {
-  if (item.type === "playlist") return <PlaylistCard item={item} meta={meta} />
   if (item.type === "artist") return <SpotifyArtistCard item={item} meta={meta} />
   return <TrackCard item={item} meta={meta} />
 }
@@ -95,57 +94,6 @@ function TrackCard({ item, meta }: { item: FeedItem; meta: string }) {
         ) : null}
       </button>
       <SaveButton item={savedShape(item)} className="size-9 shrink-0" />
-    </article>
-  )
-}
-
-/**
- * Spotify playlists open as an in-app track list. Dev-mode apps can't read
- * other people's playlist items (Feb 2026 API change), so the list is
- * Spotify's own embed, inside our sheet.
- */
-function PlaylistCard({ item, meta }: { item: FeedItem; meta: string }) {
-  const [open, setOpen] = useState(false)
-  const uri = spotifyUriFrom(item.url)
-  return (
-    <article className="relative">
-      <button
-        type="button"
-        onClick={() => setOpen(true)}
-        className="group block w-full text-left"
-        aria-label={`Open playlist ${item.title}`}
-      >
-        <span className="relative block aspect-square overflow-hidden rounded-2xl bg-muted transition-transform duration-300 ease-out group-active:scale-[0.98]">
-          {item.imageUrl ? (
-            <MediaImage src={item.imageUrl} alt="" sizes="(max-width: 640px) 100vw, 33vw" />
-          ) : null}
-          <span className="absolute bottom-3 left-3 inline-flex h-8 items-center gap-1.5 rounded-full bg-black/55 px-3 text-footnote font-medium text-white backdrop-blur-md">
-            <ListMusic aria-hidden className="size-4" strokeWidth={1.75} />
-            Playlist
-          </span>
-        </span>
-        <span className="mt-2.5 line-clamp-2 block px-0.5 text-headline font-semibold">
-          {item.title}
-        </span>
-        <span className="mt-0.5 block truncate px-0.5 text-footnote text-muted-foreground">
-          {[item.subtitle, meta].filter(Boolean).join(" · ")}
-        </span>
-      </button>
-      <ResponsiveSheet open={open} onOpenChange={setOpen} title={item.title}>
-        {uri ? (
-          <SpotifyEmbed uri={uri} height={380} />
-        ) : (
-          <p className="text-callout text-muted-foreground">
-            This playlist can&apos;t be shown here.
-          </p>
-        )}
-        <div className="mt-4 flex items-center justify-between">
-          <p className="text-caption text-muted-foreground">
-            Previews unless you&apos;re logged in to Spotify Premium here.
-          </p>
-          <SpotifyLink href={item.url} label="Open in Spotify" />
-        </div>
-      </ResponsiveSheet>
     </article>
   )
 }

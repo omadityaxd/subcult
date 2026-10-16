@@ -76,7 +76,12 @@ const NICHE_LEADS: ReadonlyMap<string, Artist | null> = (() => {
   const leads = new Map<string, Artist | null>()
   for (const { slug } of order) {
     const pictured = TAXONOMY.artistsOf(slug).filter((artist) => artist.imageUrl)
-    const pick = pictured.find((artist) => !used.has(artist.slug)) ?? pictured[0] ?? null
+    const cover = TAXONOMY.curation(slug)?.coverArtist
+    const pick =
+      pictured.find((artist) => artist.slug === cover) ??
+      pictured.find((artist) => !used.has(artist.slug)) ??
+      pictured[0] ??
+      null
     if (pick) used.add(pick.slug)
     leads.set(slug, pick)
   }

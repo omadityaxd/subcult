@@ -151,15 +151,22 @@ describe("judgeItem keeps the real thing", () => {
 })
 
 describe("Spotify results", () => {
-  it("drops type-beat playlists but keeps real tracks", () => {
+  it("drops type-beat uploads but keeps real tracks", () => {
     const ctx = contextFor("rage")
     const spotify = (title: string, type: FeedItem["type"]) => ({
       ...video(title, "x"),
       source: "spotify" as const,
       type,
     })
-    expect(judgeItem(spotify("YEAT TYPE BEATS", "playlist"), ctx)).toBe("spam")
+    expect(judgeItem(spotify("YEAT TYPE BEAT", "track"), ctx)).toBe("spam")
     expect(judgeItem(spotify("Magnolia", "track"), ctx)).toBeNull()
+  })
+
+  it('regression: third-party playlists ("Jerk music" full of System of a Down) never show', () => {
+    const ctx = contextFor("jerk")
+    expect(
+      judgeItem({ ...video("Jerk music", "x"), source: "spotify", type: "playlist" }, ctx),
+    ).toBe("blocked")
   })
 })
 

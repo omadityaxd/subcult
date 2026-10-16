@@ -91,12 +91,12 @@ export async function LiveForYou({ profile }: { profile: NicheProfile }) {
 }
 
 /**
- * Sounds tab, Spotify-style: "This is <niche>" soundtrack (playable here),
- * the verified artists (tap for the artist sheet), then related playlists.
+ * Sounds tab: "This is <niche>" soundtrack (playable here), the verified
+ * artists (tap for the artist sheet), then neighbouring niches' soundtracks:
+ * our own playlists, built from verified artists.
  */
 export async function LiveSounds({ profile }: { profile: NicheProfile }) {
-  const [soundtrack, feed] = await Promise.all([getSoundtrack(profile.slug), getNicheFeed(profile)])
-  const playlists = (feed.bySource.spotify ?? []).filter((item) => item.type === "playlist")
+  const soundtrack = await getSoundtrack(profile.slug)
   const artists = TAXONOMY.artistsOf(profile.slug).map(({ slug, name, imageUrl }) => ({
     slug,
     name,
@@ -116,16 +116,6 @@ export async function LiveSounds({ profile }: { profile: NicheProfile }) {
         <section>
           <SectionHeader title="More soundtracks" />
           <SoundtrackShelf niches={shelf} />
-        </section>
-      ) : null}
-      {playlists.length > 0 ? (
-        <section>
-          <SectionHeader title="Playlists on Spotify" />
-          <Masonry
-            items={playlists}
-            now={feed.generatedAt}
-            className="columns-2 sm:columns-3 xl:columns-4"
-          />
         </section>
       ) : null}
       <ExternalChips
@@ -345,8 +335,14 @@ export async function LiveFits({ profile }: { profile: NicheProfile }) {
     getViewer(),
     getMoodboard(profile.slug),
   ])
-  // Until the community fills the tab, real looks from the scene keep it visual.
-  const looks = fits.length < LOOKS_UNTIL ? moodboardFeedItems(board.pins).slice(0, LOOKS) : []
+  // Until the community fills the tab, real looks keep it visual: the scene's
+  // artists and images vision-verified as fits, never stock moodboard shots.
+  const looks =
+    fits.length < LOOKS_UNTIL
+      ? moodboardFeedItems(board.pins)
+          .filter((item) => item.meta.fit === true || Boolean(item.meta.artistSlug))
+          .slice(0, LOOKS)
+      : []
   return (
     <section>
       <div className="mb-4 flex items-end justify-between gap-3">

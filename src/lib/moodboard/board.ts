@@ -1,5 +1,6 @@
-import { NEAR_COLOR, colorDistance } from "@/lib/color"
+import { NEAR_COLOR, colorDistance, luminance } from "@/lib/color"
 import type { FeedItem } from "@/lib/feed/types"
+import { belongsInFeed, isVerifiedFit } from "@/lib/vision/tag"
 import type { Pin, PinSource } from "./types"
 
 export const BOARD_MAX = 60
@@ -59,11 +60,18 @@ const FEED_SOURCES: Partial<Record<PinSource, FeedItem["source"]>> = {
   artist: "subcult",
 }
 
+const BLANK_LUMINANCE = 0.002
+
 /** Pins as For You items: the "moodboard" share of the mix. */
 export function moodboardFeedItems(pins: readonly Pin[]): FeedItem[] {
   return pins.flatMap((pin) => {
     const source = FEED_SOURCES[pin.source]
     if (!source) return []
+    // External images reach a feed only once vision-tagged as on-topic and good enough;
+    // untagged ones (no key, over the cap) stay on the moodboard.
+    if (pin.source !== "artist" && !belongsInFeed(pin.vision)) return []
+    // A solid-black placeholder photo (some Spotify artist images) isn't imagery.
+    if (pin.color && luminance(pin.color) < BLANK_LUMINANCE) return []
     return [
       {
         id: `pin:${pin.id}`,
@@ -83,6 +91,10 @@ export function moodboardFeedItems(pins: readonly Pin[]): FeedItem[] {
           height: pin.height,
           downloadLocation: pin.downloadLocation ?? null,
           artistSlug: pin.source === "artist" ? pin.id.replace(/^artist:/, "") : null,
+          fit: isVerifiedFit(pin.vision),
+          note: pin.note ?? null,
+          wearingSlug: pin.wearing?.slug ?? null,
+          wearingName: pin.wearing?.name ?? null,
         },
       },
     ]

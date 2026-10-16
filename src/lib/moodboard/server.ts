@@ -8,8 +8,10 @@ import { env } from "@/lib/env"
 import { errorMessage, log } from "@/lib/log"
 import { getCacheStore } from "@/lib/music/server"
 import { getSoundtrack } from "@/lib/music/soundtrack-server"
-import { TAXONOMY, findSeedProfile } from "@/lib/niches/catalog"
+import { TAXONOMY, findSeedProfile, nicheArtistsLeadFirst } from "@/lib/niches/catalog"
 import { assembleBoard } from "./board"
+import { visionTags } from "@/lib/vision/server"
+import { canBeCover } from "@/lib/vision/tag"
 import { dominantColor } from "./dominant-color"
 import { arenaChannelPins, pexelsPins, unsplashPins } from "./sources"
 import type { Moodboard, Pin, PinSource } from "./types"
@@ -64,10 +66,19 @@ async function ownPins(
         ]
       : [],
   )
-  const artist: RawPin[] = TAXONOMY.artistsOf(slug).flatMap((entry) =>
+  const lookup = (name: string) => name.toLowerCase()
+  const why = new Map((profile?.artists ?? []).map((a) => [lookup(a.name), a.why]))
+  const wearing = (artistSlug: string) => {
+    const brand = TAXONOMY.allBrands().find((b) => b.wornBy.some((w) => w.artist === artistSlug))
+    return brand ? { slug: brand.slug, name: brand.name } : null
+  }
+  // Lead first: the niche's face (a readable portrait) opens the looks.
+  const artist: RawPin[] = nicheArtistsLeadFirst(slug).flatMap((entry) =>
     entry.imageUrl
       ? [
           {
+            note: why.get(lookup(entry.name)) ?? null,
+            wearing: wearing(entry.slug),
             id: `artist:${entry.slug}`,
             source: "artist" as const,
             imageUrl: entry.imageUrl,
@@ -99,6 +110,28 @@ async function ownPins(
       : [],
   )
   return { album, artist, video }
+}
+
+/** External images we didn't make: these need a vision tag before they reach a feed. */
+const TAGGED_SOURCES: ReadonlySet<PinSource> = new Set(["arena", "unsplash", "pexels"])
+
+/** Attach vision tags; tagged low-quality pins sink to the back so they never lead the board. */
+async function withVision(
+  pins: readonly Pin[],
+  profile: { slug: string; name: string; description: string; vibeWords: readonly string[] },
+): Promise<Pin[]> {
+  const urls = pins.filter((pin) => TAGGED_SOURCES.has(pin.source)).map((pin) => pin.imageUrl)
+  const tags = await visionTags(urls, {
+    slug: profile.slug,
+    name: profile.name,
+    description: `${profile.description} Looks: ${profile.vibeWords.join(", ")}.`,
+  })
+  const tagged = pins.map((pin) => {
+    const tag = tags.get(pin.imageUrl)
+    return tag ? { ...pin, vision: tag } : pin
+  })
+  const weak = (pin: Pin) => (pin.vision ? !canBeCover(pin.vision) : false)
+  return [...tagged.filter((pin) => !weak(pin)), ...tagged.filter(weak)]
 }
 
 async function buildMoodboard(slug: string): Promise<Moodboard> {
@@ -144,7 +177,7 @@ async function buildMoodboard(slug: string): Promise<Moodboard> {
   const pins = colored.flatMap((result, i) =>
     result.status === "fulfilled" ? [result.value] : [board[i]],
   )
-  return { slug, pins, disabled }
+  return { slug, pins: await withVision(pins, profile), disabled }
 }
 
 /** A niche's moodboard, built once and cached (with its colors). Memoized per request. */
@@ -152,7 +185,7 @@ export const getMoodboard = cache(async (slug: string): Promise<Moodboard> => {
   try {
     const { value } = await cached(
       getCacheStore(),
-      `subcult:moodboard:v1:${slug}`,
+      `subcult:moodboard:v3:${slug}`,
       BOARD_POLICY,
       () => buildMoodboard(slug),
       {

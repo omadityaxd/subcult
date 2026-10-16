@@ -57,6 +57,11 @@ const serverEnvSchema = z.object({
     (value) => (typeof value === "string" && value.trim() === "" ? undefined : value),
     z.coerce.number().int().min(0).default(30),
   ),
+  /** Vision tagging requests (up to 6 images each) per UTC day; separate from the generation cap. */
+  VISION_DAILY_BATCH_CAP: z.preprocess(
+    (value) => (typeof value === "string" && value.trim() === "" ? undefined : value),
+    z.coerce.number().int().min(0).default(60),
+  ),
   /** Password for /admin (HTTP Basic auth). Admin is disabled (404) when unset. */
   ADMIN_SECRET: optional,
   /** Vercel sends `Authorization: Bearer $CRON_SECRET` to cron routes. */

@@ -17,13 +17,10 @@ export type FeedFilter = (typeof FEED_FILTERS)[number]["id"]
 export function filterOf(item: FeedItem): Exclude<FeedFilter, "all"> {
   if (item.source === "ebay") return "archive"
   if (item.type === "brand") return "brands"
-  if (item.type === "fit") return "fits"
-  const kind = mixKind(item)
-  if (kind === "music") return "sounds"
-  // Visual references and fit pics read as fits; artist photos are scene people.
-  if (kind === "moodboard" || kind === "fashion") {
-    return typeof item.meta.artistSlug === "string" && item.meta.artistSlug ? "scenes" : "fits"
-  }
+  // Fits means outfits: posted fits and images vision-verified as one. Everything
+  // else visual (stock, Are.na, artist photos) is scene imagery.
+  if (item.type === "fit" || item.meta.fit === true) return "fits"
+  if (mixKind(item) === "music") return "sounds"
   return "scenes"
 }
 
