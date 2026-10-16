@@ -99,7 +99,7 @@ const FASHION_CONTEXT = [
   "sneaker release",
 ]
 /** Season codes: "SS27", "FW26", "AW25". */
-const SEASON_CODE = /(ss|fw|aw)\d{2}/i
+const SEASON_CODE = /\b(ss|fw|aw)\d{2}\b/i
 
 const FASHION_BRANCH = "underground-fashion"
 

@@ -51,6 +51,9 @@ describe("onTopic", () => {
       true,
     )
     expect(onTopic("Rick Owens SS27", archive)).toBe(true)
+    // A season code is a fashion word: one-word brands pass with it.
+    expect(onTopic("UNDERCOVER SS27", archive)).toBe(true)
+    expect(onTopic("UNDERCOVER boss27 sting", archive)).toBe(false)
   })
 
   it("keeps artist news for music niches", () => {
