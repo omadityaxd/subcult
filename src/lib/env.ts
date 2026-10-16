@@ -62,6 +62,9 @@ const serverEnvSchema = z.object({
     (value) => (typeof value === "string" && value.trim() === "" ? undefined : value),
     z.coerce.number().int().min(0).default(60),
   ),
+  /** Web push (VAPID). Generate once: `npx web-push generate-vapid-keys`. Push is off when unset. */
+  NEXT_PUBLIC_VAPID_PUBLIC_KEY: optional,
+  VAPID_PRIVATE_KEY: optional,
   /** Password for /admin (HTTP Basic auth). Admin is disabled (404) when unset. */
   ADMIN_SECRET: optional,
   /** Vercel sends `Authorization: Bearer $CRON_SECRET` to cron routes. */
@@ -91,6 +94,7 @@ export const features = {
   ebay: Boolean(env.EBAY_CLIENT_ID && env.EBAY_CLIENT_SECRET),
   spotifyConnect: env.NEXT_PUBLIC_SPOTIFY_CONNECT === "1" && Boolean(env.SPOTIFY_CLIENT_ID),
   analytics: Boolean(env.NEXT_PUBLIC_POSTHOG_KEY),
+  push: Boolean(env.NEXT_PUBLIC_VAPID_PUBLIC_KEY && env.VAPID_PRIVATE_KEY),
 } as const
 
 export type Feature = keyof typeof features

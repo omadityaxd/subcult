@@ -5,6 +5,7 @@ import { useEffect, useState } from "react"
 import { MediaImage } from "@/components/ds/media-image"
 import { ResponsiveSheet } from "@/components/ds/responsive-sheet"
 import { SaveButton } from "@/components/ds/save-button"
+import { GrailHunt } from "@/components/alerts/grail-hunt"
 import { Skeleton } from "@/components/ui/skeleton"
 import { formatPrice } from "@/lib/shop/archive"
 import type { ListingDetail } from "@/lib/shop/ebay"
@@ -22,6 +23,8 @@ export interface ProductRef {
   era: string | null
   season: string | null
   grail: boolean
+  /** Verified brand slug: enables "Alert me for similar". */
+  brandSlug?: string | null
 }
 
 /**
@@ -139,6 +142,15 @@ export function ProductSheet({
       <p className="mt-2 text-center text-caption text-muted-foreground">
         Live eBay listing. Price and availability can change.
       </p>
+      {product.brandSlug && product.brand && product.currency === "USD" ? (
+        <GrailHunt
+          key={product.listingId}
+          brandSlug={product.brandSlug}
+          brand={product.brand}
+          title={product.title}
+          price={detail?.price ?? product.price}
+        />
+      ) : null}
 
       {others.length > 0 ? (
         <>

@@ -5,6 +5,8 @@ import { CommandPalette } from "@/components/shell/command-palette"
 import { TasteTrackerForViewer } from "@/components/taste/taste-tracker-server"
 import { TasteTracker } from "@/components/taste/taste-tracker"
 import { WrappedTracker } from "@/components/wrapped/trackers"
+import { PushPromptHost } from "@/components/alerts/push-prompt"
+import { env } from "@/lib/env"
 import { Sidebar, SidebarView } from "@/components/shell/sidebar"
 import { TabBar, TabBarView } from "@/components/shell/tab-bar"
 import { NICHE_PRESETS } from "@/lib/niches/catalog"
@@ -33,6 +35,7 @@ export default function TabsLayout({ children }: LayoutProps<"/">) {
         <TasteTrackerForViewer />
       </Suspense>
       <CommandPalette presets={NICHE_PRESETS} />
+      <PushPromptHost vapidPublicKey={env.NEXT_PUBLIC_VAPID_PUBLIC_KEY ?? null} />
     </div>
   )
 }

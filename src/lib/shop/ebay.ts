@@ -137,14 +137,29 @@ function toListing(item: z.infer<typeof summarySchema>): Listing | null {
 export async function searchListings(
   query: string,
   credentials: EbayCredentials,
-  { limit = 24, fetchImpl = fetch }: { limit?: number; fetchImpl?: typeof fetch } = {},
+  {
+    limit = 24,
+    maxPrice,
+    newest = false,
+    fetchImpl = fetch,
+  }: {
+    limit?: number
+    /** USD ceiling (grail alerts: "under $400"). */
+    maxPrice?: number
+    /** Newly listed first (grail alerts check what's new). */
+    newest?: boolean
+    fetchImpl?: typeof fetch
+  } = {},
 ): Promise<Listing[]> {
+  const filters = ["buyingOptions:{FIXED_PRICE|AUCTION}"]
+  if (maxPrice !== undefined) filters.push(`price:[..${maxPrice}]`, "priceCurrency:USD")
   const params = new URLSearchParams({
     q: query,
     limit: String(limit),
     category_ids: CLOTHING_CATEGORY,
-    filter: "buyingOptions:{FIXED_PRICE|AUCTION}",
+    filter: filters.join(","),
   })
+  if (newest) params.set("sort", "newlyListed")
   const body = searchSchema.parse(
     await browse(`/item_summary/search?${params}`, credentials, fetchImpl),
   )

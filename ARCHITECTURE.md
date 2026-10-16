@@ -247,6 +247,29 @@ Momentum per entity (artist, brand, niche) = its weighted event rate over the la
   snapshot. `pnpm rising:print [--save]` prints the top 10 with scores. First run (2026-10-16):
   Gucci Mane 7.9× (16 vs 2 weighted events), afrobeats 3.6×, trap 2.0×, experimental rap 2.5×.
 
+## Alerts (lib/alerts)
+
+The strongest reason to come back: something you care about happened.
+
+- **Types:** drops (new releases from the artists your synced taste says you play), grails (saved
+  hunts: brand + piece + max price + optional size, checked daily against newly listed eBay
+  items, matched only when the size is stated in the title, never guessed), your niche blowing
+  up (a followed niche at ≥2.5× its usual momentum, at most once a week), friend activity (P0-4).
+- **Notification center first:** every alert is a row in `notifications` (deduped per event), read
+  under the bell with an unread count. Push is a bonus, not the channel: iOS only allows web push
+  in Home Screen apps (16.4+; Declarative Web Push 18.4+), permission must follow a tap, and
+  subscriptions are reported to lapse.
+- **Push policy (pure, tested):** quiet hours in the person's own zone (default 11pm-9am), one
+  push a day per person batching everything unread ("3 new: …"), 404/410 endpoints pruned.
+  Push is offered only after a meaningful action (saving a hunt, following), never on a first
+  visit; on an iPhone outside the Home Screen app the prompt explains the install instead.
+- **Runs** daily at 14:00 UTC (`/api/cron/alerts`, outside default quiet hours from California
+  to India). eBay hunts are capped at 400 checks a run (Browse allows 5,000 calls a day).
+  `pnpm alerts:run [--probe]` runs it once; `--probe` adds and removes a throwaway hunt.
+- **Data:** `push_subscriptions`, `notifications`, `alert_prefs`, `grail_searches` (migration
+  0007): RLS on with no policies, so only server routes (session + Origin check + rate limit +
+  Zod; verified brands only) touch them. Alerts need an account.
+
 ## In-app media
 
 One audio engine (two decks, Web Audio crossfades, Media Session) plays every preview. A handoff

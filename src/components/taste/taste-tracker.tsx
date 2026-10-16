@@ -2,6 +2,7 @@
 
 import { useEffect } from "react"
 import { getAudioEngine } from "@/lib/audio/use-audio"
+import { announceMeaningfulAction } from "@/lib/alerts/client"
 import type { ApiResponse } from "@/lib/request"
 import { SAVED_EVENT } from "@/lib/saves"
 import {
@@ -88,6 +89,8 @@ export function TasteTracker({ signedIn }: { signedIn: boolean }) {
       if (detail.source === "niche") {
         const ref = entityRef("niche", detail.id.replace(/^niche:/, ""))
         if (ref) recordSignal("follow", [{ ref, label: detail.title }])
+        // A follow is a meaningful action: the moment push may be offered (signed-in only).
+        announceMeaningfulAction("follow")
         return
       }
       const entities = registry.get(detail.id)

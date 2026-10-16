@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation"
 import { useState } from "react"
 import { cn } from "@/lib/utils"
 import { NAV_ITEMS, OPEN_SEARCH_EVENT } from "./nav"
+import { NotificationBell } from "@/components/alerts/notification-bell"
 import { ThemeToggle } from "./theme-toggle"
 
 /** Reads the URL, so it must sit inside <Suspense> on dynamic routes. */
@@ -74,6 +75,11 @@ export function SidebarView({ pathname }: { pathname: string | null }) {
             </Link>
           )
         })}
+        <NotificationBell
+          withLabel
+          labelClassName={showLabels}
+          className="h-12 rounded-xl px-3 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+        />
       </nav>
 
       <div className="flex flex-col gap-3 px-3">

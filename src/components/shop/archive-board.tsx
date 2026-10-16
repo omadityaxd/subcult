@@ -6,7 +6,10 @@ import { type BrandArchive, formatPrice } from "@/lib/shop/archive"
 import type { ProductRef } from "./product-sheet"
 import { ProductTile } from "./product-card"
 
-const toRef = (listing: BrandArchive["eras"][number]["listings"][number]): ProductRef => ({
+const toRef = (
+  listing: BrandArchive["eras"][number]["listings"][number],
+  brandSlug: string,
+): ProductRef => ({
   listingId: listing.id,
   title: listing.title,
   brand: listing.brand,
@@ -18,6 +21,7 @@ const toRef = (listing: BrandArchive["eras"][number]["listings"][number]): Produ
   era: listing.era,
   season: listing.season,
   grail: listing.grail,
+  brandSlug,
 })
 
 /** Archive tab: live listings grouped by brand, then era, with price ranges and grails. */
@@ -26,7 +30,9 @@ export function ArchiveBoard({ archives }: { archives: readonly BrandArchive[] }
   return (
     <div className="space-y-12">
       {archives.map((archive) => {
-        const all = archive.eras.flatMap((era) => era.listings).map(toRef)
+        const all = archive.eras
+          .flatMap((era) => era.listings)
+          .map((listing) => toRef(listing, archive.brandSlug))
         return (
           <section key={archive.brandSlug} aria-label={archive.brand}>
             <header className="mb-4 flex items-end justify-between gap-3">
@@ -55,7 +61,7 @@ export function ArchiveBoard({ archives }: { archives: readonly BrandArchive[] }
                   <ul className="-mx-(--gutter) no-scrollbar flex gap-3 overflow-x-auto px-(--gutter) pb-1">
                     {group.listings.map((listing) => (
                       <li key={listing.id} className="w-40 shrink-0 sm:w-48">
-                        <ProductTile product={toRef(listing)} similar={all} />
+                        <ProductTile product={toRef(listing, archive.brandSlug)} similar={all} />
                       </li>
                     ))}
                   </ul>

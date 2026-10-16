@@ -22,6 +22,7 @@ export function feedItemProduct(item: FeedItem): ProductRef {
     era: str(item.meta.era),
     season: str(item.meta.season),
     grail: item.meta.grail === true,
+    brandSlug: str(item.meta.brandSlug),
   }
 }
 

@@ -1,6 +1,7 @@
 import { sql } from "drizzle-orm"
 import {
   bigint,
+  boolean,
   doublePrecision,
   index,
   integer,
@@ -20,6 +21,7 @@ import type { NicheProfile } from "../lib/engine/profile-schema"
 import type { UsagePurpose, UsageStatus } from "../lib/engine/usage"
 import type { NicheKind, NicheStatus, TrendSource } from "../lib/niches/lifecycle"
 import type { SignalKind } from "../lib/taste/model"
+import type { AlertType } from "../lib/alerts/policy"
 
 /**
  * One row per niche, keyed by normalized slug. Profiles are written once
@@ -231,3 +233,79 @@ export const tasteSignals = pgTable(
 ).enableRLS()
 
 export type TasteSignalRow = typeof tasteSignals.$inferSelect
+
+// --- Alerts: notification center, web push, grail hunts ---------------------
+// Server-only (RLS on, no policies): every read and write goes through routes
+// that check the session.
+
+export const pushSubscriptions = pgTable(
+  "push_subscriptions",
+  {
+    endpoint: text("endpoint").primaryKey(),
+    userId: uuid("user_id").notNull(),
+    p256dh: text("p256dh").notNull(),
+    auth: text("auth").notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (table) => [index("push_subscriptions_user_idx").on(table.userId)],
+).enableRLS()
+
+export const notifications = pgTable(
+  "notifications",
+  {
+    id: bigint("id", { mode: "number" }).primaryKey().generatedAlwaysAsIdentity(),
+    userId: uuid("user_id").notNull(),
+    type: text("type").$type<AlertType>().notNull(),
+    title: text("title").notNull(),
+    body: text("body"),
+    url: text("url").notNull(),
+    imageUrl: text("image_url"),
+    /** Same event never notifies twice ("drop:itunes:123", "grail:<search>:<listing>"). */
+    dedupeKey: text("dedupe_key").notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    readAt: timestamp("read_at", { withTimezone: true }),
+    pushedAt: timestamp("pushed_at", { withTimezone: true }),
+  },
+  (table) => [
+    uniqueIndex("notifications_dedupe_idx").on(table.userId, table.dedupeKey),
+    index("notifications_user_created_idx").on(table.userId, table.createdAt.desc()),
+  ],
+).enableRLS()
+
+export const alertPrefs = pgTable(
+  "alert_prefs",
+  {
+    userId: uuid("user_id").primaryKey(),
+    drops: boolean("drops").notNull().default(true),
+    grails: boolean("grails").notNull().default(true),
+    niches: boolean("niches").notNull().default(true),
+    friends: boolean("friends").notNull().default(true),
+    /** Minutes after local midnight; default 23:00–09:00. */
+    quietStart: integer("quiet_start").notNull().default(23 * 60),
+    quietEnd: integer("quiet_end").notNull().default(9 * 60),
+    timeZone: text("time_zone").notNull().default("UTC"),
+    lastPushAt: timestamp("last_push_at", { withTimezone: true }),
+    lastNicheAlertAt: timestamp("last_niche_alert_at", { withTimezone: true }),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+).enableRLS()
+
+export const grailSearches = pgTable(
+  "grail_searches",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    userId: uuid("user_id").notNull(),
+    brandSlug: text("brand_slug").notNull(),
+    brand: text("brand").notNull(),
+    item: text("item").notNull(),
+    maxPrice: integer("max_price").notNull(),
+    size: text("size"),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    lastCheckedAt: timestamp("last_checked_at", { withTimezone: true }),
+  },
+  (table) => [index("grail_searches_user_idx").on(table.userId)],
+).enableRLS()
+
+export type NotificationRow = typeof notifications.$inferSelect
+export type AlertPrefsRow = typeof alertPrefs.$inferSelect
+export type GrailSearchRow = typeof grailSearches.$inferSelect

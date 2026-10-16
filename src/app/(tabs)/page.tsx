@@ -10,6 +10,7 @@ import { FeedSkeleton } from "@/components/niche/feed/live-panels"
 import { PullToRefresh } from "@/components/shell/pull-to-refresh"
 import { Screen } from "@/components/shell/screen"
 import { SearchButton } from "@/components/shell/search-button"
+import { NotificationBell } from "@/components/alerts/notification-bell"
 import { Skeleton } from "@/components/ui/skeleton"
 import { featuredOrder } from "@/lib/feed/featured"
 import { getDailyPicks } from "@/lib/feed/daily"
@@ -25,9 +26,12 @@ export default function ForYouPage() {
       <PullToRefresh>
         <header className="container-page flex items-center justify-between pt-[calc(env(safe-area-inset-top)+1rem)] pb-2 md:hidden">
           <span className="font-serif text-[30px] leading-none italic">subcult</span>
-          <SearchButton>
-            <Search aria-hidden className="size-[22px]" strokeWidth={1.5} />
-          </SearchButton>
+          <div className="flex items-center gap-4">
+            <NotificationBell className="[&_svg]:size-[22px]" />
+            <SearchButton>
+              <Search aria-hidden className="size-[22px]" strokeWidth={1.5} />
+            </SearchButton>
+          </div>
         </header>
 
         <div className="container-page pt-4 md:pt-12">

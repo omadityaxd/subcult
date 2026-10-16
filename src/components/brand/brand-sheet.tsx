@@ -128,6 +128,7 @@ function BrandExtras({ data }: { data: BrandSheetData }) {
     era: listing.era,
     season: listing.season,
     grail: listing.grail,
+    brandSlug: data.archive?.brandSlug ?? null,
   }))
 
   return (
