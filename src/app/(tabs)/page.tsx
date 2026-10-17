@@ -3,6 +3,8 @@ import { connection } from "next/server"
 import { Suspense } from "react"
 import { DailyPicks, GrailOfTheDay } from "@/components/home/daily-picks"
 import { ForYouFeed } from "@/components/home/for-you-feed"
+import { TodaySkeleton } from "@/components/home/today"
+import { TodayServer } from "@/components/home/today-server"
 import { NowSpinning } from "@/components/home/now-spinning"
 import { StoriesRow } from "@/components/home/stories-row"
 import { VibeCheckCard } from "@/components/home/vibe-check-card"
@@ -14,7 +16,6 @@ import { NotificationBell } from "@/components/alerts/notification-bell"
 import { Skeleton } from "@/components/ui/skeleton"
 import { featuredOrder } from "@/lib/feed/featured"
 import { getDailyPicks } from "@/lib/feed/daily"
-import { getHomePage } from "@/lib/feed/home"
 import { TAXONOMY } from "@/lib/niches/catalog"
 
 /** The whole featured cluster, plus a few of the day's rotating picks. */
@@ -67,20 +68,27 @@ async function Stories() {
 async function HomeFeed() {
   await connection()
   const now = new Date()
-  const [first, picks] = await Promise.all([getHomePage(0, now), getDailyPicks(now)])
+  // The infinite feed below Today loads on scroll: the first paint is Today's alone.
+  const picks = await getDailyPicks(now)
   return (
     <ForYouFeed
-      initial={first}
+      initial={null}
       now={now.getTime()}
-      picks={
-        <>
-          <DailyPicks
-            look={picks.look}
-            brand={picks.brand}
-            grail={picks.grail ? <GrailOfTheDay item={picks.grail} /> : null}
+      today={
+        <Suspense fallback={<TodaySkeleton />}>
+          <TodayServer
+            coldExtras={
+              <>
+                <VibeCheckCard />
+                <DailyPicks
+                  look={picks.look}
+                  brand={picks.brand}
+                  grail={picks.grail ? <GrailOfTheDay item={picks.grail} /> : null}
+                />
+              </>
+            }
           />
-          <VibeCheckCard />
-        </>
+        </Suspense>
       }
       spinning={<NowSpinning tracks={picks.spinning} />}
     />

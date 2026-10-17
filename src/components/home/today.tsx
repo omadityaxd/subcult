@@ -2,7 +2,7 @@
 
 import { ArrowDown, ArrowUpRight, Check, TrendingUp } from "lucide-react"
 import Link from "next/link"
-import { type ReactNode, useEffect, useState } from "react"
+import { type ReactNode, useEffect, useRef, useState } from "react"
 import { MediaImage } from "@/components/ds/media-image"
 import { FeedCard } from "@/components/niche/feed/feed-card"
 import { TasteCard } from "@/components/taste/taste-card"
@@ -11,13 +11,13 @@ import type { FeedItem } from "@/lib/feed/types"
 import type { ApiResponse } from "@/lib/request"
 import { readSaves } from "@/lib/saves"
 import { entitiesOfItem } from "@/lib/taste/entities"
-import { isColdStart } from "@/lib/taste/model"
 import { pageReasons } from "@/lib/taste/rank"
 import { readTasteVector, useTasteVector } from "@/lib/taste/store"
 import { formatAge } from "@/lib/time"
 import type { TodayEdition, TodaySection } from "@/lib/today/edition"
 import { sinceLabel } from "@/lib/today/edition"
 import { touchVisit } from "@/lib/today/visits"
+import { track } from "@/lib/analytics"
 
 const ENTITIES_SENT = 40
 const BRAND_SAVE = /^subcult:brand:([a-z0-9-]+)$/
@@ -32,13 +32,47 @@ const MODE_LINE: Record<TodayEdition["mode"], string> = {
 type Load =
   | { state: "loading" }
   | { state: "failed" }
-  | { state: "ready"; edition: TodayEdition; lastVisit: number | null; timeZone: string }
+  | {
+      state: "ready"
+      edition: TodayEdition
+      lastVisit: number | null
+      timeZone: string
+      /** Offline: this is the last edition saved on the device. */
+      saved?: boolean
+    }
+
+const LAST_EDITION_KEY = "subcult-today-last"
+
+function saveEdition(edition: TodayEdition): void {
+  try {
+    localStorage.setItem(LAST_EDITION_KEY, JSON.stringify(edition))
+  } catch {
+    // Storage full or blocked: offline just shows the error state.
+  }
+}
+
+function savedEdition(): TodayEdition | null {
+  try {
+    const raw = localStorage.getItem(LAST_EDITION_KEY)
+    return raw ? (JSON.parse(raw) as TodayEdition) : null
+  } catch {
+    return null
+  }
+}
+
+/** Offline (or a failed request): the last edition on this device, marked as such. */
+function fallback(lastVisit: number | null, timeZone: string): Load {
+  const edition = savedEdition()
+  return edition
+    ? { state: "ready", edition, lastVisit, timeZone, saved: true }
+    : { state: "failed" }
+}
 
 /**
  * Today: a finite personal edition at the top of For You, built from this
  * person's taste for their local moment, then "you're caught up".
+ * Reads taste, saves and the visit marker straight from storage, then asks for the edition.
  */
-/** Reads taste, saves and the visit marker straight from storage, then asks for the edition. */
 async function requestEdition(lastVisit: number | null): Promise<Load> {
   const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone ?? "UTC"
   const entities = [...readTasteVector().values()]
@@ -53,29 +87,58 @@ async function requestEdition(lastVisit: number | null): Promise<Load> {
       body: JSON.stringify({ entities, brands, lastVisit, timeZone }),
     })
     const body = (await response.json()) as ApiResponse<TodayEdition>
-    if (!body.success) return { state: "failed" }
+    if (!body.success) return fallback(lastVisit, timeZone)
+    saveEdition(body.data)
     return { state: "ready", edition: body.data, lastVisit, timeZone }
   } catch {
-    return { state: "failed" }
+    return fallback(lastVisit, timeZone)
   }
 }
 
-export function Today({ coldExtras }: { coldExtras: ReactNode }) {
-  const [load, setLoad] = useState<Load>({ state: "loading" })
+export function Today({
+  coldExtras,
+  initial = null,
+}: {
+  coldExtras: ReactNode
+  /** Server-rendered edition (from the taste cookie): no client round trip. */
+  initial?: { edition: TodayEdition; lastVisit: number | null; timeZone: string } | null
+}) {
+  const [load, setLoad] = useState<Load>(() =>
+    initial ? { state: "ready", ...initial } : { state: "loading" },
+  )
   const [attempt, setAttempt] = useState(0)
-  const vector = useTasteVector()
   // The visit marker moves once per mount, not per retry.
   const [lastVisit] = useState(() => (typeof window === "undefined" ? null : touchVisit()))
 
   // Built once per visit (and per retry): the edition doesn't reshuffle while you read it.
   useEffect(() => {
     let cancelled = false
+    if (initial && attempt === 0) {
+      saveEdition(initial.edition)
+      track("today_viewed", {
+        items: initial.edition.count,
+        mode: initial.edition.mode,
+        cold: initial.edition.cold,
+        rendered: "server",
+      })
+      return
+    }
     void requestEdition(lastVisit).then((result) => {
-      if (!cancelled) setLoad(result)
+      if (cancelled) return
+      setLoad(result)
+      if (result.state === "ready") {
+        track("today_viewed", {
+          items: result.edition.count,
+          mode: result.edition.mode,
+          cold: result.edition.cold,
+        })
+      }
     })
     return () => {
       cancelled = true
     }
+    // initial is the server's render for this page view; it never changes after mount.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [attempt, lastVisit])
 
   if (load.state === "loading") return <TodaySkeleton />
@@ -97,11 +160,12 @@ export function Today({ coldExtras }: { coldExtras: ReactNode }) {
     )
   }
 
-  const { edition, timeZone } = load
+  const { edition, timeZone, saved } = load
   const fresh = (item: FeedItem) =>
     lastVisit !== null && item.publishedAt !== null && Date.parse(item.publishedAt) > lastVisit
   const newCount = edition.sections.flatMap((s) => s.items).filter(fresh).length
-  const cold = edition.cold || isColdStart(vector)
+  // The server decides (it saw the same taste): no client re-check, so no hydration flip.
+  const cold = edition.cold
   const risingEntities = new Set(
     edition.sections.flatMap((s) => s.rising ?? []).map((chip) => chip.entity),
   )
@@ -120,7 +184,14 @@ export function Today({ coldExtras }: { coldExtras: ReactNode }) {
         </p>
       </header>
 
-      {lastVisit !== null ? (
+      {saved ? (
+        <p className="mt-4 rounded-xl bg-muted px-3 py-2 text-footnote text-muted-foreground">
+          Offline: this is your last edition, from{" "}
+          {formatAge(new Date(edition.generatedAt).toISOString(), new Date())} ago.
+        </p>
+      ) : null}
+
+      {lastVisit !== null && !saved ? (
         <div className="mt-4 flex items-center gap-3 text-footnote text-muted-foreground">
           <span className="h-px flex-1 bg-border" />
           <span>
@@ -295,8 +366,21 @@ function ReleaseCard({ item, now }: { item: FeedItem; now: number }) {
 }
 
 function CaughtUp({ count }: { count: number }) {
+  const ref = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    const node = ref.current
+    if (!node || typeof IntersectionObserver === "undefined") return
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry?.isIntersecting) {
+        track("today_caught_up", { items: count })
+        observer.disconnect()
+      }
+    })
+    observer.observe(node)
+    return () => observer.disconnect()
+  }, [count])
   return (
-    <div className="mt-14 flex flex-col items-center text-center">
+    <div ref={ref} className="mt-14 flex flex-col items-center text-center">
       <span className="grid size-12 place-items-center rounded-full border border-border-strong">
         <Check aria-hidden className="size-5" strokeWidth={2} />
       </span>
@@ -316,7 +400,7 @@ function CaughtUp({ count }: { count: number }) {
   )
 }
 
-function TodaySkeleton() {
+export function TodaySkeleton() {
   return (
     <section aria-label="Loading Today" aria-busy="true">
       <Skeleton className="h-4 w-28" />

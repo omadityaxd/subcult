@@ -3,6 +3,7 @@
 import { useMemo, useSyncExternalStore } from "react"
 import { z } from "zod"
 import type { FeedItem } from "@/lib/feed/types"
+import { TASTE_COOKIE, encodeTasteCookie, writeCookie } from "@/lib/today/cookies"
 import { type LabeledEntity, entityType, labeledEntitiesOfItem } from "./entities"
 import {
   type Signal,
@@ -61,7 +62,22 @@ function save(next: TasteState): void {
   } catch {
     // Storage full or blocked: the in-memory copy still personalizes this visit.
   }
+  syncTasteCookie(state.signals)
   listeners.forEach((listener) => listener())
+}
+
+/** Called once on mount (the tracker): existing signals reach the cookie before the next save. */
+export function syncTasteCookieNow(): void {
+  syncTasteCookie(load().signals)
+}
+
+/** Mirrors the strongest entities into a small cookie so Today can render on the server. */
+function syncTasteCookie(signals: readonly Signal[]): void {
+  const vector = computeAffinity(signals, Date.now())
+  writeCookie(
+    TASTE_COOKIE,
+    encodeTasteCookie([...vector.values()].map((a) => ({ ref: a.entity, score: a.score }))),
+  )
 }
 
 function subscribe(listener: () => void): () => void {

@@ -8,6 +8,7 @@ import { saveVibeResult } from "@/lib/vibe/storage"
 import { recordVibeCheck } from "@/lib/taste/store"
 import { VibeDeck } from "./vibe-deck"
 import { VibeResult } from "./vibe-result"
+import { track } from "@/lib/analytics"
 
 export interface NicheInfo {
   name: string
@@ -49,6 +50,7 @@ export function VibeCheckFlow({ cards, niches, blurbs }: VibeCheckFlowProps) {
     if (mix.length === 0) return
     saveVibeResult({ mix: shares, blurb, takenAt: Date.now() })
     recordVibeCheck(mix)
+    track("vibe_check_completed", { top: mix[0]?.slug ?? "" })
 
     void fetch("/api/vibe-check/blurb", {
       method: "POST",

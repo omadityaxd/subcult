@@ -12,6 +12,7 @@ import type { ApiResponse } from "@/lib/request"
 import { setSaved } from "@/lib/saves"
 import { recordSignal } from "@/lib/taste/store"
 import { cn } from "@/lib/utils"
+import { track } from "@/lib/analytics"
 
 const PICK = 3
 const MAX_PICK = 5
@@ -56,6 +57,10 @@ export function OnboardingFlow({
     }
   }, [step, picked, suggestions])
 
+  useEffect(() => {
+    track("onboarding_started", { preselected: preselected.length })
+  }, [preselected.length])
+
   const finish = () => {
     for (const slug of picked) {
       const preset = presets.find((p) => p.slug === slug)
@@ -70,6 +75,7 @@ export function OnboardingFlow({
     } catch {
       // Not remembered: they may see the setup offer again.
     }
+    track("onboarding_completed", { niches: picked.length, follows: follows.length })
     setStep("done")
   }
 

@@ -1,5 +1,7 @@
 "use client"
 
+import { track } from "@/lib/analytics"
+
 /**
  * Push on this device. iOS only allows web push in a Home Screen web app
  * (16.4+), and every browser wants the permission request to come straight
@@ -71,6 +73,7 @@ export async function enablePush(vapidPublicKey: string): Promise<PushState> {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone }),
   }).catch(() => undefined)
+  if (response.ok) track("alert_opt_in")
   return response.ok ? "on" : "off"
 }
 

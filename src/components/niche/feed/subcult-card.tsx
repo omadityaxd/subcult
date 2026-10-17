@@ -1,7 +1,7 @@
 "use client"
 
 import { ArrowRight } from "lucide-react"
-import Image from "next/image"
+import { CdnImage } from "@/components/ds/cdn-image"
 import Link from "next/link"
 import { useState } from "react"
 import { Cover } from "@/components/ds/cover"
@@ -29,14 +29,7 @@ function ArtistCard({ item }: { item: FeedItem }) {
       >
         <span className="relative size-16 shrink-0 overflow-hidden rounded-full bg-muted">
           {item.imageUrl ? (
-            <Image
-              src={item.imageUrl}
-              alt=""
-              fill
-              sizes="64px"
-              unoptimized
-              className="object-cover"
-            />
+            <CdnImage src={item.imageUrl} alt="" fill sizes="64px" className="object-cover" />
           ) : null}
         </span>
         <span className="min-w-0 flex-1">
@@ -107,12 +100,11 @@ function NicheTile({ item }: { item: FeedItem }) {
     <Link href={item.url} transitionTypes={["nav-forward"]} className="group block">
       <span className="relative block aspect-[4/3] overflow-hidden rounded-2xl bg-muted">
         {item.imageUrl ? (
-          <Image
+          <CdnImage
             src={item.imageUrl}
             alt=""
             fill
             sizes="(min-width: 1280px) 22vw, (min-width: 640px) 33vw, 90vw"
-            unoptimized
             className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
           />
         ) : (

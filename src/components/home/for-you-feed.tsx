@@ -5,7 +5,6 @@ import { FEED_FILTERS, type FeedFilter } from "@/lib/feed/filters"
 import type { HomePage } from "@/lib/feed/home"
 import { cn } from "@/lib/utils"
 import { InfiniteFeed } from "./infinite-feed"
-import { Today } from "./today"
 
 /**
  * For You: filter chips on top, today's visual picks under "All", then the
@@ -15,12 +14,13 @@ import { Today } from "./today"
 export function ForYouFeed({
   initial,
   now,
-  picks,
+  today,
   spinning,
 }: {
   initial: HomePage | null
   now: number
-  picks: ReactNode
+  /** Server-rendered Today (streams in its own Suspense boundary). */
+  today: ReactNode
   spinning: ReactNode
 }) {
   const [filter, setFilter] = useState<FeedFilter>("all")
@@ -51,11 +51,7 @@ export function ForYouFeed({
         </ul>
       </nav>
 
-      {filter === "all" ? (
-        <div className="mt-4">
-          <Today coldExtras={picks} />
-        </div>
-      ) : null}
+      {filter === "all" ? <div className="mt-4">{today}</div> : null}
       {filter === "sounds" ? <div className="mt-8">{spinning}</div> : null}
 
       <section id="latest" aria-label="Keep exploring" className="mt-16 scroll-mt-20">

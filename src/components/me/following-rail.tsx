@@ -1,6 +1,6 @@
 "use client"
 
-import Image from "next/image"
+import { CdnImage } from "@/components/ds/cdn-image"
 import Link from "next/link"
 import { SectionHeader } from "@/components/ds/section-header"
 import { isFollow } from "@/lib/follows"
@@ -19,12 +19,11 @@ export function FollowingRail() {
             <Link href={niche.url} className="group block text-center">
               <span className="relative mx-auto block size-20 overflow-hidden rounded-full bg-muted ring-1 ring-border-strong transition-transform group-active:scale-95">
                 {niche.imageUrl ? (
-                  <Image
+                  <CdnImage
                     src={niche.imageUrl}
                     alt=""
                     fill
                     sizes="80px"
-                    unoptimized
                     className="object-cover"
                   />
                 ) : (

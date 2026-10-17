@@ -1,4 +1,4 @@
-import Image from "next/image"
+import { CdnImage } from "@/components/ds/cdn-image"
 import { coverBackground } from "@/lib/design/cover"
 import { cn } from "@/lib/utils"
 
@@ -53,12 +53,11 @@ export function NicheAvatar({
           </span>
           {imageUrl ? (
             // Sits over the monogram, so a slow or failed image still shows the fallback.
-            <Image
+            <CdnImage
               src={imageUrl}
               alt=""
               width={PIXELS[size] * 2}
               height={PIXELS[size] * 2}
-              unoptimized
               className="absolute inset-0 size-full object-cover"
             />
           ) : null}

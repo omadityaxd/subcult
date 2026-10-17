@@ -1,7 +1,7 @@
 "use client"
 
 import { Pause, Play } from "lucide-react"
-import Image from "next/image"
+import { CdnImage } from "@/components/ds/cdn-image"
 import Link from "next/link"
 import { type CSSProperties, useEffect, useState } from "react"
 import type { ArtistSheetData } from "@/app/api/artists/[slug]/route"
@@ -45,12 +45,11 @@ export function ArtistsRow({
             >
               <span className="relative mx-auto block size-20 overflow-hidden rounded-full bg-muted transition-transform group-active:scale-95">
                 {artist.imageUrl ? (
-                  <Image
+                  <CdnImage
                     src={artist.imageUrl}
                     alt=""
                     fill
                     sizes="80px"
-                    unoptimized
                     className="object-cover"
                   />
                 ) : (

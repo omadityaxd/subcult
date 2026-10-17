@@ -1,7 +1,7 @@
 "use client"
 
 import { Loader2, Pause, Play } from "lucide-react"
-import Image from "next/image"
+import { CdnImage } from "@/components/ds/cdn-image"
 import { useMemo } from "react"
 import type { PlayableTrack } from "@/lib/audio/play-tracks"
 import { playSoundtrack } from "@/lib/audio/player"
@@ -87,12 +87,11 @@ export function PlayableList({
               ) : null}
               <span className="relative size-11 overflow-hidden rounded-md bg-muted">
                 {track.artworkUrl ? (
-                  <Image
+                  <CdnImage
                     src={track.artworkUrl}
                     alt=""
                     fill
                     sizes="44px"
-                    unoptimized
                     className="object-cover"
                   />
                 ) : null}
@@ -157,7 +156,7 @@ export function SoundtrackHeader({ soundtrack }: { soundtrack: Soundtrack }) {
       <div className="grid size-40 shrink-0 grid-cols-2 overflow-hidden rounded-2xl bg-muted shadow-card sm:size-48">
         {collage.map((src) => (
           <span key={src} className={cn("relative", collage.length < 4 && "col-span-2 row-span-2")}>
-            <Image src={src} alt="" fill sizes="96px" unoptimized className="object-cover" />
+            <CdnImage src={src} alt="" fill sizes="96px" className="object-cover" />
           </span>
         ))}
       </div>

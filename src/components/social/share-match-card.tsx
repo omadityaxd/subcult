@@ -2,6 +2,7 @@
 
 import { Share } from "lucide-react"
 import { useState } from "react"
+import { track } from "@/lib/analytics"
 
 /** Shares the 1080×1920 card as an image (Stories-ready); downloads where sharing files isn't supported. */
 export function ShareMatchCard({ handle, percent }: { handle: string; percent: number }) {
@@ -20,6 +21,7 @@ export function ShareMatchCard({ handle, percent }: { handle: string; percent: n
               type: "image/png",
             })
             const text = `We're ${percent}% vibe match on subcult`
+            track("vibe_match_shared", { percent })
             if (navigator.canShare?.({ files: [file] })) {
               await navigator.share({ files: [file], text }).catch(() => undefined)
             } else {

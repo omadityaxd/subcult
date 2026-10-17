@@ -6,6 +6,7 @@ import { TasteTrackerForViewer } from "@/components/taste/taste-tracker-server"
 import { TasteTracker } from "@/components/taste/taste-tracker"
 import { WrappedTracker } from "@/components/wrapped/trackers"
 import { PushPromptHost } from "@/components/alerts/push-prompt"
+import { PwaShell } from "@/components/pwa/pwa-shell"
 import { env } from "@/lib/env"
 import { Sidebar, SidebarView } from "@/components/shell/sidebar"
 import { TabBar, TabBarView } from "@/components/shell/tab-bar"
@@ -35,6 +36,7 @@ export default function TabsLayout({ children }: LayoutProps<"/">) {
         <TasteTrackerForViewer />
       </Suspense>
       <CommandPalette presets={NICHE_PRESETS} />
+      <PwaShell />
       <PushPromptHost vapidPublicKey={env.NEXT_PUBLIC_VAPID_PUBLIC_KEY ?? null} />
     </div>
   )

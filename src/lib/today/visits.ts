@@ -1,5 +1,7 @@
 "use client"
 
+import { PREVIOUS_VISIT_COOKIE, TIME_ZONE_COOKIE, writeCookie } from "./cookies"
+
 /**
  * "Since you were here Tuesday": the start of the previous session. A new
  * session begins after 30 minutes away, so reloads don't reset the marker.
@@ -30,5 +32,8 @@ export function touchVisit(now = Date.now()): number | null {
   } catch {
     // Not remembered: every visit is a first visit.
   }
+  // The server renders the next Today from these.
+  writeCookie(PREVIOUS_VISIT_COOKIE, next.previous ? String(next.previous) : "")
+  writeCookie(TIME_ZONE_COOKIE, Intl.DateTimeFormat().resolvedOptions().timeZone ?? "UTC")
   return next.previous
 }

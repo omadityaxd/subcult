@@ -13,7 +13,13 @@ import {
 } from "@/lib/taste/entities"
 import { type ListenSession, accumulateListen, listenSignal } from "@/lib/taste/listens"
 import type { Signal } from "@/lib/taste/model"
-import { markSynced, recordSignal, resetLocalTaste, unsyncedSignals } from "@/lib/taste/store"
+import {
+  markSynced,
+  recordSignal,
+  resetLocalTaste,
+  syncTasteCookieNow,
+  unsyncedSignals,
+} from "@/lib/taste/store"
 
 /** Cards register what they're about, so a save from any button can be learned from. */
 const registry = new Map<string, LabeledEntity[]>()
@@ -73,6 +79,7 @@ export function TasteTracker({ signedIn }: { signedIn: boolean }) {
   }, [signedIn])
 
   useEffect(() => {
+    syncTasteCookieNow()
     let session: ListenSession | null = null
     let lastShared = 0
     const finish = (done: ListenSession | null) => {

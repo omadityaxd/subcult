@@ -10,6 +10,7 @@ import type { FitSong } from "@/db/schema"
 import type { Soundtrack } from "@/lib/music/soundtrack"
 import type { ApiResponse } from "@/lib/request"
 import { cn } from "@/lib/utils"
+import { track } from "@/lib/analytics"
 
 interface Option {
   slug: string
@@ -84,6 +85,7 @@ export function PostFitForm({
       const response = await fetch("/api/fits", { method: "POST", body: form })
       const body = (await response.json()) as ApiResponse<{ id: string }>
       if (!body.success) throw new Error(body.error)
+      track("fit_posted")
       router.push(`/fits/${body.data.id}`)
     } catch (reason) {
       setStatus("idle")

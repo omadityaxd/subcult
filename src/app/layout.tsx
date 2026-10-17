@@ -4,6 +4,7 @@ import { MotionProvider } from "@/components/providers/motion-provider"
 import { siteUrl } from "@/lib/env"
 import { THEME_BOOT_SCRIPT } from "@/lib/theme"
 import "./globals.css"
+import { AnalyticsProvider } from "@/components/providers/analytics-provider"
 
 const sans = Geist({
   variable: "--font-geist",
@@ -51,6 +52,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       </head>
       <body>
         <MotionProvider>{children}</MotionProvider>
+        <AnalyticsProvider />
       </body>
     </html>
   )

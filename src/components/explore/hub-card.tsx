@@ -1,5 +1,5 @@
 import { ArrowRight } from "lucide-react"
-import Image from "next/image"
+import { CdnImage } from "@/components/ds/cdn-image"
 import Link from "next/link"
 import { Cover } from "@/components/ds/cover"
 import { TAXONOMY, findPreset } from "@/lib/niches/catalog"
@@ -59,7 +59,7 @@ export function HubCollage({
           )}
           style={{ zIndex: 4 - index }}
         >
-          <Image src={src} alt="" fill sizes="80px" unoptimized className="object-cover" />
+          <CdnImage src={src} alt="" fill sizes="80px" className="object-cover" />
         </span>
       ))}
     </span>

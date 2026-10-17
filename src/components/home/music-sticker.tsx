@@ -1,5 +1,5 @@
 import { Music2 } from "lucide-react"
-import Image from "next/image"
+import { CdnImage } from "@/components/ds/cdn-image"
 import type { StoryMusic } from "@/lib/music/story-music"
 
 /**
@@ -19,14 +19,7 @@ export function MusicSticker({ music, playing }: { music: StoryMusic; playing: b
       >
         <span className="relative size-9 shrink-0 overflow-hidden rounded-lg bg-white/10">
           {music.artworkUrl ? (
-            <Image
-              src={music.artworkUrl}
-              alt=""
-              fill
-              sizes="36px"
-              unoptimized
-              className="object-cover"
-            />
+            <CdnImage src={music.artworkUrl} alt="" fill sizes="36px" className="object-cover" />
           ) : (
             <Music2 aria-hidden className="m-2 size-5" strokeWidth={1.5} />
           )}

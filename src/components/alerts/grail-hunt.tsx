@@ -5,6 +5,7 @@ import { usePathname, useRouter } from "next/navigation"
 import { useState } from "react"
 import { announceMeaningfulAction } from "@/lib/alerts/client"
 import type { ApiResponse } from "@/lib/request"
+import { track } from "@/lib/analytics"
 
 /** The listing title's piece, minus brand and noise: "Rick Owens Geobasket Size 43 Black" → "geobasket". */
 export function guessItem(title: string, brand: string): string {
@@ -98,6 +99,7 @@ export function GrailHunt({
       return
     }
     setState("saved")
+    track("grail_hunt_saved", { sized: size.trim().length > 0 })
     announceMeaningfulAction("grail")
   }
 
