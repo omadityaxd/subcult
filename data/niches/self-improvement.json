@@ -1,0 +1,46 @@
+{
+  "slug": "self-improvement",
+  "schemaVersion": 1,
+  "name": "self-improvement",
+  "emoji": "📓",
+  "tagline": "5am alarm, reading list, and a habit tracker you'll check twice",
+  "description": "The routine side of getting your life together: sleep, reading, journaling, training, budgeting and learning a skill. At its best it's practical and kind to yourself. No hustle-guru grifts, no dark corners of the internet, just habits.",
+  "palette": ["#111214", "#272a2e", "#5d6670", "#c7b89a", "#f4f1ea"],
+  "vibeWords": ["discipline", "habits", "journaling", "reading", "routine", "focus", "growth"],
+  "artists": [
+    { "name": "Nujabes", "why": "focus-session beats" },
+    { "name": "Joji", "why": "late-night reflection" },
+    { "name": "Kid Cudi", "why": "'Pursuit of Happiness' reset" },
+    { "name": "J. Cole", "why": "introspective bars" },
+    { "name": "Kendrick Lamar", "why": "growth-arc albums" },
+    { "name": "Frank Ocean", "why": "slow-reset Sundays" },
+    { "name": "Tame Impala", "why": "'Let It Happen' for new chapters" },
+    { "name": "Mac Miller", "why": "honest self-work" }
+  ],
+  "spotifyQueries": ["focus playlist", "morning motivation", "deep work"],
+  "subreddits": ["getdisciplined", "selfimprovement", "productivity"],
+  "newsQueries": ["habit building research", "productivity trends"],
+  "youtubeQueries": [
+    "how to build habits",
+    "morning routine productive",
+    "how to read more books",
+    "study with me"
+  ],
+  "brands": [
+    { "name": "Moleskine", "priceTier": "$$", "why": "the journaling notebook" },
+    { "name": "Leuchtturm1917", "priceTier": "$$", "why": "bullet-journal favourite" },
+    { "name": "Kindle", "priceTier": "$$", "why": "reading-list companion" },
+    { "name": "Uniqlo", "priceTier": "$", "why": "simple wardrobe basics" }
+  ],
+  "shopKeywords": [
+    "habit tracker journal",
+    "dotted notebook",
+    "desk lamp",
+    "water bottle",
+    "planner"
+  ],
+  "pinterestQueries": ["morning routine aesthetic", "journal layout", "study desk setup"],
+  "instagramHashtags": ["selfimprovement", "habits", "journaling"],
+  "tiktokQueries": ["self improvement routine", "habit tracker"],
+  "relatedNiches": ["gymtok", "softmaxxing", "dark academia"]
+}

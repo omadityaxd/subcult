@@ -223,5 +223,70 @@
     "from": "trap",
     "type": "related",
     "to": "new-gen-underground-rap"
+  },
+  {
+    "from": "softmaxxing",
+    "type": "related",
+    "to": "male-grooming"
+  },
+  {
+    "from": "male-grooming",
+    "type": "related",
+    "to": "gen-z-skincare"
+  },
+  {
+    "from": "softmaxxing",
+    "type": "related",
+    "to": "gen-z-skincare"
+  },
+  {
+    "from": "gymtok",
+    "type": "similar_scene",
+    "to": "gym-rat"
+  },
+  {
+    "from": "gymtok",
+    "type": "related",
+    "to": "self-improvement"
+  },
+  {
+    "from": "softmaxxing",
+    "type": "related",
+    "to": "self-improvement"
+  },
+  {
+    "from": "streamer-culture",
+    "type": "related",
+    "to": "brainrot-and-meme-culture"
+  },
+  {
+    "from": "brainrot-and-meme-culture",
+    "type": "related",
+    "to": "tiktok-microtrends"
+  },
+  {
+    "from": "e-boy-and-e-girl",
+    "type": "overlapping_aesthetic",
+    "to": "graphic-gothic-streetwear"
+  },
+  {
+    "from": "streamer-culture",
+    "type": "related",
+    "to": "new-gen-underground-rap"
+  },
+  {
+    "from": "e-boy-and-e-girl",
+    "type": "similar_scene",
+    "to": "digicore"
+  },
+  {
+    "from": "e-boy-and-e-girl",
+    "type": "related",
+    "to": "hyperpop"
+  },
+  {
+    "from": "tiktok-microtrends",
+    "type": "related",
+    "to": "y2k"
   }
 ]

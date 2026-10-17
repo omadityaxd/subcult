@@ -1,0 +1,48 @@
+{
+  "slug": "brainrot-and-meme-culture",
+  "schemaVersion": 1,
+  "name": "brainrot & meme culture",
+  "emoji": "🧠",
+  "tagline": "you understood this tagline and that's the problem",
+  "description": "Where the internet's language comes from: meme formats, viral sounds, absurdist edits, Italian brainrot characters and the slang that reaches your parents six months later. Fast, self-aware and mostly harmless. Memes about formats, never pile-ons on real people.",
+  "palette": ["#0d0d0d", "#2b2b2b", "#ff4fa3", "#4ff2c6", "#fafafa"],
+  "vibeWords": [
+    "brainrot",
+    "memes",
+    "viral sounds",
+    "edits",
+    "absurd",
+    "slang",
+    "chronically online"
+  ],
+  "artists": [
+    { "name": "100 gecs", "why": "maximalist meme-pop" },
+    { "name": "Crazy Frog", "why": "the original brainrot" },
+    { "name": "Lil Yachty", "why": "meme-native rap energy" },
+    { "name": "Doja Cat", "why": "viral-sound machine" },
+    { "name": "Ice Spice", "why": "TikTok-native hits" },
+    { "name": "Lil Nas X", "why": "meme-era marketing genius" },
+    { "name": "Rick Astley", "why": "the eternal rickroll" },
+    { "name": "Smash Mouth", "why": "'All Star', meme canon" }
+  ],
+  "spotifyQueries": ["viral tiktok songs", "meme songs", "brainrot playlist"],
+  "subreddits": ["memes", "OutOfTheLoop", "dankmemes"],
+  "newsQueries": ["viral meme explained", "internet slang word of the year"],
+  "youtubeQueries": [
+    "meme explained",
+    "internet trends this week",
+    "italian brainrot explained",
+    "viral sound origin"
+  ],
+  "brands": [
+    { "name": "Crocs", "priceTier": "$", "why": "meme-proof footwear" },
+    { "name": "Heinz", "priceTier": "$", "why": "brand-account comedy" },
+    { "name": "Duolingo", "priceTier": "$", "why": "the unhinged owl account" },
+    { "name": "Nike", "priceTier": "$$", "why": "meme-able drops" }
+  ],
+  "shopKeywords": ["meme t-shirt", "funny hoodie", "plush toy", "sticker pack", "novelty socks"],
+  "pinterestQueries": ["funny memes", "meme aesthetic", "reaction images"],
+  "instagramHashtags": ["memes", "brainrot", "internetculture"],
+  "tiktokQueries": ["brainrot explained", "viral meme"],
+  "relatedNiches": ["streamer culture", "tiktok microtrends", "hyperpop"]
+}

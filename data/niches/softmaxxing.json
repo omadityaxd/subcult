@@ -1,0 +1,47 @@
+{
+  "slug": "softmaxxing",
+  "schemaVersion": 1,
+  "name": "softmaxxing",
+  "emoji": "🪞",
+  "tagline": "the glow-up that's just sleep, sunscreen and a good cut",
+  "description": "The healthy side of looking your best: a basic skincare routine, a haircut that suits you, sleep, posture, training and clothes that actually fit. Grooming-first only here: no surgery talk, no supplements, no rating anyone's face.",
+  "palette": ["#0f1113", "#2a2f33", "#5c6b73", "#c9b79c", "#f3efe8"],
+  "vibeWords": ["glow up", "grooming", "routine", "fresh cut", "sleep", "posture", "confidence"],
+  "artists": [
+    { "name": "Laufey", "why": "calm self-care soundtrack" },
+    { "name": "Clairo", "why": "soft-morning routine energy" },
+    { "name": "Frank Ocean", "why": "the wind-down playlist" },
+    { "name": "Steve Lacy", "why": "easy, unbothered confidence" },
+    { "name": "Daniel Caesar", "why": "getting-ready slow jams" },
+    { "name": "Tyler, The Creator", "why": "colourful, put-together energy" },
+    { "name": "SZA", "why": "the main-character mirror moment" },
+    { "name": "Don Toliver", "why": "smooth background while you get ready" }
+  ],
+  "spotifyQueries": ["self care playlist", "morning routine", "glow up playlist"],
+  "subreddits": ["malegrooming", "SkincareAddiction", "malehairadvice"],
+  "newsQueries": ["grooming routine tips", "self care routine trends"],
+  "youtubeQueries": [
+    "simple grooming routine",
+    "beginner skincare routine",
+    "how to find your haircut",
+    "how to dress better basics"
+  ],
+  "brands": [
+    { "name": "CeraVe", "priceTier": "$", "why": "gentle cleanser and moisturiser basics" },
+    { "name": "La Roche-Posay", "priceTier": "$$", "why": "everyday sunscreen" },
+    { "name": "Vanicream", "priceTier": "$", "why": "fragrance-free basics" },
+    { "name": "Philips", "priceTier": "$$", "why": "trimmers and groomers" },
+    { "name": "Uniqlo", "priceTier": "$", "why": "basics that fit" }
+  ],
+  "shopKeywords": [
+    "gentle cleanser",
+    "moisturizer",
+    "sunscreen SPF 50",
+    "beard trimmer",
+    "lip balm"
+  ],
+  "pinterestQueries": ["minimal grooming routine", "fresh haircut men", "clean girl routine"],
+  "instagramHashtags": ["glowup", "groomingroutine", "selfcare"],
+  "tiktokQueries": ["glow up routine", "softmaxxing routine"],
+  "relatedNiches": ["male grooming", "gen-z skincare", "gymtok", "self-improvement"]
+}

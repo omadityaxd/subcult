@@ -1,6 +1,7 @@
 import artists from "../../../data/taxonomy/artists.json"
 import brands from "../../../data/taxonomy/brands.json"
 import communities from "../../../data/taxonomy/communities.json"
+import creators from "../../../data/taxonomy/creators.json"
 import edges from "../../../data/taxonomy/edges.json"
 import hubs from "../../../data/taxonomy/hubs.json"
 import nicheCurations from "../../../data/taxonomy/niches.json"
@@ -32,6 +33,7 @@ export const TAXONOMY: Taxonomy = buildTaxonomy({
     artists,
     brands,
     communities,
+    creators,
   }),
 })
 

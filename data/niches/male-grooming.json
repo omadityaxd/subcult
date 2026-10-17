@@ -1,0 +1,46 @@
+{
+  "slug": "male-grooming",
+  "schemaVersion": 1,
+  "name": "male grooming",
+  "emoji": "💈",
+  "tagline": "a fresh taper fixes about 80% of your problems",
+  "description": "Barbershop culture and the basics around it: tapers, fades and textured crops, beard upkeep, a simple face routine and a fragrance that isn't body spray. Practical, low-maintenance, and about looking cared-for rather than perfect.",
+  "palette": ["#101112", "#2b2622", "#7a5c43", "#c8a67a", "#f2ece4"],
+  "vibeWords": ["fresh cut", "taper", "fade", "barbershop", "beard", "clean", "fragrance"],
+  "artists": [
+    { "name": "Drake", "why": "the barbershop speaker staple" },
+    { "name": "Central Cee", "why": "fresh-trim energy" },
+    { "name": "Travis Scott", "why": "waiting-for-your-turn hype" },
+    { "name": "Future", "why": "Saturday chair soundtrack" },
+    { "name": "21 Savage", "why": "barbershop rotation" },
+    { "name": "Metro Boomin", "why": "beats while the clippers run" },
+    { "name": "Kendrick Lamar", "why": "the chair debate album" },
+    { "name": "Don Toliver", "why": "smooth line-up music" }
+  ],
+  "spotifyQueries": ["barbershop playlist", "getting ready playlist", "fresh cut vibes"],
+  "subreddits": ["malehairadvice", "malegrooming", "Barber"],
+  "newsQueries": ["men's grooming trends", "barbershop trends"],
+  "youtubeQueries": [
+    "how to ask your barber for a taper",
+    "haircut transformation barber",
+    "how to style textured hair",
+    "beard trim tutorial"
+  ],
+  "brands": [
+    { "name": "Wahl", "priceTier": "$", "why": "the clipper every barber started on" },
+    { "name": "Andis", "priceTier": "$$", "why": "trimmers for line-ups" },
+    { "name": "Philips", "priceTier": "$$", "why": "at-home trimmers" },
+    { "name": "Hanz de Fuko", "priceTier": "$$", "why": "matte styling products" }
+  ],
+  "shopKeywords": [
+    "hair clippers",
+    "beard trimmer",
+    "matte hair clay",
+    "sea salt spray",
+    "wide tooth comb"
+  ],
+  "pinterestQueries": ["taper fade haircut", "textured crop haircut", "men's hairstyle 2026"],
+  "instagramHashtags": ["barber", "taperfade", "menshair", "freshcut"],
+  "tiktokQueries": ["haircut transformation", "barber tips"],
+  "relatedNiches": ["softmaxxing", "gen-z skincare", "gymtok"]
+}

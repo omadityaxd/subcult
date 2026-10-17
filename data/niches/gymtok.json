@@ -1,0 +1,40 @@
+{
+  "slug": "gymtok",
+  "schemaVersion": 1,
+  "name": "gymtok",
+  "emoji": "📹",
+  "tagline": "the set doesn't count if the tripod didn't see it",
+  "description": "Gym culture as content: progress check-ins, split-day vlogs, pump covers and matching sets, filmed between sets. The aesthetic is tidy (fitted tees, baggy joggers, lifting straps) and the advice is increasingly science-based. Natural training only here.",
+  "palette": ["#0b0b0c", "#1f2124", "#4a5560", "#d9d2c5", "#f5f3ef"],
+  "vibeWords": ["gym fit", "pump cover", "split", "progress", "vlog", "tripod", "consistency"],
+  "artists": [
+    { "name": "Kordhell", "why": "phonk for the edit" },
+    { "name": "DVRST", "why": "'Close Eyes' over every montage" },
+    { "name": "INTERWORLD", "why": "'METAMORPHOSIS' transformation edits" },
+    { "name": "Travis Scott", "why": "PR-attempt hype" },
+    { "name": "Metro Boomin", "why": "heavy-set beats" },
+    { "name": "Future", "why": "late-session rotation" },
+    { "name": "Eminem", "why": "'Till I Collapse', every gym ever" },
+    { "name": "Hensonn", "why": "'Sahara', the phonk staple" }
+  ],
+  "spotifyQueries": ["gym phonk", "workout motivation", "gym playlist"],
+  "subreddits": ["naturalbodybuilding", "Fitness", "GYM"],
+  "newsQueries": ["fitness trends", "gym culture"],
+  "youtubeQueries": [
+    "science based training",
+    "beginner gym split",
+    "pump cover outfit",
+    "full day of training"
+  ],
+  "brands": [
+    { "name": "Gymshark", "priceTier": "$$", "why": "the matching-set uniform" },
+    { "name": "Nike", "priceTier": "$$", "why": "Metcons and training basics" },
+    { "name": "Represent", "priceTier": "$$$", "why": "Represent 247 gym fits" },
+    { "name": "Alphalete", "priceTier": "$$", "why": "influencer-founded gymwear" }
+  ],
+  "shopKeywords": ["pump cover", "gym shorts", "lifting straps", "training shoes", "gym bag"],
+  "pinterestQueries": ["gym outfit men", "gym fit aesthetic", "pump cover outfit"],
+  "instagramHashtags": ["gymtok", "gymfit", "fitnessjourney"],
+  "tiktokQueries": ["gym vlog", "gym fit check"],
+  "relatedNiches": ["gym rat", "self-improvement", "softmaxxing"]
+}

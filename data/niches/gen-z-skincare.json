@@ -1,0 +1,55 @@
+{
+  "slug": "gen-z-skincare",
+  "schemaVersion": 1,
+  "name": "gen-z skincare",
+  "emoji": "🧴",
+  "tagline": "three steps, sunscreen, and a lot of opinions about niacinamide",
+  "description": "Skincare kept simple: cleanser, moisturiser, sunscreen, and learning what's in the bottle instead of buying ten serums. The scene is ingredient-curious, drugstore-friendly and allergic to 12-step routines. Basics only here, never medical advice.",
+  "palette": ["#121414", "#2c3433", "#7fa39b", "#e8d6c3", "#fbf7f2"],
+  "vibeWords": [
+    "routine",
+    "sunscreen",
+    "ingredients",
+    "glass skin",
+    "minimal",
+    "drugstore",
+    "dewy"
+  ],
+  "artists": [
+    { "name": "Laufey", "why": "slow-morning routine music" },
+    { "name": "Clairo", "why": "bathroom-mirror soft pop" },
+    { "name": "Olivia Rodrigo", "why": "getting-ready singalongs" },
+    { "name": "SZA", "why": "the night-routine soundtrack" },
+    { "name": "Beabadoobee", "why": "fresh-faced indie" },
+    { "name": "Steve Lacy", "why": "easy mornings" },
+    { "name": "NewJeans", "why": "glossy K-beauty energy" },
+    { "name": "Daniel Caesar", "why": "wind-down skincare" }
+  ],
+  "spotifyQueries": ["skincare routine playlist", "self care sunday", "that girl morning"],
+  "subreddits": ["SkincareAddiction", "AsianBeauty", "30PlusSkinCare"],
+  "newsQueries": ["skincare trends gen z", "sunscreen trends"],
+  "youtubeQueries": [
+    "simple skincare routine",
+    "how to use sunscreen daily",
+    "skincare ingredients explained",
+    "drugstore skincare routine"
+  ],
+  "brands": [
+    { "name": "CeraVe", "priceTier": "$", "why": "the cleanser everyone's sink has" },
+    { "name": "La Roche-Posay", "priceTier": "$$", "why": "sunscreen and barrier basics" },
+    { "name": "Cetaphil", "priceTier": "$", "why": "gentle cleanser classic" },
+    { "name": "Vanicream", "priceTier": "$", "why": "fragrance-free for sensitive skin" },
+    { "name": "Neutrogena", "priceTier": "$", "why": "drugstore sunscreen staple" }
+  ],
+  "shopKeywords": [
+    "gentle cleanser",
+    "moisturizer",
+    "sunscreen SPF 50",
+    "lip balm",
+    "micellar water"
+  ],
+  "pinterestQueries": ["minimal skincare routine", "skincare shelf aesthetic", "glass skin"],
+  "instagramHashtags": ["skincareroutine", "sunscreen", "skincaretips"],
+  "tiktokQueries": ["skincare routine", "sunscreen review"],
+  "relatedNiches": ["softmaxxing", "male grooming", "k-pop"]
+}

@@ -6,6 +6,7 @@ import { mapWithConcurrency } from "@/lib/concurrency"
 import type { NicheProfile } from "@/lib/engine/profile-schema"
 import { appFeedDeps } from "@/lib/feed/app-deps"
 import { judgeItem } from "@/lib/feed/clean"
+import { isExcludedContent } from "@/lib/feed/excluded"
 import { buildNicheFeed } from "@/lib/feed/feed"
 import { newsEntities, newsQueriesFor, onTopic } from "@/lib/feed/fetchers/news"
 import { nicheCleanContext } from "@/lib/feed/niche-relevance"
@@ -124,7 +125,13 @@ async function nicheEvents(profile: NicheProfile, now: number): Promise<EntityEv
   const seen = new Set<string>()
   const headlines = perQuery
     .flat()
-    .filter((a) => !seen.has(a.title) && seen.add(a.title) && onTopic(a.title, profile))
+    .filter(
+      (a) =>
+        !seen.has(a.title) &&
+        seen.add(a.title) &&
+        onTopic(a.title, profile) &&
+        !isExcludedContent(a.title),
+    )
     .map((a) => ({ title: a.title, at: a.publishedAt?.getTime() ?? null, domain: a.domain }))
 
   const feed = await buildNicheFeed(profile, appFeedDeps()).catch(() => null)

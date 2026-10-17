@@ -1,0 +1,40 @@
+{
+  "slug": "streamer-culture",
+  "schemaVersion": 1,
+  "name": "streamer culture",
+  "emoji": "🎙️",
+  "tagline": "chat is running the show and the show is three hours long",
+  "description": "Livestream culture as a whole: IRL streams, gaming marathons, collabs, subathons and the clips that leave the stream and become the internet's week. The scene spans YouTube and Twitch-born creators. Clips and highlights here, never drama about real people.",
+  "palette": ["#0c0b10", "#1d1a2b", "#5b47c7", "#9be15d", "#f4f2fb"],
+  "vibeWords": ["live", "chat", "clips", "collab", "subathon", "IRL", "highlights"],
+  "artists": [
+    { "name": "Drake", "why": "the stream-intro staple" },
+    { "name": "Travis Scott", "why": "hype-moment soundtrack" },
+    { "name": "Lil Uzi Vert", "why": "chat-requested anthem" },
+    { "name": "21 Savage", "why": "late-stream rotation" },
+    { "name": "Future", "why": "collab-stream background" },
+    { "name": "Metro Boomin", "why": "highlight-reel beats" },
+    { "name": "Central Cee", "why": "UK crossover streams" },
+    { "name": "Kendrick Lamar", "why": "the album-reaction stream" }
+  ],
+  "spotifyQueries": ["streamer playlist", "twitch music", "stream background music"],
+  "subreddits": ["Twitch", "youtubers"],
+  "newsQueries": ["streamer record viewers", "livestream culture"],
+  "youtubeQueries": [
+    "stream highlights",
+    "streamer collab highlights",
+    "best stream moments",
+    "subathon highlights"
+  ],
+  "brands": [
+    { "name": "DJI", "priceTier": "$$", "why": "gimbals for IRL streams" },
+    { "name": "Insta360", "priceTier": "$$", "why": "action cams on the move" },
+    { "name": "Shure", "priceTier": "$$", "why": "the streamer mic" },
+    { "name": "Elgato", "priceTier": "$$", "why": "capture cards and stream decks" }
+  ],
+  "shopKeywords": ["stream deck", "streaming microphone", "ring light", "gimbal", "capture card"],
+  "pinterestQueries": ["streaming setup", "gaming room setup", "stream overlay"],
+  "instagramHashtags": ["streamer", "streamingsetup", "twitchstreamer"],
+  "tiktokQueries": ["stream highlights", "streamer clips"],
+  "relatedNiches": ["brainrot & meme culture", "e-boy & e-girl", "new-gen underground rap"]
+}

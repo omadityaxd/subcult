@@ -1,0 +1,217 @@
+[
+  {
+    "slug": "kai-cenat",
+    "name": "Kai Cenat",
+    "aliases": [],
+    "description": "American streamer and online personality; founder of VIVET",
+    "youtube": "UCoEmptob-eEGKk18c2VplJg",
+    "featured": false,
+    "niches": ["streamer-culture"],
+    "sources": [
+      "https://www.wikidata.org/wiki/Q113818347",
+      "https://www.youtube.com/channel/UCoEmptob-eEGKk18c2VplJg"
+    ]
+  },
+  {
+    "slug": "ishowspeed",
+    "name": "IShowSpeed",
+    "aliases": [],
+    "description": "American streamer and online personality",
+    "youtube": "UCWsDFcIhY2DBi3GB5uykGXA",
+    "featured": false,
+    "niches": ["streamer-culture"],
+    "sources": [
+      "https://www.wikidata.org/wiki/Q114834007",
+      "https://www.youtube.com/channel/UCWsDFcIhY2DBi3GB5uykGXA"
+    ]
+  },
+  {
+    "slug": "fanum",
+    "name": "Fanum",
+    "aliases": [],
+    "description": "American streamer and YouTuber",
+    "youtube": "UCP45EebTGl1ISj2DX33A2Rg",
+    "featured": true,
+    "niches": ["streamer-culture"],
+    "sources": [
+      "https://www.wikidata.org/wiki/Q124022724",
+      "https://www.youtube.com/channel/UCP45EebTGl1ISj2DX33A2Rg"
+    ]
+  },
+  {
+    "slug": "duke-dennis",
+    "name": "Duke Dennis",
+    "aliases": [],
+    "description": "American streamer and YouTuber, known for NBA 2K",
+    "youtube": "UCspFcBk0XKaSJjZccJkPqnQ",
+    "featured": true,
+    "niches": ["streamer-culture"],
+    "sources": [
+      "https://www.wikidata.org/wiki/Q124466749",
+      "https://www.youtube.com/channel/UCspFcBk0XKaSJjZccJkPqnQ"
+    ]
+  },
+  {
+    "slug": "stable-ronaldo",
+    "name": "Stable Ronaldo",
+    "aliases": [],
+    "description": "American streamer",
+    "youtube": null,
+    "featured": false,
+    "niches": ["streamer-culture"],
+    "sources": ["https://www.wikidata.org/wiki/Q137597192"]
+  },
+  {
+    "slug": "plaqueboymax",
+    "name": "PlaqueBoyMax",
+    "aliases": [],
+    "description": "American streamer and YouTuber",
+    "youtube": null,
+    "featured": false,
+    "niches": ["streamer-culture"],
+    "sources": ["https://www.wikidata.org/wiki/Q128277446"]
+  },
+  {
+    "slug": "sketch",
+    "name": "Sketch",
+    "aliases": [],
+    "description": "American Twitch streamer and YouTuber",
+    "youtube": "UCVi6sLM51K8kidu61o0DR_g",
+    "featured": false,
+    "niches": ["streamer-culture"],
+    "sources": [
+      "https://www.wikidata.org/wiki/Q125618760",
+      "https://www.youtube.com/channel/UCVi6sLM51K8kidu61o0DR_g"
+    ]
+  },
+  {
+    "slug": "jynxzi",
+    "name": "Jynxzi",
+    "aliases": [],
+    "description": "American Twitch streamer and YouTuber",
+    "youtube": "UCjiXtODGCCulmhwypZAWSag",
+    "featured": true,
+    "niches": ["streamer-culture"],
+    "sources": [
+      "https://www.wikidata.org/wiki/Q124515827",
+      "https://www.youtube.com/channel/UCjiXtODGCCulmhwypZAWSag"
+    ]
+  },
+  {
+    "slug": "theburntpeanut",
+    "name": "TheBurntPeanut",
+    "aliases": [],
+    "description": "American VTuber and streamer",
+    "youtube": "UCMNEVbszv8ZyvSXoTn3yhpQ",
+    "featured": true,
+    "niches": ["streamer-culture"],
+    "sources": [
+      "https://www.wikidata.org/wiki/Q136815994",
+      "https://www.youtube.com/channel/UCMNEVbszv8ZyvSXoTn3yhpQ"
+    ]
+  },
+  {
+    "slug": "caseoh",
+    "name": "CaseOh",
+    "aliases": [],
+    "description": "American Twitch streamer and content creator",
+    "youtube": "UC63anZxfVGHUEmfBAf5w7pw",
+    "featured": true,
+    "niches": ["streamer-culture"],
+    "sources": [
+      "https://www.wikidata.org/wiki/Q124813026",
+      "https://www.youtube.com/channel/UC63anZxfVGHUEmfBAf5w7pw"
+    ]
+  },
+  {
+    "slug": "valkyrae",
+    "name": "Valkyrae",
+    "aliases": [],
+    "description": "American video game streamer",
+    "youtube": "UCWxlUwW9BgGISaakjGM37aw",
+    "featured": true,
+    "niches": ["streamer-culture"],
+    "sources": [
+      "https://www.wikidata.org/wiki/Q64747569",
+      "https://www.youtube.com/channel/UCWxlUwW9BgGISaakjGM37aw"
+    ]
+  },
+  {
+    "slug": "pokimane",
+    "name": "Pokimane",
+    "aliases": [],
+    "description": "Moroccan-Canadian streamer and YouTuber",
+    "youtube": "UChXKjLEzAB1K7EZQey7Fm1Q",
+    "featured": true,
+    "niches": ["streamer-culture"],
+    "sources": [
+      "https://www.wikidata.org/wiki/Q55956238",
+      "https://www.youtube.com/channel/UChXKjLEzAB1K7EZQey7Fm1Q"
+    ]
+  },
+  {
+    "slug": "ludwig",
+    "name": "Ludwig",
+    "aliases": [],
+    "description": "American YouTuber and streamer",
+    "youtube": "UCrPseYLGpNygVi34QpGNqpA",
+    "featured": true,
+    "niches": ["streamer-culture"],
+    "sources": [
+      "https://www.wikidata.org/wiki/Q104833873",
+      "https://www.youtube.com/channel/UCrPseYLGpNygVi34QpGNqpA"
+    ]
+  },
+  {
+    "slug": "tfue",
+    "name": "Tfue",
+    "aliases": [],
+    "description": "American streamer",
+    "youtube": "UC9lSZSYpDDE18hoFA7YlBpw",
+    "featured": true,
+    "niches": ["streamer-culture"],
+    "sources": [
+      "https://www.wikidata.org/wiki/Q61609160",
+      "https://www.youtube.com/channel/UC9lSZSYpDDE18hoFA7YlBpw"
+    ]
+  },
+  {
+    "slug": "timthetatman",
+    "name": "TimTheTatman",
+    "aliases": [],
+    "description": "American Twitch streamer",
+    "youtube": "UCXBE_QQSZueB8082ml5fslg",
+    "featured": true,
+    "niches": ["streamer-culture"],
+    "sources": [
+      "https://www.wikidata.org/wiki/Q61789029",
+      "https://www.youtube.com/channel/UCXBE_QQSZueB8082ml5fslg"
+    ]
+  },
+  {
+    "slug": "jeff-nippard",
+    "name": "Jeff Nippard",
+    "aliases": [],
+    "description": "Canadian fitness YouTuber known for science-based training",
+    "youtube": "UC68TLK0mAEzUyHx5x5k-S1Q",
+    "featured": true,
+    "niches": ["gymtok", "self-improvement"],
+    "sources": [
+      "https://www.wikidata.org/wiki/Q130616632",
+      "https://www.youtube.com/channel/UC68TLK0mAEzUyHx5x5k-S1Q"
+    ]
+  },
+  {
+    "slug": "hyram",
+    "name": "Hyram",
+    "aliases": [],
+    "description": "American skincare YouTuber",
+    "youtube": "UC2sYit3cZ2CuD_8FHYH7O_Q",
+    "featured": true,
+    "niches": ["gen-z-skincare"],
+    "sources": [
+      "https://www.wikidata.org/wiki/Q104063001",
+      "https://www.youtube.com/channel/UC2sYit3cZ2CuD_8FHYH7O_Q"
+    ]
+  }
+]

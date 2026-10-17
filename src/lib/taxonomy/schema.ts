@@ -17,6 +17,7 @@ export const NODE_TYPES = [
   "brand",
   "collective",
   "identity",
+  "creator",
 ] as const
 export type NodeType = (typeof NODE_TYPES)[number]
 
@@ -38,6 +39,7 @@ export const EDGE_TYPES = [
   "artist_of",
   "brand_of",
   "community_of",
+  "creator_of",
   "tagged",
 ] as const
 export type EdgeType = (typeof EDGE_TYPES)[number]
@@ -61,6 +63,7 @@ export const EDGE_ENDPOINTS: Record<
   artist_of: { from: ["artist"], to: ["niche"] },
   brand_of: { from: ["brand"], to: ["niche", "tag"] },
   community_of: { from: ["collective", "identity"], to: ["niche"] },
+  creator_of: { from: ["creator"], to: ["niche"] },
   tagged: { from: ["niche"], to: ["tag"] },
 }
 
@@ -93,6 +96,11 @@ export const nicheCurationSchema = z.object({
    * Spotify image isn't a readable portrait (e.g. a drawing).
    */
   coverArtist: slug.optional(),
+  /**
+   * The profile's artists are its soundtrack, not its scene (glow-up and
+   * creator niches): they don't become the niche's face, looks or drops.
+   */
+  soundtrackOnly: z.boolean().default(false),
   /** Public Are.na channel slugs for the moodboard (checked readable without a key). */
   arenaChannels: z.array(z.string().regex(/^[a-z0-9-]+$/)).default([]),
   /** ISO 639-1 languages the niche's content is in; anything else is dropped. */
@@ -153,6 +161,34 @@ export const communitySchema = z.object({
   niches: z.array(slug).min(1),
 })
 
+/**
+ * A creator (streamer, YouTuber), verified like artists: exists on Wikidata
+ * and the YouTube channel id is the one Wikidata and YouTube both confirm.
+ * Content comes from YouTube and news, entity-matched; no live embeds.
+ */
+export const creatorSchema = z.object({
+  slug,
+  name: z.string().min(1).max(60),
+  aliases,
+  /** Neutral one-liner (Wikidata's description, lightly edited). No claims beyond it. */
+  description: z.string().min(10).max(160),
+  /** YouTube channel id (UC…). */
+  youtube: z
+    .string()
+    .regex(/^UC[\w-]{22}$/)
+    .nullable()
+    .default(null),
+  /**
+   * Featured = shown in creator rows. Only creators whose content stays
+   * inside the guardrails; anyone we're unsure about stays an unfeatured
+   * entity (still matched in content, never promoted).
+   */
+  featured: z.boolean().default(false),
+  niches: z.array(slug).min(1),
+  /** Where the identity and handles were verified. */
+  sources: z.array(z.string().url()).min(1),
+})
+
 export const taxonomyFilesSchema = z.object({
   hubs: z.array(hubSchema),
   niches: z.array(nicheCurationSchema),
@@ -161,6 +197,7 @@ export const taxonomyFilesSchema = z.object({
   artists: z.array(artistSchema),
   brands: z.array(brandSchema),
   communities: z.array(communitySchema),
+  creators: z.array(creatorSchema).default([]),
 })
 
 export type Hub = z.infer<typeof hubSchema>
@@ -171,4 +208,5 @@ export type TagGroup = (typeof TAG_GROUPS)[number]
 export type Artist = z.infer<typeof artistSchema>
 export type Brand = z.infer<typeof brandSchema>
 export type Community = z.infer<typeof communitySchema>
+export type Creator = z.infer<typeof creatorSchema>
 export type TaxonomyFiles = z.infer<typeof taxonomyFilesSchema>

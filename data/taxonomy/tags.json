@@ -233,5 +233,100 @@
     "description": "The '-core' naming culture: aesthetics and microgenres born and named online.",
     "keywords": ["core", "aesthetic", "internet"],
     "niches": ["glitchcore", "hyperpop", "digicore", "sigilkore", "deftones-core"]
+  },
+  {
+    "slug": "livestream-clips",
+    "name": "livestream clips",
+    "group": "scene",
+    "aliases": [],
+    "description": "Short clips cut from live streams.",
+    "keywords": ["stream clip", "stream highlights", "best moments", "live clip"],
+    "niches": ["streamer-culture", "brainrot-and-meme-culture"]
+  },
+  {
+    "slug": "viral-streamer-moments",
+    "name": "viral streamer moments",
+    "group": "scene",
+    "aliases": [],
+    "description": "Stream moments that left the stream and became the internet's week.",
+    "keywords": ["went viral", "viral moment", "stream moment"],
+    "niches": ["streamer-culture"]
+  },
+  {
+    "slug": "streamer-memes",
+    "name": "streamer memes",
+    "group": "scene",
+    "aliases": [],
+    "description": "Memes and edits made from streams.",
+    "keywords": ["streamer meme", "stream meme", "chat meme"],
+    "niches": ["streamer-culture", "brainrot-and-meme-culture"]
+  },
+  {
+    "slug": "creator-friend-groups",
+    "name": "creator friend groups",
+    "group": "scene",
+    "aliases": [],
+    "description": "Collab crews and friend groups that stream and post together.",
+    "keywords": ["collab", "friend group", "squad", "crew"],
+    "niches": ["streamer-culture"]
+  },
+  {
+    "slug": "internet-celebrity-culture",
+    "name": "internet celebrity culture",
+    "group": "scene",
+    "aliases": [],
+    "description": "How people become famous online, and what they do with it.",
+    "keywords": ["internet famous", "influencer", "creator economy"],
+    "niches": [
+      "streamer-culture",
+      "brainrot-and-meme-culture",
+      "tiktok-microtrends",
+      "e-boy-and-e-girl"
+    ]
+  },
+  {
+    "slug": "fitness-memes",
+    "name": "fitness memes",
+    "group": "scene",
+    "aliases": [],
+    "description": "Gym jokes, edits and phonk montages.",
+    "keywords": ["gym meme", "gym humor", "gym edit"],
+    "niches": ["gymtok", "brainrot-and-meme-culture"]
+  },
+  {
+    "slug": "transformation-culture",
+    "name": "transformation culture",
+    "group": "scene",
+    "aliases": [],
+    "description": "Progress check-ins and before-and-afters, natural training only.",
+    "keywords": ["transformation", "progress pic", "before and after", "glow up"],
+    "niches": ["gymtok", "self-improvement", "softmaxxing"]
+  },
+  {
+    "slug": "fitness-influencers",
+    "name": "fitness influencers",
+    "group": "scene",
+    "aliases": [],
+    "description": "Creators who teach training and habits.",
+    "keywords": ["fitness influencer", "fitness youtuber", "training channel"],
+    "niches": ["gymtok", "self-improvement"]
+  },
+  {
+    "slug": "viral-challenges",
+    "name": "viral challenges",
+    "group": "scene",
+    "aliases": [],
+    "description": "Challenges that spread across TikTok and streams.",
+    "keywords": ["challenge", "trend challenge", "tiktok challenge"],
+    "niches": ["tiktok-microtrends", "brainrot-and-meme-culture"]
+  },
+  {
+    "slug": "edgy-internet-culture",
+    "name": "edgy internet culture",
+    "group": "scene",
+    "aliases": [],
+    "description": "Ironic, absurd and edgy humour: the formats, not pile-ons.",
+    "keywords": ["edgy meme", "ironic", "shitpost", "absurdist"],
+    "niches": ["brainrot-and-meme-culture"]
   }
 ]

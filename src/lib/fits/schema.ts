@@ -1,3 +1,4 @@
+import { isExcludedContent } from "@/lib/feed/excluded"
 import { z } from "zod"
 import { TAXONOMY, findPreset } from "@/lib/niches/catalog"
 
@@ -52,7 +53,13 @@ export const fitSongSchema = z.object({
 })
 
 export const fitInputSchema = z.object({
-  caption: z.string().trim().max(FIT_LIMITS.caption).optional().default(""),
+  caption: z
+    .string()
+    .trim()
+    .max(FIT_LIMITS.caption)
+    .refine((text) => !isExcludedContent(text, { glowUp: true }), "that caption isn't allowed here")
+    .optional()
+    .default(""),
   niches: z
     .array(z.string())
     .max(FIT_LIMITS.niches)

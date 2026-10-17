@@ -54,7 +54,16 @@
     "coastal-cowboy": "Boots on the boardwalk. Yeehaw, but make it beachy.",
     "bedroom-pop": "Recorded in your room, felt in everyone's.",
     "blokecore": "Retro football kits and terrace chants as a lifestyle.",
-    "rave": "4am, strobe lights, a bottle of water and zero regrets."
+    "rave": "4am, strobe lights, a bottle of water and zero regrets.",
+    "softmaxxing": "Sunscreen, eight hours, a fresh cut. Your glow-up is suspiciously wholesome.",
+    "male-grooming": "You know your barber's birthday and your fade has a schedule.",
+    "gen-z-skincare": "Three steps, SPF 50, and strong opinions about niacinamide.",
+    "gymtok": "The set doesn't count unless the tripod saw it. You film everything.",
+    "self-improvement": "Habit tracker, reading list, 6am alarm. You're becoming the main character.",
+    "streamer-culture": "Chat knows you by name and you've watched a subathon past 3am.",
+    "e-boy-and-e-girl": "Striped sleeves under a band tee, chains, and a ring light. Iconic.",
+    "brainrot-and-meme-culture": "Your vocabulary is 60% memes and you've explained a meme to your mom.",
+    "tiktok-microtrends": "You knew the aesthetic was over before the haul arrived."
   },
   "combos": [
     {
@@ -105,7 +114,23 @@
     "underground-fashion+underground-fashion": "{a} with a side of {b}. Your closet has range.",
     "underground-internet+underground-music": "Internet-born and underground-raised: {a} meets {b}.",
     "underground-music+underground-internet": "{a} on the speakers, {b} in the group chat.",
-    "alt-metal-revival+any": "Heavy riffs with a twist of {b}. Unexpected, and it works."
+    "alt-metal-revival+any": "Heavy riffs with a twist of {b}. Unexpected, and it works.",
+    "glow-up+glow-up": "{a} with a side of {b}. Your feed has range.",
+    "glow-up+creator-culture": "{a} with a side of {b}. Your feed has range.",
+    "creator-culture+glow-up": "{a} with a side of {b}. Your feed has range.",
+    "glow-up+underground-music": "{a} with a side of {b}. Your feed has range.",
+    "underground-music+glow-up": "{a} with a side of {b}. Your feed has range.",
+    "glow-up+underground-fashion": "{a} with a side of {b}. Your feed has range.",
+    "underground-fashion+glow-up": "{a} with a side of {b}. Your feed has range.",
+    "glow-up+underground-internet": "{a} with a side of {b}. Your feed has range.",
+    "underground-internet+glow-up": "{a} with a side of {b}. Your feed has range.",
+    "creator-culture+creator-culture": "{a} with a side of {b}. Your feed has range.",
+    "creator-culture+underground-music": "{a} with a side of {b}. Your feed has range.",
+    "underground-music+creator-culture": "{a} with a side of {b}. Your feed has range.",
+    "creator-culture+underground-fashion": "{a} with a side of {b}. Your feed has range.",
+    "underground-fashion+creator-culture": "{a} with a side of {b}. Your feed has range.",
+    "creator-culture+underground-internet": "{a} with a side of {b}. Your feed has range.",
+    "underground-internet+creator-culture": "{a} with a side of {b}. Your feed has range."
   },
   "fallback": "{a} first, {b} close behind. Niche, but make it you."
 }

@@ -5,6 +5,7 @@ import {
   isRelevant,
   isStrongMatch,
 } from "./relevance"
+import { isExcludedContent } from "./excluded"
 import { BLOCKED_NEWS_DOMAINS, type SourceAllowlist, domainIn } from "./source-tiers"
 import type { FeedItem, FeedSource } from "./types"
 
@@ -21,10 +22,12 @@ export interface CleanContext {
   /** ISO 639-1 codes the niche is in; English-only unless the niche says otherwise. */
   languages: readonly string[]
   sources: SourceAllowlist
+  /** Glow-Up niches also exclude surgery promotion and extreme dieting (see excluded.ts). */
+  glowUp?: boolean
 }
 
 export type DropReason =
-  "spam" | "language" | "region" | "negative" | "blocked" | "irrelevant" | "duplicate"
+  "excluded" | "spam" | "language" | "region" | "negative" | "blocked" | "irrelevant" | "duplicate"
 
 /** Open-web sources whose items must earn their place; Spotify and in-app cards are verified upstream. */
 const GATED_SOURCES: ReadonlySet<FeedSource> = new Set(["youtube", "news"])
@@ -137,6 +140,10 @@ export function isTrusted(item: FeedItem, sources: SourceAllowlist): boolean {
 
 /** Why an item doesn't belong in this niche's feed, or null when it does. */
 export function judgeItem(item: FeedItem, ctx: CleanContext): DropReason | null {
+  // Hard exclusions apply to every source, before anything else.
+  if (isExcludedContent(`${item.title} ${item.subtitle ?? ""}`, { glowUp: ctx.glowUp })) {
+    return "excluded"
+  }
   // Third-party playlists can't be shown as track lists any more (Feb 2026), and
   // their names collide ("Jerk music" full of System of a Down): never shown.
   if (item.source === "spotify" && item.type === "playlist") return "blocked"

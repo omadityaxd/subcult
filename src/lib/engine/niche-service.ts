@@ -1,3 +1,4 @@
+import { isExcludedTopic } from "@/lib/feed/excluded"
 import { type Logger, errorMessage } from "@/lib/log"
 import type { NicheKind, NicheStatus, TrendSource } from "@/lib/niches/lifecycle"
 import type { GenerationResult } from "./generate"
@@ -103,6 +104,13 @@ export function createNicheService({
   ): Promise<NicheLookup> {
     if (!generate) {
       return { status: "unavailable", reason: "new niches are offline rn. try one from explore!" }
+    }
+    // Some corners of the internet we don't make pages for (rating faces, PEDs, blackpill).
+    if (isExcludedTopic(niche.name)) {
+      return {
+        status: "rejected",
+        reason: "we don't do that corner of the internet. try softmaxxing for the healthy glow-up?",
+      }
     }
     const permit = checkBudget ? await checkBudget() : "ok"
     if (permit !== "ok") return { status: permit, reason: PERMIT_DENIALS[permit] }

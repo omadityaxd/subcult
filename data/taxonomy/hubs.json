@@ -49,5 +49,24 @@
     "aliases": ["alt metal revival", "nu metal revival scene"],
     "description": "Deftones on repeat, drop-tuned guitars and the shoegaze haze that grew out of them.",
     "children": ["deftones-core", "nu-gaze"]
+  },
+  {
+    "slug": "glow-up",
+    "name": "Glow-Up",
+    "description": "Grooming-first glow-ups: skincare basics, a good cut, the gym and better habits. No surgery talk, no supplements, no rating anyone's face.",
+    "aliases": ["glow up", "glowup"],
+    "children": ["softmaxxing", "male-grooming", "gen-z-skincare", "gymtok", "self-improvement"]
+  },
+  {
+    "slug": "creator-culture",
+    "name": "Creator Culture",
+    "description": "Streamers, e-kids, memes and microtrends: the culture that starts on a stream or a For You page. Clips and trends, never drama about real people.",
+    "aliases": ["creators", "internet creators"],
+    "children": [
+      "streamer-culture",
+      "e-boy-and-e-girl",
+      "brainrot-and-meme-culture",
+      "tiktok-microtrends"
+    ]
   }
 ]

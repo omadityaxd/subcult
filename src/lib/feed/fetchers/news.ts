@@ -28,6 +28,15 @@ export function hashString(value: string): string {
  * cottagecore lists Taylor Swift as its sound, but her headlines aren't its tea.
  */
 export function newsEntities(profile: NicheProfile): { artists: string[]; brands: string[] } {
+  // Creator and glow-up niches are about people and routines, not their soundtrack:
+  // their named entities are their verified creators (none for the routine niches).
+  const hubs = TAXONOMY.parents(profile.slug)
+  if (hubs.includes("creator-culture") || hubs.includes("glow-up")) {
+    return {
+      artists: TAXONOMY.creatorsOf(profile.slug).map((creator) => creator.name),
+      brands: TAXONOMY.brandsOf(profile.slug).map((brand) => brand.name),
+    }
+  }
   if (!TAXONOMY.branchOf(profile.slug)) {
     return { artists: [], brands: TAXONOMY.brandsOf(profile.slug).map((brand) => brand.name) }
   }

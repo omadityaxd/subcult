@@ -4,7 +4,12 @@ import { hubSections, rootHubs } from "./hubs"
 
 describe("hub pages", () => {
   it("only gives top-level hubs their own page", () => {
-    expect(rootHubs(TAXONOMY).sort()).toEqual(["alt-metal-revival", "underground"])
+    expect(rootHubs(TAXONOMY).sort()).toEqual([
+      "alt-metal-revival",
+      "creator-culture",
+      "glow-up",
+      "underground",
+    ])
   })
 
   it("lays the underground hub out as its three branches", () => {

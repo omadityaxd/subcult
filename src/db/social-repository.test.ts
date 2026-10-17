@@ -20,6 +20,8 @@ describe("canView", () => {
     expect(canView("friends", rel({ following: true }))).toBe(false)
     expect(canView("friends", rel({ followedBy: true }))).toBe(false)
     expect(canView("friends", rel({ following: true, followedBy: true }))).toBe(true)
-    expect(canView("friends", rel({ following: true, followedBy: true, blocked: true }))).toBe(false)
+    expect(canView("friends", rel({ following: true, followedBy: true, blocked: true }))).toBe(
+      false,
+    )
   })
 })

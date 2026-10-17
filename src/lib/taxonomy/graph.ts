@@ -2,6 +2,7 @@ import { toNicheSlug } from "@/lib/engine/slug"
 import {
   type Artist,
   type Brand,
+  type Creator,
   type Community,
   EDGE_ENDPOINTS,
   type EdgeType,
@@ -63,6 +64,7 @@ const NICHE_EDGE_WEIGHT: Record<EdgeType, number> = {
   artist_of: 0,
   brand_of: 0,
   community_of: 0,
+  creator_of: 0,
   tagged: 0,
 }
 const ENTITY_WEIGHT: Partial<Record<NodeType, number>> = {
@@ -100,6 +102,10 @@ export interface Taxonomy {
   tag(slug: string): Tag | undefined
   artist(slug: string): Artist | undefined
   brand(slug: string): Brand | undefined
+  creator(slug: string): Creator | undefined
+  /** Verified creators of a niche (creator_of edges). */
+  creatorsOf(nicheSlug: string): Creator[]
+  allCreators(): Creator[]
   allBrands(): Brand[]
   /** Niches a brand belongs to (brand_of edges; tags excluded). */
   nichesOfBrand(brandSlug: string): string[]
@@ -196,6 +202,7 @@ export function buildTaxonomy(input: BuildInput): Taxonomy {
   const artists = new Map(files.artists.map((a) => [a.slug, a]))
   const brands = new Map(files.brands.map((b) => [b.slug, b]))
   const communities = new Map(files.communities.map((c) => [c.slug, c]))
+  const creators = new Map(files.creators.map((c) => [c.slug, c]))
   const tags = new Map(files.tags.map((t) => [t.slug, t]))
   const isNiche = (slug: string) => nodes.get(slug)?.type === "niche"
 
@@ -292,6 +299,9 @@ export function buildTaxonomy(input: BuildInput): Taxonomy {
     tag: (slug) => tags.get(slug),
     artist: (slug) => artists.get(slug),
     brand: (slug) => brands.get(slug),
+    creator: (slug) => creators.get(slug),
+    creatorsOf: (slug) => pick(into(slug, "creator_of"), creators),
+    allCreators: () => [...creators.values()],
     allBrands: () => [...brands.values()],
     nichesOfBrand: (slug) => out(slug, "brand_of").filter(isNiche),
     adjacent,
@@ -344,6 +354,7 @@ function collectNodes(
   for (const artist of files.artists) add({ ...artist, type: "artist" })
   for (const brand of files.brands) add({ ...brand, type: "brand" })
   for (const community of files.communities) add({ ...community, type: community.type })
+  for (const creator of files.creators) add({ ...creator, type: "creator" })
   return nodes
 }
 
@@ -359,6 +370,9 @@ function explicitEdges(files: TaxonomyFiles): Edge[] {
     ),
     ...files.brands.flatMap((brand) =>
       brand.linkedTo.map((target): Edge => ({ from: brand.slug, type: "brand_of", to: target })),
+    ),
+    ...files.creators.flatMap((creator) =>
+      creator.niches.map((niche): Edge => ({ from: creator.slug, type: "creator_of", to: niche })),
     ),
     ...files.communities.flatMap((community) =>
       community.niches.map((niche): Edge => ({
@@ -386,8 +400,13 @@ function profileEdges(
       .map((edge) => pairKey(edge.from, edge.to)),
   )
   const edges: Edge[] = []
+  const soundtrackOnly = new Set(
+    files.niches.filter((niche) => niche.soundtrackOnly).map((niche) => niche.slug),
+  )
   for (const profile of profiles) {
-    for (const { name } of profile.artists) {
+    // Some niches' artists are a mood, not the scene (Laufey isn't softmaxxing).
+    const artists = soundtrackOnly.has(profile.slug) ? [] : profile.artists
+    for (const { name } of artists) {
       const artist = resolve(name, "artist")
       if (artist && !linked.has(pairKey(artist, profile.slug))) {
         linked.add(pairKey(artist, profile.slug))

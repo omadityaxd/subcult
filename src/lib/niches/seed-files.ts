@@ -18,6 +18,15 @@ import sneakerheads from "../../../data/niches/sneakerheads.json"
 import anime from "../../../data/niches/anime.json"
 import loFi from "../../../data/niches/lo-fi.json"
 import gymRat from "../../../data/niches/gym-rat.json"
+import softmaxxing from "../../../data/niches/softmaxxing.json"
+import maleGrooming from "../../../data/niches/male-grooming.json"
+import genZSkincare from "../../../data/niches/gen-z-skincare.json"
+import gymtok from "../../../data/niches/gymtok.json"
+import selfImprovement from "../../../data/niches/self-improvement.json"
+import streamerCulture from "../../../data/niches/streamer-culture.json"
+import eBoyAndEGirl from "../../../data/niches/e-boy-and-e-girl.json"
+import brainrotAndMemeCulture from "../../../data/niches/brainrot-and-meme-culture.json"
+import tiktokMicrotrends from "../../../data/niches/tiktok-microtrends.json"
 import hyperpop from "../../../data/niches/hyperpop.json"
 import goth from "../../../data/niches/goth.json"
 import jerseyClub from "../../../data/niches/jersey-club.json"
@@ -112,4 +121,13 @@ export const SEED_FILES: readonly unknown[] = [
   diyReworked,
   mcblingRevival,
   undergroundSneakerCulture,
+  softmaxxing,
+  maleGrooming,
+  genZSkincare,
+  gymtok,
+  selfImprovement,
+  streamerCulture,
+  eBoyAndEGirl,
+  brainrotAndMemeCulture,
+  tiktokMicrotrends,
 ]

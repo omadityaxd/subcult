@@ -1,0 +1,46 @@
+{
+  "slug": "tiktok-microtrends",
+  "schemaVersion": 1,
+  "name": "tiktok microtrends",
+  "emoji": "⚡",
+  "tagline": "this aesthetic will be over before you finish ordering the outfit",
+  "description": "The fast-moving 'core' cycle: aesthetics, colours and silhouettes that blow up on the For You page and fade within weeks. Tracking them is half fashion forecasting, half sport. The interesting part is which ones stick.",
+  "palette": ["#0e0e10", "#2d2a33", "#c9a7e8", "#f7c8b8", "#fbfaf8"],
+  "vibeWords": ["microtrend", "core", "aesthetic", "viral", "fyp", "trend cycle", "haul"],
+  "artists": [
+    { "name": "Doja Cat", "why": "trend-starting singles" },
+    { "name": "Sabrina Carpenter", "why": "the summer-trend soundtrack" },
+    { "name": "Chappell Roan", "why": "aesthetic-defining pop" },
+    { "name": "PinkPantheress", "why": "TikTok-native hits" },
+    { "name": "Ice Spice", "why": "viral-sound era" },
+    { "name": "Tyla", "why": "dance-trend favourite" },
+    { "name": "Charli xcx", "why": "brat summer, the case study" },
+    { "name": "Troye Sivan", "why": "trend-friendly pop" }
+  ],
+  "spotifyQueries": ["tiktok trending songs", "viral hits", "trending now"],
+  "subreddits": ["OutOfTheLoop", "femalefashionadvice", "malefashionadvice"],
+  "newsQueries": ["tiktok fashion trend", "microtrend aesthetic"],
+  "youtubeQueries": [
+    "tiktok trends explained",
+    "microtrends fashion",
+    "trend cycle explained",
+    "which trends will last"
+  ],
+  "brands": [
+    { "name": "Zara", "priceTier": "$$", "why": "trend turnaround in weeks" },
+    { "name": "Uniqlo", "priceTier": "$", "why": "the basics trends sit on" },
+    { "name": "COS", "priceTier": "$$", "why": "minimal trend pieces" },
+    { "name": "Adidas", "priceTier": "$$", "why": "Sambas and the shoe cycle" }
+  ],
+  "shopKeywords": [
+    "trending outfit",
+    "ballet flats",
+    "baggy jeans",
+    "mini bag",
+    "statement sunglasses"
+  ],
+  "pinterestQueries": ["trending aesthetic", "fashion trends 2026", "core aesthetic outfits"],
+  "instagramHashtags": ["microtrend", "trending", "fashiontrends"],
+  "tiktokQueries": ["microtrend", "new aesthetic"],
+  "relatedNiches": ["brainrot & meme culture", "y2k", "coquette"]
+}

@@ -287,6 +287,29 @@ The strongest reason to come back: something you care about happened.
   can see it (friends-only posters reach mutuals only), capped at 500 per post. Today shows
   "your friends are into this week" from the last 7 days of visible friends' signals.
 
+## Glow-Up and Creator Culture (P1)
+
+- **Hubs:** Glow-Up (softmaxxing (the "looksmaxxing" alias lands here, grooming-first), male
+  grooming (Men's Grooming merged in as an alias), gen-z skincare, gymtok, self-improvement) and
+  Creator Culture (streamer culture, e-boy & e-girl, brainrot & meme culture (Internet Meme
+  Culture merged in), tiktok microtrends). Everything else from the rough prompt is a tag
+  (livestream clips, fitness memes, transformation culture…), not a page. Underground Internet
+  Culture is linked (e-boy & e-girl ↔ digicore, hyperpop), not duplicated.
+- **Typed relationships** from the brief: softmaxxing → male grooming → gen-z skincare; gymtok ↔
+  gym rat, gymtok → self-improvement; streamer culture → brainrot & meme culture; new-gen
+  underground rap → streamer culture, graphic gothic streetwear ↔ e-boy & e-girl.
+- **Excluded entirely** (`lib/feed/excluded.ts`, regression-tested): hardmaxxing, PSL/face
+  rating, "mogging", bonesmashing, steroids/PEDs/SARMs, blackpill/incel, everywhere (every
+  source's titles, rising headlines, fit captions, and the niche generator refuses the topic).
+  Glow-Up niches also exclude surgery promotion and extreme dieting (scoped: "fillers" means
+  something else in anime). Creator niches exclude drama and gossip about real people.
+- **Soundtrack-only niches:** these profiles' artists are a mood (Laufey isn't softmaxxing), so a
+  curation flag keeps them out of the artist graph: no artist faces, looks or drops; generative
+  covers instead; news searches their verified creators, never their soundtrack.
+- **Creators** are a taxonomy entity (Wikidata + YouTube channel id). Featured only when their
+  content stays inside the guardrails; anyone uncertain stays an unfeatured entity (matched in
+  content, never promoted). No Twitch, no live section.
+
 ## In-app media
 
 One audio engine (two decks, Web Audio crossfades, Media Session) plays every preview. A handoff

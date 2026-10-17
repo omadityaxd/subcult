@@ -145,10 +145,53 @@ export function TwoHops({ slug, vertical }: { slug: string; vertical?: boolean }
   )
 }
 
-/** Collectives and identities around the niche (Drain Gang, Opium, YVL…), with sources. */
+/**
+ * Featured creators in the niche (verified via Wikidata + YouTube). Only
+ * creators inside the content guardrails are featured; their channels open
+ * on YouTube.
+ */
+function SceneCreators({ slug }: { slug: string }) {
+  const creators = TAXONOMY.creatorsOf(slug).filter((creator) => creator.featured)
+  if (creators.length === 0) return null
+  return (
+    <div className="mt-8">
+      <Overline>Creators</Overline>
+      <ul className="space-y-3">
+        {creators.map((creator) => (
+          <li key={creator.slug} className="flex items-baseline justify-between gap-3">
+            <span className="min-w-0">
+              <span className="block text-headline font-semibold">{creator.name}</span>
+              <span className="block text-caption text-muted-foreground">
+                {creator.description}
+              </span>
+            </span>
+            {creator.youtube ? (
+              <a
+                href={`https://www.youtube.com/channel/${creator.youtube}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex shrink-0 items-center gap-1 text-caption text-muted-foreground hover:text-foreground"
+              >
+                YouTube <ArrowUpRight aria-hidden className="size-3" strokeWidth={1.5} />
+              </a>
+            ) : null}
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
+/** Collectives and identities around the niche (Drain Gang, Opium, YVL…), with sources; creators too. */
 export function SceneCommunities({ slug, className }: { slug: string; className?: string }) {
   const communities = TAXONOMY.communitiesOf(slug)
-  if (communities.length === 0) return null
+  if (communities.length === 0) {
+    return TAXONOMY.creatorsOf(slug).some((c) => c.featured) ? (
+      <section className={className}>
+        <SceneCreators slug={slug} />
+      </section>
+    ) : null
+  }
   return (
     <section className={className}>
       <Overline>The scene</Overline>
@@ -175,6 +218,7 @@ export function SceneCommunities({ slug, className }: { slug: string; className?
           </li>
         ))}
       </ul>
+      <SceneCreators slug={slug} />
     </section>
   )
 }

@@ -1,0 +1,46 @@
+{
+  "slug": "e-boy-and-e-girl",
+  "schemaVersion": 1,
+  "name": "e-boy & e-girl",
+  "emoji": "⛓️",
+  "tagline": "striped long sleeve under a band tee, painted nails, ring light on",
+  "description": "The internet-native alt look: layered striped long sleeves under graphic tees, chains, painted nails, curtain bangs and heart doodles under the eye. Born on TikTok and Discord, soundtracked by emo rap and hyperpop, constantly reinvented.",
+  "palette": ["#0b0b0f", "#2a1f2d", "#8a3b5e", "#c7c2d6", "#f2eef5"],
+  "vibeWords": ["eboy", "egirl", "chains", "striped sleeves", "painted nails", "alt", "ring light"],
+  "artists": [
+    { "name": "Lil Peep", "why": "the e-boy patron saint" },
+    { "name": "Trippie Redd", "why": "emo rap crossover" },
+    { "name": "Juice WRLD", "why": "melodic heartbreak rap" },
+    { "name": "Machine Gun Kelly", "why": "pop-punk revival era" },
+    { "name": "100 gecs", "why": "hyperpop chaos" },
+    { "name": "Glaive", "why": "digicore crossover" },
+    { "name": "Mother Mother", "why": "'Hayloft' TikTok anthem" },
+    { "name": "Melanie Martinez", "why": "e-girl pop staple" }
+  ],
+  "spotifyQueries": ["e girl playlist", "emo rap", "alt tiktok"],
+  "subreddits": ["egirls", "AltFashion"],
+  "newsQueries": ["e-girl aesthetic trend", "alt fashion tiktok"],
+  "youtubeQueries": [
+    "e boy outfit ideas",
+    "e girl makeup tutorial",
+    "alt fashion haul",
+    "e girl aesthetic explained"
+  ],
+  "brands": [
+    { "name": "Dr. Martens", "priceTier": "$$", "why": "the boots" },
+    { "name": "Hot Topic", "priceTier": "$", "why": "band tees and chains" },
+    { "name": "Dolls Kill", "priceTier": "$$", "why": "alt staples" },
+    { "name": "Converse", "priceTier": "$", "why": "Chuck 70s with everything" }
+  ],
+  "shopKeywords": [
+    "striped long sleeve",
+    "wallet chain",
+    "band tee",
+    "platform boots",
+    "black nail polish"
+  ],
+  "pinterestQueries": ["e boy outfit", "e girl aesthetic", "alt outfit ideas"],
+  "instagramHashtags": ["egirl", "eboy", "altfashion"],
+  "tiktokQueries": ["e girl transformation", "e boy outfit"],
+  "relatedNiches": ["hyperpop", "digicore", "graphic gothic streetwear", "streamer culture"]
+}

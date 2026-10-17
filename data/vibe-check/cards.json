@@ -2,7 +2,10 @@
   {
     "id": "pit",
     "prompt": "The synth is clipping and you're in the pit.",
-    "image": { "kind": "artist", "slug": "ken-carson" },
+    "image": {
+      "kind": "artist",
+      "slug": "ken-carson"
+    },
     "weights": {
       "rage": 3,
       "new-gen-underground-rap": 2,
@@ -16,7 +19,10 @@
   {
     "id": "leather",
     "prompt": "Leather flares, silver crosses, all black. Daily.",
-    "image": { "kind": "niche", "slug": "vamp" },
+    "image": {
+      "kind": "niche",
+      "slug": "vamp"
+    },
     "weights": {
       "vamp": 3,
       "graphic-gothic-streetwear": 2,
@@ -28,7 +34,10 @@
   {
     "id": "leaks",
     "prompt": "Half your playlist is leaks from a Discord server.",
-    "image": { "kind": "artist", "slug": "nettspend" },
+    "image": {
+      "kind": "artist",
+      "slug": "nettspend"
+    },
     "weights": {
       "jerk": 3,
       "new-gen-underground-rap": 2,
@@ -41,7 +50,10 @@
   {
     "id": "boots",
     "prompt": "A $1,400 boot is a personality and you have one.",
-    "image": { "kind": "niche", "slug": "dark-avant-garde" },
+    "image": {
+      "kind": "niche",
+      "slug": "dark-avant-garde"
+    },
     "weights": {
       "dark-avant-garde": 3,
       "underground-sneaker-culture": 2,
@@ -54,7 +66,10 @@
   {
     "id": "three-am",
     "prompt": "Soft synths, sad melodies, texting someone at 3am.",
-    "image": { "kind": "artist", "slug": "summrs" },
+    "image": {
+      "kind": "artist",
+      "slug": "summrs"
+    },
     "weights": {
       "pluggnb": 3,
       "plugg": 2,
@@ -67,7 +82,10 @@
   {
     "id": "white-pony",
     "prompt": "Drop-tuned guitars, hoodie up, White Pony on repeat.",
-    "image": { "kind": "artist", "slug": "deftones" },
+    "image": {
+      "kind": "artist",
+      "slug": "deftones"
+    },
     "weights": {
       "deftones-core": 3,
       "nu-gaze": 3,
@@ -80,7 +98,10 @@
   {
     "id": "tabs",
     "prompt": "Pitched-up vocals, glitchy edits, 40 tabs open.",
-    "image": { "kind": "artist", "slug": "100-gecs" },
+    "image": {
+      "kind": "artist",
+      "slug": "100-gecs"
+    },
     "weights": {
       "hyperpop": 3,
       "glitchcore": 3,
@@ -93,7 +114,10 @@
   {
     "id": "runway",
     "prompt": "You know which runway season your thrifted jacket is from.",
-    "image": { "kind": "niche", "slug": "archive-fashion" },
+    "image": {
+      "kind": "niche",
+      "slug": "archive-fashion"
+    },
     "weights": {
       "archive-fashion": 3,
       "diy-reworked": 2,
@@ -106,7 +130,10 @@
   {
     "id": "velour",
     "prompt": "Velour tracksuit, rhinestones, flip phone for the aesthetic.",
-    "image": { "kind": "artist", "slug": "paris-hilton" },
+    "image": {
+      "kind": "artist",
+      "slug": "paris-hilton"
+    },
     "weights": {
       "mcbling-revival": 3,
       "y2k": 3,
@@ -118,7 +145,10 @@
   {
     "id": "haze",
     "prompt": "Reverb, haze, an iced tea and a long walk at night.",
-    "image": { "kind": "artist", "slug": "bladee" },
+    "image": {
+      "kind": "artist",
+      "slug": "bladee"
+    },
     "weights": {
       "cloud-rap": 3,
       "sigilkore": 2,
@@ -131,7 +161,10 @@
   {
     "id": "noise",
     "prompt": "Noise, distortion, dense bars. The weirder the better.",
-    "image": { "kind": "artist", "slug": "jpegmafia" },
+    "image": {
+      "kind": "artist",
+      "slug": "jpegmafia"
+    },
     "weights": {
       "experimental-rap": 3,
       "underground-rap": 3,
@@ -143,7 +176,10 @@
   {
     "id": "drop",
     "prompt": "Puff print, flames, sold out in four minutes. You got one.",
-    "image": { "kind": "niche", "slug": "underground-graphic-streetwear" },
+    "image": {
+      "kind": "niche",
+      "slug": "underground-graphic-streetwear"
+    },
     "weights": {
       "underground-graphic-streetwear": 3,
       "diy-reworked": 1,
@@ -151,6 +187,37 @@
       "trap": 2,
       "dark-streetwear": 1,
       "skater": 1
+    }
+  },
+  {
+    "id": "mirror",
+    "prompt": "Fresh cut, SPF on, gym at 7. Your glow-up has a routine.",
+    "image": {
+      "kind": "niche",
+      "slug": "softmaxxing"
+    },
+    "weights": {
+      "softmaxxing": 3,
+      "male-grooming": 2,
+      "gen-z-skincare": 2,
+      "gymtok": 2,
+      "self-improvement": 2,
+      "gym-rat": 1
+    }
+  },
+  {
+    "id": "chat",
+    "prompt": "A stream is on in the background and you speak fluent brainrot.",
+    "image": {
+      "kind": "niche",
+      "slug": "streamer-culture"
+    },
+    "weights": {
+      "streamer-culture": 3,
+      "brainrot-and-meme-culture": 3,
+      "tiktok-microtrends": 2,
+      "e-boy-and-e-girl": 2,
+      "hyperpop": 1
     }
   }
 ]

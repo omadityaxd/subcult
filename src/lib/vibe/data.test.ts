@@ -7,7 +7,7 @@ const SLUGS = new Set(SEED_PROFILES.map((p) => p.slug))
 
 describe("vibe check data", () => {
   it("has about a dozen cards with unique ids", () => {
-    expect(VIBE_CARDS.length).toBe(12)
+    expect(VIBE_CARDS.length).toBe(14)
     expect(new Set(VIBE_CARDS.map((c) => c.id)).size).toBe(VIBE_CARDS.length)
   })
 
@@ -30,9 +30,15 @@ describe("vibe check data", () => {
   })
 
   it("gives every card a real image (verified artist photo or niche photo)", () => {
+    // Soundtrack-only niches (glow-up, creator culture) have no face by design:
+    // their cards use the niche's generative palette cover instead.
+    const faceless = (id: string) => {
+      const card = VIBE_CARDS.find((c) => c.id === id)
+      return card?.image.kind === "niche" && TAXONOMY.curation(card.image.slug)?.soundtrackOnly
+    }
     expect(
       deckCards()
-        .filter((card) => !card.imageUrl)
+        .filter((card) => !card.imageUrl && !faceless(card.id))
         .map((card) => card.id),
     ).toEqual([])
   })

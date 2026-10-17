@@ -236,5 +236,98 @@
     "aliases": ["underground hip-hop"],
     "featuredOrder": 27,
     "negativeKeywords": ["climate", "turning 30", "years ago today"]
+  },
+  {
+    "slug": "softmaxxing",
+    "aliases": [
+      "looksmaxxing",
+      "looksmaxing",
+      "looksmax",
+      "softmaxing",
+      "glow up",
+      "glow-up",
+      "softmaxxing / glow-up"
+    ],
+    "negativeKeywords": [],
+    "soundtrackOnly": true
+  },
+  {
+    "slug": "male-grooming",
+    "aliases": [
+      "men's grooming",
+      "mens grooming",
+      "men grooming",
+      "haircuts",
+      "barber",
+      "grooming"
+    ],
+    "negativeKeywords": [],
+    "soundtrackOnly": true
+  },
+  {
+    "slug": "gen-z-skincare",
+    "aliases": ["gen z skincare", "skincare", "skin care"],
+    "negativeKeywords": [],
+    "soundtrackOnly": true
+  },
+  {
+    "slug": "gymtok",
+    "aliases": ["gym tok", "gym aesthetic", "gym fits", "gym fit"],
+    "negativeKeywords": [],
+    "soundtrackOnly": true
+  },
+  {
+    "slug": "self-improvement",
+    "aliases": ["self improvement", "self-improvement", "glow up habits", "discipline"],
+    "negativeKeywords": [],
+    "soundtrackOnly": true
+  },
+  {
+    "slug": "streamer-culture",
+    "aliases": ["streamers", "streaming", "streamer", "twitch streamers", "irl streaming"],
+    "negativeKeywords": [
+      "drama",
+      "beef",
+      "exposed",
+      "cancelled",
+      "canceled",
+      "allegations",
+      "arrested",
+      "lawsuit",
+      "apology video",
+      "feud",
+      "leaked dms"
+    ],
+    "soundtrackOnly": true
+  },
+  {
+    "slug": "e-boy-and-e-girl",
+    "aliases": ["e-boy", "e-girl", "eboy", "egirl", "e boy", "e girl"],
+    "negativeKeywords": [],
+    "soundtrackOnly": true
+  },
+  {
+    "slug": "brainrot-and-meme-culture",
+    "aliases": ["brainrot", "internet meme culture", "meme culture", "memes", "italian brainrot"],
+    "negativeKeywords": [
+      "drama",
+      "beef",
+      "exposed",
+      "cancelled",
+      "canceled",
+      "allegations",
+      "arrested",
+      "lawsuit",
+      "apology video",
+      "feud",
+      "leaked dms"
+    ],
+    "soundtrackOnly": true
+  },
+  {
+    "slug": "tiktok-microtrends",
+    "aliases": ["microtrends", "tiktok trends", "core aesthetics", "trend cycle"],
+    "negativeKeywords": [],
+    "soundtrackOnly": true
   }
 ]

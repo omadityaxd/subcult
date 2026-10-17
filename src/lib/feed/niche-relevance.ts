@@ -1,3 +1,4 @@
+import { GLOW_UP_HUB } from "./excluded"
 import type { NicheProfile } from "@/lib/engine/profile-schema"
 import { TAXONOMY, nicheArtistsLeadFirst } from "@/lib/niches/catalog"
 import type { CleanContext } from "./clean"
@@ -54,5 +55,6 @@ export function nicheCleanContext(profile: NicheProfile): CleanContext {
     negativeKeywords: curation?.negativeKeywords ?? [],
     languages: curation?.languages ?? LEGACY_LANGUAGES[profile.slug] ?? ["en"],
     sources: sourcesForBranch(TAXONOMY.branchOf(profile.slug)),
+    glowUp: TAXONOMY.parents(profile.slug).includes(GLOW_UP_HUB),
   }
 }
