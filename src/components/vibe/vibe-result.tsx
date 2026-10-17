@@ -97,7 +97,16 @@ export function VibeResult({ mix, blurb, onRetake, shared, corner }: VibeResultP
             </Link>
           ))}
         </div>
-        <div className="mt-8 flex flex-wrap gap-3">
+        {shared ? null : (
+          <Link
+            href={`/start?mix=${mix.map((niche) => niche.slug).join(",")}`}
+            className="mt-8 flex h-14 w-full items-center justify-between rounded-2xl bg-foreground px-5 text-callout font-semibold text-background transition-transform active:scale-[0.99] sm:w-auto sm:min-w-80"
+          >
+            Set up my feed
+            <ArrowRight aria-hidden className="size-4" strokeWidth={1.75} />
+          </Link>
+        )}
+        <div className="mt-6 flex flex-wrap gap-3">
           {shared ? (
             <Link
               href="/vibe-check"
