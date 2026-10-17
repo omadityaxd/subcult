@@ -1,0 +1,69 @@
+keys in this environment: {"ebay":false,"anthropic":false,"unsplash":false,"pexels":false,"youtube":true,"spotify":true}
+
+niche                             fits grails    tea tracks   pins videos  status
+* archive-fashion                    0      0      0     15      0      0  LOW: fits, grails, tea, pins, videos
+* cloud-rap                          0      -      3     18      0      2  LOW: fits, pins
+* dark-avant-garde                   0      0      0     20      0      1  LOW: fits, grails, tea, pins, videos
+* dark-plugg                         0      -      0     16      0      2  LOW: fits, tea, pins
+* dark-streetwear                    0      0      0     16      0      7  LOW: fits, grails, tea, pins
+* deftones-core                      0      -      0     20      0      0  LOW: fits, tea, pins, videos
+* digicore                           0      -      0     20      0      1  LOW: fits, tea, pins, videos
+* diy-reworked                       0      0      0     18      0      7  LOW: fits, grails, tea, pins
+* experimental-rap                   0      -      0     12      0      1  LOW: fits, tea, pins, videos
+* glitchcore                         0      -      0      6      0      1  LOW: fits, tea, pins, videos
+* graphic-gothic-streetwear          0      0      0     20      0      4  LOW: fits, grails, tea, pins
+* hyperpop                           0      -      3      9      0      3  LOW: fits, pins
+* jerk                               0      -      1     20      0      4  LOW: fits, tea, pins
+* mcbling-revival                    0      0      0     20      0      2  LOW: fits, grails, tea, pins
+* new-gen-underground-rap            0      -      2     20      0      3  LOW: fits, tea, pins
+* nu-gaze                            0      -      0     15      0      5  LOW: fits, tea, pins
+* plugg                              0      -      0     20      0      5  LOW: fits, tea, pins
+* pluggnb                            0      -      0     18      0      1  LOW: fits, tea, pins, videos
+* rage                               0      -      1     20      0      5  LOW: fits, tea, pins
+* sigilkore                          0      -      0     20      0      3  LOW: fits, tea, pins
+* soundcloud-rap                     0      -      0      6      0      5  LOW: fits, tea, pins
+* trap                               0      -      2      9      0      4  LOW: fits, tea, pins
+* tread                              0      -      0      9      0      4  LOW: fits, tea, pins
+* underground-graphic-streetwear       0      0      0     16      0      4  LOW: fits, grails, tea, pins
+* underground-rap                    0      -      0      3      0      1  LOW: fits, tea, tracks, pins, videos
+* underground-sneaker-culture        0      0      0     20      0      1  LOW: fits, grails, tea, pins, videos
+* vamp                               0      0      0     19      0      7  LOW: fits, grails, tea, pins
+  afrobeats                          0      -      0      0      0      7  LOW: fits, tea, tracks, pins
+  anime                              0      -      0      0      0      2  LOW: fits, tea, tracks, pins
+  bedroom-pop                        0      -      0     20      0      5  LOW: fits, tea, pins
+  blokecore                          0      -      0      0      0      6  LOW: fits, tea, tracks, pins
+  brainrot-and-meme-culture          0      -      0      0      0      0  LOW: fits, tea, tracks, pins, videos
+  city-pop                           0      -      0      0      0      1  LOW: fits, tea, tracks, pins, videos
+  coastal-cowboy                     0      -      0      0      0      4  LOW: fits, tea, tracks, pins
+  coquette                           0      -      0      0      0      5  LOW: fits, tea, tracks, pins
+  cottagecore                        0      -      0      0      0      6  LOW: fits, tea, tracks, pins
+  cyberpunk                          0      -      0      9      0      7  LOW: fits, tea, pins
+  dark-academia                      0      -      0      0      0      2  LOW: fits, tea, tracks, pins
+  e-boy-and-e-girl                   0      -      0      0      0      0  LOW: fits, tea, tracks, pins, videos
+  f1                                 0      -      0      3      0      2  LOW: fits, tea, tracks, pins
+  gen-z-skincare                     0      -      0      0      0      0  LOW: fits, tea, tracks, pins, videos
+  gorpcore                           0      -      0      0      0      5  LOW: fits, tea, tracks, pins
+  goth                               0      -      0      3      0      1  LOW: fits, tea, tracks, pins, videos
+  grunge                             0      -      0      3      0      2  LOW: fits, tea, tracks, pins
+  gym-rat                            0      -      0      6      0      6  LOW: fits, tea, pins
+  gymtok                             0      -      0      0      0      0  LOW: fits, tea, tracks, pins, videos
+  indie-sleaze                       0      -      0      0      0      8  LOW: fits, tea, tracks, pins
+  jersey-club                        0      -      0      6      0      3  LOW: fits, tea, pins
+  k-pop                              0      -      0     20      0      0  LOW: fits, tea, pins, videos
+  lo-fi                              0      -      0      3      0      2  LOW: fits, tea, tracks, pins
+  male-grooming                      0      -      0      0      0      0  LOW: fits, tea, tracks, pins, videos
+  midwest-emo                        0      -      0      0      0      7  LOW: fits, tea, tracks, pins
+  old-money                          0      -      0      0      0      3  LOW: fits, tea, tracks, pins
+  rave                               0      -      0      0      0      4  LOW: fits, tea, tracks, pins
+  self-improvement                   0      -      0      0      0      0  LOW: fits, tea, tracks, pins, videos
+  shoegaze                           0      -      0      7      0      6  LOW: fits, tea, pins
+  skater                             0      -      0     20      0      3  LOW: fits, tea, pins
+  sneakerheads                       0      -      0      3      0      5  LOW: fits, tea, tracks, pins
+  softmaxxing                        0      -      0      0      0      2  LOW: fits, tea, tracks, pins
+  streamer-culture                   0      -      0      0      0      8  LOW: fits, tea, tracks, pins
+  techwear                           0      -      0     12      0      2  LOW: fits, tea, pins
+  tiktok-microtrends                 0      -      0      0      0      0  LOW: fits, tea, tracks, pins, videos
+  vaporwave                          0      -      0      0      0      2  LOW: fits, tea, tracks, pins
+  y2k                                0      -      0      6      0      3  LOW: fits, tea, pins
+
+featured niches passing: 0/27  (* = featured; thresholds {"fits":4,"grails":8,"tea":3,"tracks":5,"pins":6,"videos":2})

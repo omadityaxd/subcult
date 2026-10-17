@@ -29,7 +29,8 @@
     "rising:print": "tsx --conditions=react-server scripts/rising.ts",
     "today:shots": "tsx scripts/today-shots.ts",
     "alerts:run": "tsx --conditions=react-server scripts/alerts-run.ts",
-    "friends:preview": "tsx --conditions=react-server scripts/friends-preview.ts"
+    "friends:preview": "tsx --conditions=react-server scripts/friends-preview.ts",
+    "content:coverage": "tsx --conditions=react-server scripts/content-coverage.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.133.0",
