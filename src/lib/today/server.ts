@@ -9,6 +9,9 @@ import { artistReleases } from "@/lib/music/releases-server"
 import { soundtrackFeedItems } from "@/lib/music/soundtrack"
 import { getSoundtrack } from "@/lib/music/soundtrack-server"
 import { TAXONOMY, findPreset, findSeedProfile, nicheArtistsLeadFirst } from "@/lib/niches/catalog"
+import { entityPhoto, withTeaImage } from "./tea-image"
+import { moodboardFeedItems } from "@/lib/moodboard/board"
+import { getMoodboard } from "@/lib/moodboard/server"
 import { getRisingSnapshot } from "@/lib/rising/server"
 import { friendsInto } from "@/lib/social/server"
 import { archiveFeedItems, getArchive } from "@/lib/shop/server"
@@ -103,7 +106,15 @@ async function nicheNews(niches: readonly string[]): Promise<FeedItem[]> {
   const out: FeedItem[] = []
   const longest = Math.max(0, ...feeds.map((f) => f.length))
   for (let i = 0; i < longest; i++) for (const feed of feeds) if (feed[i]) out.push(feed[i])
-  return out
+  // Never text-only: a story without its own image borrows its niche's face, tinted.
+  return out.map((item, index) => {
+    const slug = String(item.meta.nicheSlug ?? "")
+    const pictured = nicheArtistsLeadFirst(slug).filter((artist) => artist.imageUrl)
+    return withTeaImage(item, {
+      imageUrl: entityPhoto(item.title, pictured, index),
+      palette: findPreset(slug)?.palette ?? null,
+    })
+  })
 }
 
 async function listings(
@@ -158,12 +169,34 @@ async function sceneHighlights(niches: readonly string[]): Promise<FeedItem[]> {
   })
 }
 
+/**
+ * The Fit: posted fits since the last visit first, then images vision-tagged
+ * as fits on the niches' moodboards, then fit-check videos. Never artist
+ * press photos.
+ */
 async function newFits(niches: readonly string[], since: number): Promise<FeedItem[]> {
-  const lists = await Promise.all(niches.map((slug) => nicheFits(slug, 12)))
+  const [posted, boards, feeds] = await Promise.all([
+    Promise.all(niches.map((slug) => nicheFits(slug, 12))),
+    Promise.all(niches.map((slug) => getMoodboard(slug))),
+    Promise.all(
+      niches.map(async (slug) => {
+        const profile = findSeedProfile(slug)
+        return profile ? buildNicheFeed(profile, appFeedDeps()).catch(() => null) : null
+      }),
+    ),
+  ])
+  const fresh = fitFeedItems(posted.flat()).filter(
+    (item) => Date.parse(item.publishedAt ?? "0") > since,
+  )
+  const taggedFits = boards.flatMap((board) =>
+    moodboardFeedItems(board.pins).filter((item) => item.meta.fit === true),
+  )
+  const fitChecks = feeds.flatMap((feed) =>
+    (feed?.bySource.youtube ?? []).filter((item) => item.meta.fitCheck === true),
+  )
   const seen = new Set<string>()
-  return fitFeedItems(lists.flat()).filter(
-    (item) =>
-      !seen.has(item.id) && seen.add(item.id) && Date.parse(item.publishedAt ?? "0") > since,
+  return [...fresh, ...taggedFits, ...fitChecks].filter(
+    (item) => !seen.has(item.id) && seen.add(item.id),
   )
 }
 

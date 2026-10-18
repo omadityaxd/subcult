@@ -1,4 +1,5 @@
-import { and, eq, inArray, or, sql } from "drizzle-orm"
+import { and, eq, inArray, isNotNull, or, sql } from "drizzle-orm"
+import { nextFoundingNo } from "../lib/social/founding"
 import type { Database } from "./create-db"
 import {
   type NowPlaying,
@@ -14,6 +15,7 @@ export interface Settings {
   shareListening: boolean
   listening: NowPlaying | null
   listeningAt: Date | null
+  foundingNo: number | null
 }
 
 export const DEFAULT_SETTINGS: Settings = {
@@ -21,6 +23,7 @@ export const DEFAULT_SETTINGS: Settings = {
   shareListening: false,
   listening: null,
   listeningAt: null,
+  foundingNo: null,
 }
 
 export interface Relation {
@@ -161,6 +164,28 @@ export function createSocialRepository(db: Database) {
           (select count(*)::int from ${userFollows} where ${userFollows.followeeId} = ${userId}) as followers,
           (select count(*)::int from ${userFollows} where ${userFollows.followerId} = ${userId}) as following`)
       return { followers: row?.followers ?? 0, following: row?.following ?? 0 }
+    },
+
+    /**
+     * Gives the person the next founding number if spots remain. The unique
+     * column makes a simultaneous claim lose; one retry covers that race.
+     */
+    async claimFounding(userId: string, attempt = 0): Promise<number | null> {
+      const current = await repo.settings(userId)
+      if (current.foundingNo) return current.foundingNo
+      const rows = await db
+        .select({ no: profileSettings.foundingNo })
+        .from(profileSettings)
+        .where(isNotNull(profileSettings.foundingNo))
+      const next = nextFoundingNo(rows.flatMap((r) => (r.no ? [r.no] : [])))
+      if (next === null) return null
+      try {
+        await repo.updateSettings(userId, { foundingNo: next })
+        return next
+      } catch (error) {
+        if (attempt === 0) return repo.claimFounding(userId, 1)
+        throw error
+      }
     },
 
     /** Visibility settings for many people at once (friends row, follower lists). */

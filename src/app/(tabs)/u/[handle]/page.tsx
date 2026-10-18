@@ -44,6 +44,11 @@ async function Profile({ params }: Pick<PageProps<"/u/[handle]">, "params">) {
         title={`@${view.handle}`}
       />
       <div className="container-page space-y-10 pb-16">
+        {view.foundingNo ? (
+          <p className="inline-flex items-center gap-2 rounded-full border border-border-strong px-3 py-1 text-caption font-semibold tracking-[0.15em] uppercase">
+            Founding 50 · No. {String(view.foundingNo).padStart(2, "0")}
+          </p>
+        ) : null}
         <div className="flex flex-wrap items-center gap-3">
           <p className="text-callout text-muted-foreground tabular-nums">
             <span className="font-semibold text-foreground">{view.counts.followers}</span>{" "}

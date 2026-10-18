@@ -1,6 +1,8 @@
 import { z } from "zod"
 import { getDb } from "@/db"
 import { claimHandle } from "@/db/fit-repository"
+import { createSocialRepository } from "@/db/social-repository"
+import { inviterFromCookie } from "@/lib/social/founding"
 import { handleSchema } from "@/lib/fits/schema"
 import { getLimiter } from "@/lib/rate-limit"
 import { apiError, apiOk } from "@/lib/request"
@@ -30,6 +32,12 @@ export async function POST(request: Request): Promise<Response> {
     return apiError(parsed.error.issues[0]?.message ?? "invalid handle", 400, "invalid-input")
   }
   const claimed = await claimHandle(db, viewer.id, parsed.data.handle)
+  // Arrived through a friend's invite link: a founding-50 badge while spots last.
+  if (claimed && inviterFromCookie(request.headers.get("cookie"))) {
+    await createSocialRepository(db)
+      .claimFounding(viewer.id)
+      .catch(() => null)
+  }
   return claimed
     ? apiOk({ handle: parsed.data.handle })
     : apiError("that handle is taken", 409, "taken")

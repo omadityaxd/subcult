@@ -1,7 +1,7 @@
 import "server-only"
 import { env } from "@/lib/env"
 import { log } from "@/lib/log"
-import { artistSpotifyId } from "@/lib/niches/catalog"
+import { TAXONOMY, artistSpotifyId, nicheArtistsLeadFirst } from "@/lib/niches/catalog"
 import { getRedis } from "@/lib/redis"
 import type { FeedDeps } from "./feed"
 import { nicheCleanContext, nicheRelevance } from "./niche-relevance"
@@ -15,6 +15,13 @@ export function appFeedDeps(): FeedDeps {
     youtubeApiKey: env.YOUTUBE_API_KEY,
     artistIdFor: artistSpotifyId,
     youtubeRelevance: nicheRelevance,
+    fitCheckTerms: (profile) => {
+      const brands = TAXONOMY.brandsOf(profile.slug).map((brand) => brand.name)
+      const artists = TAXONOMY.curation(profile.slug)?.soundtrackOnly
+        ? []
+        : nicheArtistsLeadFirst(profile.slug).map((artist) => artist.name)
+      return { names: [...brands.slice(0, 1), ...artists.slice(0, 1)] }
+    },
     cleanContext: nicheCleanContext,
     redis: getRedis(),
     logger: log,

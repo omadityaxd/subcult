@@ -12,6 +12,7 @@ import { REPORT_REASONS } from "@/lib/fits/schema"
 import type { FitView } from "@/lib/fits/types"
 import type { PlayableTrack } from "@/lib/music/playable"
 import { cn } from "@/lib/utils"
+import { ShopTheLook } from "./shop-the-look"
 
 async function call(path: string, method: "POST" | "DELETE", body?: unknown) {
   const response = await fetch(path, {
@@ -242,6 +243,7 @@ export function FitDetail({ fit, signedIn }: { fit: FitView; signedIn: boolean }
           ))}
         </div>
       ) : null}
+      <ShopTheLook brands={fit.brands} />
       {brand ? <BrandSheet brand={brand} onClose={() => setBrand(null)} /> : null}
     </div>
   )

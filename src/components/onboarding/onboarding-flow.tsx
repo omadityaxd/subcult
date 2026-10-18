@@ -261,6 +261,12 @@ export function OnboardingFlow({
             >
               Open Today <ArrowRight aria-hidden className="size-4" />
             </button>
+            <Link
+              href="/fits/new"
+              className="inline-flex h-12 items-center rounded-full border border-border-strong px-6 text-callout font-semibold"
+            >
+              Post your first fit
+            </Link>
             {signedIn ? null : (
               <Link
                 href="/login?next=/"

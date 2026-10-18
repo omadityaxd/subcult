@@ -332,6 +332,8 @@ export const profileSettings = pgTable("profile_settings", {
   shareListening: boolean("share_listening").notNull().default(false),
   listening: jsonb("listening").$type<NowPlaying | null>(),
   listeningAt: timestamp("listening_at", { withTimezone: true }),
+  /** Founding 50: joined through an invite link while there were spots (1-50). */
+  foundingNo: integer("founding_no").unique(),
 }).enableRLS()
 
 export const userFollows = pgTable(

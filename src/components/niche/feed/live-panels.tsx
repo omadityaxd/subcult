@@ -350,12 +350,13 @@ export async function LiveFits({ profile }: { profile: NicheProfile }) {
     getViewer(),
     getMoodboard(profile.slug),
   ])
-  // Until the community fills the tab, real looks keep it visual: the scene's
-  // artists and images vision-verified as fits, never stock moodboard shots.
+  // Until the community fills the tab, real looks keep it visual: images
+  // vision-verified as outfits (including "seen on <artist>"), never press photos.
   const looks =
     fits.length < LOOKS_UNTIL
       ? moodboardFeedItems(board.pins)
-          .filter((item) => item.meta.fit === true || Boolean(item.meta.artistSlug))
+          // Only images vision-tagged as outfits: never artist press photos.
+          .filter((item) => item.meta.fit === true)
           .slice(0, LOOKS)
       : []
   return (
@@ -377,8 +378,14 @@ export async function LiveFits({ profile }: { profile: NicheProfile }) {
         <div className="rounded-2xl border border-dashed border-border-strong p-8 text-center">
           <p className="font-serif text-title-3 italic">No {profile.name} fits yet</p>
           <p className="mt-2 text-callout text-muted-foreground">
-            {postingEnabled() ? "Be the first: post yours." : "Posting opens soon."}
+            Be the first: the founding 50 get a badge.
           </p>
+          <Link
+            href="/fits/new"
+            className="mt-4 inline-flex h-10 items-center rounded-full bg-foreground px-5 text-footnote font-semibold text-background"
+          >
+            Post your first fit
+          </Link>
         </div>
       )}
       {looks.length > 0 ? (

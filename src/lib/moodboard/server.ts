@@ -113,7 +113,8 @@ async function ownPins(
 }
 
 /** External images we didn't make: these need a vision tag before they reach a feed. */
-const TAGGED_SOURCES: ReadonlySet<PinSource> = new Set(["arena", "unsplash", "pexels"])
+/** Artist photos are tagged too: the ones that show an outfit become "seen on <artist>" fits. */
+const TAGGED_SOURCES: ReadonlySet<PinSource> = new Set(["arena", "unsplash", "pexels", "artist"])
 
 /** Attach vision tags; tagged low-quality pins sink to the back so they never lead the board. */
 async function withVision(
@@ -185,7 +186,7 @@ export const getMoodboard = cache(async (slug: string): Promise<Moodboard> => {
   try {
     const { value } = await cached(
       getCacheStore(),
-      `subcult:moodboard:v3:${slug}`,
+      `subcult:moodboard:v4:${slug}`,
       BOARD_POLICY,
       () => buildMoodboard(slug),
       {

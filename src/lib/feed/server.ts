@@ -1,3 +1,4 @@
+import { type FitCheckTerms, fitCheckFetcher } from "./fetchers/fit-checks"
 import type { Redis } from "@upstash/redis"
 import type { NicheProfile } from "@/lib/engine/profile-schema"
 import type { Logger } from "@/lib/log"
@@ -26,6 +27,8 @@ export interface FeedSettings {
   artistIdFor?: (name: string) => string | undefined
   /** Verified artists + entity/phrase terms that a video must match to be kept. */
   youtubeRelevance?: (profile: NicheProfile) => YoutubeRelevance
+  /** Names to search fit-check videos with (verified artists and brands); off when unset. */
+  fitCheckTerms?: (profile: NicheProfile) => FitCheckTerms | null
   /** The niche's relevance pipeline (spam, language, negatives, source tiers, dedupe). */
   cleanContext?: FeedDeps["cleanContext"]
   /** null → per-process memory cache and quota (dev / demo). */
@@ -70,6 +73,9 @@ export function createFeedDeps(settings: FeedSettings): FeedDeps {
       ? redisQuota(settings.redis, "yt:searches", perDay)
       : localYoutubeQuota
     fetchers.push(youtubeFetcher(settings.youtubeApiKey, quota, fetch, settings.youtubeRelevance))
+    if (settings.fitCheckTerms) {
+      fetchers.push(fitCheckFetcher(settings.youtubeApiKey, quota, settings.fitCheckTerms))
+    }
   } else {
     disabled.push("youtube")
   }

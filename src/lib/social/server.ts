@@ -26,6 +26,8 @@ export interface ProfileView {
   handle: string
   relation: Relation
   visibility: ProfileVisibility
+  /** Founding 50 number, when they have one (shown even on friends-only profiles). */
+  foundingNo: number | null
   /** False for a friends-only profile you're not mutual with: only the handle shows. */
   visible: boolean
   counts: { followers: number; following: number }
@@ -55,6 +57,7 @@ export async function profileView(handle: string, now = Date.now()): Promise<Pro
     handle: person.handle,
     relation,
     visibility: settings.visibility,
+    foundingNo: settings.foundingNo,
     visible,
     counts,
     viewerSignedIn: viewer !== null,

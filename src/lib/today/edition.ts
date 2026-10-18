@@ -148,7 +148,8 @@ const GOSSIP =
 export const isGossip = (item: Pick<FeedItem, "title">): boolean => GOSSIP.test(item.title)
 
 function coverWorthy(item: FeedItem): boolean {
-  return withImage(item) && !isGossip(item)
+  // A borrowed scene photo (tea-image.ts) isn't the story's own: never the cover.
+  return withImage(item) && item.meta.imageFallback !== true && !isGossip(item)
 }
 
 function coverLines(c: Candidates, cover: FeedItem | null): string[] {

@@ -6,6 +6,7 @@ import {
   isStrongMatch,
 } from "./relevance"
 import { isExcludedContent } from "./excluded"
+import { FIT_WORDS } from "./fetchers/fit-checks"
 import { BLOCKED_NEWS_DOMAINS, type SourceAllowlist, domainIn } from "./source-tiers"
 import type { FeedItem, FeedSource } from "./types"
 
@@ -158,6 +159,14 @@ export function judgeItem(item: FeedItem, ctx: CleanContext): DropReason | null 
   if (item.source === "news" && domainIn(domainOf(item), BLOCKED_NEWS_DOMAINS)) return "blocked"
   if (!ctx.terms) return null
   const candidate = { title, channel: item.source === "youtube" ? channelOf(item) : null }
+  // Fit-check videos: about clothes, and naming the scene (a verified entity or the niche's phrase).
+  if (item.meta.fitCheck === true) {
+    if (!FIT_WORDS.test(title)) return "irrelevant"
+    const named =
+      isStrongMatch(candidate, ctx.terms) ||
+      ctx.terms.phrases.some((phrase) => containsTerm(title, phrase))
+    return named ? null : "irrelevant"
+  }
   // Unknown sources clear a higher bar: a named entity for news, a credited one for video.
   const unknownBar = item.source === "youtube" ? isCreditMatch : isStrongMatch
   const relevant = isTrusted(item, ctx.sources)

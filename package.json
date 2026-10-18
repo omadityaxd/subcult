@@ -31,7 +31,8 @@
     "alerts:run": "tsx --conditions=react-server scripts/alerts-run.ts",
     "friends:preview": "tsx --conditions=react-server scripts/friends-preview.ts",
     "content:coverage": "tsx --conditions=react-server scripts/content-coverage.ts",
-    "test:spotify": "node scripts/spotify-test.mjs"
+    "test:spotify": "node scripts/spotify-test.mjs",
+    "arena:discover": "tsx scripts/arena-discover.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.133.0",

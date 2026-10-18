@@ -213,3 +213,23 @@ describe("canonicalUrl / dedupe", () => {
     ).toBeLessThan(0.8)
   })
 })
+
+describe("fit-check videos", () => {
+  const fit = (title: string, channel = "random channel"): FeedItem => ({
+    ...video(title, channel),
+    id: `youtube:fit:${title}`,
+    meta: { channel, fitCheck: true, fit: true },
+  })
+
+  it("keeps fit checks that name the scene, from any channel", () => {
+    expect(judgeItem(fit("Playboi Carti fit check at Rolling Loud"), contextFor("vamp"))).toBeNull()
+    expect(
+      judgeItem(fit("My Rick Owens outfits for fall"), contextFor("archive-fashion")),
+    ).toBeNull()
+  })
+
+  it("drops fit checks that don't name the scene, and non-fit videos", () => {
+    expect(judgeItem(fit("my fit check for school"), contextFor("vamp"))).toBe("irrelevant")
+    expect(judgeItem(fit("Playboi Carti reacts to fans"), contextFor("vamp"))).toBe("irrelevant")
+  })
+})

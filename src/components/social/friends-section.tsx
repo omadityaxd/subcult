@@ -79,7 +79,7 @@ export function FriendsSection() {
   const set = (patch: Partial<Settings>) =>
     setState({ kind: "ready", settings: { ...settings, ...patch } })
   const invite =
-    typeof window === "undefined" ? "" : `${window.location.origin}/u/${settings.handle}`
+    typeof window === "undefined" ? "" : `${window.location.origin}/join/${settings.handle}`
 
   return (
     <section id="friends" className="scroll-mt-20">

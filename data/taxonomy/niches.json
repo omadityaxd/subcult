@@ -1,13 +1,24 @@
 [
   {
     "slug": "new-gen-underground-rap",
-    "aliases": ["new gen underground rap", "new-gen rap", "new wave underground"],
+    "aliases": [
+      "new gen underground rap",
+      "new-gen rap",
+      "new wave underground"
+    ],
     "featuredOrder": 1,
-    "negativeKeywords": ["climate", "best of 2006", "turning 30", "years ago today"]
+    "negativeKeywords": [
+      "climate",
+      "best of 2006",
+      "turning 30",
+      "years ago today"
+    ]
   },
   {
     "slug": "rage",
-    "aliases": ["rage rap"],
+    "aliases": [
+      "rage rap"
+    ],
     "featuredOrder": 2,
     "negativeKeywords": [
       "road rage",
@@ -21,7 +32,10 @@
   },
   {
     "slug": "jerk",
-    "aliases": ["jerk rap", "jerk music"],
+    "aliases": [
+      "jerk rap",
+      "jerk music"
+    ],
     "featuredOrder": 3,
     "negativeKeywords": [
       "drill",
@@ -46,7 +60,10 @@
       "opium-inspired"
     ],
     "featuredOrder": 4,
-    "extraStores": ["ssense", "vestiaire"],
+    "extraStores": [
+      "ssense",
+      "vestiaire"
+    ],
     "negativeKeywords": [
       "opium war",
       "opium wars",
@@ -60,11 +77,17 @@
       "vampire",
       "twilight",
       "vampire diaries"
+    ],
+    "arenaChannels": [
+      "brand-rick-owens",
+      "balenciaga-by-demna"
     ]
   },
   {
     "slug": "digicore",
-    "aliases": ["digi core"],
+    "aliases": [
+      "digi core"
+    ],
     "featuredOrder": 5,
     "negativeKeywords": [
       "claypot",
@@ -79,33 +102,70 @@
   },
   {
     "slug": "plugg",
-    "aliases": ["plug music", "plugg music", "plug"],
+    "aliases": [
+      "plug music",
+      "plugg music",
+      "plug"
+    ],
     "featuredOrder": 6,
-    "negativeKeywords": ["spark plug", "plug in", "plug-in", "electric", "ev charging", "charger"]
+    "negativeKeywords": [
+      "spark plug",
+      "plug in",
+      "plug-in",
+      "electric",
+      "ev charging",
+      "charger"
+    ]
   },
   {
     "slug": "pluggnb",
-    "aliases": ["plug n b", "pluggrnb", "plugg n b"],
+    "aliases": [
+      "plug n b",
+      "pluggrnb",
+      "plugg n b"
+    ],
     "featuredOrder": 7,
-    "negativeKeywords": ["spark plug", "plug in", "charger"]
+    "negativeKeywords": [
+      "spark plug",
+      "plug in",
+      "charger"
+    ]
   },
   {
     "slug": "dark-plugg",
-    "aliases": ["dark plug"],
+    "aliases": [
+      "dark plug"
+    ],
     "featuredOrder": 8,
-    "negativeKeywords": ["spark plug", "plug in"]
+    "negativeKeywords": [
+      "spark plug",
+      "plug in"
+    ]
   },
   {
     "slug": "sigilkore",
-    "aliases": ["sigil core", "sigilcore"],
+    "aliases": [
+      "sigil core",
+      "sigilcore"
+    ],
     "featuredOrder": 9,
-    "negativeKeywords": ["occult", "witchcraft"]
+    "negativeKeywords": [
+      "occult",
+      "witchcraft"
+    ]
   },
   {
     "slug": "archive-fashion",
-    "aliases": ["archive streetwear", "underground designer fashion", "archive"],
+    "aliases": [
+      "archive streetwear",
+      "underground designer fashion",
+      "archive"
+    ],
     "featuredOrder": 10,
-    "extraStores": ["ssense", "vestiaire"],
+    "extraStores": [
+      "ssense",
+      "vestiaire"
+    ],
     "negativeKeywords": [
       "dolly parton",
       "barbie",
@@ -113,23 +173,50 @@
       "jane austen",
       "sex and the city",
       "ready-to-wear collection"
+    ],
+    "arenaChannels": [
+      "archive-fashion-z93fej6v0ry",
+      "archive-fashion-m-s9ddrzbzm"
     ]
   },
   {
     "slug": "dark-avant-garde",
-    "aliases": ["avant-garde fashion", "avant garde", "rick owens-inspired"],
+    "aliases": [
+      "avant-garde fashion",
+      "avant garde",
+      "rick owens-inspired"
+    ],
     "featuredOrder": 11,
-    "extraStores": ["ssense", "vestiaire"],
-    "negativeKeywords": ["architecture"]
+    "extraStores": [
+      "ssense",
+      "vestiaire"
+    ],
+    "negativeKeywords": [
+      "architecture"
+    ],
+    "arenaChannels": [
+      "brand-rick-owens",
+      "inspired-by-rick-owens-ikcqgxto9yk"
+    ]
   },
   {
     "slug": "graphic-gothic-streetwear",
-    "aliases": ["tribal graphic fashion", "gothic streetwear"],
-    "featuredOrder": 12
+    "aliases": [
+      "tribal graphic fashion",
+      "gothic streetwear"
+    ],
+    "featuredOrder": 12,
+    "arenaChannels": [
+      "chrome-hearts-nb1ksqleede"
+    ]
   },
   {
     "slug": "deftones-core",
-    "aliases": ["nu-metal revival", "deftonescore", "deftones-core / nu-metal revival"],
+    "aliases": [
+      "nu-metal revival",
+      "deftonescore",
+      "deftones-core / nu-metal revival"
+    ],
     "featuredOrder": 13,
     "negativeKeywords": [
       "cover",
@@ -142,45 +229,79 @@
       "golden buzzer",
       "halftime"
     ],
-    "arenaChannels": ["nu-metal"]
+    "arenaChannels": [
+      "nu-metal"
+    ]
   },
   {
     "slug": "nu-gaze",
-    "aliases": ["nugaze"],
+    "aliases": [
+      "nugaze"
+    ],
     "featuredOrder": 14,
-    "negativeKeywords": ["cover", "tutorial", "lesson"],
-    "arenaChannels": ["nu-metal"]
+    "negativeKeywords": [
+      "cover",
+      "tutorial",
+      "lesson"
+    ],
+    "arenaChannels": [
+      "nu-metal"
+    ]
   },
   {
     "slug": "soundcloud-rap",
-    "aliases": ["soundcloud era"],
+    "aliases": [
+      "soundcloud era"
+    ],
     "featuredOrder": 15
   },
   {
     "slug": "cloud-rap",
-    "aliases": ["cloud trap"],
+    "aliases": [
+      "cloud trap"
+    ],
     "featuredOrder": 16
   },
   {
     "slug": "tread",
-    "aliases": ["tread rap", "philly tread"],
+    "aliases": [
+      "tread rap",
+      "philly tread"
+    ],
     "featuredOrder": 17,
-    "negativeKeywords": ["tyre", "tire", "treadmill", "tread lightly"]
+    "negativeKeywords": [
+      "tyre",
+      "tire",
+      "treadmill",
+      "tread lightly"
+    ]
   },
   {
     "slug": "experimental-rap",
-    "aliases": ["experimental hip-hop", "noise rap"],
+    "aliases": [
+      "experimental hip-hop",
+      "noise rap"
+    ],
     "featuredOrder": 18
   },
   {
     "slug": "glitchcore",
-    "aliases": ["glitch core"],
+    "aliases": [
+      "glitch core"
+    ],
     "featuredOrder": 19,
-    "negativeKeywords": ["glitch fix", "bug fix", "patch notes"]
+    "negativeKeywords": [
+      "glitch fix",
+      "bug fix",
+      "patch notes"
+    ]
   },
   {
     "slug": "trap",
-    "aliases": ["trap music", "atlanta trap"],
+    "aliases": [
+      "trap music",
+      "atlanta trap"
+    ],
     "featuredOrder": 20,
     "negativeKeywords": [
       "trap door",
@@ -193,12 +314,22 @@
   },
   {
     "slug": "dark-streetwear",
-    "aliases": ["all black streetwear", "black streetwear"],
-    "featuredOrder": 21
+    "aliases": [
+      "all black streetwear",
+      "black streetwear"
+    ],
+    "featuredOrder": 21,
+    "arenaChannels": [
+      "brand-rick-owens",
+      "inspired-by-rick-owens-ikcqgxto9yk"
+    ]
   },
   {
     "slug": "underground-graphic-streetwear",
-    "aliases": ["graphic streetwear", "underground streetwear"],
+    "aliases": [
+      "graphic streetwear",
+      "underground streetwear"
+    ],
     "featuredOrder": 22
   },
   {
@@ -214,17 +345,34 @@
   },
   {
     "slug": "mcbling-revival",
-    "aliases": ["mcbling", "mc bling"],
+    "aliases": [
+      "mcbling",
+      "mc bling"
+    ],
     "featuredOrder": 24,
-    "negativeKeywords": ["mcdonald"],
-    "arenaChannels": ["mcbling", "y2k-fashion", "y2k-aesthetic"]
+    "negativeKeywords": [
+      "mcdonald"
+    ],
+    "arenaChannels": [
+      "mcbling",
+      "y2k-fashion",
+      "y2k-aesthetic"
+    ]
   },
   {
     "slug": "underground-sneaker-culture",
-    "aliases": ["designer sneakers", "underground sneakers"],
+    "aliases": [
+      "designer sneakers",
+      "underground sneakers"
+    ],
     "featuredOrder": 25,
-    "extraStores": ["ssense"],
-    "negativeKeywords": ["running shoes review", "marathon"]
+    "extraStores": [
+      "ssense"
+    ],
+    "negativeKeywords": [
+      "running shoes review",
+      "marathon"
+    ]
   },
   {
     "slug": "hyperpop",
@@ -233,9 +381,15 @@
   },
   {
     "slug": "underground-rap",
-    "aliases": ["underground hip-hop"],
+    "aliases": [
+      "underground hip-hop"
+    ],
     "featuredOrder": 27,
-    "negativeKeywords": ["climate", "turning 30", "years ago today"]
+    "negativeKeywords": [
+      "climate",
+      "turning 30",
+      "years ago today"
+    ]
   },
   {
     "slug": "softmaxxing",
@@ -266,25 +420,45 @@
   },
   {
     "slug": "gen-z-skincare",
-    "aliases": ["gen z skincare", "skincare", "skin care"],
+    "aliases": [
+      "gen z skincare",
+      "skincare",
+      "skin care"
+    ],
     "negativeKeywords": [],
     "soundtrackOnly": true
   },
   {
     "slug": "gymtok",
-    "aliases": ["gym tok", "gym aesthetic", "gym fits", "gym fit"],
+    "aliases": [
+      "gym tok",
+      "gym aesthetic",
+      "gym fits",
+      "gym fit"
+    ],
     "negativeKeywords": [],
     "soundtrackOnly": true
   },
   {
     "slug": "self-improvement",
-    "aliases": ["self improvement", "self-improvement", "glow up habits", "discipline"],
+    "aliases": [
+      "self improvement",
+      "self-improvement",
+      "glow up habits",
+      "discipline"
+    ],
     "negativeKeywords": [],
     "soundtrackOnly": true
   },
   {
     "slug": "streamer-culture",
-    "aliases": ["streamers", "streaming", "streamer", "twitch streamers", "irl streaming"],
+    "aliases": [
+      "streamers",
+      "streaming",
+      "streamer",
+      "twitch streamers",
+      "irl streaming"
+    ],
     "negativeKeywords": [
       "drama",
       "beef",
@@ -302,13 +476,26 @@
   },
   {
     "slug": "e-boy-and-e-girl",
-    "aliases": ["e-boy", "e-girl", "eboy", "egirl", "e boy", "e girl"],
+    "aliases": [
+      "e-boy",
+      "e-girl",
+      "eboy",
+      "egirl",
+      "e boy",
+      "e girl"
+    ],
     "negativeKeywords": [],
     "soundtrackOnly": true
   },
   {
     "slug": "brainrot-and-meme-culture",
-    "aliases": ["brainrot", "internet meme culture", "meme culture", "memes", "italian brainrot"],
+    "aliases": [
+      "brainrot",
+      "internet meme culture",
+      "meme culture",
+      "memes",
+      "italian brainrot"
+    ],
     "negativeKeywords": [
       "drama",
       "beef",
@@ -326,7 +513,12 @@
   },
   {
     "slug": "tiktok-microtrends",
-    "aliases": ["microtrends", "tiktok trends", "core aesthetics", "trend cycle"],
+    "aliases": [
+      "microtrends",
+      "tiktok trends",
+      "core aesthetics",
+      "trend cycle"
+    ],
     "negativeKeywords": [],
     "soundtrackOnly": true
   }
