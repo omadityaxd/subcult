@@ -98,3 +98,14 @@ describe("parseRss images and ledes", () => {
     expect(lede?.length).toBeLessThanOrEqual(201)
   })
 })
+
+describe("decodeEntities", () => {
+  it("decodes named, decimal, hex and double-encoded entities", () => {
+    expect(decodeEntities("fakemink &#038; Skepta &#8211; &#8220;Chiltern Firehouse.&#8221;")).toBe(
+      "fakemink & Skepta – “Chiltern Firehouse.”",
+    )
+    expect(decodeEntities("Rock &amp;#8211; Roll")).toBe("Rock – Roll")
+    expect(decodeEntities("A &#x27;quoted&#x27; &rsquo;title&rsquo;")).toBe("A 'quoted' ’title’")
+    expect(decodeEntities("AT&T and &unknown; stay")).toBe("AT&T and &unknown; stay")
+  })
+})

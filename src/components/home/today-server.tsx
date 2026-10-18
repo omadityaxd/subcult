@@ -10,8 +10,14 @@ import {
   parseTasteCookie,
 } from "@/lib/today/cookies"
 import type { TodayEdition } from "@/lib/today/edition"
+import { ISSUE_COOKIE, issueNumberFromCookie, localDay } from "@/lib/today/issues"
 import { buildToday } from "@/lib/today/server"
 import { Today } from "./today"
+
+/** The masthead number: today's issue per the device's cookie, in the reader's day. */
+function currentIssueNo(raw: string | undefined, timeZone: string): number {
+  return issueNumberFromCookie(raw, localDay(Date.now(), timeZone))
+}
 
 /**
  * Today, rendered on the server and streamed (its own Suspense boundary):
@@ -44,10 +50,12 @@ export async function TodayServer({ coldExtras }: { coldExtras: ReactNode }) {
   } catch (error) {
     log.warn("today.ssr_failed", { error: errorMessage(error) })
   }
+  const issueNo = currentIssueNo(decode(ISSUE_COOKIE), timeZone)
   return (
     <Today
       coldExtras={coldExtras}
       initial={initial ? { edition: initial, lastVisit, timeZone } : null}
+      issueNo={issueNo}
     />
   )
 }

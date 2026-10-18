@@ -100,7 +100,8 @@ export function parseRss(xml: string): RssItem[] {
 
   return items.flatMap((item): RssItem[] => {
     if (!isRecord(item)) return []
-    const title = text(item.title)
+    const raw = text(item.title)
+    const title = raw ? decodeEntities(raw) : null
     const link = text(item.link)
     if (!title || !link || !/^https?:\/\//.test(link)) return []
     return [
@@ -117,17 +118,43 @@ export function parseRss(xml: string): RssItem[] {
   })
 }
 
-const ENTITIES: Record<string, string> = {
-  "&amp;": "&",
-  "&lt;": "<",
-  "&gt;": ">",
-  "&quot;": '"',
-  "&#39;": "'",
-  "&#x27;": "'",
-  "&apos;": "'",
+const NAMED: Record<string, string> = {
+  amp: "&",
+  lt: "<",
+  gt: ">",
+  quot: '"',
+  apos: "'",
+  nbsp: " ",
+  ndash: "–",
+  mdash: "—",
+  lsquo: "‘",
+  rsquo: "’",
+  ldquo: "“",
+  rdquo: "”",
+  hellip: "…",
 }
 
-/** Decodes the handful of HTML entities APIs like YouTube put in titles. */
+const ENTITY = /&(#\d{1,7}|#x[0-9a-fA-F]{1,6}|[a-zA-Z]{2,8});/g
+
+function decodeOnce(value: string): string {
+  return value.replace(ENTITY, (whole, body: string) => {
+    if (body.startsWith("#x") || body.startsWith("#X")) {
+      const code = Number.parseInt(body.slice(2), 16)
+      return code > 0 && code <= 0x10ffff ? String.fromCodePoint(code) : whole
+    }
+    if (body.startsWith("#")) {
+      const code = Number.parseInt(body.slice(1), 10)
+      return code > 0 && code <= 0x10ffff ? String.fromCodePoint(code) : whole
+    }
+    return NAMED[body.toLowerCase()] ?? whole
+  })
+}
+
+/**
+ * Decodes HTML entities in titles: named, decimal and hex. Feeds often
+ * double-encode ("&amp;#8211;"), so it runs until nothing changes (twice at most).
+ */
 export function decodeEntities(value: string): string {
-  return value.replace(/&(amp|lt|gt|quot|apos|#39|#x27);/g, (entity) => ENTITIES[entity] ?? entity)
+  const once = decodeOnce(value)
+  return once === value ? once : decodeOnce(once)
 }

@@ -8,7 +8,7 @@ import { errorMessage, log } from "@/lib/log"
 import { artistReleases } from "@/lib/music/releases-server"
 import { soundtrackFeedItems } from "@/lib/music/soundtrack"
 import { getSoundtrack } from "@/lib/music/soundtrack-server"
-import { TAXONOMY, findSeedProfile, nicheArtistsLeadFirst } from "@/lib/niches/catalog"
+import { TAXONOMY, findPreset, findSeedProfile, nicheArtistsLeadFirst } from "@/lib/niches/catalog"
 import { getRisingSnapshot } from "@/lib/rising/server"
 import { friendsInto } from "@/lib/social/server"
 import { archiveFeedItems, getArchive } from "@/lib/shop/server"
@@ -265,5 +265,7 @@ export async function buildToday(req: TodayRequest, now = Date.now()): Promise<T
     more,
   }
   const mode = todayMode(localClock(now, req.timeZone))
-  return assembleEdition(candidates, { now, mode, cold })
+  const lead = findPreset(niches[0] ?? "")
+  const edition = assembleEdition(candidates, { now, mode, cold, nicheName: lead?.name ?? null })
+  return { ...edition, cover: { ...edition.cover, palette: lead?.palette ?? null } }
 }

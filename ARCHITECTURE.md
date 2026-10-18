@@ -207,6 +207,24 @@ stay curated; what's learned is how much each person cares about each entity.
 - **Cold start:** the vibe check seeds the vector; without it the default order stands and Me
   nudges toward the vibe check.
 
+## The Issue (lib/today/edition.ts, issues.ts)
+
+Today is an Issue: each reader's daily subculture magazine, numbered from their first visit
+(one issue per local day: No. 001, 002, …).
+
+- **Cover:** a full-bleed image of the day: a vision-tagged fit, else a grail, else the lead
+  story's image; never music. With no image, the lead niche's palette makes the cover. Cover
+  lines are the three biggest stories (lead headline, newest drop, top riser).
+- **Sections, always in this order:** The Tea, The Fit, The Grail, The Sound (at most 5 tracks),
+  The Scene (rising, friends, more from your niches). Then the back page: "you're caught up" and a
+  "watching tomorrow" teaser built only from real momentum (never an invented release).
+- **Archive:** each day's issue is kept compact on the device (cover, lines, 3 stories per
+  section; 60 issues) and shown on Me. The cover shares as a 1080×1920 image with the reader's
+  handle on the masthead; the card route only fetches images from known CDNs.
+- **The Spotify test** (`pnpm test:spotify`): music may cover at most 20% of the first two screens,
+  measured on `[data-kind="music"]` elements at 390 and 1440 for a new and a seeded reader.
+- The For You chips and the endless feed sit below the issue, after its back page.
+
 ## Today (lib/today)
 
 The top of For You is a finite, personal daily edition, not an infinite feed.

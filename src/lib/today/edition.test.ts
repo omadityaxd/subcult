@@ -2,14 +2,16 @@ import { describe, expect, it } from "vitest"
 import type { FeedItem } from "@/lib/feed/types"
 import {
   type Candidates,
+  SECTION_CAPS,
   TODAY_MAX,
   assembleEdition,
   localClock,
+  pickCover,
   sinceLabel,
   todayMode,
 } from "./edition"
 
-const item = (id: string, publishedAt: string | null = null): FeedItem => ({
+const item = (id: string, over: Partial<FeedItem> = {}): FeedItem => ({
   id,
   source: "news",
   type: "article",
@@ -17,13 +19,14 @@ const item = (id: string, publishedAt: string | null = null): FeedItem => ({
   subtitle: null,
   imageUrl: null,
   url: "https://example.com",
-  publishedAt,
+  publishedAt: null,
   score: 1,
   meta: {},
+  ...over,
 })
 
-const many = (prefix: string, n: number) =>
-  Array.from({ length: n }, (_, i) => item(`${prefix}-${i}`))
+const many = (prefix: string, n: number, over: Partial<FeedItem> = {}) =>
+  Array.from({ length: n }, (_, i) => item(`${prefix}-${i}`, over))
 
 const empty: Candidates = {
   digest: [],
@@ -37,6 +40,8 @@ const empty: Candidates = {
   more: [],
 }
 
+const opts = { now: 0, mode: "day" as const, cold: false }
+
 describe("time of day", () => {
   it("reads the person's local clock, not the server's", () => {
     // 2026-10-16 is a Friday; 23:30 UTC = 05:00 Saturday in Kolkata.
@@ -48,68 +53,85 @@ describe("time of day", () => {
 
   it("picks night, then weekend, then morning", () => {
     expect(todayMode({ hour: 23, weekday: 6 })).toBe("night")
-    expect(todayMode({ hour: 2, weekday: 2 })).toBe("night")
     expect(todayMode({ hour: 9, weekday: 0 })).toBe("weekend")
     expect(todayMode({ hour: 8, weekday: 3 })).toBe("morning")
     expect(todayMode({ hour: 15, weekday: 3 })).toBe("day")
   })
 })
 
-describe("assembleEdition", () => {
+describe("the issue", () => {
   const full: Candidates = {
-    digest: many("digest", 5),
-    lateNight: many("night", 10),
-    drops: many("drop", 10),
+    digest: many("digest", 3, { imageUrl: "https://img/news.jpg" }),
+    lateNight: many("night", 10, { source: "spotify", type: "track" }),
+    drops: many("drop", 10, { source: "subcult", type: "release" }),
     headlines: many("news", 10),
-    archive: many("listing", 10),
-    fits: many("fit", 10),
-    rising: [{ entity: "niche:rage", label: "rage", ratio: 2.4, href: "/n/rage" }],
-    friends: [
-      { entity: "artist:nettspend", label: "Nettspend", handles: ["a", "b"], href: "/n/jerk" },
+    archive: many("listing", 10, {
+      source: "ebay",
+      type: "product",
+      imageUrl: "https://img/l.jpg",
+    }),
+    fits: many("fit", 10, { source: "subcult", type: "fit", imageUrl: "https://img/f.jpg" }),
+    rising: [
+      { entity: "artist:destroy-lonely", label: "Destroy Lonely", ratio: 2.3, href: "/n/vamp" },
     ],
+    friends: [],
     more: many("more", 30),
   }
 
-  it("is finite: never more than 25 items", () => {
+  it("runs in magazine order and is finite", () => {
     for (const mode of ["morning", "day", "night", "weekend"] as const) {
-      expect(assembleEdition(full, { now: 0, mode, cold: false }).count).toBeLessThanOrEqual(
-        TODAY_MAX,
-      )
+      const issue = assembleEdition(full, { ...opts, mode })
+      expect(issue.sections.map((s) => s.id)).toEqual(["tea", "fit", "grail", "sound", "scene"])
+      expect(issue.count).toBeLessThanOrEqual(TODAY_MAX)
     }
   })
 
-  it("orders sections by the moment", () => {
-    const ids = (mode: "morning" | "night" | "weekend") =>
-      assembleEdition(full, { now: 0, mode, cold: false }).sections.map((s) => s.id)
-    expect(ids("morning")[0]).toBe("digest")
-    expect(ids("night")[0]).toBe("late-night")
-    expect(ids("weekend").slice(0, 2)).toEqual(["fits", "archive"])
+  it("covers with a fit first, then a grail, then a story with an image, never music", () => {
+    expect(pickCover(full)?.id).toBe("fit-0")
+    expect(pickCover({ ...full, fits: [] })?.id).toBe("listing-0")
+    expect(pickCover({ ...full, fits: [], archive: [] })?.id).toBe("digest-0")
+    expect(pickCover({ ...empty, lateNight: full.lateNight, drops: full.drops })).toBeNull()
   })
 
-  it("keeps the late-night rotation to nights and weekends", () => {
-    const day = assembleEdition(full, { now: 0, mode: "day", cold: false })
-    expect(day.sections.some((s) => s.id === "late-night")).toBe(false)
+  it("never repeats the cover inside a section, and lists the three biggest stories", () => {
+    const issue = assembleEdition(full, opts)
+    const ids = issue.sections.flatMap((s) => s.items.map((i) => i.id))
+    expect(ids).not.toContain("fit-0")
+    expect(issue.cover.lines).toEqual([
+      "digest-0",
+      "New: drop-0",
+      "Destroy Lonely is up 2.3× this week",
+    ])
   })
 
-  it("never shows an item twice and drops empty sections", () => {
-    const shared = item("same")
-    const edition = assembleEdition(
-      { ...empty, headlines: [shared], digest: [shared] },
-      { now: 0, mode: "morning", cold: false },
-    )
-    expect(edition.sections.map((s) => s.id)).toEqual(["digest"])
-    expect(edition.count).toBe(1)
+  it("caps The Sound at five tracks: a magazine, not a playlist", () => {
+    const issue = assembleEdition(full, { ...opts, mode: "night" })
+    expect(issue.sections.find((s) => s.id === "sound")?.items).toHaveLength(SECTION_CAPS.sound)
   })
 
-  it("puts the newest drops first", () => {
-    const edition = assembleEdition(
+  it("never tops up with tracks", () => {
+    const issue = assembleEdition(
       {
         ...empty,
-        drops: [item("old", "2026-10-01T00:00:00Z"), item("new", "2026-10-15T00:00:00Z")],
+        more: [...many("t", 20, { source: "spotify", type: "track" }), ...many("v", 20)],
       },
-      { now: 0, mode: "day", cold: false },
+      opts,
     )
-    expect(edition.sections[0]?.items.map((i) => i.id)).toEqual(["new", "old"])
+    const scene = issue.sections.find((s) => s.id === "scene")
+    expect(scene?.items.every((i) => i.type !== "track")).toBe(true)
+  })
+
+  it("teases tomorrow only from real momentum", () => {
+    expect(assembleEdition(full, opts).backPage.teaser).toBe(
+      "Watching tomorrow: Destroy Lonely (2.3× this week)",
+    )
+    expect(assembleEdition(empty, opts).backPage.teaser).toBeNull()
+  })
+
+  it("falls back to a niche headline with a palette cover", () => {
+    const issue = assembleEdition(empty, { ...opts, nicheName: "jerk" })
+    expect(issue.cover.item).toBeNull()
+    expect(issue.cover.headline).toBe("Today in jerk")
   })
 })
 
@@ -123,49 +145,18 @@ describe("sinceLabel", () => {
       "since you were here yesterday",
     )
     expect(sinceLabel(Date.parse("2026-10-16T08:00:00Z"), now, "UTC")).toBe("since earlier today")
-    expect(sinceLabel(Date.parse("2026-09-01T08:00:00Z"), now, "UTC")).toBe("since your last visit")
   })
 })
 
-describe("quiet days", () => {
-  it("tops up to the minimum from the person's scenes, never beyond", () => {
-    const edition = assembleEdition(
-      { ...empty, drops: many("drop", 2), more: many("more", 40) },
-      { now: 0, mode: "day", cold: false },
-    )
-    expect(edition.count).toBe(15)
-    expect(edition.sections.map((s) => s.id)).toEqual(["drops", "more"])
-  })
-
-  it("adds nothing when the day is already full", () => {
-    const edition = assembleEdition(
-      {
-        ...empty,
-        headlines: many("news", 6),
-        drops: many("drop", 6),
-        fits: many("fit", 6),
-        more: many("more", 9),
-      },
-      { now: 0, mode: "day", cold: false },
-    )
-    expect(edition.sections.some((s) => s.id === "more")).toBe(false)
-  })
-})
-
-describe("friends row", () => {
-  it("shows what friends are into when there is something, never otherwise", () => {
-    const chip = {
-      entity: "artist:nettspend",
-      label: "Nettspend",
-      handles: ["sam"],
-      href: "/n/jerk",
-    }
-    const withFriends = assembleEdition(
-      { ...empty, friends: [chip] },
-      { now: 0, mode: "day", cold: false },
-    )
-    expect(withFriends.sections.find((s) => s.id === "friends")?.friends).toEqual([chip])
-    const alone = assembleEdition(empty, { now: 0, mode: "day", cold: false })
-    expect(alone.sections.some((s) => s.id === "friends")).toBe(false)
+describe("cover editorial rules", () => {
+  it("keeps gossip off the cover and the cover lines", () => {
+    const gossip = item("g", {
+      title: "Violet Myers Calls Out OsamaSon on Instagram",
+      imageUrl: "https://img/g.jpg",
+    })
+    const story = item("s", { title: "Rick Owens SS27", imageUrl: "https://img/s.jpg" })
+    const issue = assembleEdition({ ...empty, headlines: [gossip, story] }, opts)
+    expect(issue.cover.item?.id).toBe("s")
+    expect(issue.cover.lines).not.toContain(gossip.title)
   })
 })

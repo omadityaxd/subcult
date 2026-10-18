@@ -41,7 +41,10 @@ function TrackCard({ item, meta }: { item: FeedItem; meta: string }) {
   const unavailable = missing.has(item.id)
 
   return (
-    <article className="flex items-center gap-1 rounded-2xl border border-border p-1.5 pr-2">
+    <article
+      data-kind="music"
+      className="flex items-center gap-1 rounded-2xl border border-border p-1.5 pr-2"
+    >
       <button
         type="button"
         onClick={() => play(0)}
@@ -104,7 +107,7 @@ function SpotifyArtistCard({ item, meta }: { item: FeedItem; meta: string }) {
   const slug = typeof item.meta.artistSlug === "string" ? item.meta.artistSlug : null
   const uri = spotifyUriFrom(item.url)
   return (
-    <article>
+    <article data-kind="music">
       <button
         type="button"
         onClick={() => setOpen(true)}

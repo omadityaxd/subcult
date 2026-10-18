@@ -1,25 +1,16 @@
 import type { FeedItem } from "@/lib/feed/types"
 
 /**
- * Today: a finite, personal daily edition. Pure: the server gathers
- * candidates, this decides what makes the cut, in what order, for this
- * person's local time.
+ * Today is an Issue: each person's daily subculture magazine. Pure: the
+ * server gathers candidates, this decides the cover, what makes each
+ * section, and the back page. Sections run in magazine order, always:
+ * The Tea, The Fit, The Grail, The Sound, The Scene.
  */
 
 export const TODAY_MIN = 15
 export const TODAY_MAX = 25
 
-export const SECTION_IDS = [
-  "digest",
-  "late-night",
-  "drops",
-  "headlines",
-  "rising",
-  "archive",
-  "fits",
-  "friends",
-  "more",
-] as const
+export const SECTION_IDS = ["tea", "fit", "grail", "sound", "scene"] as const
 export type SectionId = (typeof SECTION_IDS)[number]
 
 export type TodayMode = "morning" | "day" | "night" | "weekend"
@@ -48,13 +39,26 @@ export interface TodaySection {
   friends?: FriendChip[]
 }
 
+export interface IssueCover {
+  /** The image of the day: a vision-tagged fit or a grail, else the lead story. Null = palette cover. */
+  item: FeedItem | null
+  headline: string
+  /** The three biggest stories in the issue. */
+  lines: string[]
+  /** The lead niche's palette, for the cover when there's no image (set by the server). */
+  palette?: readonly string[] | null
+}
+
 export interface TodayEdition {
   generatedAt: number
   mode: TodayMode
   /** Taste was too thin: trending + time of day, with a vibe check nudge. */
   cold: boolean
+  cover: IssueCover
   sections: TodaySection[]
-  /** Items in the edition (chips count once each). */
+  /** "Watching tomorrow: …", only from real momentum (never an invented release). */
+  backPage: { teaser: string | null }
+  /** Items in the issue (chips count once each; the cover counts). */
   count: number
 }
 
@@ -85,37 +89,24 @@ export function todayMode({ hour, weekday }: { hour: number; weekday: number }):
   return hour < 11 ? "morning" : "day"
 }
 
-/** Section order by moment: morning reads first, nights listen first, weekends shop and look. */
-export const SECTION_ORDER: Record<TodayMode, readonly SectionId[]> = {
-  morning: ["digest", "drops", "headlines", "friends", "rising", "fits", "archive"],
-  day: ["drops", "headlines", "friends", "rising", "fits", "archive", "digest"],
-  night: ["late-night", "drops", "friends", "rising", "fits", "headlines", "archive"],
-  weekend: ["fits", "archive", "friends", "drops", "rising", "headlines", "late-night"],
+export const SECTION_TITLES: Record<SectionId, string> = {
+  tea: "The Tea",
+  fit: "The Fit",
+  grail: "The Grail",
+  sound: "The Sound",
+  scene: "The Scene",
 }
 
-const TITLES: Record<SectionId, string> = {
-  digest: "Today in the underground",
-  "late-night": "Late night rotation",
-  drops: "New drops",
-  headlines: "Fresh tea",
-  rising: "What's rising in your niches",
-  archive: "Just listed",
-  fits: "New fits",
-  friends: "Your friends are into this week",
-  more: "More from your scenes",
-}
-
-/** Per-section caps, so no one kind floods a 25-item edition. */
-const CAPS: Record<SectionId, number> = {
-  digest: 3,
-  "late-night": 6,
-  drops: 6,
-  headlines: 6,
-  rising: 6,
-  archive: 6,
-  fits: 6,
-  friends: 6,
-  more: TODAY_MIN,
+/**
+ * Per-section caps. With the cover they leave room for The Scene inside
+ * TODAY_MAX. The Sound is capped hard: this is a magazine, not a playlist.
+ */
+export const SECTION_CAPS: Record<SectionId, number> = {
+  tea: 6,
+  fit: 5,
+  grail: 4,
+  sound: 5,
+  scene: 6,
 }
 
 export interface Candidates {
@@ -135,68 +126,119 @@ export interface Candidates {
 const newestFirst = (a: FeedItem, b: FeedItem) =>
   Date.parse(b.publishedAt ?? "0") - Date.parse(a.publishedAt ?? "0")
 
+const withImage = (item: FeedItem) => Boolean(item.imageUrl)
+
+/** Cover image: a real fit first, then a grail, then the lead story's image. Never music. */
+export function pickCover(c: Candidates): FeedItem | null {
+  return (
+    c.fits.find(coverWorthy) ??
+    c.archive.find(coverWorthy) ??
+    [...c.digest, ...c.headlines].find(coverWorthy) ??
+    null
+  )
+}
+
 /**
- * Builds the edition: sections in the moment's order, each capped, nothing
- * shown twice, at most TODAY_MAX items. Items are expected pre-ranked by
- * the caller (taste first); within a section, ties keep that order.
+ * Gossip about people's private lives and public spats: fine deeper in the
+ * issue, never the cover or a cover line. A magazine leads with the culture.
+ */
+const GOSSIP =
+  /\b(calls? out|slams?|claps? back|exposed?|exposes|beef|feud|dating|girlfriend|boyfriend|baby|pregnan\w*|cheat(?:ed|ing)?|leaked dms?|arrest(?:ed)?|lawsuit|sued|drama)\b/i
+
+export const isGossip = (item: Pick<FeedItem, "title">): boolean => GOSSIP.test(item.title)
+
+function coverWorthy(item: FeedItem): boolean {
+  return withImage(item) && !isGossip(item)
+}
+
+function coverLines(c: Candidates, cover: FeedItem | null): string[] {
+  const lead = [...c.digest, ...c.headlines].find(
+    (item) => item.id !== cover?.id && !isGossip(item),
+  )
+  const drop = [...c.drops].sort(newestFirst)[0]
+  const rising = c.rising[0]
+  return [
+    lead?.title,
+    drop ? `New: ${drop.title}${drop.subtitle ? ` from ${drop.subtitle}` : ""}` : undefined,
+    rising ? `${rising.label} is up ${rising.ratio}× this week` : undefined,
+  ].filter((line): line is string => Boolean(line))
+}
+
+/**
+ * Builds the issue: the cover, then the sections in magazine order, each
+ * capped, nothing shown twice, at most TODAY_MAX items. Items arrive
+ * pre-ranked by taste; ties keep that order.
  */
 export function assembleEdition(
   candidates: Candidates,
-  { now, mode, cold }: { now: number; mode: TodayMode; cold: boolean },
+  {
+    now,
+    mode,
+    cold,
+    nicheName = null,
+  }: { now: number; mode: TodayMode; cold: boolean; nicheName?: string | null },
 ): TodayEdition {
-  const pools: Record<SectionId, FeedItem[]> = {
-    digest: candidates.digest,
-    "late-night": mode === "night" || mode === "weekend" ? candidates.lateNight : [],
-    drops: [...candidates.drops].sort(newestFirst),
-    headlines: candidates.headlines,
-    rising: [],
-    archive: candidates.archive,
-    fits: [...candidates.fits].sort(newestFirst),
-    friends: [],
-    more: [],
-  }
-  const used = new Set<string>()
-  let count = 0
-  const sections: TodaySection[] = []
-  for (const id of SECTION_ORDER[mode]) {
-    if (count >= TODAY_MAX) break
-    if (id === "rising") {
-      const chips = candidates.rising.slice(0, Math.min(CAPS.rising, TODAY_MAX - count))
-      if (chips.length > 0) {
-        sections.push({ id, title: TITLES[id], items: [], rising: chips })
-        count += chips.length
-      }
-      continue
-    }
-    if (id === "friends") {
-      const chips = candidates.friends.slice(0, Math.min(CAPS.friends, TODAY_MAX - count))
-      if (chips.length > 0) {
-        sections.push({ id, title: TITLES[id], items: [], friends: chips })
-        count += chips.length
-      }
-      continue
-    }
-    const items: FeedItem[] = []
-    for (const item of pools[id]) {
-      if (items.length >= CAPS[id] || count >= TODAY_MAX) break
+  const coverItem = pickCover(candidates)
+  const used = new Set<string>(coverItem ? [coverItem.id] : [])
+  let count = coverItem ? 1 : 0
+  const take = (pool: readonly FeedItem[], cap: number): FeedItem[] => {
+    const out: FeedItem[] = []
+    for (const item of pool) {
+      if (out.length >= cap || count >= TODAY_MAX) break
       if (used.has(item.id)) continue
       used.add(item.id)
-      items.push(item)
+      out.push(item)
       count += 1
     }
-    if (items.length > 0) sections.push({ id, title: TITLES[id], items })
+    return out
   }
-  // A quiet day still gets a full edition: top up from the person's scenes, never past the minimum.
+  const sections: TodaySection[] = []
+  const push = (id: SectionId, items: FeedItem[], extra: Partial<TodaySection> = {}) => {
+    if (items.length > 0 || extra.rising?.length || extra.friends?.length) {
+      sections.push({ id, title: SECTION_TITLES[id], items, ...extra })
+    }
+  }
+  push("tea", take([...candidates.digest, ...candidates.headlines], SECTION_CAPS.tea))
+  push("fit", take([...candidates.fits].sort(newestFirst), SECTION_CAPS.fit))
+  push("grail", take(candidates.archive, SECTION_CAPS.grail))
+  const lateNight = mode === "night" || mode === "weekend" ? candidates.lateNight : []
+  push(
+    "sound",
+    take([...[...candidates.drops].sort(newestFirst), ...lateNight], SECTION_CAPS.sound),
+  )
+
+  const rising = candidates.rising.slice(0, Math.min(SECTION_CAPS.scene, TODAY_MAX - count))
+  count += rising.length
+  const friends = candidates.friends.slice(0, Math.min(SECTION_CAPS.scene, TODAY_MAX - count))
+  count += friends.length
+  // A quiet day still gets a full issue: top up from the person's scenes, never past the minimum.
   const more: FeedItem[] = []
   for (const item of candidates.more) {
     if (count >= TODAY_MIN) break
-    if (used.has(item.id)) continue
+    if (used.has(item.id) || item.type === "track") continue
     used.add(item.id)
     more.push(item)
     count += 1
   }
-  if (more.length > 0) sections.push({ id: "more", title: TITLES.more, items: more })
-  return { generatedAt: now, mode, cold, sections, count }
+  push("scene", more, { rising, friends })
+
+  const headline =
+    coverItem?.title ?? (nicheName ? `Today in ${nicheName}` : "Today in your scenes")
+  const watching =
+    candidates.rising.find((chip) => chip.entity.startsWith("artist:")) ?? candidates.rising[0]
+  return {
+    generatedAt: now,
+    mode,
+    cold,
+    cover: { item: coverItem, headline, lines: coverLines(candidates, coverItem).slice(0, 3) },
+    sections,
+    backPage: {
+      teaser: watching
+        ? `Watching tomorrow: ${watching.label} (${watching.ratio}× this week)`
+        : null,
+    },
+    count,
+  }
 }
 
 /** "since you were here Tuesday" / "yesterday" / "earlier today", in the person's zone. */

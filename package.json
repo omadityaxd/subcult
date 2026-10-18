@@ -30,7 +30,8 @@
     "today:shots": "tsx scripts/today-shots.ts",
     "alerts:run": "tsx --conditions=react-server scripts/alerts-run.ts",
     "friends:preview": "tsx --conditions=react-server scripts/friends-preview.ts",
-    "content:coverage": "tsx --conditions=react-server scripts/content-coverage.ts"
+    "content:coverage": "tsx --conditions=react-server scripts/content-coverage.ts",
+    "test:spotify": "node scripts/spotify-test.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.133.0",

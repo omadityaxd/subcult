@@ -7,9 +7,8 @@ import { cn } from "@/lib/utils"
 import { InfiniteFeed } from "./infinite-feed"
 
 /**
- * For You: filter chips on top, today's visual picks under "All", then the
- * masonry. "Sounds" keeps music compact (the now-spinning row plus track
- * rows); everything else is visual first.
+ * For You: today's issue first, then, after its back page, the filter
+ * chips and the endless feed for anyone who wants to keep browsing.
  */
 export function ForYouFeed({
   initial,
@@ -19,48 +18,47 @@ export function ForYouFeed({
 }: {
   initial: HomePage | null
   now: number
-  /** Server-rendered Today (streams in its own Suspense boundary). */
+  /** Server-rendered issue (streams in its own Suspense boundary). */
   today: ReactNode
   spinning: ReactNode
 }) {
   const [filter, setFilter] = useState<FeedFilter>("all")
   return (
     <>
-      <nav
-        aria-label="Filter For You"
-        className="sticky top-0 z-20 -mx-(--gutter) bg-background/85 px-(--gutter) pt-safe pb-3 backdrop-blur-xl"
-      >
-        <ul className="no-scrollbar flex gap-2 overflow-x-auto pt-2">
-          {FEED_FILTERS.map((chip) => (
-            <li key={chip.id}>
-              <button
-                type="button"
-                onClick={() => setFilter(chip.id)}
-                aria-pressed={filter === chip.id}
-                className={cn(
-                  "h-9 rounded-full px-4 text-footnote font-semibold whitespace-nowrap transition-colors",
-                  filter === chip.id
-                    ? "bg-foreground text-background"
-                    : "border border-border-strong text-muted-foreground hover:text-foreground",
-                )}
-              >
-                {chip.label}
-              </button>
-            </li>
-          ))}
-        </ul>
-      </nav>
+      <div className="mt-2">{today}</div>
 
-      {filter === "all" ? <div className="mt-4">{today}</div> : null}
-      {filter === "sounds" ? <div className="mt-8">{spinning}</div> : null}
-
-      <section id="latest" aria-label="Keep exploring" className="mt-16 scroll-mt-20">
-        {filter === "all" ? (
-          <h2 className="mb-6 text-overline font-medium text-muted-foreground uppercase">
-            Keep exploring
-          </h2>
-        ) : null}
-        <InfiniteFeed initial={initial} now={now} filter={filter} />
+      <section id="latest" aria-label="Keep browsing" className="mt-20 scroll-mt-4">
+        <nav
+          aria-label="Filter the feed"
+          className="sticky top-0 z-20 -mx-(--gutter) bg-background/85 px-(--gutter) pt-safe pb-3 backdrop-blur-xl"
+        >
+          <p className="pt-3 text-caption font-semibold tracking-[0.18em] text-muted-foreground uppercase">
+            Keep browsing
+          </p>
+          <ul className="mt-2 no-scrollbar flex gap-2 overflow-x-auto">
+            {FEED_FILTERS.map((chip) => (
+              <li key={chip.id}>
+                <button
+                  type="button"
+                  onClick={() => setFilter(chip.id)}
+                  aria-pressed={filter === chip.id}
+                  className={cn(
+                    "h-9 rounded-full px-4 text-footnote font-semibold whitespace-nowrap transition-colors",
+                    filter === chip.id
+                      ? "bg-foreground text-background"
+                      : "border border-border-strong text-muted-foreground hover:text-foreground",
+                  )}
+                >
+                  {chip.label}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        {filter === "sounds" ? <div className="mt-6">{spinning}</div> : null}
+        <div className="mt-6">
+          <InfiniteFeed initial={initial} now={now} filter={filter} />
+        </div>
       </section>
     </>
   )

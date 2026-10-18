@@ -13,6 +13,7 @@ import { FollowingRail } from "@/components/me/following-rail"
 import { SavedGrid } from "@/components/me/saved-grid"
 import { VibeResultCard } from "@/components/me/vibe-result-card"
 import { TasteSection } from "@/components/me/taste-section"
+import { IssueArchive } from "@/components/issue/issue-archive"
 import { AlertSettings } from "@/components/alerts/alert-settings"
 import { FriendsSection } from "@/components/social/friends-section"
 import { WrappedCard } from "@/components/wrapped/wrapped-card"
@@ -44,6 +45,8 @@ export default function MePage() {
         <VibeResultCard niches={cardNiches} fallback={<NicheCardTeaser />} />
 
         <WrappedCard niches={cardNiches} artistImages={artistImages} />
+
+        <IssueArchive />
 
         <TasteSection />
 

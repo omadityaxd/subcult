@@ -25,8 +25,8 @@ export default function ForYouPage() {
   return (
     <Screen>
       <PullToRefresh>
-        <header className="container-page flex items-center justify-between pt-[calc(env(safe-area-inset-top)+1rem)] pb-2 md:hidden">
-          <span className="font-serif text-[30px] leading-none italic">subcult</span>
+        <header className="container-page flex items-center justify-end pt-[calc(env(safe-area-inset-top)+1rem)] pb-2 md:hidden">
+          {/* The cover carries the masthead: no second wordmark above it. */}
           <div className="flex items-center gap-4">
             <NotificationBell className="[&_svg]:size-[22px]" />
             <SearchButton>
@@ -36,9 +36,7 @@ export default function ForYouPage() {
         </header>
 
         <div className="container-page pt-4 md:pt-12">
-          <h1 className="sr-only md:not-sr-only md:mb-8 md:font-serif md:text-title-1 md:italic">
-            For you
-          </h1>
+          <h1 className="sr-only">Today&apos;s issue</h1>
           <Suspense fallback={<StoriesSkeleton />}>
             <Stories />
           </Suspense>

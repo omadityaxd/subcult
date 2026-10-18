@@ -181,7 +181,7 @@ export function newsFetcher(
     freshSeconds: 3600,
     staleSeconds: 24 * 3600,
     // e1: entity queries, 7-day window, scene feeds, images and summaries.
-    cacheVersion: "e2",
+    cacheVersion: "e3",
     async fetch(profile: NicheProfile) {
       const [scene, ...settled] = await Promise.allSettled([
         allSceneArticles(fetchImpl),

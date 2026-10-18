@@ -1,30 +1,28 @@
 "use client"
 
-import { ArrowDown, ArrowUpRight, Check, TrendingUp } from "lucide-react"
-import Link from "next/link"
+import { ArrowDown, Check } from "lucide-react"
 import { type ReactNode, useEffect, useRef, useState } from "react"
-import { MediaImage } from "@/components/ds/media-image"
-import { FeedCard } from "@/components/niche/feed/feed-card"
-import { TasteCard } from "@/components/taste/taste-card"
+import { IssueCover, ShareCoverButton } from "@/components/issue/issue-cover"
+import { IssueSection } from "@/components/issue/issue-sections"
 import { Skeleton } from "@/components/ui/skeleton"
+import { track } from "@/lib/analytics"
 import type { FeedItem } from "@/lib/feed/types"
 import type { ApiResponse } from "@/lib/request"
 import { readSaves } from "@/lib/saves"
-import { entitiesOfItem } from "@/lib/taste/entities"
-import { pageReasons } from "@/lib/taste/rank"
-import { readTasteVector, useTasteVector } from "@/lib/taste/store"
+import { readTasteVector } from "@/lib/taste/store"
 import { formatAge } from "@/lib/time"
-import type { TodayEdition, TodaySection } from "@/lib/today/edition"
+import type { TodayEdition } from "@/lib/today/edition"
 import { sinceLabel } from "@/lib/today/edition"
+import { keepIssue, useIssueArchive } from "@/lib/today/issue-store"
+import { issueNumber, localDay } from "@/lib/today/issues"
 import { touchVisit } from "@/lib/today/visits"
-import { track } from "@/lib/analytics"
 
 const ENTITIES_SENT = 40
 const BRAND_SAVE = /^subcult:brand:([a-z0-9-]+)$/
 
 const MODE_LINE: Record<TodayEdition["mode"], string> = {
   morning: "Morning edition",
-  day: "Today's edition",
+  day: "Daily edition",
   night: "Late edition",
   weekend: "Weekend edition",
 }
@@ -37,7 +35,7 @@ type Load =
       edition: TodayEdition
       lastVisit: number | null
       timeZone: string
-      /** Offline: this is the last edition saved on the device. */
+      /** Offline: this is the last issue saved on the device. */
       saved?: boolean
     }
 
@@ -60,7 +58,7 @@ function savedEdition(): TodayEdition | null {
   }
 }
 
-/** Offline (or a failed request): the last edition on this device, marked as such. */
+/** Offline (or a failed request): the last issue on this device, marked as such. */
 function fallback(lastVisit: number | null, timeZone: string): Load {
   const edition = savedEdition()
   return edition
@@ -68,11 +66,7 @@ function fallback(lastVisit: number | null, timeZone: string): Load {
     : { state: "failed" }
 }
 
-/**
- * Today: a finite personal edition at the top of For You, built from this
- * person's taste for their local moment, then "you're caught up".
- * Reads taste, saves and the visit marker straight from storage, then asks for the edition.
- */
+/** Reads taste, saves and the visit marker straight from storage, then asks for the issue. */
 async function requestEdition(lastVisit: number | null): Promise<Load> {
   const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone ?? "UTC"
   const entities = [...readTasteVector().values()]
@@ -95,22 +89,44 @@ async function requestEdition(lastVisit: number | null): Promise<Load> {
   }
 }
 
+function dateLabel(now: number, timeZone: string): string {
+  try {
+    return new Intl.DateTimeFormat("en-GB", {
+      timeZone,
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+    }).format(now)
+  } catch {
+    return new Date(now).toDateString()
+  }
+}
+
+/**
+ * Today is an Issue: the reader's daily subculture magazine, numbered from
+ * their first visit. Cover, then The Tea, The Fit, The Grail, The Sound,
+ * The Scene, then the back page.
+ */
 export function Today({
   coldExtras,
   initial = null,
+  issueNo: serverIssueNo = 1,
 }: {
   coldExtras: ReactNode
-  /** Server-rendered edition (from the taste cookie): no client round trip. */
+  /** Server-rendered issue (from the taste cookie): no client round trip. */
   initial?: { edition: TodayEdition; lastVisit: number | null; timeZone: string } | null
+  /** The server's best guess from the issue cookie; the device's archive confirms it. */
+  issueNo?: number
 }) {
   const [load, setLoad] = useState<Load>(() =>
     initial ? { state: "ready", ...initial } : { state: "loading" },
   )
   const [attempt, setAttempt] = useState(0)
+  const archive = useIssueArchive()
   // The visit marker moves once per mount, not per retry.
   const [lastVisit] = useState(() => (typeof window === "undefined" ? null : touchVisit()))
 
-  // Built once per visit (and per retry): the edition doesn't reshuffle while you read it.
+  // Built once per visit (and per retry): the issue doesn't reshuffle while you read it.
   useEffect(() => {
     let cancelled = false
     if (initial && attempt === 0) {
@@ -141,11 +157,17 @@ export function Today({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [attempt, lastVisit])
 
+  // Keep today's issue in the archive (once per local day); the number derives from it.
+  const ready = load.state === "ready" && !load.saved ? load : null
+  useEffect(() => {
+    if (ready) keepIssue(ready.edition, localDay(ready.edition.generatedAt, ready.timeZone))
+  }, [ready])
+
   if (load.state === "loading") return <TodaySkeleton />
   if (load.state === "failed") {
     return (
       <section aria-label="Today" className="rounded-3xl border border-border p-6 text-center">
-        <p className="font-serif text-title-3 italic">Today didn&apos;t load</p>
+        <p className="font-serif text-title-3 italic">Today&apos;s issue didn&apos;t load</p>
         <button
           type="button"
           onClick={() => {
@@ -164,208 +186,52 @@ export function Today({
   const fresh = (item: FeedItem) =>
     lastVisit !== null && item.publishedAt !== null && Date.parse(item.publishedAt) > lastVisit
   const newCount = edition.sections.flatMap((s) => s.items).filter(fresh).length
-  // The server decides (it saw the same taste): no client re-check, so no hydration flip.
-  const cold = edition.cold
-  const risingEntities = new Set(
-    edition.sections.flatMap((s) => s.rising ?? []).map((chip) => chip.entity),
-  )
+  const date = dateLabel(edition.generatedAt, timeZone)
+  // The device's archive is the source of truth once it has loaded; the cookie-based guess before.
+  const issueNo =
+    archive.issues.length > 0
+      ? issueNumber(archive, localDay(edition.generatedAt, timeZone))
+      : serverIssueNo
 
   return (
-    <section aria-label="Today">
-      <header className="flex items-end justify-between gap-4">
-        <div>
-          <p className="text-overline font-medium text-muted-foreground uppercase">
-            {MODE_LINE[edition.mode]}
-          </p>
-          <h2 className="font-serif text-title-1 italic">Today</h2>
-        </div>
-        <p className="pb-1 text-footnote text-muted-foreground tabular-nums">
-          {edition.count} {edition.count === 1 ? "thing" : "things"}
+    <section aria-label="Today" data-testid="issue">
+      <IssueCover cover={edition.cover} issueNo={issueNo} dateLabel={date} />
+
+      <div className="mt-3 flex flex-wrap items-center justify-between gap-x-4 gap-y-2 text-footnote text-muted-foreground">
+        <p>
+          <span className="font-semibold text-foreground">{MODE_LINE[edition.mode]}</span>
+          {saved
+            ? ` · offline, from ${formatAge(new Date(edition.generatedAt).toISOString(), new Date())} ago`
+            : lastVisit !== null
+              ? ` · ${newCount > 0 ? `${newCount} new` : "nothing new"} ${sinceLabel(lastVisit, edition.generatedAt, timeZone)}`
+              : null}
         </p>
-      </header>
+        <ShareCoverButton
+          cover={edition.cover}
+          issueNo={issueNo}
+          day={localDay(edition.generatedAt, timeZone)}
+        />
+      </div>
 
-      {saved ? (
-        <p className="mt-4 rounded-xl bg-muted px-3 py-2 text-footnote text-muted-foreground">
-          Offline: this is your last edition, from{" "}
-          {formatAge(new Date(edition.generatedAt).toISOString(), new Date())} ago.
-        </p>
-      ) : null}
+      {edition.cold ? <div className="mt-8 space-y-6">{coldExtras}</div> : null}
 
-      {lastVisit !== null && !saved ? (
-        <div className="mt-4 flex items-center gap-3 text-footnote text-muted-foreground">
-          <span className="h-px flex-1 bg-border" />
-          <span>
-            {newCount > 0 ? `${newCount} new ` : "Nothing new "}
-            {sinceLabel(lastVisit, edition.generatedAt, timeZone)}
-          </span>
-          <span className="h-px flex-1 bg-border" />
-        </div>
-      ) : null}
-
-      {cold ? <div className="mt-6 space-y-6">{coldExtras}</div> : null}
-
-      <div className="mt-8 space-y-12">
-        {edition.sections.map((section) => (
-          <Section
+      <div className="mt-12 space-y-16">
+        {edition.sections.map((section, i) => (
+          <IssueSection
             key={section.id}
             section={section}
+            index={i + 1}
             now={edition.generatedAt}
-            risingEntities={risingEntities}
           />
         ))}
       </div>
 
-      <CaughtUp count={edition.count} />
+      <BackPage count={edition.count} teaser={edition.backPage.teaser} />
     </section>
   )
 }
 
-function Section({
-  section,
-  now,
-  risingEntities,
-}: {
-  section: TodaySection
-  now: number
-  risingEntities: ReadonlySet<string>
-}) {
-  const vector = useTasteVector()
-  const reasons = pageReasons(section.items, vector, null)
-  const isRising = (item: FeedItem) =>
-    entitiesOfItem(item).some(
-      (ref) => ref.startsWith("niche:") === false && risingEntities.has(ref),
-    )
-  return (
-    <section aria-labelledby={`today-${section.id}`}>
-      <h3 id={`today-${section.id}`} className="mb-4 text-title-3 font-semibold">
-        {section.title}
-      </h3>
-      {section.id === "friends" && section.friends ? (
-        <ul className="flex flex-wrap gap-2">
-          {section.friends.map((chip) => (
-            <li key={chip.entity}>
-              <Link
-                href={chip.href}
-                className="inline-flex h-10 items-center gap-2 rounded-full border border-border-strong px-4 text-footnote font-semibold"
-              >
-                {chip.label}
-                <span className="font-normal text-muted-foreground">
-                  {chip.handles
-                    .slice(0, 2)
-                    .map((h) => `@${h}`)
-                    .join(", ")}
-                  {chip.handles.length > 2 ? ` +${chip.handles.length - 2}` : ""}
-                </span>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      ) : section.id === "rising" && section.rising ? (
-        <ul className="flex flex-wrap gap-2">
-          {section.rising.map((chip) => (
-            <li key={chip.entity}>
-              <Link
-                href={chip.href}
-                className="inline-flex h-10 items-center gap-2 rounded-full border border-border-strong pr-4 pl-3 text-footnote font-semibold"
-              >
-                <TrendingUp aria-hidden className="size-4 text-accent" strokeWidth={2} />
-                {chip.label}
-                <span className="font-normal text-muted-foreground tabular-nums">
-                  {chip.ratio}×
-                </span>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      ) : section.id === "digest" ? (
-        <ol className="divide-y divide-border rounded-2xl border border-border">
-          {section.items.map((item, i) => (
-            <li key={item.id}>
-              <a
-                href={item.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-start gap-4 px-4 py-3.5"
-              >
-                <span className="font-serif text-title-3 text-subtle italic tabular-nums">
-                  {i + 1}
-                </span>
-                <span className="min-w-0 flex-1">
-                  <span className="line-clamp-2 text-callout font-semibold">{item.title}</span>
-                  <span className="mt-0.5 block text-caption text-muted-foreground">
-                    {[item.subtitle, formatAge(item.publishedAt, new Date(now))]
-                      .filter(Boolean)
-                      .join(" · ")}
-                  </span>
-                </span>
-                <ArrowUpRight aria-hidden className="mt-1 size-4 shrink-0 text-subtle" />
-              </a>
-            </li>
-          ))}
-        </ol>
-      ) : section.id === "drops" ? (
-        <ul className="-mx-(--gutter) no-scrollbar flex gap-4 overflow-x-auto px-(--gutter)">
-          {section.items.map((item, i) => (
-            <li key={item.id} className="w-40 shrink-0 sm:w-48">
-              <TasteCard
-                item={item}
-                niche={null}
-                reason={reasons[i] ?? null}
-                rising={isRising(item)}
-              >
-                <ReleaseCard item={item} now={now} />
-              </TasteCard>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <ul className="columns-1 gap-5 sm:columns-2 xl:columns-3">
-          {section.items.map((item, i) => (
-            <li key={item.id} className="mb-7 break-inside-avoid">
-              <TasteCard
-                item={item}
-                niche={null}
-                reason={reasons[i] ?? null}
-                rising={isRising(item)}
-              >
-                <FeedCard item={item} now={now} />
-              </TasteCard>
-            </li>
-          ))}
-        </ul>
-      )}
-    </section>
-  )
-}
-
-const KIND_LABEL: Record<string, string> = { single: "Single", ep: "EP", album: "Album" }
-
-function ReleaseCard({ item, now }: { item: FeedItem; now: number }) {
-  const kind = KIND_LABEL[String(item.meta.kind)] ?? "Release"
-  const body = (
-    <>
-      <div className="relative aspect-square overflow-hidden rounded-2xl bg-muted">
-        {item.imageUrl ? <MediaImage src={item.imageUrl} alt="" sizes="192px" /> : null}
-      </div>
-      <p className="mt-2 line-clamp-2 text-callout font-semibold">{item.title}</p>
-      <p className="truncate text-caption text-muted-foreground">
-        {[kind, item.subtitle, formatAge(item.publishedAt, new Date(now))]
-          .filter(Boolean)
-          .join(" · ")}
-      </p>
-    </>
-  )
-  return item.url ? (
-    <a href={item.url} target="_blank" rel="noopener noreferrer" className="block">
-      {body}
-      <span className="sr-only">(opens Apple Music)</span>
-    </a>
-  ) : (
-    <div>{body}</div>
-  )
-}
-
-function CaughtUp({ count }: { count: number }) {
+function BackPage({ count, teaser }: { count: number; teaser: string | null }) {
   const ref = useRef<HTMLDivElement>(null)
   useEffect(() => {
     const node = ref.current
@@ -380,21 +246,26 @@ function CaughtUp({ count }: { count: number }) {
     return () => observer.disconnect()
   }, [count])
   return (
-    <div ref={ref} className="mt-14 flex flex-col items-center text-center">
-      <span className="grid size-12 place-items-center rounded-full border border-border-strong">
+    <div
+      ref={ref}
+      className="mt-20 flex flex-col items-center border-t border-foreground/80 pt-10 text-center"
+    >
+      <p className="text-caption font-semibold tracking-[0.18em] text-muted-foreground uppercase">
+        Back page
+      </p>
+      <span className="mt-4 grid size-12 place-items-center rounded-full border border-border-strong">
         <Check aria-hidden className="size-5" strokeWidth={2} />
       </span>
-      <p className="mt-4 font-serif text-title-2 italic">You&apos;re caught up</p>
+      <p className="mt-4 font-serif text-title-1 italic">You&apos;re caught up</p>
       <p className="mt-1 text-callout text-muted-foreground">
-        {count > 0
-          ? "That's today. Come back tomorrow for the next one."
-          : "Quiet day in your scenes."}
+        {count > 0 ? "That's the issue. The next one lands tomorrow." : "Quiet day in your scenes."}
       </p>
+      {teaser ? <p className="mt-3 font-serif text-title-3 italic">{teaser}</p> : null}
       <a
         href="#latest"
-        className="mt-5 inline-flex h-10 items-center gap-2 rounded-full border border-border-strong px-5 text-footnote font-semibold"
+        className="mt-6 inline-flex h-10 items-center gap-2 rounded-full border border-border-strong px-5 text-footnote font-semibold"
       >
-        Keep exploring <ArrowDown aria-hidden className="size-4" strokeWidth={1.75} />
+        Keep browsing <ArrowDown aria-hidden className="size-4" strokeWidth={1.75} />
       </a>
     </div>
   )
@@ -402,18 +273,17 @@ function CaughtUp({ count }: { count: number }) {
 
 export function TodaySkeleton() {
   return (
-    <section aria-label="Loading Today" aria-busy="true">
-      <Skeleton className="h-4 w-28" />
-      <Skeleton className="mt-2 h-9 w-36" />
-      <div className="mt-8 flex gap-4 overflow-hidden">
-        {Array.from({ length: 4 }, (_, i) => (
-          <Skeleton key={i} className="aspect-square w-40 shrink-0 rounded-2xl" />
-        ))}
-      </div>
-      <div className="mt-8 grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
-        <Skeleton className="h-40 rounded-2xl" />
-        <Skeleton className="hidden h-40 rounded-2xl sm:block" />
-        <Skeleton className="hidden h-40 rounded-2xl xl:block" />
+    <section aria-label="Loading today's issue" aria-busy="true">
+      <Skeleton className="-mx-(--gutter) aspect-[4/5] rounded-none md:mx-0 md:aspect-[16/9] md:rounded-3xl" />
+      <Skeleton className="mt-3 h-4 w-48" />
+      <div className="mt-12 space-y-3">
+        <Skeleton className="h-3 w-24" />
+        <Skeleton className="h-10 w-48" />
+        <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+          <Skeleton className="h-40 rounded-2xl" />
+          <Skeleton className="hidden h-40 rounded-2xl sm:block" />
+          <Skeleton className="hidden h-40 rounded-2xl xl:block" />
+        </div>
       </div>
     </section>
   )
