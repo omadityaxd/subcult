@@ -14,6 +14,9 @@ export default function AdminLayout({ children }: LayoutProps<"/admin">) {
           subcult <span className="text-muted-foreground">admin</span>
         </Link>
         <nav className="flex gap-4 text-[15px] text-muted-foreground">
+          <Link href="/admin/status" className="hover:text-foreground">
+            status
+          </Link>
           <Link href="/admin/usage" className="hover:text-foreground">
             usage
           </Link>

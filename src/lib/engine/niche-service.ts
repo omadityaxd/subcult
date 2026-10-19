@@ -103,7 +103,7 @@ export function createNicheService({
     { generatedBy, checkBudget }: GetOrCreateOptions,
   ): Promise<NicheLookup> {
     if (!generate) {
-      return { status: "unavailable", reason: "new niches are offline rn. try one from explore!" }
+      return { status: "unavailable", reason: "new niches are coming soon. try one from explore!" }
     }
     // Some corners of the internet we don't make pages for (rating faces, PEDs, blackpill).
     if (isExcludedTopic(niche.name)) {

@@ -1,11 +1,12 @@
 "use client"
 
-import { ShoppingBag } from "lucide-react"
+import { ArrowUpRight, ShoppingBag } from "lucide-react"
 import { useState } from "react"
 import { MediaImage } from "@/components/ds/media-image"
 import { type ProductRef, ProductSheet } from "@/components/shop/product-sheet"
 import type { LookListing } from "@/app/api/shop/look/route"
 import type { ApiResponse } from "@/lib/request"
+import { resaleSearches } from "@/lib/links"
 import { formatPrice } from "@/lib/shop/archive"
 
 const toRef = (listing: LookListing): ProductRef => ({
@@ -59,10 +60,37 @@ export function ShopTheLook({ brands }: { brands: readonly { slug: string; name:
     return <p className="mt-4 text-center text-footnote text-muted-foreground">Finding pieces…</p>
   }
   if (state.items.length === 0) {
+    // No live listings (or none switched on yet): hunt each tagged brand secondhand instead.
     return (
-      <p className="mt-4 text-center text-footnote text-muted-foreground">
-        No live listings for {brands.map((b) => b.name).join(", ")} right now.
-      </p>
+      <section className="mt-6">
+        <p className="mb-2 text-caption font-semibold tracking-[0.15em] text-muted-foreground uppercase">
+          Shop the look secondhand
+        </p>
+        <ul className="divide-y divide-border border-y border-border">
+          {brands.slice(0, 4).map((brand) => (
+            <li key={brand.slug} className="flex flex-wrap items-center gap-x-3 gap-y-2 py-2.5">
+              <span className="basis-full text-footnote font-semibold sm:flex-1 sm:basis-auto">
+                {brand.name}
+              </span>
+              <span className="flex gap-1.5">
+                {resaleSearches(brand.name).map((link) => (
+                  <a
+                    key={link.id}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Search ${link.label} for ${brand.name}`}
+                    className="inline-flex h-8 items-center gap-1 rounded-full border border-border-strong px-2.5 text-caption font-medium hover:bg-muted"
+                  >
+                    {link.label}
+                    <ArrowUpRight aria-hidden className="size-3" strokeWidth={1.75} />
+                  </a>
+                ))}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </section>
     )
   }
   return (

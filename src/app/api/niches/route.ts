@@ -49,7 +49,7 @@ export async function POST(request: Request): Promise<Response> {
   if (seed) return apiOk(toResolved(seed, "seed"))
 
   const service = getNicheService()
-  if (!service) return apiError("new niches are offline rn. try a preset!", 503, "unavailable")
+  if (!service) return apiError("new niches are coming soon. try a preset!", 503, "unavailable")
 
   const ip = clientIp(request.headers)
   try {

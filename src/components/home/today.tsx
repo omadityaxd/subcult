@@ -204,7 +204,7 @@ export function Today({
         <p>
           <span className="font-semibold text-foreground">{MODE_LINE[edition.mode]}</span>
           {saved
-            ? ` · offline, from ${formatAge(new Date(edition.generatedAt).toISOString(), new Date())} ago`
+            ? ` · saved copy from ${formatAge(new Date(edition.generatedAt).toISOString(), new Date())} ago`
             : lastVisit !== null
               ? ` · ${newCount > 0 ? `${newCount} new` : "nothing new"} ${sinceLabel(lastVisit, edition.generatedAt, timeZone)}`
               : null}

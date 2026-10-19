@@ -43,7 +43,7 @@ const ERROR_ICON: Record<NicheApiErrorCode, LucideIcon> = {
 const ERROR_TITLE: Record<NicheApiErrorCode, string> = {
   capped: "The vibe machine is resting",
   "rate-limited": "Easy there, niche collector",
-  unavailable: "New niches are offline right now",
+  unavailable: "New niches are coming soon",
   rejected: "That one's not giving niche",
   "invalid-input": "Try that again",
   failed: "The vibe machine hiccuped",

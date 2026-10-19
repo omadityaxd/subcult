@@ -37,6 +37,7 @@ import { SoundsSection } from "../sections/sounds-section"
 import { FeedCard } from "./feed-card"
 import { ProgressiveList } from "./progressive-list"
 import { TaggedFeed } from "./tagged-feed"
+import { ArchiveFallback } from "@/components/shop/archive-fallback"
 
 const SHELF_SIZE = 8
 
@@ -303,15 +304,13 @@ export async function LiveArchive({ profile }: { profile: NicheProfile }) {
   await connection()
   const archives = await getArchive(profile.slug)
   if (archives === null || archives.length === 0) {
+    const verified = TAXONOMY.brandsOf(profile.slug).map((brand) => brand.name)
     return (
-      <div className="rounded-2xl border border-dashed border-border-strong p-8 text-center">
-        <p className="font-serif text-title-3 italic">The archive is offline right now</p>
-        <p className="mt-2 text-callout text-muted-foreground">
-          {archives === null
-            ? "Live eBay listings for these brands will show up here."
-            : "No live listings for these brands at the moment. Check back soon."}
-        </p>
-      </div>
+      <ArchiveFallback
+        nicheName={profile.name}
+        brands={verified.length > 0 ? verified : profile.brands.map((brand) => brand.name)}
+        reason={archives === null ? "soon" : "quiet"}
+      />
     )
   }
   return <ArchiveBoard archives={archives} />

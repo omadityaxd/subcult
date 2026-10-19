@@ -48,7 +48,7 @@ export type ExtraStoreId = (typeof EXTRA_STORE_IDS)[number]
 export type StoreId = (typeof STORE_IDS)[number] | ExtraStoreId
 
 export interface StoreLink {
-  id: StoreId | "official"
+  id: StoreId | "official" | "ebay"
   label: string
   /** One-line reason to pick this store, shown in the shop sheet. */
   blurb: string
@@ -98,6 +98,21 @@ export function brandLinks(name: string, officialUrl: string | null): StoreLink[
     (link) => link.id === "grailed" || link.id === "depop",
   )
   return [...official, ...resale]
+}
+
+/** Where to hunt one brand secondhand: eBay, Grailed, Depop (search pages, no affiliate). */
+export function resaleSearches(query: string): StoreLink[] {
+  return [
+    {
+      id: "ebay",
+      label: "eBay",
+      blurb: "the biggest archive, every era",
+      url: `https://www.ebay.com/sch/i.html?_nkw=${q(query)}`,
+    },
+    ...baseStoreLinks(query, DEFAULT_SHOP_CONFIG).filter(
+      (link) => link.id === "grailed" || link.id === "depop",
+    ),
+  ]
 }
 
 function baseStoreLinks(query: string, config: ShopConfig): StoreLink[] {

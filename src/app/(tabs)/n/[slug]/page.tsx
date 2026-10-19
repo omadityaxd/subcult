@@ -222,8 +222,10 @@ function NicheWorld({
             />
           </div>
 
-          <aside className="hidden lg:block">
-            <div className="sticky top-8 space-y-10 pt-6">
+          {/* Capped at the viewport and scrolling on its own: a long rail never leaves a short
+              tab (Archive, Fits) sitting above an empty black area. */}
+          <aside className="no-scrollbar hidden lg:sticky lg:top-8 lg:block lg:max-h-[calc(100dvh-4rem)] lg:self-start lg:overflow-y-auto">
+            <div className="space-y-10 pt-6 pb-6">
               <section>
                 <p className="mb-3 text-overline font-medium text-muted-foreground uppercase">
                   About

@@ -1,5 +1,14 @@
 import { describe, expect, it } from "vitest"
-import { STORE_IDS, brandLinks, reddit, social, spotify, storeLinks, youtube } from "./links"
+import {
+  STORE_IDS,
+  brandLinks,
+  reddit,
+  resaleSearches,
+  social,
+  spotify,
+  storeLinks,
+  youtube,
+} from "./links"
 
 describe("deep links", () => {
   it("encodes queries safely", () => {
@@ -62,5 +71,13 @@ describe("designer stores and brand links", () => {
 
   it("skips the official link when there's no verified site", () => {
     expect(brandLinks("Sp5der", null).map((l) => l.id)).toEqual(["depop", "grailed"])
+  })
+})
+
+describe("resaleSearches", () => {
+  it("searches eBay, Grailed and Depop for one brand", () => {
+    const links = resaleSearches("Rick Owens")
+    expect(links.map((l) => l.id)).toEqual(["ebay", "depop", "grailed"])
+    expect(links[0]?.url).toBe("https://www.ebay.com/sch/i.html?_nkw=Rick%20Owens")
   })
 })
