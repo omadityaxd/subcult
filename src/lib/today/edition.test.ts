@@ -93,6 +93,20 @@ describe("the issue", () => {
     expect(pickCover({ ...empty, lateNight: full.lateNight, drops: full.drops })).toBeNull()
   })
 
+  it("never covers with, or leads the cover lines with, heavy news", () => {
+    const heavy = {
+      ...full.digest[0]!,
+      id: "heavy",
+      title: "Rapper arrested",
+      meta: { heavy: true },
+    }
+    const light = { ...full.digest[0]!, id: "light", title: "New collection drops" }
+    const c = { ...full, fits: [], archive: [], digest: [heavy, light], headlines: [heavy, light] }
+    expect(pickCover(c)?.id).toBe("light")
+    const issue = assembleEdition(c, opts)
+    expect(issue.cover.lines).not.toContain("Rapper arrested")
+  })
+
   it("never covers with a YouTube thumbnail, or anything the quality check rejects", () => {
     const thumb = (id: string) => ({
       ...full.fits[0]!,

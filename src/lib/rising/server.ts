@@ -17,6 +17,7 @@ import { getCacheStore } from "@/lib/music/server"
 import { SEED_PROFILES, TAXONOMY, nicheArtistsLeadFirst } from "@/lib/niches/catalog"
 import { fetchGoogleNews } from "@/lib/sources/google-news"
 import { type EntityRef, entityRef } from "@/lib/taste/entities"
+import { countsForNiche } from "./niche-match"
 import {
   BASELINE_DAYS,
   type EntityEvent,
@@ -148,6 +149,9 @@ async function nicheEvents(profile: NicheProfile, now: number): Promise<EntityEv
     nicheRef
       ? items.flatMap((item) => {
           if (item.at === null) return []
+          // Entity-matched only: an ambiguous niche name ("trap", "rage") alone isn't evidence.
+          const namesEntity = (title: string) => matchers.some((m) => m.match(title))
+          if (!countsForNiche(item.title, profile.name, namesEntity)) return []
           const judged = judgeItem(
             {
               id: item.title,

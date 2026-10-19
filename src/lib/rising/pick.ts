@@ -22,6 +22,11 @@ export function pickRising(
     niches: readonly string[]
     mine: ReadonlySet<string>
     adjacent: readonly string[]
+    /**
+     * A niche page: "yours" is only this niche's verified entities, the
+     * adjacent niches are "nearby", and nothing from further away.
+     */
+    verified?: ReadonlySet<string>
   },
   limit: number,
 ): PickedRising[] {
@@ -36,7 +41,11 @@ export function pickRising(
     m.niches.some((n) => niches.includes(n))
 
   const out = take(
-    entities.filter((m) => scope.mine.has(m.entity) || touches(m, scope.niches)),
+    entities.filter((m) =>
+      scope.verified
+        ? scope.verified.has(m.entity)
+        : scope.mine.has(m.entity) || touches(m, scope.niches),
+    ),
     "yours",
   )
   if (out.length < RISING_MIN) {
@@ -47,7 +56,7 @@ export function pickRising(
       ).slice(0, RISING_MIN - out.length),
     )
   }
-  if (out.length < RISING_MIN) {
+  if (out.length < RISING_MIN && !scope.verified) {
     out.push(...take(entities, "everywhere").slice(0, RISING_MIN - out.length))
   }
   return out.slice(0, Math.max(limit, 0))

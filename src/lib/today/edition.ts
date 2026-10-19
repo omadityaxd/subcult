@@ -165,12 +165,17 @@ export const isGossip = (item: Pick<FeedItem, "title">): boolean => GOSSIP.test(
 
 function coverWorthy(item: FeedItem): boolean {
   // A borrowed scene photo (tea-image.ts) isn't the story's own: never the cover.
-  return withImage(item) && item.meta.imageFallback !== true && !isGossip(item)
+  return (
+    withImage(item) &&
+    item.meta.imageFallback !== true &&
+    !isGossip(item) &&
+    item.meta.heavy !== true
+  )
 }
 
 function coverLines(c: Candidates, cover: FeedItem | null): string[] {
   const lead = [...c.digest, ...c.headlines].find(
-    (item) => item.id !== cover?.id && !isGossip(item),
+    (item) => item.id !== cover?.id && !isGossip(item) && item.meta.heavy !== true,
   )
   const drop = [...c.drops].sort(newestFirst)[0]
   const rising = c.rising[0]

@@ -83,8 +83,10 @@ function Story({
  * identical cards.
  */
 export function TeaSpread({ items, now }: { items: readonly FeedItem[]; now: number }) {
-  const [lead, ...rest] = items
-  if (!lead) return null
+  // Heavy news (violence, legal trouble) can run in The Tea but never as its lead.
+  const lead = items.find((item) => item.meta.heavy !== true)
+  if (!lead) return <Briefs items={items} now={now} />
+  const rest = items.filter((item) => item !== lead)
   const secondary = rest.length <= SECONDARY + 1 ? rest : rest.slice(0, SECONDARY)
   const briefs = rest.slice(secondary.length)
   const quote = pullQuote(lead)
@@ -130,38 +132,43 @@ export function TeaSpread({ items, now }: { items: readonly FeedItem[]; now: num
         </div>
       ) : null}
 
-      {briefs.length > 0 ? (
-        <div>
-          <p className="mb-1 text-caption font-semibold tracking-[0.18em] text-muted-foreground uppercase">
-            Briefs
-          </p>
-          <ul className="divide-y divide-border border-y border-border">
-            {briefs.map((item) => (
-              <li key={item.id}>
-                <TasteCard item={item} niche={null} reason={null}>
-                  <a
-                    href={item.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group flex items-center gap-4 py-3"
-                  >
-                    <span className="relative size-14 shrink-0 overflow-hidden rounded-lg bg-muted">
-                      <Picture item={item} sizes="56px" />
-                      <PaletteTint item={item} />
-                    </span>
-                    <span className="min-w-0 flex-1">
-                      <span className="line-clamp-2 text-callout font-semibold group-hover:underline">
-                        {item.title}
-                      </span>
-                      <Byline item={item} now={now} className="mt-0.5 text-muted-foreground" />
-                    </span>
-                  </a>
-                </TasteCard>
-              </li>
-            ))}
-          </ul>
-        </div>
-      ) : null}
+      {briefs.length > 0 ? <Briefs items={briefs} now={now} /> : null}
+    </div>
+  )
+}
+
+/** The rest of The Tea: a compact list with thumbnails, outlets and times. */
+function Briefs({ items, now }: { items: readonly FeedItem[]; now: number }) {
+  return (
+    <div>
+      <p className="mb-1 text-caption font-semibold tracking-[0.18em] text-muted-foreground uppercase">
+        Briefs
+      </p>
+      <ul className="divide-y divide-border border-y border-border">
+        {items.map((item) => (
+          <li key={item.id}>
+            <TasteCard item={item} niche={null} reason={null}>
+              <a
+                href={item.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center gap-4 py-3"
+              >
+                <span className="relative size-14 shrink-0 overflow-hidden rounded-lg bg-muted">
+                  <Picture item={item} sizes="56px" />
+                  <PaletteTint item={item} />
+                </span>
+                <span className="min-w-0 flex-1">
+                  <span className="line-clamp-2 text-callout font-semibold group-hover:underline">
+                    {item.title}
+                  </span>
+                  <Byline item={item} now={now} className="mt-0.5 text-muted-foreground" />
+                </span>
+              </a>
+            </TasteCard>
+          </li>
+        ))}
+      </ul>
     </div>
   )
 }

@@ -20,6 +20,7 @@ import { useStoryMusic } from "./use-story-music"
 import { CopOrDrop } from "@/components/votes/cop-or-drop"
 import { PollFrame } from "@/components/votes/poll-frame"
 import { focusOf } from "@/lib/images/curate"
+import { stickerFor } from "@/lib/feed/story-mix"
 
 const OPEN_LABEL: Record<FeedItem["source"], string> = {
   spotify: "Listen on Spotify",
@@ -58,6 +59,8 @@ export function StoryViewer({ niches, startIndex, onSeen, onClose }: StoryViewer
   const frames = items[niche.slug]
   const current = frames?.[frame]
   const music = useStoryMusic(niche.slug, paused)
+  // A track frame is the music already: no sticker repeating it.
+  const sticker = stickerFor(current, music)
   const audio = useAudioState()
 
   // Load (and remember) the current niche's frames.
@@ -315,7 +318,9 @@ export function StoryViewer({ niches, startIndex, onSeen, onClose }: StoryViewer
 
         {current && current.meta.poll !== true ? (
           <div className="relative z-30 space-y-3 px-6 pb-[calc(env(safe-area-inset-bottom)+1.5rem)]">
-            {music ? <MusicSticker music={music} playing={audio.playing && !audio.muted} /> : null}
+            {sticker ? (
+              <MusicSticker music={sticker} playing={audio.playing && !audio.muted} />
+            ) : null}
             <CopOrDrop key={current.id} item={current} tone="overlay" />
             <a
               href={current.url}

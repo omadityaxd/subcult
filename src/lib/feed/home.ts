@@ -19,6 +19,7 @@ import { getMoodboard } from "@/lib/moodboard/server"
 import { archiveFeedItems, getArchive } from "@/lib/shop/server"
 import { fitFeedItems, nicheFits } from "@/lib/fits/server"
 import type { FeedItem } from "./types"
+import { dedupeMusic } from "./dedupe-music"
 
 export interface HomePage {
   niche: HomeNiche
@@ -112,8 +113,8 @@ export async function getStory(
     result.items.map((item) => item.imageUrl).slice(0, STORY_MEASURED),
     STORY_BUDGET_MS,
   )
-  const unique = dedupeImages(result.items, (item) => item.imageUrl, facts).map((item) =>
-    withImageFacts(item, facts),
+  const unique = dedupeImages(dedupeMusic(result.items), (item) => item.imageUrl, facts).map(
+    (item) => withImageFacts(item, facts),
   )
   return { niche: result.niche, items: storyFrames(unique, STORY_FRAMES) }
 }

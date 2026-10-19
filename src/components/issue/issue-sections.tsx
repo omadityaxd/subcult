@@ -194,46 +194,66 @@ function Scene({ section, now }: { section: TodaySection; now: number }) {
   )
 }
 
-const WIDENED: Record<"nearby" | "everywhere", string> = {
-  nearby: "Quiet week in your scenes: this includes the ones next door.",
-  everywhere: "Quiet week in your scenes: this includes what's rising across subcult.",
-}
+const GROUPS = [
+  { scope: "yours", label: null },
+  { scope: "nearby", label: "Nearby scenes" },
+  { scope: "everywhere", label: "Across subcult" },
+] as const
 
-/** What's moving, ranked, each with the counted reason ("3 new headlines + 1 release this week"). */
+/**
+ * What's moving, ranked, each with its counted reason ("3 new headlines +
+ * 1 release this week"). Entities from beyond the reader's own scenes sit
+ * in their own labelled groups, never mixed in.
+ */
 function RisingList({ chips }: { chips: readonly RisingChip[] }) {
-  const widest = chips.some((c) => c.scope === "everywhere")
-    ? "everywhere"
-    : chips.some((c) => c.scope === "nearby")
-      ? "nearby"
-      : null
+  const groups = GROUPS.map((group) => ({
+    ...group,
+    chips: chips.filter((chip) => (chip.scope ?? "yours") === group.scope),
+  }))
+  // Ranks run on across the groups (1-3 yours, 4-5 nearby).
+  const starts = groups.map((_, i) => groups.slice(0, i).reduce((n, g) => n + g.chips.length, 0))
   return (
-    <div>
-      <ol className="divide-y divide-border border-y border-border">
-        {chips.map((chip, i) => (
-          <li key={chip.entity}>
-            <Link href={chip.href} className="group flex items-center gap-4 py-3">
-              <span className="w-5 shrink-0 font-serif text-title-3 text-muted-foreground italic tabular-nums">
-                {i + 1}
-              </span>
-              <span className="min-w-0 flex-1">
-                <span className="block truncate text-callout font-semibold group-hover:underline">
-                  {chip.label}
-                </span>
-                {chip.reason ? (
-                  <span className="block text-caption text-pretty text-muted-foreground">
-                    {chip.reason}
-                  </span>
-                ) : null}
-              </span>
-              <span className="inline-flex shrink-0 items-center gap-1 text-footnote font-semibold tabular-nums">
-                <TrendingUp aria-hidden className="size-4" strokeWidth={2} />
-                {chip.ratio}×
-              </span>
-            </Link>
-          </li>
-        ))}
-      </ol>
-      {widest ? <p className="mt-2 text-caption text-muted-foreground">{WIDENED[widest]}</p> : null}
+    <div className="space-y-6">
+      {groups.map(({ scope, label, chips: group }, groupIndex) => {
+        if (group.length === 0) return null
+        return (
+          <div key={scope}>
+            {label ? (
+              <p className="mb-2 text-caption font-semibold tracking-[0.15em] text-muted-foreground uppercase">
+                {label}
+              </p>
+            ) : null}
+            <ol className="divide-y divide-border border-y border-border">
+              {group.map((chip, i) => {
+                const rank = (starts[groupIndex] ?? 0) + i + 1
+                return (
+                  <li key={chip.entity}>
+                    <Link href={chip.href} className="group flex items-center gap-4 py-3">
+                      <span className="w-5 shrink-0 font-serif text-title-3 text-muted-foreground italic tabular-nums">
+                        {rank}
+                      </span>
+                      <span className="min-w-0 flex-1">
+                        <span className="block truncate text-callout font-semibold group-hover:underline">
+                          {chip.label}
+                        </span>
+                        {chip.reason ? (
+                          <span className="block text-caption text-pretty text-muted-foreground">
+                            {chip.reason}
+                          </span>
+                        ) : null}
+                      </span>
+                      <span className="inline-flex shrink-0 items-center gap-1 text-footnote font-semibold tabular-nums">
+                        <TrendingUp aria-hidden className="size-4" strokeWidth={2} />
+                        {chip.ratio}×
+                      </span>
+                    </Link>
+                  </li>
+                )
+              })}
+            </ol>
+          </div>
+        )
+      })}
     </div>
   )
 }

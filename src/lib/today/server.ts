@@ -9,7 +9,9 @@ import { artistReleases } from "@/lib/music/releases-server"
 import { soundtrackFeedItems } from "@/lib/music/soundtrack"
 import { getSoundtrack } from "@/lib/music/soundtrack-server"
 import { TAXONOMY, findPreset, findSeedProfile, nicheArtistsLeadFirst } from "@/lib/niches/catalog"
+import { containsTerm, isAmbiguous } from "@/lib/feed/relevance"
 import { curateCandidates } from "./curate"
+import { isHeavy } from "./heavy"
 import { entityPhoto, withTeaImage } from "./tea-image"
 import { moodboardFeedItems } from "@/lib/moodboard/board"
 import { getMoodboard } from "@/lib/moodboard/server"
@@ -20,7 +22,13 @@ import { type FactsMap, fitsSlot } from "@/lib/images/curate"
 import { imageFactsFor, youtubeMaxres } from "@/lib/images/facts-server"
 import { friendsInto } from "@/lib/social/server"
 import { archiveFeedItems, getArchive } from "@/lib/shop/server"
-import { type EntityRef, encodeEntities, entitySlug, entityType } from "@/lib/taste/entities"
+import {
+  type EntityRef,
+  encodeEntities,
+  entityRef,
+  entitySlug,
+  entityType,
+} from "@/lib/taste/entities"
 import {
   type Candidates,
   type FriendChip,
@@ -53,6 +61,19 @@ export interface TodayRequest {
   brands: readonly string[]
   lastVisit: number | null
   timeZone: string
+  /** A niche page's issue: The Scene keeps to this niche's verified entities (plus "nearby"). */
+  scopeNiche?: string
+}
+
+/** The niche itself and its verified artists and brands: what a niche page's Scene may list. */
+function verifiedEntities(slug: string): Set<string> {
+  return new Set(
+    [
+      entityRef("niche", slug),
+      ...TAXONOMY.artistsOf(slug).map((artist) => entityRef("artist", artist.slug)),
+      ...TAXONOMY.brandsOf(slug).map((brand) => entityRef("brand", brand.slug)),
+    ].filter((ref): ref is EntityRef => ref !== null),
+  )
 }
 
 const ageMs = (item: FeedItem, now: number) =>
@@ -116,7 +137,13 @@ async function nicheNews(niches: readonly string[]): Promise<FeedItem[]> {
   return out.map((item, index) => {
     const slug = String(item.meta.nicheSlug ?? "")
     const pictured = nicheArtistsLeadFirst(slug).filter((artist) => artist.imageUrl)
-    return withTeaImage(item, {
+    // Heavy news (violence, legal trouble) stays in The Tea but never leads (see heavy.ts).
+    const names = TAXONOMY.artistsOf(slug)
+      .map((artist) => artist.name)
+      .filter((name) => !isAmbiguous(name))
+    const heavy = isHeavy(item.title, (title) => names.some((name) => containsTerm(title, name)))
+    const flagged = heavy ? { ...item, meta: { ...item.meta, heavy: true } } : item
+    return withTeaImage(flagged, {
       imageUrl: entityPhoto(item.title, pictured, index),
       palette: findPreset(slug)?.palette ?? null,
     })
@@ -232,22 +259,26 @@ async function lateNight(niches: readonly string[]): Promise<FeedItem[]> {
 async function risingChips(
   niches: readonly string[],
   mine: ReadonlySet<string>,
+  scopeNiche?: string,
 ): Promise<RisingChip[]> {
   const snapshot = await getRisingSnapshot()
   if (!snapshot) return []
   const adjacent = [
     ...new Set(niches.flatMap((slug) => TAXONOMY.adjacent(slug).map((a) => a.slug))),
   ].filter((slug) => !niches.includes(slug))
-  return pickRising(snapshot.entities, { niches, mine, adjacent }, SECTION_CAPS.scene).map(
-    ({ momentum: m, scope }) => ({
-      entity: m.entity,
-      label: m.label,
-      ratio: Math.round(m.ratio * 10) / 10,
-      href: hrefFor(m.entity, m.niches),
-      reason: momentumReason(m),
-      scope,
-    }),
-  )
+  const verified = scopeNiche ? verifiedEntities(scopeNiche) : undefined
+  return pickRising(
+    snapshot.entities,
+    { niches, mine, adjacent, verified },
+    SECTION_CAPS.scene,
+  ).map(({ momentum: m, scope }) => ({
+    entity: m.entity,
+    label: m.label,
+    ratio: Math.round(m.ratio * 10) / 10,
+    href: hrefFor(m.entity, m.niches),
+    reason: momentumReason(m),
+    scope,
+  }))
 }
 
 const settle = async <T>(label: string, work: Promise<T[]>): Promise<T[]> => {
@@ -297,7 +328,11 @@ export async function buildToday(req: TodayRequest, now = Date.now()): Promise<T
     settle("late-night", lateNight(niches)),
     settle(
       "rising",
-      risingChips(niches, new Set(req.entities.filter((e) => e.score > 0).map((e) => e.ref))),
+      risingChips(
+        niches,
+        new Set(req.entities.filter((e) => e.score > 0).map((e) => e.ref)),
+        req.scopeNiche,
+      ),
     ),
   ])
   const [more, friendChips] = await Promise.all([
@@ -369,6 +404,7 @@ export function buildNicheIssue(slug: string, now = Date.now()): Promise<TodayEd
       brands: [],
       lastVisit: null,
       timeZone: "UTC",
+      scopeNiche: slug,
     },
     now,
   )

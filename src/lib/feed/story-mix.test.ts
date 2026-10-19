@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest"
-import { MAX_SOUND_FRAMES, storyFrames, storyKind } from "./story-mix"
+import { MAX_SOUND_FRAMES, stickerFor, storyFrames, storyKind } from "./story-mix"
 import type { FeedItem } from "./types"
 
 const item = (id: string, over: Partial<FeedItem> = {}): FeedItem => ({
@@ -68,5 +68,24 @@ describe("storyFrames", () => {
   it("never polls tracks", () => {
     const frames = storyFrames([track("t1"), track("t2")])
     expect(kinds(frames)).not.toContain("poll")
+  })
+})
+
+describe("stickerFor", () => {
+  const music = { title: "No Date", artist: "Lil Tecca" }
+
+  it("hides the sticker on a track frame (no 'No Date' twice)", () => {
+    expect(stickerFor({ ...track("t1"), title: "No Date" }, music)).toBeNull()
+    expect(stickerFor(track("t2"), music)).toBeNull()
+  })
+
+  it("hides it when a frame shows the same song", () => {
+    expect(stickerFor({ ...fit("f1"), title: "no date" }, music)).toBeNull()
+  })
+
+  it("shows it over fits, grails and headlines", () => {
+    expect(stickerFor(fit("f1"), music)).toBe(music)
+    expect(stickerFor(tea("n1"), music)).toBe(music)
+    expect(stickerFor(fit("f1"), null)).toBeNull()
   })
 })

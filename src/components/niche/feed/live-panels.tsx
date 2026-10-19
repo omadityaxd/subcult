@@ -41,6 +41,7 @@ import { ArchiveFallback } from "@/components/shop/archive-fallback"
 import { focusCss } from "@/lib/images/curate"
 import { imageFactsFor } from "@/lib/images/facts-server"
 import { type MosaicTile, mosaicPicks } from "@/lib/images/mosaic"
+import { dedupeMusic } from "@/lib/feed/dedupe-music"
 
 const MOSAIC_MEASURED = 24
 const MOSAIC_BUDGET_MS = 1500
@@ -294,8 +295,7 @@ export async function HeroMosaic({ profile }: { profile: NicheProfile }) {
 /** Right-rail list of the top tracks (desktop): playable here, queue = the list. */
 export async function TopTracks({ profile }: { profile: NicheProfile }) {
   const feed = await getNicheFeed(profile)
-  const tracks = (feed.bySource.spotify ?? [])
-    .filter((item) => item.type === "track")
+  const tracks = dedupeMusic((feed.bySource.spotify ?? []).filter((item) => item.type === "track"))
     .slice(0, 5)
     .map((item): PlayableTrack => ({
       id: item.id,

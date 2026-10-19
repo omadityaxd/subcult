@@ -52,4 +52,23 @@ describe("pickRising", () => {
   it("never pads with made-up entries when little is rising", () => {
     expect(pickRising([], { niches: ["rage"], mine: new Set(), adjacent: [] }, 6)).toEqual([])
   })
+
+  it("on a niche page, keeps to its verified entities and labels adjacent ones nearby", () => {
+    const pool = [m("gucci", ["trap"]), m("ken", ["rage"]), m("thug", ["trap", "rage"])]
+    const picked = pickRising(
+      pool,
+      {
+        niches: ["rage"],
+        mine: new Set(),
+        adjacent: ["trap"],
+        verified: new Set(["artist:ken"]),
+      },
+      6,
+    )
+    expect(picked.map((p) => [p.momentum.label, p.scope])).toEqual([
+      ["ken", "yours"],
+      ["gucci", "nearby"],
+      ["thug", "nearby"],
+    ])
+  })
 })

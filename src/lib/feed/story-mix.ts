@@ -98,3 +98,18 @@ export function storyFrames(items: readonly FeedItem[], limit = STORY_FRAMES): F
   ]
   return ordered.slice(0, limit)
 }
+
+/**
+ * The story's "now playing" sticker for a frame: hidden when the frame is
+ * itself a track (the plugg story showed "No Date" as the frame and again as
+ * the sticker), or when the background song is the one on the frame.
+ */
+export function stickerFor<M extends { title: string }>(
+  frame: FeedItem | null | undefined,
+  music: M | null | undefined,
+): M | null {
+  if (!music || !frame) return music ?? null
+  if (storyKind(frame) === "sound") return null
+  const same = (a: string, b: string) => a.trim().toLowerCase() === b.trim().toLowerCase()
+  return same(frame.title, music.title) ? null : music
+}
