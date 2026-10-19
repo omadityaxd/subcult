@@ -1,3 +1,4 @@
+import type { RisingScope } from "@/lib/rising/pick"
 import type { FeedItem } from "@/lib/feed/types"
 
 /**
@@ -21,6 +22,10 @@ export interface RisingChip {
   /** Rate vs the usual: 2.4 = 2.4× the last month's daily rate. */
   ratio: number
   href: string
+  /** From the counted events: "3 new headlines + 1 release this week". */
+  reason?: string | null
+  /** "nearby"/"everywhere": widened past the reader's niches to reach the minimum. */
+  scope?: RisingScope
 }
 
 export interface FriendChip {

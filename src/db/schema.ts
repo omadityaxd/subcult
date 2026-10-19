@@ -358,3 +358,22 @@ export const userBlocks = pgTable(
   },
   (table) => [primaryKey({ columns: [table.blockerId, table.blockedId] })],
 ).enableRLS()
+
+export const VOTE_CHOICES = ["cop", "drop", "a", "b"] as const
+export type VoteChoice = (typeof VOTE_CHOICES)[number]
+
+/**
+ * Cop or Drop (and "this or that" polls): one vote per voter per item.
+ * Items only (listings, fits, tracks, pins), never people. Voter is the
+ * user id, or "device:<uuid>" for guests.
+ */
+export const votes = pgTable(
+  "votes",
+  {
+    targetId: text("target_id").notNull(),
+    voter: text("voter").notNull(),
+    choice: text("choice", { enum: VOTE_CHOICES }).notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (table) => [primaryKey({ columns: [table.targetId, table.voter] })],
+).enableRLS()

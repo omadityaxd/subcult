@@ -5,6 +5,7 @@ import { MediaImage } from "@/components/ds/media-image"
 import { type ProductRef, ProductSheet } from "@/components/shop/product-sheet"
 import { feedItemProduct } from "@/components/shop/product-card"
 import { TasteCard } from "@/components/taste/taste-card"
+import { CopOrDrop } from "@/components/votes/cop-or-drop"
 import type { FeedItem } from "@/lib/feed/types"
 import { formatPrice } from "@/lib/shop/archive"
 
@@ -78,6 +79,7 @@ export function GrailCatalog({ items }: { items: readonly FeedItem[] }) {
                     </span>
                   ) : null}
                 </button>
+                <CopOrDrop item={item} className="mt-3" />
               </TasteCard>
             </li>
           )

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest"
 import type { FeedItem } from "./types"
-import { capVideos, storyOrder } from "./video-cap"
+import { capVideos } from "./video-cap"
 
 const item = (
   id: string,
@@ -48,20 +48,5 @@ describe("capVideos", () => {
 
   it("shows no videos when there's nothing else", () => {
     expect(capVideos([item("v1", "video", "youtube")])).toEqual([])
-  })
-})
-
-describe("storyOrder", () => {
-  it("leads with music, then visuals, then headlines, with video capped", () => {
-    const order = storyOrder([
-      item("news", "article", "news", false),
-      item("v1", "video", "youtube"),
-      item("v2", "video", "youtube"),
-      item("t1", "track", "spotify"),
-      item("t2", "track", "spotify"),
-      item("t3", "track", "spotify"),
-      item("t4", "track", "spotify"),
-    ])
-    expect(order.map((i) => i.id)).toEqual(["t1", "t2", "t3", "t4", "v1", "news"])
   })
 })

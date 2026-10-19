@@ -16,6 +16,8 @@ import type { ApiResponse } from "@/lib/request"
 import { cn } from "@/lib/utils"
 import { MusicSticker } from "./music-sticker"
 import { useStoryMusic } from "./use-story-music"
+import { CopOrDrop } from "@/components/votes/cop-or-drop"
+import { PollFrame } from "@/components/votes/poll-frame"
 
 const OPEN_LABEL: Record<FeedItem["source"], string> = {
   spotify: "Listen on Spotify",
@@ -243,6 +245,8 @@ export function StoryViewer({ niches, startIndex, onSeen, onClose }: StoryViewer
             <div className="mx-auto aspect-square w-full max-w-sm animate-pulse rounded-3xl bg-white/10" />
           ) : !current ? (
             <p className="text-center font-serif text-title-2 italic">Nothing new here yet.</p>
+          ) : current.meta.poll === true ? (
+            <PollFrame item={current} />
           ) : current.imageUrl ? (
             <div>
               <div
@@ -290,9 +294,10 @@ export function StoryViewer({ niches, startIndex, onSeen, onClose }: StoryViewer
           />
         </div>
 
-        {current ? (
+        {current && current.meta.poll !== true ? (
           <div className="relative z-30 space-y-3 px-6 pb-[calc(env(safe-area-inset-bottom)+1.5rem)]">
             {music ? <MusicSticker music={music} playing={audio.playing && !audio.muted} /> : null}
+            <CopOrDrop key={current.id} item={current} tone="overlay" />
             <a
               href={current.url}
               target="_blank"

@@ -38,6 +38,8 @@ export interface Momentum {
   ratio: number
   /** ratio's log2 × √volume: rising AND not a one-off. */
   score: number
+  /** Unweighted events per source in the last 7 days (the "why" line). */
+  week?: Partial<Record<EventSource, number>>
 }
 
 const DAY_MS = 24 * 3600_000
@@ -53,7 +55,13 @@ export const MIN_RATIO = 1.5
 export function computeMomentum(events: readonly EntityEvent[], now: number): Momentum[] {
   const byEntity = new Map<
     EntityRef,
-    { label: string; niches: Set<string>; last7: number; prior28: number }
+    {
+      label: string
+      niches: Set<string>
+      last7: number
+      prior28: number
+      week: Partial<Record<EventSource, number>>
+    }
   >()
   for (const event of events) {
     const age = now - event.at
@@ -64,11 +72,14 @@ export function computeMomentum(events: readonly EntityEvent[], now: number): Mo
       niches: new Set<string>(),
       last7: 0,
       prior28: 0,
+      week: {},
     }
     entry.niches.add(event.niche)
     // Half-open: an event exactly 7 days old belongs to the baseline, not this week.
-    if (age < RECENT_DAYS * DAY_MS) entry.last7 += weight
-    else entry.prior28 += weight
+    if (age < RECENT_DAYS * DAY_MS) {
+      entry.last7 += weight
+      entry.week[event.source] = (entry.week[event.source] ?? 0) + 1
+    } else entry.prior28 += weight
     byEntity.set(event.entity, entry)
   }
   return [...byEntity].map(([entity, e]) => {
@@ -81,6 +92,7 @@ export function computeMomentum(events: readonly EntityEvent[], now: number): Mo
       prior28: e.prior28,
       ratio,
       score: Math.log2(ratio) * Math.sqrt(e.last7),
+      week: e.week,
     }
   })
 }
@@ -113,4 +125,23 @@ export function mentions<T extends { title: string; at: number | null }>(
             at: item.at as number,
           })),
   )
+}
+
+const NOUN: Record<EventSource, [string, string]> = {
+  headline: ["new headline", "new headlines"],
+  release: ["release", "releases"],
+  upload: ["upload", "uploads"],
+  save: ["save on subcult", "saves on subcult"],
+  play: ["play on subcult", "plays on subcult"],
+}
+
+/** "3 new headlines + 1 release this week": straight from the counted events. */
+export function momentumReason(m: Pick<Momentum, "week">): string | null {
+  const parts = EVENT_SOURCES.flatMap((source) => {
+    const n = m.week?.[source] ?? 0
+    if (n <= 0) return []
+    const [one, many] = NOUN[source]
+    return [`${n} ${n === 1 ? one : many}`]
+  })
+  return parts.length > 0 ? `${parts.join(" + ")} this week` : null
 }

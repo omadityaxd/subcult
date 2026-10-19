@@ -38,6 +38,7 @@ async function mapSequential<T, R>(items: readonly T[], fn: (item: T) => Promise
 }
 /** Artists per niche whose releases count (lead first). */
 const RELEASE_ARTISTS = 2
+// Snapshots from before weekly counts (Momentum.week) still read: they just have no reason line.
 const SNAPSHOT_KEY = "subcult:rising:v1"
 const SNAPSHOT_TTL = 36 * 3600
 

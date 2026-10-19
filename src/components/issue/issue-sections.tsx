@@ -8,9 +8,10 @@ import { TasteCard } from "@/components/taste/taste-card"
 import { getAudioEngine } from "@/lib/audio/use-audio"
 import type { FeedItem } from "@/lib/feed/types"
 import { formatAge } from "@/lib/time"
-import type { SectionId, TodaySection } from "@/lib/today/edition"
+import type { RisingChip, SectionId, TodaySection } from "@/lib/today/edition"
 import { FitEditorial } from "./fit-editorial"
 import { GrailCatalog } from "./grail-catalog"
+import { CopOrDrop } from "@/components/votes/cop-or-drop"
 import { IssueSectionHeader } from "./issue-section-header"
 import { TeaSpread } from "./tea-spread"
 
@@ -107,6 +108,7 @@ function SoundList({ items, now }: { items: readonly FeedItem[]; now: number }) 
                   .filter(Boolean)
                   .join(" · ")}
               </span>
+              <CopOrDrop item={item} size="sm" className="mt-1.5" />
             </span>
             {preview ? (
               <button
@@ -161,24 +163,7 @@ function SoundList({ items, now }: { items: readonly FeedItem[]; now: number }) 
 function Scene({ section, now }: { section: TodaySection; now: number }) {
   return (
     <div className="space-y-6">
-      {section.rising && section.rising.length > 0 ? (
-        <ul className="flex flex-wrap gap-2">
-          {section.rising.map((chip) => (
-            <li key={chip.entity}>
-              <Link
-                href={chip.href}
-                className="inline-flex h-10 items-center gap-2 rounded-full border border-border-strong pr-4 pl-3 text-footnote font-semibold"
-              >
-                <TrendingUp aria-hidden className="size-4" strokeWidth={2} />
-                {chip.label}
-                <span className="font-normal text-muted-foreground tabular-nums">
-                  {chip.ratio}×
-                </span>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      ) : null}
+      {section.rising && section.rising.length > 0 ? <RisingList chips={section.rising} /> : null}
       {section.friends && section.friends.length > 0 ? (
         <div>
           <p className="mb-2 text-caption font-semibold tracking-[0.15em] text-muted-foreground uppercase">
@@ -205,6 +190,50 @@ function Scene({ section, now }: { section: TodaySection; now: number }) {
         </div>
       ) : null}
       {section.items.length > 0 ? <CardGrid items={section.items} now={now} /> : null}
+    </div>
+  )
+}
+
+const WIDENED: Record<"nearby" | "everywhere", string> = {
+  nearby: "Quiet week in your scenes: this includes the ones next door.",
+  everywhere: "Quiet week in your scenes: this includes what's rising across subcult.",
+}
+
+/** What's moving, ranked, each with the counted reason ("3 new headlines + 1 release this week"). */
+function RisingList({ chips }: { chips: readonly RisingChip[] }) {
+  const widest = chips.some((c) => c.scope === "everywhere")
+    ? "everywhere"
+    : chips.some((c) => c.scope === "nearby")
+      ? "nearby"
+      : null
+  return (
+    <div>
+      <ol className="divide-y divide-border border-y border-border">
+        {chips.map((chip, i) => (
+          <li key={chip.entity}>
+            <Link href={chip.href} className="group flex items-center gap-4 py-3">
+              <span className="w-5 shrink-0 font-serif text-title-3 text-muted-foreground italic tabular-nums">
+                {i + 1}
+              </span>
+              <span className="min-w-0 flex-1">
+                <span className="block truncate text-callout font-semibold group-hover:underline">
+                  {chip.label}
+                </span>
+                {chip.reason ? (
+                  <span className="block text-caption text-pretty text-muted-foreground">
+                    {chip.reason}
+                  </span>
+                ) : null}
+              </span>
+              <span className="inline-flex shrink-0 items-center gap-1 text-footnote font-semibold tabular-nums">
+                <TrendingUp aria-hidden className="size-4" strokeWidth={2} />
+                {chip.ratio}×
+              </span>
+            </Link>
+          </li>
+        ))}
+      </ol>
+      {widest ? <p className="mt-2 text-caption text-muted-foreground">{WIDENED[widest]}</p> : null}
     </div>
   )
 }

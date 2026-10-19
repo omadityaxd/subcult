@@ -8,7 +8,7 @@ import { type NicheFeed, buildNicheFeed } from "./feed"
 import { soundtrackFeedItems } from "@/lib/music/soundtrack"
 import { getSoundtrack } from "@/lib/music/soundtrack-server"
 import { buildForYou } from "./for-you"
-import { storyOrder } from "./video-cap"
+import { STORY_FRAMES, storyFrames } from "./story-mix"
 import { moodboardFeedItems } from "@/lib/moodboard/board"
 import { getMoodboard } from "@/lib/moodboard/server"
 import { archiveFeedItems, getArchive } from "@/lib/shop/server"
@@ -38,7 +38,6 @@ export function homeOrder(now: Date, taste: ReadonlyMap<string, number> | null):
 }
 
 const ITEMS_PER_NICHE = 8
-const STORY_ITEMS = 10
 
 async function feedFor(
   slug: string,
@@ -97,11 +96,11 @@ export async function getHomePage(
   }
 }
 
-/** Story frames for one niche: music first, other visuals, then headlines; video capped. */
+/** Story frames for one niche: Fit, Tea and Grail when it has them, at most 2 Sound, a poll. */
 export async function getStory(
   slug: string,
 ): Promise<{ niche: HomeNiche; items: FeedItem[] } | null> {
   const result = await feedFor(slug)
   if (!result) return null
-  return { niche: result.niche, items: storyOrder(result.items, STORY_ITEMS) }
+  return { niche: result.niche, items: storyFrames(result.items, STORY_FRAMES) }
 }

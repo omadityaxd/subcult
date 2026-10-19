@@ -8,6 +8,7 @@ import { feedItemPin } from "@/components/moodboard/pin-card"
 import { PinSheet } from "@/components/moodboard/pin-sheet"
 import { ArtistSheet } from "@/components/niche/artists-row"
 import { TasteCard } from "@/components/taste/taste-card"
+import { CopOrDrop } from "@/components/votes/cop-or-drop"
 import { gestures } from "@/lib/design/tokens"
 import type { FeedItem } from "@/lib/feed/types"
 import { cn } from "@/lib/utils"
@@ -145,11 +146,13 @@ export function FitEditorial({ items }: { items: readonly FeedItem[] }) {
       <div className="col-span-2 md:row-span-2">
         <TasteCard item={hero} niche={null} reason={null}>
           <Tile item={hero} hero onOpen={() => openItem(hero)} />
+          <CopOrDrop item={hero} className="mt-2" />
         </TasteCard>
       </div>
       {rest.map((item) => (
         <TasteCard key={item.id} item={item} niche={null} reason={null}>
           <Tile item={item} hero={false} onOpen={() => openItem(item)} />
+          <CopOrDrop item={item} size="sm" className="mt-2" />
         </TasteCard>
       ))}
       {open ? <Opened item={open} onClose={() => setOpen(null)} /> : null}

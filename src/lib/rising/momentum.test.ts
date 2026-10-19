@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest"
 import type { EntityRef } from "@/lib/taste/entities"
-import { type EntityEvent, computeMomentum, mentions, rising } from "./momentum"
+import { type EntityEvent, computeMomentum, mentions, momentumReason, rising } from "./momentum"
 
 const DAY = 24 * 3600_000
 const NOW = Date.parse("2026-10-16T12:00:00Z")
@@ -85,5 +85,29 @@ describe("mentions", () => {
         at: NOW - DAY,
       },
     ])
+  })
+})
+
+describe("momentumReason", () => {
+  it("says what actually happened this week, in plain counts", () => {
+    expect(momentumReason({ week: { headline: 3, release: 1 } })).toBe(
+      "3 new headlines + 1 release this week",
+    )
+    expect(momentumReason({ week: { save: 1 } })).toBe("1 save on subcult this week")
+  })
+
+  it("is null with nothing counted (old snapshots have no counts)", () => {
+    expect(momentumReason({})).toBeNull()
+    expect(momentumReason({ week: { headline: 0 } })).toBeNull()
+  })
+
+  it("counts only last week's events, unweighted", () => {
+    const at = (days: number) => NOW - days * 24 * 3600_000
+    const events: EntityEvent[] = [
+      { entity: "artist:x", label: "X", niche: "rage", source: "release", at: at(1) },
+      { entity: "artist:x", label: "X", niche: "rage", source: "headline", at: at(2) },
+      { entity: "artist:x", label: "X", niche: "rage", source: "headline", at: at(20) },
+    ]
+    expect(computeMomentum(events, NOW)[0]?.week).toEqual({ release: 1, headline: 1 })
   })
 })

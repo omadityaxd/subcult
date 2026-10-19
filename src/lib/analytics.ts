@@ -18,6 +18,8 @@ export type AnalyticsEvent =
   | "vibe_check_completed"
   | "vibe_match_shared"
   | "fit_posted"
+  | "cop_or_drop"
+  | "poll_voted"
 
 let started = false
 let client: PostHog | null = null

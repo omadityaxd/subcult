@@ -12,6 +12,8 @@ import { TAXONOMY, findPreset, findSeedProfile, nicheArtistsLeadFirst } from "@/
 import { entityPhoto, withTeaImage } from "./tea-image"
 import { moodboardFeedItems } from "@/lib/moodboard/board"
 import { getMoodboard } from "@/lib/moodboard/server"
+import { momentumReason } from "@/lib/rising/momentum"
+import { pickRising } from "@/lib/rising/pick"
 import { getRisingSnapshot } from "@/lib/rising/server"
 import { friendsInto } from "@/lib/social/server"
 import { archiveFeedItems, getArchive } from "@/lib/shop/server"
@@ -20,6 +22,7 @@ import {
   type Candidates,
   type FriendChip,
   type RisingChip,
+  SECTION_CAPS,
   type TodayEdition,
   assembleEdition,
   localClock,
@@ -229,16 +232,19 @@ async function risingChips(
 ): Promise<RisingChip[]> {
   const snapshot = await getRisingSnapshot()
   if (!snapshot) return []
-  const inMyNiches = snapshot.entities.filter(
-    (m) => mine.has(m.entity) || m.niches.some((n) => niches.includes(n)),
+  const adjacent = [
+    ...new Set(niches.flatMap((slug) => TAXONOMY.adjacent(slug).map((a) => a.slug))),
+  ].filter((slug) => !niches.includes(slug))
+  return pickRising(snapshot.entities, { niches, mine, adjacent }, SECTION_CAPS.scene).map(
+    ({ momentum: m, scope }) => ({
+      entity: m.entity,
+      label: m.label,
+      ratio: Math.round(m.ratio * 10) / 10,
+      href: hrefFor(m.entity, m.niches),
+      reason: momentumReason(m),
+      scope,
+    }),
   )
-  const pool = inMyNiches.length > 0 ? inMyNiches : snapshot.entities
-  return pool.map((m) => ({
-    entity: m.entity,
-    label: m.label,
-    ratio: Math.round(m.ratio * 10) / 10,
-    href: hrefFor(m.entity, m.niches),
-  }))
 }
 
 const settle = async <T>(label: string, work: Promise<T[]>): Promise<T[]> => {

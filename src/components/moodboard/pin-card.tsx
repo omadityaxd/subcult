@@ -5,6 +5,7 @@ import { MediaImage } from "@/components/ds/media-image"
 import type { FeedItem } from "@/lib/feed/types"
 import type { Pin, PinSource } from "@/lib/moodboard/types"
 import { ArtistSheet } from "@/components/niche/artists-row"
+import { CopOrDrop } from "@/components/votes/cop-or-drop"
 import { PinSheet } from "./pin-sheet"
 
 const num = (value: unknown) => (typeof value === "number" ? value : null)
@@ -58,6 +59,7 @@ export function PinCard({ item }: { item: FeedItem }) {
           {pin.credit.label}
         </p>
       ) : null}
+      {artistSlug ? null : <CopOrDrop item={item} size="sm" className="mt-2" />}
       {open && artistSlug ? (
         <ArtistSheet
           artist={{ slug: artistSlug, name: item.title, imageUrl: item.imageUrl }}
