@@ -1,3 +1,4 @@
+import { isYouTubeThumb } from "@/lib/images/youtube-crop"
 import { dedupeMusic } from "@/lib/feed/dedupe-music"
 import type { RisingScope } from "@/lib/rising/pick"
 import type { FeedItem } from "@/lib/feed/types"
@@ -134,12 +135,16 @@ const newestFirst = (a: FeedItem, b: FeedItem) =>
 
 const withImage = (item: FeedItem) => Boolean(item.imageUrl)
 
-/** Cover image: a real fit first, then a grail, then the lead story's image. Never music. */
+/**
+ * Cover image: a real fit first, then a grail, then the lead story's image.
+ * Never music. A YouTube thumbnail (480px, black bars) only makes the cover
+ * when nothing sharper exists: a cover is printed big.
+ */
 export function pickCover(c: Candidates): FeedItem | null {
+  const order = [...c.fits, ...c.archive, ...c.digest, ...c.headlines]
   return (
-    c.fits.find(coverWorthy) ??
-    c.archive.find(coverWorthy) ??
-    [...c.digest, ...c.headlines].find(coverWorthy) ??
+    order.find((item) => coverWorthy(item) && !isYouTubeThumb(item.imageUrl)) ??
+    order.find(coverWorthy) ??
     null
   )
 }

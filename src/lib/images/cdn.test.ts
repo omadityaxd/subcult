@@ -46,3 +46,19 @@ describe("cdnLoader", () => {
     expect(isResizable("https://i.ebayimg.com/images/g/x/s-l500.jpg")).toBe(true)
   })
 })
+
+describe("WordPress images", () => {
+  it("asks WordPress for the width it needs", () => {
+    const src =
+      "https://lede-admin.stereogum.com/wp-content/uploads/sites/64/2026/10/fakemink.jpeg?w=564"
+    expect(cdnImageUrl(src, 1200)).toBe(
+      "https://lede-admin.stereogum.com/wp-content/uploads/sites/64/2026/10/fakemink.jpeg?w=1200",
+    )
+    expect(isResizable(src)).toBe(true)
+  })
+
+  it("leaves WordPress images without a width alone", () => {
+    const src = "https://example.com/wp-content/uploads/a.jpg"
+    expect(cdnImageUrl(src, 1200)).toBe(src)
+  })
+})

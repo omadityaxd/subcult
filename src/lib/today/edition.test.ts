@@ -93,6 +93,16 @@ describe("the issue", () => {
     expect(pickCover({ ...empty, lateNight: full.lateNight, drops: full.drops })).toBeNull()
   })
 
+  it("prefers a sharp image to a YouTube thumbnail, which covers only as a last resort", () => {
+    const thumb = (id: string) => ({
+      ...full.fits[0]!,
+      id,
+      imageUrl: `https://i.ytimg.com/vi/${id}/hqdefault.jpg`,
+    })
+    expect(pickCover({ ...full, fits: [thumb("yt1")] })?.id).toBe("listing-0")
+    expect(pickCover({ ...empty, fits: [thumb("yt1")] })?.id).toBe("yt1")
+  })
+
   it("never repeats the cover inside a section, and lists the three biggest stories", () => {
     const issue = assembleEdition(full, opts)
     const ids = issue.sections.flatMap((s) => s.items.map((i) => i.id))

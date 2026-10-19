@@ -45,6 +45,14 @@ export function cdnImageUrl(src: string, width: number): string {
     const size = EBAY_SIZES.find((s) => s >= width) ?? 1600
     return src.replace(/s-l\d+\./, `s-l${size}.`)
   }
+  // WordPress (Jetpack/VIP) serves any width via ?w=: news photos come in at 564px otherwise.
+  if (
+    (host.endsWith(".wp.com") || url.pathname.includes("/wp-content/")) &&
+    /^\d+$/.test(url.searchParams.get("w") ?? "")
+  ) {
+    url.searchParams.set("w", String(width))
+    return url.toString()
+  }
   if (host === "images.unsplash.com" || host === "images.pexels.com") {
     url.searchParams.set("w", String(width))
     if (host === "images.pexels.com") url.searchParams.set("auto", "compress")

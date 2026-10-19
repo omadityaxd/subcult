@@ -253,7 +253,10 @@ export function StoryViewer({ niches, startIndex, onSeen, onClose }: StoryViewer
               <div
                 className={cn(
                   "relative mx-auto w-full max-w-sm overflow-hidden rounded-3xl shadow-pop",
-                  current.type === "video" ? "aspect-video" : "aspect-square",
+                  // Shorts are vertical: a 16:9 frame would blow a 480px thumbnail up 2.4×.
+                  current.type === "video" && current.meta.short !== true
+                    ? "aspect-video"
+                    : "aspect-square",
                 )}
               >
                 <MediaImage
@@ -264,7 +267,10 @@ export function StoryViewer({ niches, startIndex, onSeen, onClose }: StoryViewer
                   priority
                   className={youtubeCrop(current.imageUrl, {
                     short: current.meta.short === true,
-                    frame: current.type === "video" ? "landscape" : "portrait",
+                    frame:
+                      current.type === "video" && current.meta.short !== true
+                        ? "landscape"
+                        : "portrait",
                   })}
                 />
               </div>

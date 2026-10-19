@@ -224,6 +224,63 @@ Today is an Issue: each reader's daily subculture magazine, numbered from their 
 - **The Spotify test** (`pnpm test:spotify`): music may cover at most 20% of the first two screens,
   measured on `[data-kind="music"]` elements at 390 and 1440 for a new and a seeded reader.
 - The For You chips and the endless feed sit below the issue, after its back page.
+- **Each section has its own layout** (components/issue): The Tea is a spread (lead story with the
+  headline over its image, two side by side, a pull quote from the outlet's summary, briefs); The
+  Fit an editorial grid (one tall hero, paired tiles, brands and scene on hover or long-press);
+  The Grail a catalogue (the whole piece on a neutral backdrop, price set large, a stamp on
+  grails); The Sound a numbered list; The Scene a ranked list of what's rising with its reason.
+- **"Because you…" once per section** (`sectionReason`, the two strongest real signals behind its
+  items); on cards the reason sits behind an info icon.
+- **Never text-only:** a Tea story without its own image borrows the photo of the artist it names
+  (else the niche's artists in turn), tinted with the niche palette (`today/tea-image.ts`); a
+  borrowed photo never becomes the cover. YouTube thumbnails are zoomed past their black bars in
+  every frame (`images/youtube-crop.ts`).
+- **Niche pages are "the <niche> issue"**: `buildNicheIssue` runs the same assembly for a reader
+  who only follows that niche; the niche hero is its cover.
+
+## Content supply and coverage (lib/coverage, scripts/content-coverage.ts)
+
+The issue is only as good as what feeds it, so supply is measured, per niche and content type,
+against thresholds: fits 4, grails 8 (fashion niches only), tea with its own image 3, tracks 5,
+pins 6, videos 2. `pnpm content:coverage` prints the table and which keys are present; reports
+live in `docs/perf/coverage-*.txt`.
+
+| Type | Pipeline | Needs |
+|---|---|---|
+| Fits | Posted fits; moodboard images vision-tagged as outfits (artist photos read "seen on <artist>"); YouTube fit-check Shorts (fit words + strong niche match) | Anthropic key (vision), YouTube key |
+| Grails | eBay Browse, per verified brand; ≥8 per fashion niche | eBay keys |
+| Tea | Google News + scene RSS, decoded and cleaned; fallback image as above | none |
+| Tracks | Soundtracks from verified artists' previews; releases | Spotify (links), iTunes (no key) |
+| Pins | Are.na channels verified by their contents (`pnpm arena:discover`), Unsplash, Pexels, all vision-tagged before they reach a feed | Anthropic, Unsplash, Pexels keys |
+| Videos | YouTube search, quota-guarded (100 units a search) | YouTube key |
+
+Missing keys degrade to fewer cards, never to filler: nothing is padded with music, and an
+untagged image stays on the moodboard instead of reaching a feed.
+
+## Cop or Drop (votes table, api/vote)
+
+One vote per voter per item (user id, or `device:<uuid>` for guests), rate-limited and
+same-origin. Targets are an allowlist of item ids (listings, fits, tracks, releases, pins, fit
+checks, and polls of two): artist and profile ids can't be voted on, so it rates items, never
+people. A vote feeds taste (cop = like, drop = skip) and returns the real split; with one vote
+the label says "You're the first", never a percentage of one.
+
+## Stories (lib/feed/story-mix.ts)
+
+At most 2 Sound frames; a Fit, Tea and Grail frame whenever the niche has them; a thin niche gets
+a shorter story, never more tracks; one "this or that" poll when two looks of the same kind
+exist. Tests fail on a third Sound frame.
+
+## Vibe Check (lib/vibe)
+
+The deck is drawn per session (`vibeSession`): the classic cards, one card per featured niche
+from ~10 rotating one-liners each (`data/vibe-check/lines.json`), live cards from a random sample
+of niches' real fits, grails, pins and 5-second sound previews, and "this or that" pairs across
+scenes. `nextCard` explores first, then picks the card that best separates the front-runners
+(and confirms the leader); the deck stops at 10–16 cards once the top three stand clear. The
+seed comes from the server so the first card renders identically on server and client. A retake
+compares with the last result ("Your era shifted: rage → vamp"); the issue asks for a re-check
+weekly.
 
 ## Today (lib/today)
 
