@@ -14,9 +14,9 @@ import { gestures, springs } from "@/lib/design/tokens"
 import { useNicheUi } from "@/lib/niches/niche-ui-store"
 import { cn } from "@/lib/utils"
 
-/** Culture first: fits and archive ahead of sounds; news, video and community live in Scene. */
+/** The niche's issue first, then fits and archive ahead of sounds; news, video and community live in Scene. */
 export const NICHE_TABS = [
-  { id: "for-you", label: "For you" },
+  { id: "for-you", label: "The issue" },
   { id: "fits", label: "Fits" },
   { id: "archive", label: "Archive" },
   { id: "sounds", label: "Sounds" },

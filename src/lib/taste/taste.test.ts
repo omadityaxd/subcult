@@ -17,7 +17,7 @@ import {
   isColdStart,
   topEntities,
 } from "./model"
-import { pageReasons, personalNicheOrder, personalizePage, reasonFor } from "./rank"
+import { pageReasons, personalNicheOrder, personalizePage, reasonFor, sectionReason } from "./rank"
 
 const DAY = 24 * 3600_000
 const NOW = Date.parse("2026-10-16T12:00:00Z")
@@ -199,6 +199,31 @@ describe("reasonFor", () => {
     expect(
       reasonFor(item("x"), vector, "jerk", { slug: "jerk", why: "explore", from: "rage" }),
     ).toBe("New to you · close to rage")
+  })
+})
+
+describe("sectionReason", () => {
+  it("names the strongest real signals once for the whole section", () => {
+    const vector = computeAffinity(
+      [
+        signal("play", "artist:nettspend", 0, "Nettspend"),
+        signal("play", "artist:nettspend", 0, "Nettspend"),
+        signal("save", "brand:rick-owens", 0, "Rick Owens"),
+      ],
+      NOW,
+    )
+    const items = [
+      item("t1", { source: "spotify", type: "track", subtitle: "Nettspend" }),
+      item("t2", { source: "spotify", type: "track", subtitle: "Nettspend" }),
+      item("b", { source: "subcult", type: "brand", meta: { brandSlug: "rick-owens" } }),
+    ]
+    expect(sectionReason(items, vector)).toBe(
+      "Picked because you saved Rick Owens and played Nettspend",
+    )
+  })
+
+  it("says nothing when the section isn't personalized", () => {
+    expect(sectionReason([item("x")], new Map())).toBeNull()
   })
 })
 

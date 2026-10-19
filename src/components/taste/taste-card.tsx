@@ -1,6 +1,6 @@
 "use client"
 
-import { TrendingUp, X } from "lucide-react"
+import { Info, TrendingUp, X } from "lucide-react"
 import { type ReactNode, useEffect, useRef, useState } from "react"
 import type { FeedItem } from "@/lib/feed/types"
 import { labeledEntitiesOfItem } from "@/lib/taste/entities"
@@ -21,12 +21,14 @@ interface TasteCardProps {
 }
 
 /**
- * Wraps a feed card: learns from dwell and opens, says why it's here, and
+ * Wraps a feed card: learns from dwell and opens, says why it's here (behind
+ * an info icon, so the reason doesn't sit above every card), and
  * takes "not my vibe" (which hides it and steers future ranking away).
  */
 export function TasteCard({ item, niche, reason, rising = false, children }: TasteCardProps) {
   const ref = useRef<HTMLDivElement>(null)
   const [dismissed, setDismissed] = useState(false)
+  const [showWhy, setShowWhy] = useState(false)
 
   useEffect(() => {
     registerItemEntities(item.id, labeledEntitiesOfItem(item, niche))
@@ -86,7 +88,20 @@ export function TasteCard({ item, niche, reason, rising = false, children }: Tas
               Rising
             </span>
           ) : null}
-          <p className="min-w-0 flex-1 truncate text-caption text-muted-foreground">{reason}</p>
+          <span className="flex-1" />
+          {reason ? (
+            <button
+              type="button"
+              data-taste-ignore
+              onClick={() => setShowWhy((v) => !v)}
+              aria-expanded={showWhy}
+              aria-label="Why you're seeing this"
+              title={reason}
+              className="-my-2 grid size-8 shrink-0 place-items-center rounded-full text-subtle hover:bg-muted hover:text-foreground"
+            >
+              <Info aria-hidden className="size-3.5" strokeWidth={2} />
+            </button>
+          ) : null}
           <button
             type="button"
             data-taste-ignore
@@ -101,6 +116,9 @@ export function TasteCard({ item, niche, reason, rising = false, children }: Tas
             <X aria-hidden className="size-3.5" strokeWidth={2} />
           </button>
         </div>
+      ) : null}
+      {showWhy && reason ? (
+        <p className="mb-2 px-0.5 text-caption text-muted-foreground">{reason}</p>
       ) : null}
       {children}
     </div>

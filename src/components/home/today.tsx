@@ -9,7 +9,8 @@ import { track } from "@/lib/analytics"
 import type { FeedItem } from "@/lib/feed/types"
 import type { ApiResponse } from "@/lib/request"
 import { readSaves } from "@/lib/saves"
-import { readTasteVector } from "@/lib/taste/store"
+import { sectionReason } from "@/lib/taste/rank"
+import { readTasteVector, useTasteVector } from "@/lib/taste/store"
 import { formatAge } from "@/lib/time"
 import type { TodayEdition } from "@/lib/today/edition"
 import { sinceLabel } from "@/lib/today/edition"
@@ -123,6 +124,7 @@ export function Today({
   )
   const [attempt, setAttempt] = useState(0)
   const archive = useIssueArchive()
+  const vector = useTasteVector()
   // The visit marker moves once per mount, not per retry.
   const [lastVisit] = useState(() => (typeof window === "undefined" ? null : touchVisit()))
 
@@ -222,6 +224,7 @@ export function Today({
             section={section}
             index={i + 1}
             now={edition.generatedAt}
+            reason={section.id === "scene" ? null : sectionReason(section.items, vector)}
           />
         ))}
       </div>

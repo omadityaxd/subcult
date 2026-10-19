@@ -117,7 +117,14 @@ export function fitFeedItems(views: readonly FitView[]): FeedItem[] {
     url: `/fits/${fit.id}`,
     publishedAt: fit.createdAt,
     score: 1,
-    meta: { fitId: fit.id, width: fit.width, height: fit.height, likeCount: fit.likeCount },
+    meta: {
+      fitId: fit.id,
+      width: fit.width,
+      height: fit.height,
+      likeCount: fit.likeCount,
+      nicheName: fit.niches[0]?.name ?? null,
+      brandNames: fit.brands.map((brand) => brand.name).join(", ") || null,
+    },
   }))
 }
 

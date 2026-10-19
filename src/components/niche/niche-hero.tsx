@@ -55,6 +55,9 @@ export function NicheHero({ profile, badge, mosaic, imageUrl }: NicheHeroProps) 
               {badge}
             </span>
           ) : null}
+          <p className="mb-1 text-caption font-semibold tracking-[0.2em] text-white/80 uppercase">
+            The {profile.name} issue
+          </p>
           <h1 className="font-serif text-display text-balance italic drop-shadow-sm">
             {profile.name}
           </h1>

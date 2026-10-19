@@ -6,6 +6,7 @@ import { useRef, useState } from "react"
 import { Button } from "@/components/ds/button"
 import { DoubleTapSave } from "@/components/ds/double-tap-save"
 import { MediaImage } from "@/components/ds/media-image"
+import { PaletteTint } from "@/components/ds/palette-tint"
 import { ResponsiveSheet } from "@/components/ds/responsive-sheet"
 import { SaveButton } from "@/components/ds/save-button"
 import { gestures } from "@/lib/design/tokens"
@@ -18,7 +19,6 @@ import { FitFeedCard } from "@/components/fits/fit-tile"
 import { PinCard } from "@/components/moodboard/pin-card"
 import { ProductCard } from "@/components/shop/product-card"
 import { VideoCard } from "@/components/video/video-card"
-import { overlayPalette } from "@/lib/today/tea-image"
 import { MusicCard } from "./music-card"
 import { SubcultCard } from "./subcult-card"
 
@@ -204,7 +204,6 @@ function ExternalCard({ item, context, now }: FeedCardProps) {
 }
 
 function Artwork({ item }: { item: FeedItem }) {
-  const tint = overlayPalette(item)
   return (
     <div
       className={cn(
@@ -218,15 +217,7 @@ function Artwork({ item }: { item: FeedItem }) {
         alt=""
         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
       />
-      {tint ? (
-        <span
-          aria-hidden
-          className="absolute inset-0 opacity-70 mix-blend-multiply"
-          style={{
-            background: `linear-gradient(160deg, ${[...tint, ...tint].slice(0, Math.max(2, tint.length)).join(", ")})`,
-          }}
-        />
-      ) : null}
+      <PaletteTint item={item} />
       {item.type === "video" ? (
         <span className="absolute inset-0 grid place-items-center">
           <span className="grid size-12 place-items-center rounded-full bg-black/45 text-white backdrop-blur-md">

@@ -161,9 +161,10 @@ async function sceneHighlights(niches: readonly string[]): Promise<FeedItem[]> {
   const longest = Math.max(0, ...feeds.map((f) => f.length))
   for (let i = 0; i < longest; i++) for (const feed of feeds) if (feed[i]) out.push(feed[i])
   // Visual first: music has its own sections (drops, late night); video stays a garnish.
+  // Artist portraits aren't scene activity (rising chips already name who's moving).
   let videos = 0
   return out.filter((item) => {
-    if (item.type === "track" || item.type === "playlist") return false
+    if (item.type === "track" || item.type === "playlist" || item.type === "artist") return false
     if (item.type === "video") return ++videos <= MORE_VIDEOS
     return true
   })
@@ -188,11 +189,20 @@ async function newFits(niches: readonly string[], since: number): Promise<FeedIt
   const fresh = fitFeedItems(posted.flat()).filter(
     (item) => Date.parse(item.publishedAt ?? "0") > since,
   )
-  const taggedFits = boards.flatMap((board) =>
-    moodboardFeedItems(board.pins).filter((item) => item.meta.fit === true),
+  // The Fit's captions name the scene each look came from.
+  const inNiche = (slug: string) => (item: FeedItem) => ({
+    ...item,
+    meta: { ...item.meta, nicheName: findPreset(slug)?.name ?? null },
+  })
+  const taggedFits = boards.flatMap((board, i) =>
+    moodboardFeedItems(board.pins)
+      .filter((item) => item.meta.fit === true)
+      .map(inNiche(niches[i] ?? "")),
   )
-  const fitChecks = feeds.flatMap((feed) =>
-    (feed?.bySource.youtube ?? []).filter((item) => item.meta.fitCheck === true),
+  const fitChecks = feeds.flatMap((feed, i) =>
+    (feed?.bySource.youtube ?? [])
+      .filter((item) => item.meta.fitCheck === true)
+      .map(inNiche(niches[i] ?? "")),
   )
   const seen = new Set<string>()
   return [...fresh, ...taggedFits, ...fitChecks].filter(
@@ -301,4 +311,17 @@ export async function buildToday(req: TodayRequest, now = Date.now()): Promise<T
   const lead = findPreset(niches[0] ?? "")
   const edition = assembleEdition(candidates, { now, mode, cold, nicheName: lead?.name ?? null })
   return { ...edition, cover: { ...edition.cover, palette: lead?.palette ?? null } }
+}
+
+/** "The <niche> issue": Today's sections for one scene, read as someone who only follows it. */
+export function buildNicheIssue(slug: string, now = Date.now()): Promise<TodayEdition> {
+  return buildToday(
+    {
+      entities: [{ ref: `niche:${slug}`, score: 1 }],
+      brands: [],
+      lastVisit: null,
+      timeZone: "UTC",
+    },
+    now,
+  )
 }

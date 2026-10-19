@@ -72,7 +72,7 @@ export function FitFeedCard({ item }: { item: FeedItem }) {
   )
 }
 
-function FitSheetLoader({ id, onClose }: { id: string; onClose: () => void }) {
+export function FitSheetLoader({ id, onClose }: { id: string; onClose: () => void }) {
   const [fit, setFit] = useState<FitView | null>(null)
   const [failed, setFailed] = useState(false)
   useEffect(() => {

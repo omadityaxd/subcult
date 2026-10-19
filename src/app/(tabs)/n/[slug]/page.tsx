@@ -25,6 +25,7 @@ import {
   TwoHops,
 } from "@/components/niche/graph-sections"
 import { NicheHero } from "@/components/niche/niche-hero"
+import { NicheIssue } from "@/components/issue/niche-issue"
 import { WhoToFollow } from "@/components/niche/who-to-follow"
 import { whoToFollow } from "@/lib/social/instagram"
 import { NicheVisit } from "@/components/wrapped/trackers"
@@ -151,12 +152,12 @@ function NicheWorld({
         <div className="container-page mt-2 md:mt-8 lg:grid lg:grid-cols-[minmax(0,1fr)_18rem] lg:gap-14">
           <div className="min-w-0">
             <NicheTabs
-              initialTab={
-                TAXONOMY.branchOf(profile.slug) === "underground-fashion" ? "fits" : "for-you"
-              }
               panels={{
                 "for-you": (
                   <>
+                    <Suspense fallback={<FeedSkeleton count={3} />}>
+                      <NicheIssue slug={profile.slug} />
+                    </Suspense>
                     <ForYouSection profile={profile} sources={meta?.sources ?? []} />
                     <div className="mt-10 space-y-10">
                       <ArtistsRow artists={artists} themeStyle={theme.style} />

@@ -208,3 +208,33 @@ export function pageReasons(
     return reason.text
   })
 }
+
+const SECTION_REASONS = 2
+
+/**
+ * One "because you…" line for a whole section of the issue: the strongest
+ * real signals behind its items ("Picked because you played Playboi Carti
+ * and checked out rage"), or null when nothing in it is personalized.
+ */
+export function sectionReason(items: readonly FeedItem[], vector: TasteVector): string | null {
+  const best = new Map<string, { score: number; phrase: string }>()
+  for (const item of items) {
+    const niche = typeof item.meta.nicheSlug === "string" ? item.meta.nicheSlug : null
+    const { score, via } = itemAffinity(item, vector, niche)
+    if (!via?.because || score <= 0.5) continue
+    const phrase =
+      via.because === "vibe_check"
+        ? `matched ${via.label} in your vibe check`
+        : VERB[via.because]
+          ? `${VERB[via.because]} ${via.label}`
+          : null
+    if (!phrase) continue
+    const prior = best.get(via.entity)
+    if (!prior || prior.score < score) best.set(via.entity, { score, phrase })
+  }
+  const top = [...best.values()]
+    .sort((a, b) => b.score - a.score)
+    .slice(0, SECTION_REASONS)
+    .map((r) => r.phrase)
+  return top.length > 0 ? `Picked because you ${top.join(" and ")}` : null
+}

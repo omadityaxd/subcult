@@ -9,7 +9,10 @@ import { getAudioEngine } from "@/lib/audio/use-audio"
 import type { FeedItem } from "@/lib/feed/types"
 import { formatAge } from "@/lib/time"
 import type { SectionId, TodaySection } from "@/lib/today/edition"
+import { FitEditorial } from "./fit-editorial"
+import { GrailCatalog } from "./grail-catalog"
 import { IssueSectionHeader } from "./issue-section-header"
+import { TeaSpread } from "./tea-spread"
 
 const KICKERS: Record<SectionId, string> = {
   tea: "News",
@@ -45,12 +48,16 @@ export function IssueSection({
         reason={reason}
         id={id}
       />
-      {section.id === "sound" ? (
+      {section.id === "tea" ? (
+        <TeaSpread items={section.items} now={now} />
+      ) : section.id === "fit" ? (
+        <FitEditorial items={section.items} />
+      ) : section.id === "grail" ? (
+        <GrailCatalog items={section.items} />
+      ) : section.id === "sound" ? (
         <SoundList items={section.items} now={now} />
-      ) : section.id === "scene" ? (
-        <Scene section={section} now={now} />
       ) : (
-        <CardGrid items={section.items} now={now} />
+        <Scene section={section} now={now} />
       )}
     </section>
   )
@@ -58,7 +65,7 @@ export function IssueSection({
 
 function CardGrid({ items, now }: { items: readonly FeedItem[]; now: number }) {
   return (
-    <ul className="columns-1 gap-5 sm:columns-2 xl:columns-3">
+    <ul className="columns-2 gap-4 md:gap-5 xl:columns-3">
       {items.map((item) => (
         <li key={item.id} className="mb-7 break-inside-avoid">
           <TasteCard item={item} niche={null} reason={null}>
