@@ -53,6 +53,18 @@ export function cdnImageUrl(src: string, width: number): string {
   return src
 }
 
-/** next/image `loader`: called once per srcset width. */
-export const cdnLoader = ({ src, width }: { src: string; width: number }): string =>
-  cdnImageUrl(src, width)
+/** Whether a host serves sized variants at all (otherwise there's nothing to pick between). */
+export function isResizable(src: string): boolean {
+  return cdnImageUrl(src, 64) !== cdnImageUrl(src, 1600)
+}
+
+/**
+ * next/image `loader`: called once per srcset width. When the right variant
+ * is the one already in `src`, a `#w=` fragment marks the width (never sent to
+ * the server, so the cache is shared) and keeps next/image from warning that
+ * the loader ignores width.
+ */
+export const cdnLoader = ({ src, width }: { src: string; width: number }): string => {
+  const url = cdnImageUrl(src, width)
+  return url === src ? `${src}#w=${width}` : url
+}

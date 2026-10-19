@@ -5,11 +5,14 @@ import Link from "next/link"
 import { useEffect, useState } from "react"
 import type { ApiResponse } from "@/lib/request"
 import { cn } from "@/lib/utils"
+import { maybeSignedIn } from "@/lib/supabase/session-hint"
 
 /** Fired by the center after marking everything read, so every bell clears. */
 export const NOTIFICATIONS_READ_EVENT = "subcult:notifications-read"
 
 async function fetchUnread(): Promise<number> {
+  // Guests have no notifications: don't ask (it can only answer 401).
+  if (!maybeSignedIn()) return 0
   const response = await fetch("/api/notifications")
   if (!response.ok) return 0
   const body = (await response.json()) as ApiResponse<{ unread: number }>

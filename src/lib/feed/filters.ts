@@ -20,6 +20,10 @@ export function filterOf(item: FeedItem): Exclude<FeedFilter, "all"> {
   // Fits means outfits: posted fits and images vision-verified as one. Everything
   // else visual (stock, Are.na, artist photos) is scene imagery.
   if (item.type === "fit" || item.meta.fit === true) return "fits"
+  // Scenes is what's happening: headlines and new releases (plus scene imagery and video).
+  if (item.source === "news" || item.type === "release") return "scenes"
+  // Artists and their press photos belong with the music, never as a wall of portraits in Scenes.
+  if (item.type === "artist" || typeof item.meta.artistSlug === "string") return "sounds"
   if (mixKind(item) === "music") return "sounds"
   return "scenes"
 }

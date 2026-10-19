@@ -22,7 +22,10 @@ describe("For You filters", () => {
     expect(filterOf(item({ type: "brand" }))).toBe("brands")
     expect(filterOf(item({ type: "fit" }))).toBe("fits")
     expect(filterOf(item({ source: "arena", type: "pin", meta: { fit: true } }))).toBe("fits")
-    expect(filterOf(item({ type: "pin", meta: { artistSlug: "che" } }))).toBe("scenes")
+    // Artist portraits sit with the music, not in Scenes (Scenes is activity, not faces).
+    expect(filterOf(item({ type: "pin", meta: { artistSlug: "che" } }))).toBe("sounds")
+    expect(filterOf(item({ type: "artist" }))).toBe("sounds")
+    expect(filterOf(item({ type: "release", source: "subcult" }))).toBe("scenes")
     expect(filterOf(item({ source: "spotify", type: "track" }))).toBe("sounds")
     expect(filterOf(item({ source: "news", type: "article" }))).toBe("scenes")
     expect(filterOf(item({ source: "youtube", type: "video" }))).toBe("scenes")

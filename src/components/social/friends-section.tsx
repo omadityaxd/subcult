@@ -3,10 +3,10 @@
 import { Check, Link2 } from "lucide-react"
 import Link from "next/link"
 import { useEffect, useState } from "react"
-import { HandleForm } from "@/app/(tabs)/fits/new/handle-form"
 import { SectionHeader } from "@/components/ds/section-header"
 import type { ApiResponse } from "@/lib/request"
 import { cn } from "@/lib/utils"
+import { maybeSignedIn } from "@/lib/supabase/session-hint"
 
 interface Settings {
   handle: string
@@ -38,6 +38,13 @@ export function FriendsSection() {
 
   useEffect(() => {
     let cancelled = false
+    if (!maybeSignedIn()) {
+      // A guest: no request that can only answer 401.
+      queueMicrotask(() => !cancelled && setState({ kind: "guest" }))
+      return () => {
+        cancelled = true
+      }
+    }
     fetch("/api/profile/settings")
       .then(async (response) => {
         if (cancelled) return
@@ -70,7 +77,12 @@ export function FriendsSection() {
     return (
       <section id="friends" className="scroll-mt-20">
         <SectionHeader title="Friends" />
-        <HandleForm intro="Pick a handle so friends can find you." />
+        <p className="text-callout text-muted-foreground">
+          <a href="#account" className="font-semibold text-foreground underline">
+            Pick a handle
+          </a>{" "}
+          first: it&apos;s how friends find you.
+        </p>
       </section>
     )
   }

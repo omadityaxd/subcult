@@ -37,7 +37,7 @@ export function VibeResultCard({ niches, fallback }: VibeResultCardProps) {
           className="absolute inset-0 rounded-3xl bg-gradient-to-b from-black/30 to-black/60"
         />
         <span className="relative text-overline font-medium text-white/75 uppercase">
-          Your niche mix
+          Your niche mix · from your vibe check
         </span>
         <span className="relative font-serif text-title-1 leading-none italic">
           {mix[0].percent}% {top.name}

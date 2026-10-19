@@ -10,6 +10,7 @@ import type { ApiResponse } from "@/lib/request"
 import { type TasteVector, isColdStart } from "@/lib/taste/model"
 import { pageReasons, personalizePage } from "@/lib/taste/rank"
 import { readTasteVector, useSeen, useTasteVector } from "@/lib/taste/store"
+import { dedupeMusic } from "@/lib/feed/dedupe-music"
 
 const TASTE_NICHES = 20
 
@@ -78,27 +79,27 @@ export function InfiniteFeed({ initial, now, filter = "all" }: InfiniteFeedProps
     return () => observer.disconnect()
   }, [cursor, failed, loadMore])
 
-  const items = useMemo(
-    () =>
-      pages.flatMap((page) => {
-        const shown = applyFilter(
-          personalizePage(page.items, vector, seen, page.niche.slug),
-          filter,
-        )
-        const reasons = pageReasons(shown, vector, page.niche.slug, {
-          slug: page.niche.slug,
-          why: page.why ?? "default",
-          from: page.from,
-        })
-        return shown.map((item, i) => ({
-          item,
-          niche: page.niche,
-          reason: reasons[i] ?? null,
-          key: `${page.niche.slug}:${item.id}`,
-        }))
-      }),
-    [pages, vector, seen, filter],
-  )
+  const items = useMemo(() => {
+    // One song plays once across every page (it can reach several niches' feeds).
+    const heard = new Set<string>()
+    return pages.flatMap((page) => {
+      const shown = dedupeMusic(
+        applyFilter(personalizePage(page.items, vector, seen, page.niche.slug), filter),
+        heard,
+      )
+      const reasons = pageReasons(shown, vector, page.niche.slug, {
+        slug: page.niche.slug,
+        why: page.why ?? "default",
+        from: page.from,
+      })
+      return shown.map((item, i) => ({
+        item,
+        niche: page.niche,
+        reason: reasons[i] ?? null,
+        key: `${page.niche.slug}:${item.id}`,
+      }))
+    })
+  }, [pages, vector, seen, filter])
 
   return (
     <>

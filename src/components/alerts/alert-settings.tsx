@@ -7,6 +7,8 @@ import { SectionHeader } from "@/components/ds/section-header"
 import { type PushState, disablePush, enablePush, pushState } from "@/lib/alerts/client"
 import type { ApiResponse } from "@/lib/request"
 import { cn } from "@/lib/utils"
+import { zoneLabel, zoneToSave } from "@/lib/alerts/zone"
+import { maybeSignedIn } from "@/lib/supabase/session-hint"
 
 interface Prefs {
   drops: boolean
@@ -65,14 +67,22 @@ export function AlertSettings({ vapidPublicKey }: { vapidPublicKey: string | nul
   useEffect(() => {
     let cancelled = false
     void (async () => {
-      const response = await fetch("/api/alerts/prefs").catch(() => null)
+      const response = maybeSignedIn() ? await fetch("/api/alerts/prefs").catch(() => null) : null
       if (cancelled) return
       if (!response || response.status === 401 || response.status === 503) {
         setPrefs("guest")
         return
       }
       const body = (await response.json()) as ApiResponse<Prefs>
-      if (body.success) setPrefs(body.data)
+      if (body.success) {
+        // Quiet hours are in the reader's own time: keep the saved zone in step with the device.
+        const zone = zoneToSave(
+          body.data.timeZone,
+          Intl.DateTimeFormat().resolvedOptions().timeZone,
+        )
+        setPrefs(zone ? { ...body.data, timeZone: zone } : body.data)
+        if (zone) void put({ timeZone: zone })
+      }
       const grailBody = (await fetch("/api/grails").then((r) => r.json())) as ApiResponse<{
         grails: Grail[]
       }>
@@ -183,7 +193,9 @@ export function AlertSettings({ vapidPublicKey }: { vapidPublicKey: string | nul
               </option>
             ))}
           </select>
-          <span className="text-footnote text-muted-foreground">({prefs.timeZone})</span>
+          <span className="text-footnote text-muted-foreground" title={prefs.timeZone}>
+            {zoneLabel(prefs.timeZone)}
+          </span>
         </div>
 
         <div className="rounded-2xl bg-card px-4 py-3">

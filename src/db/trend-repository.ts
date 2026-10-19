@@ -1,4 +1,4 @@
-import { and, asc, desc, eq, lt, lte, ne, sql } from "drizzle-orm"
+import { and, asc, desc, eq, gt, isNull, lt, lte, ne, or, sql } from "drizzle-orm"
 import type { NicheProfile } from "../lib/engine/profile-schema"
 import type { NicheStatus } from "../lib/niches/lifecycle"
 import type { NewTrendingNiche, TrendStore } from "../lib/trends/types"
@@ -133,7 +133,8 @@ export async function listActiveTrending(
       trendScore: niches.trendScore,
     })
     .from(niches)
-    .where(and(activeTrending, sql`(${niches.expiresAt} is null or ${niches.expiresAt} > ${now})`))
+    // Typed operators, not a raw sql template: they encode the Date for the driver.
+    .where(and(activeTrending, or(isNull(niches.expiresAt), gt(niches.expiresAt, now))))
     .orderBy(sql`${niches.trendScore} desc nulls last`, desc(niches.publishedAt))
     .limit(limit)
   return rows.map(({ profile, publishedAt, trendScore }) =>

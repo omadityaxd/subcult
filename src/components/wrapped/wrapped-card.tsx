@@ -53,7 +53,7 @@ export function WrappedCard({ niches, artistImages }: WrappedCardProps) {
             className="absolute inset-0 rounded-3xl bg-gradient-to-br from-black/50 to-black/20"
           />
           <span className="relative text-overline font-medium text-white/75 uppercase">
-            Your Wrapped
+            Your Wrapped · from what you actually played
           </span>
           <span className="relative font-serif text-title-1 leading-none italic">
             {week

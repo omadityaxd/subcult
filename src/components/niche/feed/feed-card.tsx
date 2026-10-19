@@ -236,8 +236,12 @@ function Artwork({ item }: { item: FeedItem }) {
 
 const str = (value: unknown) => (typeof value === "string" && value ? value : null)
 const outletOf = (item: FeedItem) => str(item.meta.outlet) ?? item.subtitle
-const faviconOf = (item: FeedItem) =>
-  faviconFor(hostOf(item.url) === "news.google.com" ? outletOf(item) : hostOf(item.url))
+/** A real domain only: an outlet's name ("Complex") isn't one, and the lookup 404s. */
+const faviconOf = (item: FeedItem) => {
+  const host = hostOf(item.url)
+  const domain = str(item.meta.domain) ?? (host === "news.google.com" ? null : host)
+  return domain && domain.includes(".") ? faviconFor(domain) : null
+}
 
 function NewDot() {
   return (

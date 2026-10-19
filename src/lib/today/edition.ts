@@ -1,3 +1,4 @@
+import { dedupeMusic } from "@/lib/feed/dedupe-music"
 import type { RisingScope } from "@/lib/rising/pick"
 import type { FeedItem } from "@/lib/feed/types"
 
@@ -210,7 +211,10 @@ export function assembleEdition(
   const lateNight = mode === "night" || mode === "weekend" ? candidates.lateNight : []
   push(
     "sound",
-    take([...[...candidates.drops].sort(newestFirst), ...lateNight], SECTION_CAPS.sound),
+    take(
+      dedupeMusic([...[...candidates.drops].sort(newestFirst), ...lateNight]),
+      SECTION_CAPS.sound,
+    ),
   )
 
   const rising = candidates.rising.slice(0, Math.min(SECTION_CAPS.scene, TODAY_MAX - count))

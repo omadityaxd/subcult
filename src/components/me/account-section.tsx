@@ -6,6 +6,7 @@ import { FitGrid } from "@/components/fits/fit-tile"
 import { myFits } from "@/lib/fits/server"
 import { postingEnabled } from "@/lib/supabase/admin"
 import { authEnabled, getViewer } from "@/lib/supabase/server"
+import { HandleForm } from "@/app/(tabs)/fits/new/handle-form"
 
 /** Me: who you are, your fits and the fits you saved; or the way in. */
 export async function AccountSection() {
@@ -40,26 +41,32 @@ export async function AccountSection() {
   const { profile, posted, saved } = await myFits(viewer)
   return (
     <div className="space-y-12">
-      <section className="flex items-center gap-4">
-        <span className="grid size-16 shrink-0 place-items-center rounded-full bg-foreground font-serif text-title-2 text-background italic">
-          {(profile?.handle ?? viewer.email ?? "?").charAt(0).toUpperCase()}
-        </span>
-        <div className="min-w-0 flex-1">
-          <p className="truncate text-headline font-semibold">
-            {profile ? `@${profile.handle}` : "No handle yet"}
-          </p>
-          <p className="text-callout text-muted-foreground">
-            {posted.length} {posted.length === 1 ? "fit" : "fits"}
-          </p>
+      <section id="account" className="scroll-mt-20 space-y-5">
+        <div className="flex items-center gap-4">
+          <span className="grid size-16 shrink-0 place-items-center rounded-full bg-foreground font-serif text-title-2 text-background italic">
+            {(profile?.handle ?? viewer.email ?? "?").charAt(0).toUpperCase()}
+          </span>
+          <div className="min-w-0 flex-1">
+            <p className="truncate text-headline font-semibold">
+              {profile ? `@${profile.handle}` : "No handle yet"}
+            </p>
+            <p className="text-callout text-muted-foreground">
+              {posted.length} {posted.length === 1 ? "fit" : "fits"}
+            </p>
+          </div>
+          <form action="/auth/signout" method="post">
+            <button
+              type="submit"
+              className="h-9 rounded-full border border-border-strong px-3 text-footnote font-medium hover:bg-muted"
+            >
+              Sign out
+            </button>
+          </form>
         </div>
-        <form action="/auth/signout" method="post">
-          <button
-            type="submit"
-            className="h-9 rounded-full border border-border-strong px-3 text-footnote font-medium hover:bg-muted"
-          >
-            Sign out
-          </button>
-        </form>
+        {/* The one place to pick a handle (fits, friends and invites all wait on it). */}
+        {profile ? null : (
+          <HandleForm intro="Pick your handle: friends find you by it and your fits are credited to it." />
+        )}
       </section>
 
       {postingEnabled() ? (
