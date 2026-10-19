@@ -11,6 +11,7 @@ import { TasteCard } from "@/components/taste/taste-card"
 import { CopOrDrop } from "@/components/votes/cop-or-drop"
 import { gestures } from "@/lib/design/tokens"
 import type { FeedItem } from "@/lib/feed/types"
+import { youtubeCrop } from "@/lib/images/youtube-crop"
 import { cn } from "@/lib/utils"
 import { openReels } from "@/lib/video/reels-store"
 
@@ -90,10 +91,9 @@ function Tile({ item, hero, onOpen }: { item: FeedItem; hero: boolean; onOpen: (
           sizes={hero ? "(max-width: 768px) 100vw, 560px" : "(max-width: 768px) 50vw, 280px"}
           className={cn(
             "transition-transform duration-500 ease-out",
-            // Shorts thumbnails are 4:3 frames with the vertical video pillarboxed: crop the bars.
-            item.meta.short === true
-              ? "scale-[1.34] group-hover:scale-[1.38]"
-              : "group-hover:scale-[1.03]",
+            // YouTube thumbnails carry black bars: zoom past them (no hover zoom on top).
+            youtubeCrop(item.imageUrl, { short: item.meta.short === true, frame: "portrait" }) ||
+              "group-hover:scale-[1.03]",
           )}
         />
       ) : null}

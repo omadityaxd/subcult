@@ -4,6 +4,7 @@ import { Share } from "lucide-react"
 import { useState } from "react"
 import { Cover } from "@/components/ds/cover"
 import { MediaImage } from "@/components/ds/media-image"
+import { youtubeCrop } from "@/lib/images/youtube-crop"
 import type { IssueCover as IssueCoverData } from "@/lib/today/edition"
 import { formatIssueNo } from "@/lib/today/issues"
 
@@ -18,16 +19,27 @@ export function IssueCover({
   cover,
   issueNo,
   dateLabel,
+  debut = false,
 }: {
   cover: IssueCoverData
   issueNo: number
   dateLabel: string
+  /** The reader's first issue: the cover assembles itself (masthead, headline, lines). */
+  debut?: boolean
 }) {
   const image = cover.item?.imageUrl ?? null
+  const enter = (delay: string) =>
+    debut
+      ? `animate-in fade-in slide-in-from-bottom-3 fill-mode-both duration-700 ease-out motion-reduce:animate-none ${delay}`
+      : ""
   const body = (
     <div className="relative flex h-full flex-col justify-between p-5 text-white md:p-10">
       <div className="flex items-start justify-between gap-3">
-        <span className="font-serif text-[34px] leading-none italic md:text-[52px]">subcult</span>
+        <span
+          className={`font-serif text-[34px] leading-none italic md:text-[52px] ${enter("delay-0")}`}
+        >
+          subcult
+        </span>
         <span className="text-right text-caption font-semibold tracking-[0.2em] text-white/80 uppercase">
           No. {formatIssueNo(issueNo)}
           <br />
@@ -37,12 +49,14 @@ export function IssueCover({
       <div>
         <h2
           data-testid="issue-headline"
-          className="max-w-3xl font-serif text-[44px] leading-[0.95] text-balance italic md:text-[84px]"
+          className={`max-w-3xl font-serif text-[44px] leading-[0.95] text-balance italic md:text-[84px] ${enter("delay-300")}`}
         >
           {cover.headline}
         </h2>
         {cover.lines.length > 0 ? (
-          <ul className="mt-5 max-w-xl space-y-1.5 text-callout font-medium text-white/90">
+          <ul
+            className={`mt-5 max-w-xl space-y-1.5 text-callout font-medium text-white/90 ${enter("delay-700")}`}
+          >
             {cover.lines.map((line) => (
               <li key={line} className="flex gap-2">
                 <span aria-hidden className="text-white/60">
@@ -63,7 +77,16 @@ export function IssueCover({
     >
       {image ? (
         <>
-          <MediaImage src={image} alt="" sizes="(max-width: 768px) 100vw, 1100px" priority />
+          <MediaImage
+            src={image}
+            alt=""
+            sizes="(max-width: 768px) 100vw, 1100px"
+            priority
+            className={youtubeCrop(image, {
+              short: cover.item?.meta.short === true,
+              frame: "portrait-then-landscape",
+            })}
+          />
           <span
             aria-hidden
             className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/10 to-black/75"

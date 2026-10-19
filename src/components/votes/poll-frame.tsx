@@ -4,6 +4,7 @@ import { useState } from "react"
 import { MediaImage } from "@/components/ds/media-image"
 import { track } from "@/lib/analytics"
 import type { FeedItem } from "@/lib/feed/types"
+import { youtubeCrop } from "@/lib/images/youtube-crop"
 import { cn } from "@/lib/utils"
 import { type VoteTally, splitOf } from "@/lib/votes/split"
 import { castVote, useMyVote } from "@/lib/votes/store"
@@ -57,8 +58,7 @@ export function PollFrame({ item }: { item: FeedItem }) {
                   src={side.image}
                   alt=""
                   sizes="190px"
-                  // Shorts thumbnails are pillarboxed 4:3 frames: crop to the video.
-                  className={side.short ? "scale-[1.34]" : undefined}
+                  className={youtubeCrop(side.image, { short: side.short, frame: "portrait" })}
                 />
               ) : null}
               {mine !== null && tally && total > 1 ? (

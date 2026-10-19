@@ -13,6 +13,7 @@ import { useCallback, useEffect, useRef, useState } from "react"
 import { Cover } from "@/components/ds/cover"
 import { MediaImage } from "@/components/ds/media-image"
 import { springs } from "@/lib/design/tokens"
+import { youtubeCrop } from "@/lib/images/youtube-crop"
 import { MAX_CARDS, MIN_CARDS, nextCard, seededRandom } from "@/lib/vibe/adaptive"
 import type { DeckCard, PairSide } from "@/lib/vibe/data"
 import type { Answer } from "@/lib/vibe/score"
@@ -228,8 +229,7 @@ function Picture({ src, crop, sizes }: { src: string; crop?: boolean; sizes: str
       alt=""
       sizes={sizes}
       priority
-      // Shorts thumbnails are pillarboxed 4:3 frames: crop to the video.
-      className={crop ? "scale-[1.34]" : undefined}
+      className={youtubeCrop(src, { short: crop, frame: "portrait" })}
     />
   )
 }

@@ -12,6 +12,7 @@ import { getAudioEngine, useAudioState } from "@/lib/audio/use-audio"
 import { STORY_ITEM_MS, gestures, springs } from "@/lib/design/tokens"
 import type { HomeNiche } from "@/lib/feed/featured"
 import type { FeedItem } from "@/lib/feed/types"
+import { youtubeCrop } from "@/lib/images/youtube-crop"
 import type { ApiResponse } from "@/lib/request"
 import { cn } from "@/lib/utils"
 import { MusicSticker } from "./music-sticker"
@@ -255,7 +256,17 @@ export function StoryViewer({ niches, startIndex, onSeen, onClose }: StoryViewer
                   current.type === "video" ? "aspect-video" : "aspect-square",
                 )}
               >
-                <MediaImage key={current.id} src={current.imageUrl} alt="" sizes="384px" priority />
+                <MediaImage
+                  key={current.id}
+                  src={current.imageUrl}
+                  alt=""
+                  sizes="384px"
+                  priority
+                  className={youtubeCrop(current.imageUrl, {
+                    short: current.meta.short === true,
+                    frame: current.type === "video" ? "landscape" : "portrait",
+                  })}
+                />
               </div>
               <p className="mx-auto mt-6 max-w-sm text-title-3 font-semibold text-balance">
                 {current.title}
