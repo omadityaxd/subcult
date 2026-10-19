@@ -1,7 +1,7 @@
 import { z } from "zod"
 
-/** Swipe right = that's me, left = not me, skip = no opinion. */
-export type Answer = "like" | "pass" | "skip"
+/** Swipe right = that's me, left = not me, skip = no opinion; a/b picks a side of a pair. */
+export type Answer = "like" | "pass" | "skip" | "a" | "b"
 
 export const vibeCardSchema = z.object({
   id: z.string().regex(/^[a-z0-9-]+$/),
@@ -24,24 +24,48 @@ export interface NicheShare {
 const PASS_PENALTY = 0.3
 export const MIX_SIZE = 3
 
+export type Weights = Readonly<Record<string, number>>
+
+/** What scoring needs from a card: its weights, or a pair's two sides. */
+export interface ScoredCard {
+  id: string
+  weights: Weights
+  pair?: { a: { weights: Weights }; b: { weights: Weights } }
+}
+
 /** Net score per niche from the answers (only positive scores survive). */
 export function scoreVibe(
-  cards: readonly Pick<VibeCard, "id" | "weights">[],
+  cards: readonly ScoredCard[],
   answers: Readonly<Record<string, Answer>>,
 ): { slug: string; score: number }[] {
-  const scores = new Map<string, number>()
-  for (const card of cards) {
-    const answer = answers[card.id]
-    if (!answer || answer === "skip") continue
-    const sign = answer === "like" ? 1 : -PASS_PENALTY
-    for (const [slug, weight] of Object.entries(card.weights)) {
-      scores.set(slug, (scores.get(slug) ?? 0) + sign * weight)
-    }
-  }
-  return [...scores]
+  return [...rawScores(cards, answers)]
     .filter(([, score]) => score > 0)
     .map(([slug, score]) => ({ slug, score }))
     .sort((a, b) => b.score - a.score || a.slug.localeCompare(b.slug))
+}
+
+/** Every niche's net score, negatives included (the adaptive deck needs both). */
+export function rawScores(
+  cards: readonly ScoredCard[],
+  answers: Readonly<Record<string, Answer>>,
+): Map<string, number> {
+  const scores = new Map<string, number>()
+  const add = (weights: Weights, sign: number) => {
+    for (const [slug, weight] of Object.entries(weights)) {
+      scores.set(slug, (scores.get(slug) ?? 0) + sign * weight)
+    }
+  }
+  for (const card of cards) {
+    const answer = answers[card.id]
+    if (!answer || answer === "skip") continue
+    // Picking a side of a pair is a "that's me" for that side only.
+    if (answer === "a" || answer === "b") {
+      if (card.pair) add(card.pair[answer].weights, 1)
+      continue
+    }
+    add(card.weights, answer === "like" ? 1 : -PASS_PENALTY)
+  }
+  return scores
 }
 
 /**

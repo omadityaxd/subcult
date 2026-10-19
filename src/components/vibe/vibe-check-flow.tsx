@@ -4,7 +4,8 @@ import { useState } from "react"
 import type { ApiResponse } from "@/lib/request"
 import type { DeckCard, MixNiche } from "@/lib/vibe/data"
 import { type Answer, type Blurbs, scoreVibe, templateBlurb, topMix } from "@/lib/vibe/score"
-import { saveVibeResult } from "@/lib/vibe/storage"
+import { eraShift } from "@/lib/vibe/era"
+import { saveVibeResult, useVibeResult } from "@/lib/vibe/storage"
 import { recordVibeCheck } from "@/lib/taste/store"
 import { VibeDeck } from "./vibe-deck"
 import { VibeResult } from "./vibe-result"
@@ -19,7 +20,10 @@ export interface NicheInfo {
 }
 
 interface VibeCheckFlowProps {
+  /** This session's pool; the deck picks from it adaptively. */
   cards: readonly DeckCard[]
+  /** Server-chosen, so the first card renders the same on server and client. */
+  seed: number
   /** Every niche the deck can land on. */
   niches: Readonly<Record<string, NicheInfo>>
   blurbs: Blurbs
@@ -29,11 +33,17 @@ interface VibeCheckFlowProps {
  * Deck → result. The template blurb shows instantly; if the server has an
  * Anthropic key and budget, a personalized one replaces it.
  */
-export function VibeCheckFlow({ cards, niches, blurbs }: VibeCheckFlowProps) {
-  const [result, setResult] = useState<{ mix: MixNiche[]; blurb: string } | null>(null)
+export function VibeCheckFlow({ cards, seed, niches, blurbs }: VibeCheckFlowProps) {
+  const [result, setResult] = useState<{
+    mix: MixNiche[]
+    blurb: string
+    shift: string | null
+  } | null>(null)
   const [round, setRound] = useState(0)
+  const previous = useVibeResult()
 
-  const finish = (answers: Record<string, Answer>) => {
+  const finish = (steps: readonly { card: DeckCard; answer: Answer }[]) => {
+    const answers = Object.fromEntries(steps.map((step) => [step.card.id, step.answer]))
     const shares = topMix(scoreVibe(cards, answers))
     const mix = shares.flatMap((share) => {
       const info = niches[share.slug]
@@ -46,7 +56,9 @@ export function VibeCheckFlow({ cards, niches, blurbs }: VibeCheckFlowProps) {
             branchOf: (slug) => niches[slug]?.branch,
           })
         : ""
-    setResult({ mix, blurb })
+    // Retakes compare with the last result ("your era shifted").
+    const shift = eraShift(previous?.mix ?? null, shares, (slug) => niches[slug]?.name ?? slug)
+    setResult({ mix, blurb, shift })
     if (mix.length === 0) return
     saveVibeResult({ mix: shares, blurb, takenAt: Date.now() })
     recordVibeCheck(mix)
@@ -89,10 +101,14 @@ export function VibeCheckFlow({ cards, niches, blurbs }: VibeCheckFlowProps) {
       </div>
     )
   }
-  if (result) return <VibeResult mix={result.mix} blurb={result.blurb} onRetake={retake} />
+  if (result) {
+    return (
+      <VibeResult mix={result.mix} blurb={result.blurb} shift={result.shift} onRetake={retake} />
+    )
+  }
   return (
     <div className="mx-auto h-full w-full max-w-md px-4 pb-6 md:pt-6">
-      <VibeDeck key={round} cards={cards} onComplete={finish} />
+      <VibeDeck key={round} pool={cards} seed={seed + round * 7919} onComplete={finish} />
     </div>
   )
 }

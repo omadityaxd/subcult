@@ -1,6 +1,13 @@
 import { describe, expect, it } from "vitest"
 import { SEED_PROFILES, TAXONOMY } from "@/lib/niches/catalog"
-import { VIBE_BLURBS, VIBE_CARDS, deckCards, describeMix, vibeTemplateBlurb } from "./data"
+import {
+  VIBE_BLURBS,
+  VIBE_CARDS,
+  VIBE_LINES,
+  deckCards,
+  describeMix,
+  vibeTemplateBlurb,
+} from "./data"
 import { scoreVibe, topMix } from "./score"
 
 const SLUGS = new Set(SEED_PROFILES.map((p) => p.slug))
@@ -9,6 +16,14 @@ describe("vibe check data", () => {
   it("has about a dozen cards with unique ids", () => {
     expect(VIBE_CARDS.length).toBe(14)
     expect(new Set(VIBE_CARDS.map((c) => c.id)).size).toBe(VIBE_CARDS.length)
+  })
+
+  it("has ~10 rotating one-liners for every featured niche, all unique", () => {
+    for (const slug of TAXONOMY.featured())
+      expect(VIBE_LINES[slug]?.length ?? 0).toBeGreaterThanOrEqual(10)
+    expect(Object.keys(VIBE_LINES).filter((s) => !SLUGS.has(s))).toEqual([])
+    const all = Object.values(VIBE_LINES).flat()
+    expect(new Set(all).size).toBe(all.length)
   })
 
   it("only weights niches that exist", () => {

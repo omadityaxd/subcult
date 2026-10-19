@@ -1,21 +1,43 @@
+import { z } from "zod"
 import rawBlurbs from "../../../data/vibe-check/blurbs.json"
 import rawCards from "../../../data/vibe-check/cards.json"
+import rawLines from "../../../data/vibe-check/lines.json"
 import { SEED_PROFILES, TAXONOMY, findSeedProfile, nicheImage } from "@/lib/niches/catalog"
 import { type Blurbs, type NicheShare, blurbsSchema, templateBlurb, vibeCardSchema } from "./score"
 
 /** Validated at module load: a bad card or blurb file fails the build, not the quiz. */
 export const VIBE_CARDS = vibeCardSchema.array().min(8).max(16).parse(rawCards)
 export const VIBE_BLURBS: Blurbs = blurbsSchema.parse(rawBlurbs)
+/** ~10 one-liners per niche: the deck's text rotates between sessions. */
+export const VIBE_LINES: Readonly<Record<string, readonly string[]>> = z
+  .record(z.string(), z.array(z.string().min(8).max(80)).min(5))
+  .parse(rawLines)
+
+export interface PairSide {
+  imageUrl: string
+  label: string | null
+  crop?: boolean
+  weights: Record<string, number>
+}
 
 /** What the swipe deck needs on the client: no weights logic beyond the numbers. */
 export interface DeckCard {
   id: string
+  /** classic/line = a prompt card; fit/grail/pin/sound = today's real content; pair = this or that. */
+  kind: "classic" | "line" | "fit" | "grail" | "pin" | "sound" | "pair"
   prompt: string
   imageUrl: string | null
   /** Generative-cover fallback (and tint) from the card's image niche or lead niche. */
   palette: readonly string[]
   coverSeed: string
   weights: Record<string, number>
+  /** YouTube Shorts thumbnails: crop the pillarbox. */
+  crop?: boolean
+  /** What the picture really is: a brand, "seen on <artist>", a track. */
+  credit?: string | null
+  /** Sound cards: a 5-second preview. */
+  previewUrl?: string | null
+  pair?: { a: PairSide; b: PairSide }
 }
 
 function leadNiche(weights: Record<string, number>): string {
@@ -31,6 +53,7 @@ export function deckCards(): DeckCard[] {
         : nicheImage(card.image.slug)
     return {
       id: card.id,
+      kind: "classic" as const,
       prompt: card.prompt,
       imageUrl,
       palette: findSeedProfile(lead)?.palette ?? [

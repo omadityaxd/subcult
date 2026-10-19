@@ -1,7 +1,8 @@
 "use client"
 
 import { ArrowDown, Check } from "lucide-react"
-import { type ReactNode, useEffect, useRef, useState } from "react"
+import { Fragment, type ReactNode, useEffect, useRef, useState } from "react"
+import { EraRecheck } from "@/components/issue/era-recheck"
 import { IssueCover, ShareCoverButton } from "@/components/issue/issue-cover"
 import { IssueSection } from "@/components/issue/issue-sections"
 import { Skeleton } from "@/components/ui/skeleton"
@@ -219,13 +220,16 @@ export function Today({
 
       <div className="mt-12 space-y-16">
         {edition.sections.map((section, i) => (
-          <IssueSection
-            key={section.id}
-            section={section}
-            index={i + 1}
-            now={edition.generatedAt}
-            reason={section.id === "scene" ? null : sectionReason(section.items, vector)}
-          />
+          <Fragment key={section.id}>
+            {i === 2 ? <EraRecheck now={edition.generatedAt} /> : null}
+            <IssueSection
+              key={section.id}
+              section={section}
+              index={i + 1}
+              now={edition.generatedAt}
+              reason={section.id === "scene" ? null : sectionReason(section.items, vector)}
+            />
+          </Fragment>
         ))}
       </div>
 

@@ -14,6 +14,8 @@ import { cn } from "@/lib/utils"
 interface VibeResultProps {
   mix: readonly MixNiche[]
   blurb: string
+  /** On a retake: what changed since the last check ("Your era shifted: rage → vamp."). */
+  shift?: string | null
   /** Shown on the result right after the quiz; hidden on someone else's shared link. */
   onRetake?: () => void
   /** A visitor viewing a shared result gets "take your own" instead of share. */
@@ -23,7 +25,7 @@ interface VibeResultProps {
 }
 
 /** The hero moment: big serif type, the niche covers and percentages counting up. */
-export function VibeResult({ mix, blurb, onRetake, shared, corner }: VibeResultProps) {
+export function VibeResult({ mix, blurb, shift, onRetake, shared, corner }: VibeResultProps) {
   const [top] = mix
   const reduceMotion = useReducedMotion()
   if (!top) return null
@@ -60,6 +62,14 @@ export function VibeResult({ mix, blurb, onRetake, shared, corner }: VibeResultP
             <p className="text-overline font-medium text-white/70 uppercase">
               {shared ? "A friend's vibe check" : "Your vibe check"}
             </p>
+            {shift ? (
+              <p
+                data-testid="era-shift"
+                className="mt-2 inline-block rounded-full bg-white/90 px-3 py-1 text-footnote font-semibold text-black"
+              >
+                {shift}
+              </p>
+            ) : null}
             <h1 className="mt-3 font-serif text-[clamp(3.25rem,13vw,6.5rem)] leading-[0.92] tracking-tight text-balance italic">
               {shared ? null : "You're "}
               <CountUp value={top.percent} delay={0.2} />% {top.name}
