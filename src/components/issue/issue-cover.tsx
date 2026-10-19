@@ -7,6 +7,7 @@ import { MediaImage } from "@/components/ds/media-image"
 import { youtubeCrop } from "@/lib/images/youtube-crop"
 import type { IssueCover as IssueCoverData } from "@/lib/today/edition"
 import { formatIssueNo } from "@/lib/today/issues"
+import { focusOf } from "@/lib/images/curate"
 
 const FALLBACK_PALETTE = ["#0b0a10", "#1d1b2a", "#4b4470", "#c9b8ff", "#f5f2ff"]
 
@@ -78,6 +79,7 @@ export function IssueCover({
       {image ? (
         <>
           <MediaImage
+            focus={cover.item ? focusOf(cover.item) : undefined}
             src={image}
             alt=""
             sizes="(max-width: 768px) 100vw, 1100px"

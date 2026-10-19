@@ -14,6 +14,7 @@ import type { FeedItem } from "@/lib/feed/types"
 import { youtubeCrop } from "@/lib/images/youtube-crop"
 import { cn } from "@/lib/utils"
 import { openReels } from "@/lib/video/reels-store"
+import { focusOf } from "@/lib/images/curate"
 
 const str = (value: unknown) => (typeof value === "string" && value ? value : null)
 
@@ -86,6 +87,7 @@ function Tile({ item, hero, onOpen }: { item: FeedItem; hero: boolean; onOpen: (
     >
       {item.imageUrl ? (
         <MediaImage
+          focus={focusOf(item)}
           src={item.imageUrl}
           alt=""
           sizes={hero ? "(max-width: 768px) 100vw, 560px" : "(max-width: 768px) 50vw, 280px"}

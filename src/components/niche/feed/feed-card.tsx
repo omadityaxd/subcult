@@ -21,6 +21,7 @@ import { ProductCard } from "@/components/shop/product-card"
 import { VideoCard } from "@/components/video/video-card"
 import { MusicCard } from "./music-card"
 import { SubcultCard } from "./subcult-card"
+import { focusOf } from "@/lib/images/curate"
 
 const SOURCE_LABEL: Record<FeedItem["source"], string> = {
   spotify: "Spotify",
@@ -213,6 +214,7 @@ function Artwork({ item }: { item: FeedItem }) {
       )}
     >
       <MediaImage
+        focus={focusOf(item)}
         src={item.imageUrl ?? ""}
         alt=""
         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
@@ -264,7 +266,12 @@ function NewsBody({ item, now }: { item: FeedItem; now: Date }) {
     <div>
       {item.imageUrl ? (
         <div className="relative aspect-[16/9] overflow-hidden rounded-xl bg-muted">
-          <MediaImage src={item.imageUrl} alt="" sizes="(max-width: 640px) 100vw, 480px" />
+          <MediaImage
+            src={item.imageUrl}
+            alt=""
+            sizes="(max-width: 640px) 100vw, 480px"
+            focus={focusOf(item)}
+          />
         </div>
       ) : null}
       <div className={cn("flex items-center gap-2", item.imageUrl && "mt-4")}>

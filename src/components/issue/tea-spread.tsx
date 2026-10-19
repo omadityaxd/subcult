@@ -1,5 +1,6 @@
 "use client"
 
+import { Cover } from "@/components/ds/cover"
 import { MediaImage } from "@/components/ds/media-image"
 import { PaletteTint } from "@/components/ds/palette-tint"
 import { SaveButton } from "@/components/ds/save-button"
@@ -7,6 +8,8 @@ import { TasteCard } from "@/components/taste/taste-card"
 import type { FeedItem } from "@/lib/feed/types"
 import { formatAge } from "@/lib/time"
 import { cn } from "@/lib/utils"
+import { focusOf } from "@/lib/images/curate"
+import { overlayPalette } from "@/lib/today/tea-image"
 
 const SECONDARY = 2
 
@@ -38,6 +41,19 @@ function Byline({ item, now, className }: { item: FeedItem; now: number; classNa
       {age ? <span className="opacity-70"> · {age}</span> : null}
     </p>
   )
+}
+
+/**
+ * A story's picture, framed on its subject. A story whose borrowed photo
+ * already appears elsewhere in the issue shows its niche palette instead:
+ * never the same picture twice, never text-only.
+ */
+function Picture({ item, sizes }: { item: FeedItem; sizes: string }) {
+  if (item.imageUrl) {
+    return <MediaImage src={item.imageUrl} alt="" sizes={sizes} focus={focusOf(item)} />
+  }
+  const palette = overlayPalette({ ...item, meta: { ...item.meta, imageFallback: true } })
+  return palette ? <Cover palette={palette} seed={item.id} className="absolute inset-0" /> : null
 }
 
 function Story({
@@ -76,9 +92,7 @@ export function TeaSpread({ items, now }: { items: readonly FeedItem[]; now: num
     <div className="space-y-8">
       <Story item={lead} className="-mx-(--gutter) md:mx-0">
         <div className="relative aspect-[4/5] overflow-hidden bg-muted md:aspect-[16/9] md:rounded-3xl">
-          {lead.imageUrl ? (
-            <MediaImage src={lead.imageUrl} alt="" sizes="(max-width: 768px) 100vw, 1100px" />
-          ) : null}
+          <Picture item={lead} sizes="(max-width: 768px) 100vw, 1100px" />
           <PaletteTint item={lead} />
           <span
             aria-hidden
@@ -104,9 +118,7 @@ export function TeaSpread({ items, now }: { items: readonly FeedItem[]; now: num
           {secondary.map((item) => (
             <Story key={item.id} item={item}>
               <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-muted">
-                {item.imageUrl ? (
-                  <MediaImage src={item.imageUrl} alt="" sizes="(max-width: 768px) 50vw, 540px" />
-                ) : null}
+                <Picture item={item} sizes="(max-width: 768px) 50vw, 540px" />
                 <PaletteTint item={item} />
               </div>
               <Byline item={item} now={now} className="mt-3 text-muted-foreground" />
@@ -134,9 +146,7 @@ export function TeaSpread({ items, now }: { items: readonly FeedItem[]; now: num
                     className="group flex items-center gap-4 py-3"
                   >
                     <span className="relative size-14 shrink-0 overflow-hidden rounded-lg bg-muted">
-                      {item.imageUrl ? (
-                        <MediaImage src={item.imageUrl} alt="" sizes="56px" />
-                      ) : null}
+                      <Picture item={item} sizes="56px" />
                       <PaletteTint item={item} />
                     </span>
                     <span className="min-w-0 flex-1">

@@ -19,6 +19,7 @@ import { MusicSticker } from "./music-sticker"
 import { useStoryMusic } from "./use-story-music"
 import { CopOrDrop } from "@/components/votes/cop-or-drop"
 import { PollFrame } from "@/components/votes/poll-frame"
+import { focusOf } from "@/lib/images/curate"
 
 const OPEN_LABEL: Record<FeedItem["source"], string> = {
   spotify: "Listen on Spotify",
@@ -260,6 +261,7 @@ export function StoryViewer({ niches, startIndex, onSeen, onClose }: StoryViewer
                 )}
               >
                 <MediaImage
+                  focus={focusOf(current)}
                   key={current.id}
                   src={current.imageUrl}
                   alt=""

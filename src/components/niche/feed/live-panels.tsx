@@ -38,6 +38,12 @@ import { FeedCard } from "./feed-card"
 import { ProgressiveList } from "./progressive-list"
 import { TaggedFeed } from "./tagged-feed"
 import { ArchiveFallback } from "@/components/shop/archive-fallback"
+import { focusCss } from "@/lib/images/curate"
+import { imageFactsFor } from "@/lib/images/facts-server"
+import { type MosaicTile, mosaicPicks } from "@/lib/images/mosaic"
+
+const MOSAIC_MEASURED = 24
+const MOSAIC_BUDGET_MS = 1500
 
 const SHELF_SIZE = 8
 
@@ -227,17 +233,45 @@ export async function LiveWatch({ profile }: { profile: NicheProfile }) {
   )
 }
 
-/** Hero mosaic: the niche's album art, when Spotify is configured. */
+/**
+ * Hero mosaic: the scene at a glance. Artist portraits, vision-tagged fits,
+ * archive pieces and album art interleaved (two album covers at most),
+ * card-quality only, never one picture twice.
+ */
 export async function HeroMosaic({ profile }: { profile: NicheProfile }) {
-  const feed = await getNicheFeed(profile)
-  const albumArt = (feed.bySource.spotify ?? [])
-    .filter((item) => item.imageUrl && item.type !== "artist")
-    .map((item) => ({ id: item.id, imageUrl: item.imageUrl as string }))
-  // Spotify down or rate-limited: the verified artist photos still make a mosaic.
-  const photos = TAXONOMY.artistsOf(profile.slug).flatMap((artist) =>
-    artist.imageUrl ? [{ id: artist.slug, imageUrl: artist.imageUrl }] : [],
+  const [feed, board, archives] = await Promise.all([
+    getNicheFeed(profile),
+    getMoodboard(profile.slug).catch(() => null),
+    getArchive(profile.slug).catch(() => null),
+  ])
+  const tiles: MosaicTile[] = [
+    ...TAXONOMY.artistsOf(profile.slug).flatMap((artist) =>
+      artist.imageUrl
+        ? [{ id: `artist:${artist.slug}`, kind: "portrait" as const, imageUrl: artist.imageUrl }]
+        : [],
+    ),
+    ...moodboardFeedItems(board?.pins ?? [])
+      .filter((item) => item.meta.fit === true && item.imageUrl)
+      .map((item) => ({ id: item.id, kind: "fit" as const, imageUrl: item.imageUrl as string })),
+    ...archiveFeedItems(archives ?? [])
+      .filter((item) => item.imageUrl)
+      .map((item) => ({
+        id: item.id,
+        kind: "product" as const,
+        imageUrl: item.imageUrl as string,
+      })),
+    ...(feed.bySource.spotify ?? [])
+      .filter((item) => item.imageUrl && item.type !== "artist")
+      .map((item) => ({ id: item.id, kind: "album" as const, imageUrl: item.imageUrl as string })),
+  ]
+  const facts = await imageFactsFor(
+    tiles.slice(0, MOSAIC_MEASURED).map((tile) => tile.imageUrl),
+    MOSAIC_BUDGET_MS,
   )
-  const art = (albumArt.length >= 3 ? albumArt : photos).slice(0, 6)
+  const art = mosaicPicks(tiles, facts).map((tile) => ({
+    ...tile,
+    focus: focusCss(facts.get(tile.imageUrl)),
+  }))
   if (art.length < 3) return null
   return (
     <ul aria-hidden className="grid grid-cols-3 gap-x-2 gap-y-5 md:gap-x-3 md:gap-y-8">
@@ -250,7 +284,7 @@ export async function HeroMosaic({ profile }: { profile: NicheProfile }) {
             index % 3 === 1 && "translate-y-3 md:translate-y-5",
           )}
         >
-          <MediaImage src={item.imageUrl} alt="" sizes="160px" />
+          <MediaImage src={item.imageUrl} alt="" sizes="160px" focus={item.focus} />
         </li>
       ))}
     </ul>

@@ -9,12 +9,15 @@ import { artistReleases } from "@/lib/music/releases-server"
 import { soundtrackFeedItems } from "@/lib/music/soundtrack"
 import { getSoundtrack } from "@/lib/music/soundtrack-server"
 import { TAXONOMY, findPreset, findSeedProfile, nicheArtistsLeadFirst } from "@/lib/niches/catalog"
+import { curateCandidates } from "./curate"
 import { entityPhoto, withTeaImage } from "./tea-image"
 import { moodboardFeedItems } from "@/lib/moodboard/board"
 import { getMoodboard } from "@/lib/moodboard/server"
 import { momentumReason } from "@/lib/rising/momentum"
 import { pickRising } from "@/lib/rising/pick"
 import { getRisingSnapshot } from "@/lib/rising/server"
+import { type FactsMap, fitsSlot } from "@/lib/images/curate"
+import { imageFactsFor, youtubeMaxres } from "@/lib/images/facts-server"
 import { friendsInto } from "@/lib/social/server"
 import { archiveFeedItems, getArchive } from "@/lib/shop/server"
 import { type EntityRef, encodeEntities, entitySlug, entityType } from "@/lib/taste/entities"
@@ -313,10 +316,49 @@ export async function buildToday(req: TodayRequest, now = Date.now()): Promise<T
     friends: friendChips,
     more,
   }
+  const { curated, facts } = await withImageQuality(candidates)
   const mode = todayMode(localClock(now, req.timeZone))
   const lead = findPreset(niches[0] ?? "")
-  const edition = assembleEdition(candidates, { now, mode, cold, nicheName: lead?.name ?? null })
+  const edition = assembleEdition(curated, {
+    now,
+    mode,
+    cold,
+    nicheName: lead?.name ?? null,
+    // A cover is printed big: measured ≥1200px wide, and never a vertical Short.
+    coverOk: (item) => item.meta.short !== true && fitsSlot(item.imageUrl, "cover", facts),
+  })
   return { ...edition, cover: { ...edition.cover, palette: lead?.palette ?? null } }
+}
+
+/** Regular (not Short) fit videos tried at YouTube's 1280px thumbnail: the only sharp one. */
+const MAXRES_TRIES = 3
+/** Images measured per issue (cached for a month, so mostly instant). */
+const MEASURED = 80
+
+/**
+ * Image quality for an issue: fit videos upgraded to YouTube's 1280px
+ * thumbnail where one exists, every picture measured (within a time
+ * budget), repeats removed across sections and subjects located.
+ */
+async function withImageQuality(c: Candidates): Promise<{ curated: Candidates; facts: FactsMap }> {
+  const videos = c.fits
+    .filter((item) => item.source === "youtube" && item.meta.short !== true && item.imageUrl)
+    .slice(0, MAXRES_TRIES)
+  const upgrades = new Map(
+    await Promise.all(
+      videos.map(async (item) => [item.id, await youtubeMaxres(item.imageUrl ?? "")] as const),
+    ),
+  )
+  const fits = c.fits.map((item) => {
+    const better = upgrades.get(item.id)
+    return better ? { ...item, imageUrl: better } : item
+  })
+  const pictured = [fits, c.archive, c.headlines, c.drops, c.lateNight, c.more]
+    .flat()
+    .map((item) => item.imageUrl)
+    .slice(0, MEASURED)
+  const facts = await imageFactsFor(pictured)
+  return { curated: curateCandidates({ ...c, fits }, facts), facts }
 }
 
 /** "The <niche> issue": Today's sections for one scene, read as someone who only follows it. */

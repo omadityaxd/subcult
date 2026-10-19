@@ -135,17 +135,22 @@ const newestFirst = (a: FeedItem, b: FeedItem) =>
 
 const withImage = (item: FeedItem) => Boolean(item.imageUrl)
 
+/** Without measured sizes, a YouTube thumbnail (480px, black bars) is the one known-blurry cover. */
+const notThumbnail = (item: FeedItem) => !isYouTubeThumb(item.imageUrl)
+
 /**
  * Cover image: a real fit first, then a grail, then the lead story's image.
- * Never music. A YouTube thumbnail (480px, black bars) only makes the cover
- * when nothing sharper exists: a cover is printed big.
+ * Never music, never below cover quality (the server passes a ≥1200px
+ * check): with no sharp image the cover is the niche's generative one.
  */
-export function pickCover(c: Candidates): FeedItem | null {
-  const order = [...c.fits, ...c.archive, ...c.digest, ...c.headlines]
+export function pickCover(
+  c: Candidates,
+  sharpEnough: (item: FeedItem) => boolean = notThumbnail,
+): FeedItem | null {
   return (
-    order.find((item) => coverWorthy(item) && !isYouTubeThumb(item.imageUrl)) ??
-    order.find(coverWorthy) ??
-    null
+    [...c.fits, ...c.archive, ...c.digest, ...c.headlines].find(
+      (item) => coverWorthy(item) && sharpEnough(item),
+    ) ?? null
   )
 }
 
@@ -188,9 +193,17 @@ export function assembleEdition(
     mode,
     cold,
     nicheName = null,
-  }: { now: number; mode: TodayMode; cold: boolean; nicheName?: string | null },
+    coverOk,
+  }: {
+    now: number
+    mode: TodayMode
+    cold: boolean
+    nicheName?: string | null
+    /** Cover quality check (server: measured width ≥ the cover minimum). */
+    coverOk?: (item: FeedItem) => boolean
+  },
 ): TodayEdition {
-  const coverItem = pickCover(candidates)
+  const coverItem = pickCover(candidates, coverOk)
   const used = new Set<string>(coverItem ? [coverItem.id] : [])
   let count = coverItem ? 1 : 0
   const take = (pool: readonly FeedItem[], cap: number): FeedItem[] => {

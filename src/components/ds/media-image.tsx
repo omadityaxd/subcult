@@ -10,6 +10,8 @@ interface MediaImageProps {
   sizes: string
   className?: string
   priority?: boolean
+  /** CSS object-position keeping the subject in frame (see lib/images/curate focusOf). */
+  focus?: string
 }
 
 /**
@@ -18,7 +20,7 @@ interface MediaImageProps {
  * (relatively positioned, sized) parent. No optimizer: the CDN loader asks
  * Spotify/iTunes/eBay/Unsplash/Pexels for the variant each srcset width needs.
  */
-export function MediaImage({ src, alt, sizes, className, priority }: MediaImageProps) {
+export function MediaImage({ src, alt, sizes, className, priority, focus }: MediaImageProps) {
   // Priority (above-the-fold) images paint immediately: no fade waiting on hydration.
   const [loaded, setLoaded] = useState(Boolean(priority))
   return (
@@ -31,6 +33,7 @@ export function MediaImage({ src, alt, sizes, className, priority }: MediaImageP
         sizes={sizes}
         priority={priority}
         onLoad={() => setLoaded(true)}
+        style={focus ? { objectPosition: focus } : undefined}
         className={cn(
           "object-cover transition-opacity duration-300 ease-out",
           loaded ? "opacity-100" : "opacity-0",

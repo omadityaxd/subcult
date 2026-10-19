@@ -11,6 +11,7 @@ import { type TasteVector, isColdStart } from "@/lib/taste/model"
 import { pageReasons, personalizePage } from "@/lib/taste/rank"
 import { readTasteVector, useSeen, useTasteVector } from "@/lib/taste/store"
 import { dedupeMusic } from "@/lib/feed/dedupe-music"
+import { dedupeImages } from "@/lib/images/curate"
 
 const TASTE_NICHES = 20
 
@@ -80,12 +81,19 @@ export function InfiniteFeed({ initial, now, filter = "all" }: InfiniteFeedProps
   }, [cursor, failed, loadMore])
 
   const items = useMemo(() => {
-    // One song plays once across every page (it can reach several niches' feeds).
+    // One song plays once and one picture shows once across every page (a track and its
+    // album, or one photo reaching several niches' feeds).
     const heard = new Set<string>()
+    const pictured = { keys: new Set<string>(), hashes: [] as string[] }
     return pages.flatMap((page) => {
-      const shown = dedupeMusic(
-        applyFilter(personalizePage(page.items, vector, seen, page.niche.slug), filter),
-        heard,
+      const shown = dedupeImages(
+        dedupeMusic(
+          applyFilter(personalizePage(page.items, vector, seen, page.niche.slug), filter),
+          heard,
+        ),
+        (item) => item.imageUrl,
+        undefined,
+        pictured,
       )
       const reasons = pageReasons(shown, vector, page.niche.slug, {
         slug: page.niche.slug,

@@ -9,6 +9,11 @@ import { soundtrackFeedItems } from "@/lib/music/soundtrack"
 import { getSoundtrack } from "@/lib/music/soundtrack-server"
 import { buildForYou } from "./for-you"
 import { STORY_FRAMES, storyFrames } from "./story-mix"
+import { dedupeImages, withImageFacts } from "@/lib/images/curate"
+import { imageFactsFor } from "@/lib/images/facts-server"
+
+const STORY_MEASURED = 40
+const STORY_BUDGET_MS = 1500
 import { moodboardFeedItems } from "@/lib/moodboard/board"
 import { getMoodboard } from "@/lib/moodboard/server"
 import { archiveFeedItems, getArchive } from "@/lib/shop/server"
@@ -102,5 +107,13 @@ export async function getStory(
 ): Promise<{ niche: HomeNiche; items: FeedItem[] } | null> {
   const result = await feedFor(slug)
   if (!result) return null
-  return { niche: result.niche, items: storyFrames(result.items, STORY_FRAMES) }
+  // One story never shows the same artwork twice (a track and its album, two sizes of one photo).
+  const facts = await imageFactsFor(
+    result.items.map((item) => item.imageUrl).slice(0, STORY_MEASURED),
+    STORY_BUDGET_MS,
+  )
+  const unique = dedupeImages(result.items, (item) => item.imageUrl, facts).map((item) =>
+    withImageFacts(item, facts),
+  )
+  return { niche: result.niche, items: storyFrames(unique, STORY_FRAMES) }
 }

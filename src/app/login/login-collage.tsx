@@ -1,51 +1,46 @@
 import { connection } from "next/server"
 import { Cover } from "@/components/ds/cover"
 import { MediaImage } from "@/components/ds/media-image"
-import type { FeedItem } from "@/lib/feed/types"
-import { youtubeCrop } from "@/lib/images/youtube-crop"
+import { focusOf } from "@/lib/images/curate"
 import { errorMessage, log } from "@/lib/log"
-import { formatPrice } from "@/lib/shop/archive"
+import { TAXONOMY, findPreset, nicheLeadArtist } from "@/lib/niches/catalog"
+import { type CollageTile, collageTiles } from "@/lib/today/collage"
 import type { TodayEdition } from "@/lib/today/edition"
 import { buildToday } from "@/lib/today/server"
 
 const FALLBACK_PALETTE = ["#0b0a10", "#1d1b2a", "#4b4470", "#c9b8ff", "#f5f2ff"]
+/** Scenes whose faces and covers the collage can use. */
+const SCENES = 4
 
-function Tile({
-  item,
-  caption,
-  detail,
-  crop,
-  className,
-}: {
-  item: FeedItem
-  caption: string
-  detail: string | null
-  crop?: boolean
-  className?: string
-}) {
+function Tile({ tile }: { tile: CollageTile }) {
   return (
-    <figure className={`relative overflow-hidden rounded-2xl bg-white/10 ${className ?? ""}`}>
-      {item.imageUrl ? (
+    <figure className="relative aspect-[3/4] overflow-hidden rounded-2xl bg-white/10">
+      {tile.kind === "niche" ? (
+        <Cover palette={tile.palette} seed={tile.seed} className="absolute inset-0" />
+      ) : (
         <MediaImage
-          src={item.imageUrl}
+          src={tile.imageUrl}
           alt=""
           sizes="(max-width: 768px) 50vw, 25vw"
-          className={youtubeCrop(item.imageUrl, { short: crop, frame: "portrait" })}
+          focus={tile.focus ?? undefined}
         />
-      ) : null}
+      )}
       <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 to-transparent p-3 pt-8 text-white">
         <span className="block text-overline font-semibold tracking-[0.15em] uppercase opacity-80">
-          {caption}
+          {tile.caption}
         </span>
-        {detail ? <span className="block truncate text-footnote font-medium">{detail}</span> : null}
+        {tile.detail ? (
+          <span className="block truncate text-footnote font-medium">{tile.detail}</span>
+        ) : null}
       </figcaption>
     </figure>
   )
 }
 
 /**
- * The login's left side: today's real cover, fit and grail (whatever a new
- * reader's issue leads with right now), under the masthead.
+ * The login's left side: today's cover (only when it's sharp enough to be
+ * one), the best fit and an artist portrait from today's scenes, or the
+ * scenes' generative covers when too few images qualify.
  */
 export async function LoginCollage() {
   await connection()
@@ -56,19 +51,25 @@ export async function LoginCollage() {
     log.warn("login.collage_failed", { error: errorMessage(error) })
   }
   const cover = edition?.cover
-  const fit = edition?.sections.find((s) => s.id === "fit")?.items.find((i) => i.imageUrl)
-  const grail = edition?.sections.find((s) => s.id === "grail")?.items.find((i) => i.imageUrl)
-  const price = (item: FeedItem) =>
-    typeof item.meta.price === "number"
-      ? formatPrice(
-          item.meta.price,
-          typeof item.meta.currency === "string" ? item.meta.currency : "USD",
-        )
-      : null
+  const scenes = TAXONOMY.featured()
+    .slice(0, SCENES)
+    .flatMap((slug) => {
+      const preset = findPreset(slug)
+      return preset ? [preset] : []
+    })
+  const tiles = collageTiles({
+    fits: edition?.sections.find((s) => s.id === "fit")?.items ?? [],
+    portraits: scenes.flatMap((scene) => {
+      const lead = nicheLeadArtist(scene.slug)
+      return lead?.imageUrl ? [{ name: lead.name, imageUrl: lead.imageUrl, niche: scene.name }] : []
+    }),
+    coverUrl: cover?.item?.imageUrl ?? null,
+    niches: scenes,
+  })
 
   return (
     <Cover
-      palette={cover?.palette ?? FALLBACK_PALETTE}
+      palette={cover?.palette ?? scenes[0]?.palette ?? FALLBACK_PALETTE}
       seed="login"
       className="relative flex h-full min-h-[26rem] flex-col justify-between p-5 text-white md:p-10"
     >
@@ -79,10 +80,7 @@ export async function LoginCollage() {
             alt=""
             sizes="(max-width: 768px) 100vw, 50vw"
             priority
-            className={youtubeCrop(cover.item.imageUrl, {
-              short: cover.item.meta.short === true,
-              frame: "portrait",
-            })}
+            focus={focusOf(cover.item)}
           />
           <span
             aria-hidden
@@ -100,27 +98,11 @@ export async function LoginCollage() {
             {cover.headline}
           </p>
         ) : null}
-        {fit || grail ? (
-          <div className="grid max-w-md grid-cols-2 gap-2">
-            {fit ? (
-              <Tile
-                item={fit}
-                caption="Fit of the day"
-                detail={typeof fit.meta.nicheName === "string" ? fit.meta.nicheName : null}
-                crop={fit.meta.short === true}
-                className="aspect-[3/4]"
-              />
-            ) : null}
-            {grail ? (
-              <Tile
-                item={grail}
-                caption="Grail of the day"
-                detail={[grail.subtitle, price(grail)].filter(Boolean).join(" · ") || null}
-                className="aspect-[3/4]"
-              />
-            ) : null}
-          </div>
-        ) : null}
+        <div className="grid max-w-md grid-cols-2 gap-2">
+          {tiles.map((tile) => (
+            <Tile key={"imageUrl" in tile ? tile.imageUrl : tile.seed} tile={tile} />
+          ))}
+        </div>
       </div>
     </Cover>
   )
