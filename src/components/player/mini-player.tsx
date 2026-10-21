@@ -8,6 +8,7 @@ import { usePlayerEngaged } from "@/lib/audio/player"
 import { getAudioEngine, useAudioState } from "@/lib/audio/use-audio"
 import { cn } from "@/lib/utils"
 import { NowPlaying } from "./now-playing"
+import { SpotifyFallbackSheet } from "./spotify-fallback-sheet"
 import { ProgressBar } from "./progress-bar"
 
 const COLLAPSE_AFTER_PX = 160
@@ -148,6 +149,7 @@ export function MiniPlayer() {
         )}
       </div>
       {open ? <NowPlaying accent={accent} onClose={() => setOpen(false)} /> : null}
+      <SpotifyFallbackSheet />
     </>
   )
 }

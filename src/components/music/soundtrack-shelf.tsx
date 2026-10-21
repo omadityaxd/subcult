@@ -77,9 +77,8 @@ function ShelfSoundtrack({ slug }: { slug: string }) {
     }
   }, [slug])
 
-  if (failed || (soundtrack && soundtrack.tracks.length === 0)) {
-    return <p className="text-callout text-muted-foreground">No previews for this one yet.</p>
-  }
+  // Nothing playable: the sheet shows the rest (title, Spotify link), never a "no previews" line.
+  if (failed || (soundtrack && soundtrack.tracks.length === 0)) return null
   if (!soundtrack) {
     return (
       <div className="space-y-3" aria-busy="true">

@@ -108,7 +108,7 @@ export function PlayableList({
                   {track.title}
                 </span>
                 <span className="block truncate text-footnote text-muted-foreground">
-                  {unavailable ? "No preview for this one" : track.artist}
+                  {track.artist}
                 </span>
               </span>
               <span className="text-footnote text-muted-foreground tabular-nums">

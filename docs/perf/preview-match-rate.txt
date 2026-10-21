@@ -1,0 +1,71 @@
+Preview match rate, 2026-10-21
+60 Spotify tracks from 15 featured niches (4 each)
+before (strict): 26/60 = 43%
+after (fuzzy + retry): 26/60 = 43%
+iTunes requests that failed (rate limit / network): 0
+Misses checked by hand (e.g. Playboi Carti - Magnolia, A$AP Rocky - Fashion Killa) aren't in
+the iTunes Search catalog in US, GB, IN or CA: those play through the Spotify embed.
+Playable in-app (30s preview or the Spotify embed): 60/60 (all 60 carry an exact Spotify track link).
+Earlier run the same day (some requests possibly throttled): strict 24/60, fuzzy 25/60.
+
+S = strict match, F = fuzzy match
+  --  new-gen-underground-rap: Magnolia | Playboi Carti
+  SF  new-gen-underground-rap: Timeless (feat Playboi Carti) | The Weeknd
+  --  new-gen-underground-rap: ss | Ken Carson
+  SF  new-gen-underground-rap: overseas | Ken Carson
+  --  rage: Magnolia | Playboi Carti
+  SF  rage: Timeless (feat Playboi Carti) | The Weeknd
+  --  rage: Wish (feat. Trippie Redd) - Trippie Mix | Diplo
+  --  rage: Forever Ever (feat. Young Thug & Reese LAFLARE) | Trippie Redd
+  SF  jerk: 40 | evilgiane
+  SF  jerk: 40 - Dj Ess Mix | evilgiane
+  --  jerk: love hate | xaviersobased
+  --  jerk: worth it | xaviersobased
+  --  vamp: Magnolia | Playboi Carti
+  SF  vamp: Timeless (feat Playboi Carti) | The Weeknd
+  --  vamp: ss | Ken Carson
+  --  vamp: Yale | Ken Carson
+  SF  digicore: the prom | glaive
+  SF  digicore: MEANT TO BE | Tiffany Day
+  --  digicore: dancinwithsomebawdy | ericdoa
+  SF  digicore: fantasize | ericdoa
+  SF  plugg: No Date | MexikoDro
+  SF  plugg: Height | MexikoDro
+  SF  plugg: Moonlight | StoopidXool
+  --  plugg: Biscuit | StoopidXool
+  --  pluggnb: just cant | Summrs
+  --  pluggnb: Marble Floors | Summrs
+  SF  pluggnb: One Way! | Autumn!
+  --  pluggnb: Still the Same! 2 | Autumn!
+  --  dark-plugg: Mafia Business | Slimesito
+  SF  dark-plugg: Demon | Slimesito
+  --  dark-plugg: Gangdale | Fluhkunxhkos
+  --  dark-plugg: Been Getting Money | Fluhkunxhkos
+  --  sigilkore: Hey | Luci4
+  --  sigilkore: Dead n Gone | Luci4
+  --  sigilkore: </3makeitworse.mp166<3 | islurwhenitalk
+  --  sigilkore: Champagne | islurwhenitalk
+  --  archive-fashion: Fashion Killa | A$AP Rocky
+  --  archive-fashion: LVL | A$AP Rocky
+  --  archive-fashion: Magnolia | Playboi Carti
+  SF  archive-fashion: Timeless (feat Playboi Carti) | The Weeknd
+  --  dark-avant-garde: Fashion Killa | A$AP Rocky
+  --  dark-avant-garde: LVL | A$AP Rocky
+  --  dark-avant-garde: Magnolia | Playboi Carti
+  SF  dark-avant-garde: Timeless (feat Playboi Carti) | The Weeknd
+  --  graphic-gothic-streetwear: Made Sum Plans | OsamaSon
+  --  graphic-gothic-streetwear: Habits | OsamaSon
+  --  graphic-gothic-streetwear: We not like you | Nettspend
+  --  graphic-gothic-streetwear: Nothing like uuu | Nettspend
+  SF  deftones-core: Change (In the House of Flies) | Deftones
+  SF  deftones-core: My Own Summer (Shove It) | Deftones
+  SF  deftones-core: Black Hole Sun | Soundgarden
+  SF  deftones-core: Outshined - Remastered 2016 | Soundgarden
+  SF  nu-gaze: Change (In the House of Flies) | Deftones
+  SF  nu-gaze: My Own Summer (Shove It) | Deftones
+  SF  nu-gaze: Nodding Off | Narrow Head
+  --  nu-gaze: Make It Hurt | Narrow Head
+  --  soundcloud-rap: Fuck Love | XXXTENTACION
+  SF  soundcloud-rap: Gucci Gang | Lil Pump
+  SF  soundcloud-rap: Nephew (feat. Lil Pump) | Smokepurpp
+  SF  soundcloud-rap: Moonlight | XXXTENTACION

@@ -2,12 +2,14 @@
 
 import { useCallback, useState } from "react"
 import { type PlayableTrack, playTracks } from "@/lib/audio/play-tracks"
+import { openSpotifyFallback } from "@/lib/audio/spotify-fallback"
 import { getAudioEngine, useAudioState } from "@/lib/audio/use-audio"
 
 /**
  * Tap-to-play for any list of tracks: toggles the current one, otherwise
- * plays from the tapped row. Remembers rows with no preview so the UI can
- * say so instead of silently doing nothing.
+ * plays from the tapped row. A song without a preview opens Spotify's embed
+ * in-app; one without even an exact Spotify track is remembered so its row
+ * can offer the Spotify link instead of silently doing nothing.
  */
 export function useTrackPlayer(tracks: readonly PlayableTrack[], context: string | null) {
   const state = useAudioState()
@@ -26,7 +28,10 @@ export function useTrackPlayer(tracks: readonly PlayableTrack[], context: string
       setPendingId(track.id)
       void playTracks(tracks, index, context).then((result) => {
         setPendingId((id) => (id === track.id ? null : id))
-        if (result === "no-preview") setMissing((prev) => new Set([...prev, track.id]))
+        if (result !== "no-preview") return
+        // No 30s preview: Spotify's embed plays it in-app; without an exact Spotify track the
+        // row just keeps its small Spotify link (never a broken-looking state).
+        if (!openSpotifyFallback(track)) setMissing((prev) => new Set([...prev, track.id]))
       })
     },
     [tracks, context, currentId],

@@ -133,3 +133,41 @@ describe("pickArtistSongs", () => {
     expect(pickArtistSongs(results, "A$AP Rocky", 1)).toHaveLength(1)
   })
 })
+
+describe("fuzzy preview matching", () => {
+  it("strips producer and ft. credits from titles", () => {
+    expect(normalizeTitle("Location ft. Someone")).toBe("location")
+    expect(normalizeTitle("Magnolia prod. Pi'erre Bourne")).toBe("magnolia")
+    expect(normalizeTitle("Off The Meter {Remix}")).toBe("off-the-meter")
+  })
+
+  it("forgives a one-character slip in a longer artist name, never in a short one", () => {
+    expect(creditsArtist("Lil Uzi Vertt", "Lil Uzi Vert", true)).toBe(true)
+    expect(creditsArtist("The Weeknd", "Weeknd", true)).toBe(true)
+    expect(creditsArtist("Chez", "Che", true)).toBe(false)
+    expect(creditsArtist("Lil Uzi Vertt", "Lil Uzi Vert")).toBe(false)
+  })
+
+  it("prefers the exact title to a near-miss, and strict mode stays exact", () => {
+    const near = result({ trackId: 2, artistName: "Che", trackName: "MANNEQUINS" })
+    const exact = result({ trackId: 3, artistName: "Che", trackName: "Mannequin" })
+    expect(pickExactMatch([near, exact], "Che", "MANNEQUIN")?.title).toBe("Mannequin")
+    expect(pickExactMatch([near], "Che", "MANNEQUIN", "strict")).toBeNull()
+    expect(pickExactMatch([near], "Che", "MANNEQUIN")?.title).toBe("MANNEQUINS")
+  })
+
+  it("retries once with the title alone when artist + title finds nothing", async () => {
+    const calls: string[] = []
+    const fetchImpl = (async (url: string) => {
+      calls.push(url)
+      const results = calls.length === 1 ? [] : [result({ artistName: "Che, OsamaSon" })]
+      return new Response(JSON.stringify({ results }), { status: 200 })
+    }) as unknown as typeof fetch
+    const preview = await findTrackPreview("Che", "MANNEQUIN (prod. x)", { fetchImpl })
+    expect(preview?.title).toBe("MANNEQUIN")
+    expect(calls).toHaveLength(2)
+    calls.length = 0
+    expect(await findTrackPreview("Che", "MANNEQUIN", { fetchImpl, mode: "strict" })).toBeNull()
+    expect(calls).toHaveLength(1)
+  })
+})

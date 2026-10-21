@@ -82,9 +82,7 @@ function TrackCard({ item, meta }: { item: FeedItem; meta: string }) {
             {item.title}
           </span>
           <span className="block truncate text-footnote text-muted-foreground">
-            {unavailable
-              ? "No preview for this one"
-              : [item.subtitle, meta].filter(Boolean).join(" · ")}
+            {[item.subtitle, meta].filter(Boolean).join(" · ")}
           </span>
         </span>
         {current && playing ? (
@@ -96,6 +94,8 @@ function TrackCard({ item, meta }: { item: FeedItem; meta: string }) {
           />
         ) : null}
       </button>
+      {/* Nothing to play in-app: the small Spotify link is the way to hear it. */}
+      {unavailable && item.url ? <SpotifyLink href={item.url} /> : null}
       <SaveButton item={savedShape(item)} className="size-9 shrink-0" />
     </article>
   )

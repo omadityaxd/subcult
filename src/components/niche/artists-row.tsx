@@ -9,7 +9,9 @@ import { MediaImage } from "@/components/ds/media-image"
 import { NicheAvatar } from "@/components/ds/niche-avatar"
 import { ResponsiveSheet } from "@/components/ds/responsive-sheet"
 import { PlayableList } from "@/components/music/track-list"
+import { SpotifyEmbed } from "@/components/music/spotify-embed"
 import { SpotifyLink } from "@/components/music/spotify-link"
+import { spotifyUriFrom } from "@/lib/audio/spotify-embed"
 import { useTrackPlayer } from "@/components/music/use-track-player"
 import { Skeleton } from "@/components/ui/skeleton"
 import type { PlayableTrack } from "@/lib/music/playable"
@@ -153,11 +155,10 @@ function ArtistSheetBody({
         </div>
       ) : tracks.length > 0 ? (
         <PlayableList tracks={tracks} context={artist.name} />
-      ) : (
-        <p className="text-callout text-muted-foreground">
-          No previews matched for {artist.name} yet.
-        </p>
-      )}
+      ) : data && spotifyUriFrom(data.artist.spotifyUrl) ? (
+        // No 30s previews matched: Spotify's own player for the artist, in-app.
+        <SpotifyEmbed uri={spotifyUriFrom(data.artist.spotifyUrl) as string} height={152} />
+      ) : null}
 
       {data && data.related.length > 0 ? (
         <>
