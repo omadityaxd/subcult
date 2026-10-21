@@ -1,5 +1,6 @@
 import { z } from "zod"
 import { getDb } from "@/db"
+import { ACCOUNT_GONE, isLiveAccount } from "@/lib/auth/live-account"
 import { deleteAccountData, exportAccount } from "@/db/account-repository"
 import { getProfile } from "@/db/fit-repository"
 import { sameOrigin } from "@/lib/fits/route-helpers"
@@ -20,6 +21,7 @@ export async function GET(): Promise<Response> {
   if (!limit.success) return apiError("slow down a little", 429, "rate-limited")
   const db = getDb()
   if (!db) return apiError("not available right now", 503, "unavailable")
+  if (!(await isLiveAccount(db, viewer))) return apiError(ACCOUNT_GONE, 401, "unauthenticated")
   const data = await exportAccount(db, viewer.id)
   const body = JSON.stringify(
     {
@@ -69,6 +71,13 @@ export async function DELETE(request: Request): Promise<Response> {
     if (photos.length > 0) {
       await admin.storage.from(FITS_BUCKET).remove(photos)
       await admin.storage.from(QUARANTINE_BUCKET).remove(photos)
+    }
+    // Sign out every device first: a deleted user's tokens must not keep working.
+    const token = (await (await createSupabaseServer())?.auth.getSession())?.data.session
+      ?.access_token
+    if (token) {
+      const revoked = await admin.auth.admin.signOut(token, "global")
+      if (revoked.error) log.warn("account.signout_failed", { error: revoked.error.message })
     }
     const { error } = await admin.auth.admin.deleteUser(viewer.id)
     if (error) throw error

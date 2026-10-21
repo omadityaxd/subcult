@@ -21,10 +21,7 @@ function isDownloadLocation(value: string): boolean {
 
 const bodySchema = z.object({
   // Only Unsplash's own download-tracking endpoints, never an arbitrary URL.
-  downloadLocation: z
-    .string()
-    .url()
-    .refine(isDownloadLocation, "not an Unsplash download URL"),
+  downloadLocation: z.string().url().refine(isDownloadLocation, "not an Unsplash download URL"),
 })
 
 /**

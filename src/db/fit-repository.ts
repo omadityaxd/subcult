@@ -11,6 +11,7 @@ import {
   fitSaves,
   fits,
   profiles,
+  votes,
 } from "./schema"
 
 export interface FitWithAuthor extends FitRow {
@@ -183,16 +184,25 @@ export async function setSave(
   else await db.delete(fitSaves).where(and(eq(fitSaves.fitId, fitId), eq(fitSaves.userId, userId)))
 }
 
+export interface AutoHideRule {
+  /** Distinct trusted reporters needed to hide a fit before an admin sees it. */
+  trustedReporters: number
+  /** A trusted reporter's account is at least this many days old… */
+  minAgeDays: number
+  // …and has posted a fit or voted (checked in SQL below).
+}
+
 /**
- * One report per person per fit. Reaching `autoHideAt` distinct reports hides
- * the fit until an admin looks at it.
+ * One report per person per fit. Every report puts the fit in the admin
+ * queue; it's hidden right away only when `rule.trustedReporters` distinct
+ * trusted accounts (old enough, and active: posted or voted) reported it.
  */
 export async function reportFit(
   db: Database,
   fitId: string,
   reporterId: string,
   reason: string,
-  autoHideAt: number,
+  rule: AutoHideRule,
 ): Promise<{ hidden: boolean; imagePath: string | null }> {
   return db.transaction(async (tx) => {
     const inserted = await tx
@@ -201,15 +211,30 @@ export async function reportFit(
       .onConflictDoNothing()
       .returning({ id: fitReports.fitId })
     if (inserted.length === 0) return { hidden: false, imagePath: null }
+    const [trusted] = await tx
+      .select({ count: sql<number>`count(*)::int` })
+      .from(fitReports)
+      .innerJoin(profiles, eq(profiles.id, fitReports.reporterId))
+      .where(
+        and(
+          eq(fitReports.fitId, fitId),
+          lt(profiles.createdAt, sql`now() - make_interval(days => ${rule.minAgeDays})`),
+          or(
+            sql`exists (select 1 from ${fits} where ${fits.userId} = ${fitReports.reporterId})`,
+            sql`exists (select 1 from ${votes} where ${votes.voter} = ${fitReports.reporterId}::text)`,
+          ),
+        ),
+      )
+    const hide = (trusted?.count ?? 0) >= rule.trustedReporters
     const [row] = await tx
       .update(fits)
       .set({
         reportCount: sql`${fits.reportCount} + 1`,
-        status: sql`case when ${fits.reportCount} + 1 >= ${autoHideAt} then 'hidden' else ${fits.status} end`,
+        ...(hide ? { status: "hidden" as const } : {}),
       })
       .where(eq(fits.id, fitId))
       .returning({ status: fits.status, imagePath: fits.imagePath })
-    return { hidden: row?.status === "hidden", imagePath: row?.imagePath ?? null }
+    return { hidden: hide && row?.status === "hidden", imagePath: row?.imagePath ?? null }
   })
 }
 

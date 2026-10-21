@@ -3,6 +3,7 @@ import { z } from "zod"
 import { getDb } from "@/db"
 import type { Database } from "@/db/create-db"
 import { getProfile } from "@/db/fit-repository"
+import { ACCOUNT_GONE, isLiveAccount } from "@/lib/auth/live-account"
 import { type SocialRepository, createSocialRepository } from "@/db/social-repository"
 import { sameOrigin } from "@/lib/fits/route-helpers"
 import { handleSchema } from "@/lib/fits/schema"
@@ -30,7 +31,11 @@ export async function socialContext(request: Request): Promise<SocialContext | R
   const limit = await getLimiter("social", 60, "10 m", { durable: true }).limit(viewer.id)
   if (!limit.success) return apiError("slow down a little", 429, "rate-limited")
   const profile = await getProfile(db, viewer.id)
-  if (!profile) return apiError("pick a handle first", 409, "needs-handle")
+  if (!profile) {
+    return (await isLiveAccount(db, viewer))
+      ? apiError("pick a handle first", 409, "needs-handle")
+      : apiError(ACCOUNT_GONE, 401, "unauthenticated")
+  }
   return { viewer, handle: profile.handle, db, social: createSocialRepository(db) }
 }
 

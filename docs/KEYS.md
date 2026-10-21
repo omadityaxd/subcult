@@ -83,7 +83,7 @@ Run `npx web-push generate-vapid-keys` once. Public key → `NEXT_PUBLIC_VAPID_P
 
 ### Admin and cron secrets
 
-Generate each with `openssl rand -base64 32`. `ADMIN_SECRET` is the `/admin` password (any username). Vercel sends `CRON_SECRET` to cron routes automatically.
+Generate each with `node -e "console.log(require('crypto').randomBytes(32).toString('base64url'))"` (run it twice). `ADMIN_SECRET` is the `/admin` password (any username). Vercel sends `CRON_SECRET` to cron routes automatically.
 
 ## Google sign-in (OAuth consent screen)
 

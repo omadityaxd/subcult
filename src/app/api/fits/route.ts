@@ -1,3 +1,5 @@
+import { getDb } from "@/db"
+import { ACCOUNT_GONE, isLiveAccount } from "@/lib/auth/live-account"
 import { FitImageError, MAX_UPLOAD_BYTES } from "@/lib/fits/image"
 import { MAX_UPLOAD_LABEL } from "@/lib/fits/limits"
 import { fitInputSchema } from "@/lib/fits/schema"
@@ -19,6 +21,9 @@ export async function POST(request: Request): Promise<Response> {
   if (!sameOrigin(request)) return apiError("cross-site request refused", 403, "forbidden")
   const viewer = await getViewer()
   if (!viewer) return apiError("sign in to post", 401, "unauthenticated")
+  const db = getDb()
+  if (db && !(await isLiveAccount(db, viewer)))
+    return apiError(ACCOUNT_GONE, 401, "unauthenticated")
   // Refuse oversized bodies before reading them (the photo cap plus room for the form).
   const declared = Number(request.headers.get("content-length") ?? NaN)
   if (!Number.isFinite(declared) || declared > MAX_UPLOAD_BYTES + 64 * 1024) {

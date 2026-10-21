@@ -95,5 +95,13 @@ export const REPORT_REASONS = [
 ] as const
 export const reportSchema = z.object({ reason: z.enum(REPORT_REASONS) })
 
-/** Hidden automatically once this many different people report it (admins can restore it). */
+/**
+ * Every report lands in the /admin/fits queue. A fit is hidden automatically
+ * only once this many different trusted reporters flag it (admins can restore it).
+ */
 export const AUTO_HIDE_REPORTS = 3
+/**
+ * A trusted reporter's account is at least this old and has posted a fit or
+ * voted, so a handful of fresh sign-ups can't take anyone's fit down.
+ */
+export const TRUSTED_REPORTER_MIN_AGE_DAYS = 7

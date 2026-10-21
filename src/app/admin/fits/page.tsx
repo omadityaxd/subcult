@@ -4,7 +4,7 @@ import { Suspense } from "react"
 import { Skeleton } from "@/components/ui/skeleton"
 import { getDb } from "@/db"
 import { moderationQueue } from "@/db/fit-repository"
-import { AUTO_HIDE_REPORTS } from "@/lib/fits/schema"
+import { AUTO_HIDE_REPORTS, TRUSTED_REPORTER_MIN_AGE_DAYS } from "@/lib/fits/schema"
 import { moderationImageUrl } from "@/lib/fits/server"
 import { cn } from "@/lib/utils"
 import { setFitStatusAction } from "./actions"
@@ -16,8 +16,9 @@ export default function AdminFitsPage() {
     <>
       <h1 className="font-display text-[34px] font-bold tracking-tight">fits</h1>
       <p className="mt-1 text-[15px] text-muted-foreground">
-        Reported and hidden fits. {AUTO_HIDE_REPORTS} reports from different people hide a fit
-        automatically; restore it here if the reports were wrong.
+        Every reported fit lands here. It&apos;s hidden automatically only after {AUTO_HIDE_REPORTS}{" "}
+        reports from different accounts older than {TRUSTED_REPORTER_MIN_AGE_DAYS} days that have
+        posted or voted; restore it if the reports were wrong.
       </p>
       <Suspense fallback={<Skeleton className="mt-6 h-96 rounded-2xl" />}>
         <Queue />

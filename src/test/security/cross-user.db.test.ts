@@ -4,6 +4,7 @@ import { and, eq, sql } from "drizzle-orm"
 import { afterAll, beforeAll, describe, expect, it, vi } from "vitest"
 import { type Database, createDb } from "@/db/create-db"
 import { deleteAccountData, exportAccount } from "@/db/account-repository"
+import { moderationQueue, reportFit } from "@/db/fit-repository"
 import {
   fitLikes,
   fitReports,
@@ -17,7 +18,9 @@ import {
   tasteSignals,
   userBlocks,
   userFollows,
+  votes,
 } from "@/db/schema"
+import { AUTO_HIDE_REPORTS, TRUSTED_REPORTER_MIN_AGE_DAYS } from "@/lib/fits/schema"
 import type { Viewer } from "@/lib/supabase/server"
 
 /**
@@ -32,6 +35,10 @@ import type { Viewer } from "@/lib/supabase/server"
 const state = vi.hoisted(() => ({
   db: null as unknown,
   viewer: null as { id: string; email: string | null } | null,
+  /** Users deleted from Supabase Auth: their tokens still verify, getUser() refuses them. */
+  deleted: new Set<string>(),
+  /** The Supabase admin client (null = no SUPABASE_SECRET_KEY). */
+  admin: null as unknown,
 }))
 
 vi.mock("server-only", () => ({}))
@@ -39,8 +46,20 @@ vi.mock("@/db", () => ({ getDb: () => state.db }))
 vi.mock("@/lib/supabase/server", async (importOriginal) => ({
   ...(await importOriginal<Record<string, unknown>>()),
   getViewer: vi.fn(async () => state.viewer),
+  createSupabaseServer: vi.fn(async () => ({
+    auth: {
+      getUser: async () =>
+        state.viewer && !state.deleted.has(state.viewer.id)
+          ? { data: { user: { id: state.viewer.id } }, error: null }
+          : { data: { user: null }, error: new Error("User from sub claim in JWT does not exist") },
+      getSession: async () => ({
+        data: { session: state.viewer ? { access_token: `token-of-${state.viewer.id}` } : null },
+      }),
+      signOut: async () => ({ error: null }),
+    },
+  })),
 }))
-vi.mock("@/lib/supabase/admin", () => ({ getStorageAdmin: () => null }))
+vi.mock("@/lib/supabase/admin", () => ({ getStorageAdmin: () => state.admin }))
 
 function databaseUrl(): string | undefined {
   if (process.env.DATABASE_URL) return process.env.DATABASE_URL
@@ -126,6 +145,8 @@ async function scenario(test: (s: Seed, tx: Database) => Promise<void>): Promise
   } finally {
     state.db = null
     state.viewer = null
+    state.deleted.clear()
+    state.admin = null
   }
 }
 
@@ -311,6 +332,178 @@ describe.skipIf(!url)("two accounts: A can't reach B's data", () => {
       for (const [path, read] of reads) {
         expect((await read(request("GET", `/api/${path}`))).status, path).toBe(401)
       }
+    })
+  })
+
+  /** N reporter accounts, aged and active as asked; returns their ids. */
+  async function reporters(
+    tx: Database,
+    n: number,
+    { daysOld, active }: { daysOld: number; active: "posted" | "voted" | false },
+  ): Promise<string[]> {
+    const tag = randomUUID().replace(/-/g, "").slice(0, 6)
+    const ids = Array.from({ length: n }, () => randomUUID())
+    const createdAt = new Date(Date.now() - daysOld * 24 * 3600_000)
+    await tx
+      .insert(profiles)
+      .values(ids.map((id, i) => ({ id, handle: `t_r${i}_${tag}`, createdAt })))
+    if (active === "posted") {
+      await tx
+        .insert(fits)
+        .values(ids.map((id) => ({ userId: id, imagePath: `${id}/x.webp`, width: 1, height: 1 })))
+    }
+    if (active === "voted") {
+      await tx
+        .insert(votes)
+        .values(ids.map((id) => ({ targetId: `fit:${tag}`, voter: id, choice: "cop" as const })))
+    }
+    return ids
+  }
+
+  const RULE = { trustedReporters: AUTO_HIDE_REPORTS, minAgeDays: TRUSTED_REPORTER_MIN_AGE_DAYS }
+  const statusOf = async (tx: Database, id: string) =>
+    (await tx.select({ status: fits.status }).from(fits).where(eq(fits.id, id)))[0]?.status
+
+  it("reports: new accounts can't hide a fit; it goes to the admin queue", async () => {
+    await scenario(async (s, tx) => {
+      for (const id of await reporters(tx, 5, { daysOld: 0, active: "posted" })) {
+        await reportFit(tx, s.bFit, id, "spam", RULE)
+      }
+      expect(await statusOf(tx, s.bFit)).toBe("visible")
+      const queue = await moderationQueue(tx)
+      expect(queue.find((f) => f.id === s.bFit)?.reportCount).toBe(5)
+    })
+  })
+
+  it("reports: old accounts that never posted or voted can't hide a fit", async () => {
+    await scenario(async (s, tx) => {
+      for (const id of await reporters(tx, 4, { daysOld: 30, active: false })) {
+        await reportFit(tx, s.bFit, id, "spam", RULE)
+      }
+      expect(await statusOf(tx, s.bFit)).toBe("visible")
+    })
+  })
+
+  it("reports: the third trusted reporter hides it (posted or voted both count)", async () => {
+    await scenario(async (s, tx) => {
+      const [posted1, posted2] = await reporters(tx, 2, { daysOld: 8, active: "posted" })
+      const [voted] = await reporters(tx, 1, { daysOld: 8, active: "voted" })
+      const [fresh] = await reporters(tx, 1, { daysOld: 1, active: "posted" })
+      for (const id of [posted1!, fresh!, posted2!]) {
+        expect((await reportFit(tx, s.bFit, id, "spam", RULE)).hidden).toBe(false)
+      }
+      // The same person reporting twice doesn't count twice.
+      expect((await reportFit(tx, s.bFit, posted1!, "spam", RULE)).hidden).toBe(false)
+      expect(await statusOf(tx, s.bFit)).toBe("visible")
+      expect((await reportFit(tx, s.bFit, voted!, "spam", RULE)).hidden).toBe(true)
+      expect(await statusOf(tx, s.bFit)).toBe("hidden")
+    })
+  })
+
+  it("reports: through the route, a fresh account's report only queues the fit", async () => {
+    const report = await import("@/app/api/fits/[id]/report/route")
+    await scenario(async (s, tx) => {
+      as(s.a) // seeded just now: not trusted yet
+      const response = await report.POST(
+        request("POST", "/x", { reason: "nudity" }),
+        params({ id: s.bFit }),
+      )
+      expect(response.status).toBe(200)
+      expect(await statusOf(tx, s.bFit)).toBe("visible")
+      expect((await moderationQueue(tx)).some((f) => f.id === s.bFit)).toBe(true)
+    })
+  })
+
+  it("deleted accounts: a still-valid token can't post, vote, follow, export or come back", async () => {
+    const postFitRoute = await import("@/app/api/fits/route")
+    const vote = await import("@/app/api/vote/route")
+    const follows = await import("@/app/api/follows/route")
+    const account = await import("@/app/api/account/route")
+    const profile = await import("@/app/api/profile/route")
+    await scenario(async (s, tx) => {
+      await deleteAccountData(tx, s.a.id)
+      state.deleted.add(s.a.id)
+      as(s.a)
+
+      const form = new FormData()
+      form.set("photo", new Blob([new Uint8Array(16)], { type: "image/webp" }), "fit.webp")
+      form.set("data", "{}")
+      const post = new Request(`${ORIGIN}/api/fits`, {
+        method: "POST",
+        headers: { origin: ORIGIN, "content-length": "1024" },
+        body: form,
+      })
+      expect((await postFitRoute.POST(post)).status, "post a fit").toBe(401)
+      expect(
+        (await vote.POST(request("POST", "/api/vote", { target: `fit:${s.bFit}`, choice: "cop" })))
+          .status,
+        "vote",
+      ).toBe(401)
+      expect(
+        (await follows.POST(request("POST", "/api/follows", { handle: s.b.handle }))).status,
+        "follow",
+      ).toBe(401)
+      expect((await account.GET()).status, "export").toBe(401)
+      expect(
+        (
+          await profile.POST(
+            request("POST", "/api/profile", { handle: "t_back_again", ageConfirmed: true }),
+          )
+        ).status,
+        "claim a handle again",
+      ).toBe(401)
+
+      expect(await tx.select().from(votes).where(eq(votes.voter, s.a.id))).toHaveLength(0)
+      expect(
+        await tx.select().from(userFollows).where(eq(userFollows.followerId, s.a.id)),
+      ).toHaveLength(0)
+      expect(await tx.select().from(profiles).where(eq(profiles.id, s.a.id))).toHaveLength(0)
+    })
+  })
+
+  it("deleted accounts: a new account without a handle is still welcome", async () => {
+    const follows = await import("@/app/api/follows/route")
+    const vote = await import("@/app/api/vote/route")
+    await scenario(async (s) => {
+      const newcomer = { id: randomUUID(), email: null }
+      as(newcomer) // signed in, exists in Auth, no profile yet
+      expect(
+        (await follows.POST(request("POST", "/api/follows", { handle: s.b.handle }))).status,
+      ).toBe(409) // "pick a handle first", not "account gone"
+      expect(
+        (await vote.POST(request("POST", "/api/vote", { target: `fit:${s.bFit}`, choice: "cop" })))
+          .status,
+      ).toBe(200)
+    })
+  })
+
+  it("deleting an account signs out every session before removing the sign-in", async () => {
+    const account = await import("@/app/api/account/route")
+    await scenario(async (s, tx) => {
+      const calls: string[] = []
+      state.admin = {
+        storage: { from: () => ({ remove: async () => ({ error: null }) }) },
+        auth: {
+          admin: {
+            signOut: vi.fn(async (jwt: string, scope: string) => {
+              calls.push(`signOut ${jwt} ${scope}`)
+              return { error: null }
+            }),
+            deleteUser: vi.fn(async (id: string) => {
+              calls.push(`deleteUser ${id}`)
+              return { error: null }
+            }),
+          },
+        },
+      }
+      as(s.a)
+      const response = await account.DELETE(
+        request("DELETE", "/api/account", { confirm: `@${s.a.handle}` }),
+      )
+      expect(response.status).toBe(200)
+      expect(calls).toEqual([`signOut token-of-${s.a.id} global`, `deleteUser ${s.a.id}`])
+      expect(await tx.select().from(profiles).where(eq(profiles.id, s.a.id))).toHaveLength(0)
+      expect(await tx.select().from(profiles).where(eq(profiles.id, s.b.id))).toHaveLength(1)
     })
   })
 

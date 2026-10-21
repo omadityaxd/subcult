@@ -1,5 +1,6 @@
 import { z } from "zod"
 import { getDb } from "@/db"
+import { ACCOUNT_GONE, isLiveAccount } from "@/lib/auth/live-account"
 import { VOTE_CHOICES } from "@/db/schema"
 import { castVote, tallies } from "@/db/vote-repository"
 import { sameOrigin } from "@/lib/fits/route-helpers"
@@ -41,6 +42,8 @@ export async function POST(request: Request): Promise<Response> {
   const db = getDb()
   if (!db) return apiError("not available right now", 503, "unavailable")
   const viewer = await getViewer().catch(() => null)
+  if (viewer && !(await isLiveAccount(db, viewer)))
+    return apiError(ACCOUNT_GONE, 401, "unauthenticated")
   const voter = viewer?.id ?? (parsed.data.device ? `device:${parsed.data.device}` : null)
   if (!voter) return apiError("no voter", 400, "invalid-input")
   const { target, choice } = parsed.data

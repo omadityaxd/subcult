@@ -1,5 +1,6 @@
 import { z } from "zod"
 import { getDb } from "@/db"
+import { ACCOUNT_GONE, isLiveAccount } from "@/lib/auth/live-account"
 import { claimHandle } from "@/db/fit-repository"
 import { createSocialRepository } from "@/db/social-repository"
 import { inviterFromCookie } from "@/lib/social/founding"
@@ -22,6 +23,8 @@ export async function POST(request: Request): Promise<Response> {
   if (!viewer) return apiError("sign in first", 401, "unauthenticated")
   const db = getDb()
   if (!db) return apiError("profiles aren't available", 503, "unavailable")
+  // A deleted account's token still verifies until it expires: don't let it come back.
+  if (!(await isLiveAccount(db, viewer))) return apiError(ACCOUNT_GONE, 401, "unauthenticated")
   const limit = await getLimiter("handle", 10, "1 h", { durable: true }).limit(viewer.id)
   if (!limit.success) return apiError("slow down a little", 429, "rate-limited")
 

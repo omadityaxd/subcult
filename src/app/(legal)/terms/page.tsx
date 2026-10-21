@@ -71,10 +71,10 @@ export default function TermsPage() {
       <section>
         <h2>Reporting and takedowns</h2>
         <p>
-          Every fit has a report button ({REPORT_REASONS.join(", ")}). A fit reported by{" "}
-          {AUTO_HIDE_REPORTS} different people is hidden straight away until we review it. We remove
-          what breaks these rules and may remove accounts that keep doing it. For copyright, see
-          the <Link href="/content-policy">Content policy</Link>.
+          Every fit has a report button ({REPORT_REASONS.join(", ")}). Every report is reviewed. A
+          fit reported by {AUTO_HIDE_REPORTS} different established accounts is hidden straight away
+          until we review it. We remove what breaks these rules and may remove accounts that keep
+          doing it. For copyright, see the <Link href="/content-policy">Content policy</Link>.
         </p>
       </section>
 
