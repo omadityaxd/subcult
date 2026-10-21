@@ -1,3 +1,4 @@
+import type { Metadata } from "next"
 import { Search } from "lucide-react"
 import { connection } from "next/server"
 import { Suspense } from "react"
@@ -17,6 +18,12 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { featuredOrder } from "@/lib/feed/featured"
 import { getDailyPicks } from "@/lib/feed/daily"
 import { TAXONOMY } from "@/lib/niches/catalog"
+
+export const metadata: Metadata = {
+  title: { absolute: "subcult: your daily subculture issue" },
+  description:
+    "A new issue of your subculture's magazine every day: the tea, the fits, the grails, the sounds and what's rising in your scenes.",
+}
 
 /** The whole featured cluster, plus a few of the day's rotating picks. */
 const STORY_COUNT = TAXONOMY.featured().length + 4

@@ -7,6 +7,7 @@ import { useState } from "react"
 import { cn } from "@/lib/utils"
 import { NAV_ITEMS, OPEN_SEARCH_EVENT } from "./nav"
 import { NotificationBell } from "@/components/alerts/notification-bell"
+import { LegalLinks } from "./legal-links"
 import { ThemeToggle } from "./theme-toggle"
 
 /** Reads the URL, so it must sit inside <Suspense> on dynamic routes. */
@@ -86,6 +87,7 @@ export function SidebarView({ pathname }: { pathname: string | null }) {
         <div className={cn("px-1", showLabels)}>
           <ThemeToggle />
         </div>
+        <LegalLinks className={cn("px-2", showLabels)} />
         <button
           type="button"
           onClick={() => setExpanded((open) => !open)}

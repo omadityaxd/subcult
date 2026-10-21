@@ -9,9 +9,13 @@ import { apiError, apiOk } from "@/lib/request"
 import { getViewer } from "@/lib/supabase/server"
 import { sameOrigin } from "@/lib/fits/route-helpers"
 
-const bodySchema = z.object({ handle: handleSchema })
+const bodySchema = z.object({
+  handle: handleSchema,
+  /** Signing up means confirming you're 13 or older (see /terms). */
+  ageConfirmed: z.literal(true, { error: "subcult is for people 13 and older" }),
+})
 
-/** POST /api/profile { handle } → claims the signed-in user's public handle. */
+/** POST /api/profile { handle, ageConfirmed } → claims the signed-in user's public handle. */
 export async function POST(request: Request): Promise<Response> {
   if (!sameOrigin(request)) return apiError("cross-site request refused", 403, "forbidden")
   const viewer = await getViewer()

@@ -6,6 +6,7 @@ import { ImageResponse } from "next/og"
  * the 80% safe zone Android crops to.
  */
 const VARIANTS = {
+  "32": { size: 32, glyph: 0.7 },
   "192": { size: 192, glyph: 0.62 },
   "512": { size: 512, glyph: 0.62 },
   "maskable-512": { size: 512, glyph: 0.46 },

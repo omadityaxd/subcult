@@ -7,6 +7,7 @@ import { Screen } from "@/components/shell/screen"
 import { env } from "@/lib/env"
 import { safeNext } from "@/lib/auth/redirect"
 import { LoginCollage } from "./login-collage"
+import { LegalLinks } from "@/components/shell/legal-links"
 import { LoginForm } from "./login-form"
 
 export const metadata: Metadata = { title: "Sign in", robots: { index: false } }
@@ -62,6 +63,18 @@ export default function LoginPage({ searchParams }: PageProps<"/login">) {
               </li>
             ))}
           </ul>
+          <p className="mt-8 text-caption text-muted-foreground">
+            By continuing you confirm you&apos;re 13 or older and agree to the{" "}
+            <Link href="/terms" className="underline underline-offset-2">
+              Terms
+            </Link>{" "}
+            and{" "}
+            <Link href="/privacy" className="underline underline-offset-2">
+              Privacy Policy
+            </Link>
+            .
+          </p>
+          <LegalLinks className="mt-3" />
         </div>
       </div>
     </Screen>

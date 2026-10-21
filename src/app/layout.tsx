@@ -32,7 +32,10 @@ export const metadata: Metadata = {
   appleWebApp: { capable: true, title: "subcult", statusBarStyle: "black-translucent" },
   formatDetection: { telephone: false },
   icons: {
-    icon: [{ url: "/icons/192", type: "image/png", sizes: "192x192" }],
+    icon: [
+      { url: "/icons/32", type: "image/png", sizes: "32x32" },
+      { url: "/icons/192", type: "image/png", sizes: "192x192" },
+    ],
     apple: [{ url: "/icons/apple-180", sizes: "180x180" }],
   },
   openGraph: { siteName: "subcult", title: "subcult", description: DESCRIPTION, type: "website" },

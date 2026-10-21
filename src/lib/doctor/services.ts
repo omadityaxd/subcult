@@ -284,6 +284,13 @@ export const SERVICES: readonly Service[] = [
     unlocks: "Scheduled jobs (keep-alive, trends, Rising, alerts); required in production",
   },
   {
+    id: "contact",
+    label: "Contact email",
+    vars: ["CONTACT_EMAIL"],
+    required: false,
+    unlocks: "The address on the privacy, terms and content pages (needed for launch)",
+  },
+  {
     id: "site",
     label: "Site URL",
     vars: ["NEXT_PUBLIC_SITE_URL"],

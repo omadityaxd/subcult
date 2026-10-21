@@ -12,6 +12,7 @@ export function HandleForm({
 }) {
   const router = useRouter()
   const [handle, setHandle] = useState("")
+  const [olderThan13, setOlderThan13] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [busy, setBusy] = useState(false)
 
@@ -22,7 +23,7 @@ export function HandleForm({
     const response = await fetch("/api/profile", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ handle }),
+      body: JSON.stringify({ handle, ageConfirmed: olderThan13 }),
     })
     const body = (await response.json()) as ApiResponse<{ handle: string }>
     setBusy(false)
@@ -49,6 +50,26 @@ export function HandleForm({
           />
         </span>
       </label>
+      <label className="flex items-start gap-3 text-footnote">
+        <input
+          type="checkbox"
+          required
+          checked={olderThan13}
+          onChange={(event) => setOlderThan13(event.target.checked)}
+          className="mt-0.5 size-4 shrink-0 accent-foreground"
+        />
+        <span>
+          I&apos;m 13 or older, and I agree to the{" "}
+          <a href="/terms" target="_blank" className="underline underline-offset-2">
+            Terms
+          </a>{" "}
+          and{" "}
+          <a href="/privacy" target="_blank" className="underline underline-offset-2">
+            Privacy Policy
+          </a>
+          .
+        </span>
+      </label>
       {error ? (
         <p role="alert" className="text-footnote text-muted-foreground">
           {error}
@@ -56,7 +77,7 @@ export function HandleForm({
       ) : null}
       <button
         type="submit"
-        disabled={busy}
+        disabled={busy || !olderThan13}
         className="h-11 rounded-full bg-foreground px-6 text-callout font-semibold text-background disabled:opacity-60"
       >
         {busy ? "Saving…" : "Continue"}

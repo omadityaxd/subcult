@@ -52,6 +52,11 @@ const serverEnvSchema = z.object({
       .default("amazon.com"),
   ),
   NEXT_PUBLIC_SITE_URL: optionalUrl,
+  /** Shown on the legal pages for privacy and takedown requests. */
+  CONTACT_EMAIL: z.preprocess(
+    (value) => (typeof value === "string" && value.trim() === "" ? undefined : value),
+    z.email().optional(),
+  ),
   /** Global ceiling on new LLM niche generations per UTC day (on top of per-IP limits). */
   LLM_DAILY_GENERATION_CAP: z.preprocess(
     (value) => (typeof value === "string" && value.trim() === "" ? undefined : value),

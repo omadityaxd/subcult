@@ -26,7 +26,8 @@ Limits below were checked in October 2026; confirm on each provider's pricing pa
 | PostHog | `NEXT_PUBLIC_POSTHOG_KEY`, `NEXT_PUBLIC_POSTHOG_HOST` | Analytics and funnels | 1M events/month | no |
 | Web push | `NEXT_PUBLIC_VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY` | Push alerts | free | no |
 | Admin and cron | `ADMIN_SECRET`, `CRON_SECRET` | `/admin` (incl. status) and scheduled jobs | — | required in production |
-| Site URL | `NEXT_PUBLIC_SITE_URL` | Absolute share and OG links | — | no |
+| Site URL | `NEXT_PUBLIC_SITE_URL` | Absolute share and OG links, sitemap | — | no |
+| Contact email | `CONTACT_EMAIL` | Shown on the legal pages for takedowns and questions | — | no |
 
 ## Step by step
 

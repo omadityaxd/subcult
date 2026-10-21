@@ -22,6 +22,8 @@ import ARTISTS from "../../../../data/taxonomy/artists.json"
 import { LargeTitle } from "@/components/shell/large-title"
 import { Screen } from "@/components/shell/screen"
 import { ThemeToggle } from "@/components/shell/theme-toggle"
+import { AccountDataSection } from "@/components/me/account-data-section"
+import { LegalLinks } from "@/components/shell/legal-links"
 
 export const metadata: Metadata = { title: "Me" }
 
@@ -74,6 +76,12 @@ export default function MePage() {
             </div>
           </div>
         </section>
+
+        <Suspense fallback={null}>
+          <AccountDataSection />
+        </Suspense>
+
+        <LegalLinks />
       </div>
     </Screen>
   )
