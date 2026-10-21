@@ -2,6 +2,7 @@ import { z } from "zod"
 import { getHomePage, getStory } from "@/lib/feed/home"
 import { errorMessage, log } from "@/lib/log"
 import { apiError, apiOk } from "@/lib/request"
+import { ipLimited } from "@/lib/rate-limit"
 
 const querySchema = z.union([
   z.object({ niche: z.string().regex(/^[a-z0-9-]{1,64}$/) }),
@@ -33,6 +34,8 @@ function parseTaste(raw: string | undefined): Map<string, number> | null {
  * Both are served from the per-source Redis cache, so pages are cheap.
  */
 export async function GET(request: Request): Promise<Response> {
+  const limited = await ipLimited(request, "feed", 120, "1 m")
+  if (limited) return limited
   const params = Object.fromEntries(new URL(request.url).searchParams)
   const parsed = querySchema.safeParse(params)
   if (!parsed.success) return apiError("pass ?cursor=N or ?niche=slug", 400, "invalid-input")

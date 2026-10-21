@@ -335,9 +335,15 @@ export async function checkServices(
 }
 
 /** `pnpm doctor` fails only when a required service is missing or broken. */
-export function doctorFails(rows: readonly ServiceRow[]): boolean {
-  return rows.some((row) => row.required && !row.on)
+export function doctorFails(rows: readonly ServiceRow[], env: Env = {}): boolean {
+  // On Vercel production the admin and cron secrets are required too (env.ts refuses to boot).
+  const production = env.VERCEL_ENV === "production"
+  return rows.some(
+    (row) => (row.required || (production && PRODUCTION_REQUIRED.has(row.id))) && !row.on,
+  )
 }
+
+const PRODUCTION_REQUIRED = new Set(["admin", "cron"])
 
 /** Plain-text table for the terminal. */
 export function formatTable(rows: readonly ServiceRow[]): string {

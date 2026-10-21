@@ -28,6 +28,7 @@
     "news:freshness": "tsx scripts/news-freshness.ts",
     "rising:print": "tsx --conditions=react-server scripts/rising.ts",
     "doctor": "tsx --conditions=react-server scripts/doctor.ts",
+    "security:audit": "tsx --conditions=react-server scripts/security-audit.ts",
     "previews:rate": "tsx --conditions=react-server scripts/preview-match-rate.ts",
     "today:shots": "tsx scripts/today-shots.ts",
     "alerts:run": "tsx --conditions=react-server scripts/alerts-run.ts",

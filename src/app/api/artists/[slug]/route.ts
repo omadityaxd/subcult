@@ -8,6 +8,7 @@ import { getCacheStore, getSpotify } from "@/lib/music/server"
 import { spotifySearchUrl } from "@/lib/music/soundtrack"
 import { TAXONOMY, findPreset } from "@/lib/niches/catalog"
 import { apiError, apiOk } from "@/lib/request"
+import { ipLimited } from "@/lib/rate-limit"
 
 export interface ArtistSheetData {
   artist: { slug: string; name: string; imageUrl: string | null; spotifyUrl: string }
@@ -57,7 +58,9 @@ function relatedArtists(slug: string): ArtistSheetData["related"] {
 }
 
 /** GET /api/artists/:slug → a verified artist with playable top tracks, related artists and niches. */
-export async function GET(_request: Request, ctx: RouteContext<"/api/artists/[slug]">) {
+export async function GET(request: Request, ctx: RouteContext<"/api/artists/[slug]">) {
+  const limited = await ipLimited(request, "artist-sheet", 60, "1 m")
+  if (limited) return limited
   const { slug } = await ctx.params
   const artist = TAXONOMY.artist(slug)
   if (!artist) return apiError("no such artist", 404, "invalid-input")

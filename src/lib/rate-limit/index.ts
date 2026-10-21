@@ -121,3 +121,18 @@ export function getLimiter(
   limiters.set(key, limiter)
   return limiter
 }
+
+/**
+ * A per-IP limit for a public route: the 429 response when over it, null
+ * otherwise. `if (limited) return limited` as a route's first line.
+ */
+export async function ipLimited(
+  request: Request,
+  name: string,
+  max: number,
+  window: Window,
+): Promise<Response | null> {
+  const { apiError, clientIp } = await import("@/lib/request")
+  const result = await getLimiter(name, max, window).limit(clientIp(request.headers))
+  return result.success ? null : apiError("slow down a little", 429, "rate-limited")
+}

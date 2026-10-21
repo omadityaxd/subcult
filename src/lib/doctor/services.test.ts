@@ -77,4 +77,16 @@ describe("checkServices", () => {
     })
     expect(formatTable(rows)).toContain("Upstash Redis *")
   })
+
+  it("requires the admin and cron secrets on Vercel production only", async () => {
+    const { impl } = fakeFetch(() => 200)
+    const rows = await checkServices(REQUIRED, { fetchImpl: impl, extraProbes: dbUp })
+    expect(doctorFails(rows, {})).toBe(false)
+    expect(doctorFails(rows, { VERCEL_ENV: "production" })).toBe(true)
+    const withSecrets = await checkServices(
+      { ...REQUIRED, ADMIN_SECRET: "a", CRON_SECRET: "c" },
+      { fetchImpl: impl, extraProbes: dbUp },
+    )
+    expect(doctorFails(withSecrets, { VERCEL_ENV: "production" })).toBe(false)
+  })
 })

@@ -68,8 +68,8 @@ export interface GetOrCreateOptions {
 }
 
 const PERMIT_DENIALS = {
-  "rate-limited": "you've summoned a lot of niches today. come back tomorrow 🌙",
-  capped: "the vibe machine is resting 😴 try a preset niche while it recharges",
+  "rate-limited": "you've summoned a lot of niches today. come back tomorrow.",
+  capped: "the vibe machine is resting. try a preset niche while it recharges",
 } as const
 
 export interface NicheService {

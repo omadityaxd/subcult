@@ -1,4 +1,5 @@
 import { z } from "zod"
+import { QuotaExhaustedError, type QuotaGuard } from "@/lib/feed/quota"
 
 /**
  * eBay Browse API (https://developer.ebay.com/develop/api/buy/browse_api).
@@ -19,6 +20,8 @@ export interface EbayCredentials {
   clientId: string
   clientSecret: string
   campaignId?: string
+  /** Daily call budget shared by every caller (see shop/server ebayCredentials). */
+  quota?: QuotaGuard
 }
 
 export interface Listing {
@@ -98,6 +101,10 @@ async function appToken(credentials: EbayCredentials, fetchImpl: typeof fetch): 
 }
 
 async function browse(path: string, credentials: EbayCredentials, fetchImpl: typeof fetch) {
+  // Every Browse call spends the day's budget first: over it, callers fall back to cache.
+  if (credentials.quota && !(await credentials.quota.tryConsume())) {
+    throw new QuotaExhaustedError("ebay")
+  }
   const headers: Record<string, string> = {
     Authorization: `Bearer ${await appToken(credentials, fetchImpl)}`,
     "X-EBAY-C-MARKETPLACE-ID": MARKETPLACE,

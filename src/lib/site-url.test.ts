@@ -28,3 +28,16 @@ describe("resolveSiteUrl", () => {
     expect(resolveSiteUrl({})).toBe("http://localhost:3000")
   })
 })
+
+describe("missingProductionSecrets", () => {
+  it("requires the admin and cron secrets on Vercel production only", async () => {
+    const { missingProductionSecrets } = await import("./env")
+    expect(missingProductionSecrets({ VERCEL_ENV: "preview" })).toEqual([])
+    expect(missingProductionSecrets({ VERCEL_ENV: "production", ADMIN_SECRET: "x" })).toEqual([
+      "CRON_SECRET",
+    ])
+    expect(
+      missingProductionSecrets({ VERCEL_ENV: "production", ADMIN_SECRET: "x", CRON_SECRET: "y" }),
+    ).toEqual([])
+  })
+})

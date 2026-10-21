@@ -19,7 +19,7 @@ async function main(): Promise<void> {
   for (const row of rows.filter((r) => !r.on && !r.required)) {
     console.log(`  off: ${row.label} -> ${row.unlocks}`)
   }
-  const fail = doctorFails(rows)
+  const fail = doctorFails(rows, process.env)
   if (fail) console.log("\nA required service is missing or broken.")
   // Exit only once stdout has flushed (piped through pnpm, an early exit truncates it).
   process.stdout.write("", () => process.exit(fail ? 1 : 0))

@@ -26,7 +26,7 @@ export function toNicheSlug(raw: string): string {
 
 /** Validates user-typed niche names before anything touches the DB or LLM. */
 export function parseNicheInput(raw: unknown): NicheInput {
-  if (typeof raw !== "string") return { ok: false, reason: "type a vibe first 👀" }
+  if (typeof raw !== "string") return { ok: false, reason: "type a vibe first" }
   const name = normalizeNicheName(raw)
   if (name.length < NICHE_NAME_MIN) return { ok: false, reason: "a little more than that, bestie" }
   if (name.length > NICHE_NAME_MAX) return { ok: false, reason: "that's a whole essay. shorter?" }

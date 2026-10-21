@@ -5,6 +5,7 @@ import { parseNicheInput } from "@/lib/engine/slug"
 import { errorMessage, log } from "@/lib/log"
 import { findSeedProfileByName } from "@/lib/niches/catalog"
 import { apiError, apiOk, clientIp } from "@/lib/request"
+import { ipLimited } from "@/lib/rate-limit"
 
 const bodySchema = z.object({ name: z.string().max(200) })
 
@@ -34,6 +35,8 @@ const toResolved = (profile: NicheProfile, source: ResolvedNiche["source"]): Res
  * which is gated by the global daily cap and a per-IP limit.
  */
 export async function POST(request: Request): Promise<Response> {
+  const limited = await ipLimited(request, "niche-summon", 20, "10 m")
+  if (limited) return limited
   let body: z.infer<typeof bodySchema>
   try {
     body = bodySchema.parse(await request.json())

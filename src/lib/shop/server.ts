@@ -7,6 +7,9 @@ import type { FeedItem } from "@/lib/feed/types"
 import { env } from "@/lib/env"
 import { errorMessage, log } from "@/lib/log"
 import { getCacheStore } from "@/lib/music/server"
+import { memoryQuota, redisQuota } from "@/lib/feed/quota"
+import { EBAY_DAILY_CALLS } from "./quota"
+import { getRedis } from "@/lib/redis"
 import { type BrandArchive, brandArchive } from "./archive"
 import { type EbayCredentials, type ListingDetail, getListing, searchListings } from "./ebay"
 
@@ -16,14 +19,18 @@ const DETAIL_POLICY = { freshSeconds: 3600, staleSeconds: 3 * 3600 }
 const ARCHIVE_BRANDS = 5
 const PER_BRAND = 20
 
+const localEbayQuota = memoryQuota(EBAY_DAILY_CALLS)
+
 export function ebayCredentials(): EbayCredentials | null {
-  return env.EBAY_CLIENT_ID && env.EBAY_CLIENT_SECRET
-    ? {
-        clientId: env.EBAY_CLIENT_ID,
-        clientSecret: env.EBAY_CLIENT_SECRET,
-        campaignId: env.EBAY_CAMPAIGN_ID,
-      }
-    : null
+  if (!env.EBAY_CLIENT_ID || !env.EBAY_CLIENT_SECRET) return null
+  const redis = getRedis()
+  return {
+    clientId: env.EBAY_CLIENT_ID,
+    clientSecret: env.EBAY_CLIENT_SECRET,
+    campaignId: env.EBAY_CAMPAIGN_ID,
+    // Shared across every serverless instance (Redis); per-process in local dev without it.
+    quota: redis ? redisQuota(redis, "ebay:calls", EBAY_DAILY_CALLS) : localEbayQuota,
+  }
 }
 
 const onStoreError = (operation: string, error: unknown) =>

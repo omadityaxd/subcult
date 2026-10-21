@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import { connection } from "next/server"
 import { Suspense } from "react"
 import { Skeleton } from "@/components/ui/skeleton"
-import { serviceStatus } from "@/lib/doctor/server"
+import { costCaps, serviceStatus } from "@/lib/doctor/server"
 import type { ServiceRow } from "@/lib/doctor/services"
 import { cn } from "@/lib/utils"
 
@@ -34,7 +34,7 @@ const stateOf = (row: ServiceRow) => (row.on ? "on" : row.present ? "error" : "o
 
 async function StatusTable() {
   await connection()
-  const rows = await serviceStatus()
+  const [rows, caps] = await Promise.all([serviceStatus(), costCaps()])
   const on = rows.filter((row) => row.on).length
   return (
     <div className="mt-6">
@@ -66,6 +66,21 @@ async function StatusTable() {
             </li>
           )
         })}
+      </ul>
+      <h2 className="mt-10 mb-2 text-[13px] tracking-wide text-muted-foreground uppercase">
+        cost caps: every paid or quota-limited call has one
+      </h2>
+      <ul className="divide-y divide-border overflow-hidden rounded-2xl bg-card">
+        {caps.map((cap) => (
+          <li key={cap.what} className="grid gap-1 px-4 py-3 md:grid-cols-[12rem_1fr_16rem]">
+            <span className="text-[15px] font-medium">{cap.service}</span>
+            <span className="text-[13px] text-muted-foreground">
+              {cap.what}
+              <span className="block text-foreground">{cap.cap}</span>
+            </span>
+            <span className="text-[13px] tabular-nums md:text-right">{cap.left ?? ""}</span>
+          </li>
+        ))}
       </ul>
     </div>
   )

@@ -1,9 +1,9 @@
 /* subcult service worker: offline shell + static assets, and web push (alerts). */
 
-const VERSION = "v1"
+const VERSION = "v2"
 const SHELL = `subcult-shell-${VERSION}`
 const STATIC = `subcult-static-${VERSION}`
-const OFFLINE_URLS = ["/", "/manifest.webmanifest", "/icons/192"]
+const OFFLINE_URLS = ["/", "/offline", "/manifest.webmanifest", "/icons/192"]
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
@@ -64,8 +64,12 @@ self.addEventListener("fetch", (event) => {
           }
           return response
         })
+        // Offline: this page if we have it, the saved issue for the home page, else /offline.
         .catch(() =>
-          caches.match(request).then((hit) => hit || caches.match("/")),
+          caches
+            .match(request)
+            .then((hit) => hit || (url.pathname === "/" ? caches.match("/") : null))
+            .then((hit) => hit || caches.match("/offline")),
         ),
     )
   }

@@ -2,6 +2,7 @@ import { z } from "zod"
 import { errorMessage, log } from "@/lib/log"
 import { getStoryMusic } from "@/lib/music/story-server"
 import { apiError, apiOk } from "@/lib/request"
+import { ipLimited } from "@/lib/rate-limit"
 
 const querySchema = z.object({ niche: z.string().regex(/^[a-z0-9-]{1,64}$/) })
 
@@ -10,6 +11,8 @@ const querySchema = z.object({ niche: z.string().regex(/^[a-z0-9-]{1,64}$/) })
  * (null = play silently). Fetched alongside the story frames, never blocking them.
  */
 export async function GET(request: Request): Promise<Response> {
+  const limited = await ipLimited(request, "story-music", 120, "1 m")
+  if (limited) return limited
   const parsed = querySchema.safeParse(Object.fromEntries(new URL(request.url).searchParams))
   if (!parsed.success) return apiError("pass ?niche=slug", 400, "invalid-input")
   try {

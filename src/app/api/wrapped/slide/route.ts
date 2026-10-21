@@ -4,6 +4,7 @@ import { apiError } from "@/lib/request"
 import { slideCopy } from "@/lib/wrapped/copy"
 import { renderSlideImage } from "@/lib/wrapped/slide-image"
 import { slideNiche, slideSchema } from "@/lib/wrapped/slides"
+import { ipLimited } from "@/lib/rate-limit"
 
 const NEUTRAL = ["#0a0a0a", "#1a1a1a", "#444444", "#bbbbbb", "#f2f2f2"]
 const MAX_BODY_BYTES = 8_000
@@ -14,6 +15,8 @@ const MAX_BODY_BYTES = 8_000
  * schema bounds every field and only allows Spotify/Apple artwork URLs.
  */
 export async function POST(request: Request): Promise<Response> {
+  const limited = await ipLimited(request, "wrapped-slide", 20, "10 m")
+  if (limited) return limited
   const text = await request.text()
   if (text.length > MAX_BODY_BYTES) return apiError("slide too large", 413, "invalid-input")
   let body: unknown

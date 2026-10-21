@@ -45,6 +45,7 @@ import { TAXONOMY, nicheImage } from "@/lib/niches/catalog"
 import { isNew } from "@/lib/niches/lifecycle"
 import { type NicheMeta, type NicheSource, lookupNicheProfile } from "@/lib/niches/lookup"
 import { nicheTheme } from "@/lib/niches/theme"
+import { SectionBoundary } from "@/components/ds/section-boundary"
 
 export async function generateMetadata({ params }: PageProps<"/n/[slug]">): Promise<Metadata> {
   const { slug } = await params
@@ -133,15 +134,19 @@ function NicheWorld({
           imageUrl={nicheImage(profile.slug)}
           badge={trendBadge(meta)}
           mosaic={
-            <Suspense fallback={null}>
-              <HeroMosaic profile={profile} />
-            </Suspense>
+            <SectionBoundary label="The mosaic">
+              <Suspense fallback={null}>
+                <HeroMosaic profile={profile} />
+              </Suspense>
+            </SectionBoundary>
           }
         />
 
-        <Suspense fallback={null}>
-          <NicheSoundtrack slug={profile.slug} />
-        </Suspense>
+        <SectionBoundary label="The soundtrack">
+          <Suspense fallback={null}>
+            <NicheSoundtrack slug={profile.slug} />
+          </Suspense>
+        </SectionBoundary>
         <NicheVisit slug={profile.slug} />
 
         <div className="container-page mt-5 space-y-5 empty:hidden md:mt-8">
@@ -155,9 +160,11 @@ function NicheWorld({
               panels={{
                 "for-you": (
                   <>
-                    <Suspense fallback={<FeedSkeleton count={3} />}>
-                      <NicheIssue slug={profile.slug} />
-                    </Suspense>
+                    <SectionBoundary label="The issue">
+                      <Suspense fallback={<FeedSkeleton count={3} />}>
+                        <NicheIssue slug={profile.slug} />
+                      </Suspense>
+                    </SectionBoundary>
                     <ForYouSection profile={profile} sources={meta?.sources ?? []} />
                     <div className="mt-10 space-y-10">
                       <ArtistsRow artists={artists} themeStyle={theme.style} />
@@ -168,24 +175,32 @@ function NicheWorld({
                         <TwoHops slug={profile.slug} />
                       </div>
                     </div>
-                    <Suspense fallback={<FeedSkeleton />}>
-                      <LiveForYou profile={profile} />
-                    </Suspense>
+                    <SectionBoundary label="The feed">
+                      <Suspense fallback={<FeedSkeleton />}>
+                        <LiveForYou profile={profile} />
+                      </Suspense>
+                    </SectionBoundary>
                   </>
                 ),
                 sounds: (
-                  <Suspense fallback={<FeedSkeleton count={6} />}>
-                    <LiveSounds profile={profile} />
-                  </Suspense>
+                  <SectionBoundary label="Sounds">
+                    <Suspense fallback={<FeedSkeleton count={6} />}>
+                      <LiveSounds profile={profile} />
+                    </Suspense>
+                  </SectionBoundary>
                 ),
                 fits: (
                   <div className="space-y-12">
-                    <Suspense fallback={<FeedSkeleton count={4} />}>
-                      <LiveFits profile={profile} />
-                    </Suspense>
-                    <Suspense fallback={<FeedSkeleton count={3} />}>
-                      <ArchiveGrails profile={profile} />
-                    </Suspense>
+                    <SectionBoundary label="Fits">
+                      <Suspense fallback={<FeedSkeleton count={4} />}>
+                        <LiveFits profile={profile} />
+                      </Suspense>
+                    </SectionBoundary>
+                    <SectionBoundary label="The archive">
+                      <Suspense fallback={<FeedSkeleton count={3} />}>
+                        <ArchiveGrails profile={profile} />
+                      </Suspense>
+                    </SectionBoundary>
                     <DripSection
                       brands={profile.brands}
                       shopKeywords={profile.shopKeywords}
@@ -198,25 +213,33 @@ function NicheWorld({
                   </div>
                 ),
                 archive: (
-                  <Suspense fallback={<FeedSkeleton count={6} />}>
-                    <LiveArchive profile={profile} />
-                  </Suspense>
+                  <SectionBoundary label="The archive">
+                    <Suspense fallback={<FeedSkeleton count={6} />}>
+                      <LiveArchive profile={profile} />
+                    </Suspense>
+                  </SectionBoundary>
                 ),
                 scene: (
                   <div className="space-y-12">
-                    <Suspense fallback={<FeedSkeleton count={3} />}>
-                      <LiveWatch profile={profile} />
-                    </Suspense>
-                    <Suspense fallback={<FeedSkeleton count={4} />}>
-                      <LiveTea profile={profile} />
-                    </Suspense>
+                    <SectionBoundary label="Videos">
+                      <Suspense fallback={<FeedSkeleton count={3} />}>
+                        <LiveWatch profile={profile} />
+                      </Suspense>
+                    </SectionBoundary>
+                    <SectionBoundary label="The tea">
+                      <Suspense fallback={<FeedSkeleton count={4} />}>
+                        <LiveTea profile={profile} />
+                      </Suspense>
+                    </SectionBoundary>
                     <CommunitySection profile={profile} />
                   </div>
                 ),
                 moodboard: (
-                  <Suspense fallback={<FeedSkeleton count={6} />}>
-                    <LiveMoodboard profile={profile} />
-                  </Suspense>
+                  <SectionBoundary label="The moodboard">
+                    <Suspense fallback={<FeedSkeleton count={6} />}>
+                      <LiveMoodboard profile={profile} />
+                    </Suspense>
+                  </SectionBoundary>
                 ),
               }}
             />
@@ -238,9 +261,11 @@ function NicheWorld({
               <TwoHops slug={profile.slug} vertical />
               {/* Music is the soundtrack layer: last in the rail, and fashion niches keep it on Sounds. */}
               {TAXONOMY.branchOf(profile.slug) === "underground-fashion" ? null : (
-                <Suspense fallback={<Skeleton className="h-64 rounded-2xl" />}>
-                  <TopTracks profile={profile} />
-                </Suspense>
+                <SectionBoundary label="Top tracks">
+                  <Suspense fallback={<Skeleton className="h-64 rounded-2xl" />}>
+                    <TopTracks profile={profile} />
+                  </Suspense>
+                </SectionBoundary>
               )}
             </div>
           </aside>

@@ -2,6 +2,7 @@ import { z } from "zod"
 import { nicheBrands } from "@/lib/feed/for-you"
 import { findPreset, nicheArtistsLeadFirst } from "@/lib/niches/catalog"
 import { apiError, apiOk } from "@/lib/request"
+import { ipLimited } from "@/lib/rate-limit"
 
 export interface StartSuggestion {
   kind: "artist" | "brand"
@@ -24,6 +25,8 @@ const PER_NICHE_BRANDS = 1
 
 /** GET /api/start?niches=a,b,c → verified artists and brands to follow, a few per niche. */
 export async function GET(request: Request): Promise<Response> {
+  const limited = await ipLimited(request, "start", 30, "1 m")
+  if (limited) return limited
   const parsed = querySchema.safeParse(Object.fromEntries(new URL(request.url).searchParams))
   if (!parsed.success) return apiError("pass ?niches=a,b,c", 400, "invalid-input")
   const seen = new Set<string>()

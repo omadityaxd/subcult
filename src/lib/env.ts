@@ -73,11 +73,26 @@ const serverEnvSchema = z.object({
 
 export type ServerEnv = z.infer<typeof serverEnvSchema>
 
+/** Unset on production, these leave /admin open to nobody and the scheduled jobs unauthenticated. */
+export const REQUIRED_IN_PRODUCTION = ["ADMIN_SECRET", "CRON_SECRET"] as const
+
+/** The production-only secrets that are missing (empty outside Vercel production). */
+export function missingProductionSecrets(source: Record<string, string | undefined>): string[] {
+  if (source.VERCEL_ENV !== "production") return []
+  return REQUIRED_IN_PRODUCTION.filter((name) => !source[name]?.trim())
+}
+
 function parseEnv(): ServerEnv {
   const result = serverEnvSchema.safeParse(process.env)
   if (!result.success) {
     // A malformed value (e.g. a broken URL) is a config bug worth failing loudly on.
     throw new Error(`Invalid environment variables:\n${z.prettifyError(result.error)}`)
+  }
+  const missing = missingProductionSecrets(process.env)
+  if (missing.length > 0) {
+    throw new Error(
+      `Production needs ${missing.join(" and ")} (see docs/KEYS.md). Set them in Vercel and redeploy.`,
+    )
   }
   return result.data
 }

@@ -78,7 +78,6 @@ async function main(): Promise<void> {
   const picks: Record<string, string[]> = {}
   for (const profile of profiles) {
     const brands = TAXONOMY.brandsOf(profile.slug).map((b) => b.name)
-    const names = [profile.name, ...brands.slice(0, 3)]
     const queries = [...new Set([profile.name, `${profile.name} fits`, ...brands.slice(0, 3)])]
     const seen = new Set<string>()
     const candidates: (ArenaChannel & { share: number })[] = []

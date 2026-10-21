@@ -5,6 +5,7 @@ import { TAXONOMY, findPreset } from "@/lib/niches/catalog"
 import { apiError, apiOk } from "@/lib/request"
 import type { BrandArchive } from "@/lib/shop/archive"
 import { getBrandArchive } from "@/lib/shop/server"
+import { ipLimited } from "@/lib/rate-limit"
 
 export interface BrandSheetData {
   brand: { slug: string; name: string; description: string; officialUrl: string | null }
@@ -18,7 +19,9 @@ export interface BrandSheetData {
 }
 
 /** GET /api/brands/:slug → a brand as a first-class entity. */
-export async function GET(_request: Request, ctx: RouteContext<"/api/brands/[slug]">) {
+export async function GET(request: Request, ctx: RouteContext<"/api/brands/[slug]">) {
+  const limited = await ipLimited(request, "brand-sheet", 60, "1 m")
+  if (limited) return limited
   const { slug } = await ctx.params
   const brand = TAXONOMY.brand(slug)
   if (!brand) return apiError("no such brand", 404, "invalid-input")
