@@ -1,0 +1,3 @@
+# localStorage key names, not secrets
+e92f902b3e3b059b58b07046a9d3a652799574b8:src/lib/wrapped/store.ts:generic-api-key:14
+0bbd6249f3be948703aa7c55a600089d553efcb2:src/components/home/stories-row.tsx:generic-api-key:8

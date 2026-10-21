@@ -8,5 +8,7 @@ export default defineConfig({
   test: {
     environment: "node",
     include: ["src/**/*.test.ts"],
+    // Database tests run separately: pnpm run test:security
+    exclude: ["src/**/*.db.test.ts", "node_modules/**"],
   },
 })

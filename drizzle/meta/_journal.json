@@ -78,6 +78,13 @@
       "when": 1792385479474,
       "tag": "0010_votes",
       "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1792582092649,
+      "tag": "0011_private_fits_profiles",
+      "breakpoints": true
     }
   ]
 }

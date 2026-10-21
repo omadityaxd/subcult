@@ -3,6 +3,7 @@ import { z } from "zod"
 import { getDb } from "@/db"
 import type { Database } from "@/db/create-db"
 import { getFit } from "@/db/fit-repository"
+import { canSeeFit } from "@/lib/fits/visibility"
 import { getLimiter } from "@/lib/rate-limit"
 import { apiError } from "@/lib/request"
 import { type Viewer, getViewer } from "@/lib/supabase/server"
@@ -28,7 +29,8 @@ export function sameOrigin(request: Request): boolean {
 
 /**
  * Shared guard for per-fit actions: same-origin, signed in, database up,
- * rate limit, and a fit that exists and is visible (or the viewer's own).
+ * rate limit, and a fit this viewer may see (visible, and its author's
+ * privacy and blocks allow it; or their own).
  */
 export async function fitAction(
   request: Request,
@@ -48,7 +50,7 @@ export async function fitAction(
   }).limit(viewer.id)
   if (!limit.success) return { error: apiError("slow down a little", 429, "rate-limited") }
   const fit = await getFit(db, id).catch(() => null)
-  if (!fit || (fit.status !== "visible" && fit.userId !== viewer.id)) {
+  if (!fit || !(await canSeeFit(db, fit, viewer.id))) {
     return { error: apiError("no such fit", 404, "invalid-input") }
   }
   return { viewer, db, id }

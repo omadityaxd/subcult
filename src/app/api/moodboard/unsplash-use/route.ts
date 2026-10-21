@@ -4,12 +4,27 @@ import { errorMessage, log } from "@/lib/log"
 import { getPreviewLimiter } from "@/lib/rate-limit"
 import { apiError, apiOk, clientIp } from "@/lib/request"
 
+/** https://api.unsplash.com/photos/<id>/download with only Unsplash's ixid tracking param. */
+function isDownloadLocation(value: string): boolean {
+  try {
+    const url = new URL(value)
+    return (
+      url.protocol === "https:" &&
+      url.host === "api.unsplash.com" &&
+      /^\/photos\/[\w-]+\/download$/.test(url.pathname) &&
+      [...url.searchParams.keys()].every((key) => key === "ixid")
+    )
+  } catch {
+    return false
+  }
+}
+
 const bodySchema = z.object({
   // Only Unsplash's own download-tracking endpoints, never an arbitrary URL.
   downloadLocation: z
     .string()
     .url()
-    .refine((url) => url.startsWith("https://api.unsplash.com/photos/"), "not an Unsplash URL"),
+    .refine(isDownloadLocation, "not an Unsplash download URL"),
 })
 
 /**

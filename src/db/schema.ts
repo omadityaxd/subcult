@@ -56,10 +56,11 @@ export const niches = pgTable(
       table.status,
       table.publishedAt.desc(),
     ),
+    // Only live niches are readable through the Data API; drafts and archived stay server-side.
     pgPolicy("niches_public_read", {
       for: "select",
       to: [anonRole, authenticatedRole],
-      using: sql`true`,
+      using: sql`${table.status} = 'active'`,
     }),
   ],
 )
@@ -104,14 +105,9 @@ export const profiles = pgTable(
     handle: text("handle").notNull().unique(),
     createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
   },
-  () => [
-    pgPolicy("profiles_public_read", {
-      for: "select",
-      to: [anonRole, authenticatedRole],
-      using: sql`true`,
-    }),
-  ],
-)
+  // No Data API policies: the server reads profiles with its own role, so it can
+  // apply friends-only privacy and blocks. Anon and signed-in keys read nothing.
+).enableRLS()
 
 export interface FitPiece {
   label: string
@@ -160,13 +156,10 @@ export const fits = pgTable(
     index("fits_status_created_idx").on(table.status, table.createdAt.desc()),
     index("fits_user_created_idx").on(table.userId, table.createdAt.desc()),
     index("fits_niches_idx").using("gin", table.niches),
-    pgPolicy("fits_public_read_visible", {
-      for: "select",
-      to: [anonRole, authenticatedRole],
-      using: sql`${table.status} = 'visible'`,
-    }),
+    // No Data API policies (see profiles): every fit read goes through the server,
+    // which applies friends-only privacy and blocks (lib/fits/visibility.ts).
   ],
-)
+).enableRLS()
 
 export type FitRow = typeof fits.$inferSelect
 

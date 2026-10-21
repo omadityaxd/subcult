@@ -193,16 +193,17 @@ pnpm dev                     # http://localhost:3000
 pnpm run doctor              # which services are on, and why the rest are off
 ```
 
-| Script                    | What it does                                       |
-| ------------------------- | -------------------------------------------------- |
-| `pnpm dev`                | Next.js dev server (Turbopack)                     |
-| `pnpm build`              | Production build                                   |
-| `pnpm typecheck`          | `tsc --noEmit` (strict)                            |
-| `pnpm lint`               | ESLint                                             |
-| `pnpm test`               | Vitest (700+ unit tests)                           |
-| `pnpm run doctor`         | Service on/off table with the reason for each      |
-| `pnpm run security:audit` | RLS, rate limits, and secrets in the client bundle |
-| `pnpm run previews:rate`  | Music preview match rate on featured niches        |
+| Script                    | What it does                                                    |
+| ------------------------- | --------------------------------------------------------------- |
+| `pnpm dev`                | Next.js dev server (Turbopack)                                  |
+| `pnpm build`              | Production build                                                |
+| `pnpm typecheck`          | `tsc --noEmit` (strict)                                         |
+| `pnpm lint`               | ESLint                                                          |
+| `pnpm test`               | Vitest (700+ unit tests)                                        |
+| `pnpm run doctor`         | Service on/off table with the reason for each                   |
+| `pnpm run test:security`  | Two-account abuse tests against the real database (rolled back) |
+| `pnpm run security:audit` | RLS, rate limits, and secrets in the client bundle              |
+| `pnpm run previews:rate`  | Music preview match rate on featured niches                     |
 
 More docs: [KEYS.md](docs/KEYS.md) (every key, step by step) ·
 [MONITORING.md](docs/MONITORING.md) · [deploy.md](docs/deploy.md) ·

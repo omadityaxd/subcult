@@ -1,11 +1,17 @@
 import { z } from "zod"
 import { apiError, apiOk } from "@/lib/request"
 import { readJson, socialContext } from "@/lib/social/route-guard"
+import { artworkUrlSchema } from "@/lib/wrapped/slides"
 
 const bodySchema = z.object({
   title: z.string().trim().min(1).max(120),
   artist: z.string().trim().min(1).max(120),
-  artworkUrl: z.string().url().startsWith("https://").max(500).nullable(),
+  // Followers' browsers load this image: only Spotify's and Apple's CDNs, else no artwork.
+  artworkUrl: z
+    .string()
+    .max(500)
+    .nullable()
+    .transform((url) => (url && artworkUrlSchema.safeParse(url).success ? url : null)),
 })
 
 /** POST /api/listening { title, artist, artworkUrl } → "currently playing", only if opted in. */
