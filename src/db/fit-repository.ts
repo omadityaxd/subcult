@@ -1,4 +1,4 @@
-import { and, arrayContains, desc, eq, gt, inArray, lt, not, sql } from "drizzle-orm"
+import { and, arrayContains, desc, eq, gt, ilike, inArray, lt, not, or, sql } from "drizzle-orm"
 import type { Database } from "./create-db"
 import { friendsOnlyOwner } from "./social-repository"
 import {
@@ -56,6 +56,9 @@ export async function insertFit(
 const withAuthor = { fit: fits, handle: profiles.handle }
 
 /** Visible fits, newest first; optionally one niche's or one user's. Cursor = created_at. */
+/** LIKE wildcards in user text match themselves, not "anything". */
+const escapeLike = (text: string) => text.replace(/[\\%_]/g, (char) => `\\${char}`)
+
 export async function listFits(
   db: Database,
   {
@@ -64,7 +67,16 @@ export async function listFits(
     before,
     limit = 24,
     includeHidden = false,
-  }: { niche?: string; userId?: string; before?: Date; limit?: number; includeHidden?: boolean },
+    search,
+  }: {
+    niche?: string
+    userId?: string
+    before?: Date
+    limit?: number
+    includeHidden?: boolean
+    /** Caption or handle contains this (wildcards in it match literally). */
+    search?: string
+  },
 ): Promise<FitWithAuthor[]> {
   const conditions = [
     includeHidden ? undefined : eq(fits.status, "visible"),
@@ -73,6 +85,12 @@ export async function listFits(
     // Public lists leave out friends-only people; their profile decides who sees them.
     userId ? undefined : not(friendsOnlyOwner(fits.userId)),
     before ? lt(fits.createdAt, before) : undefined,
+    search
+      ? or(
+          ilike(fits.caption, `%${escapeLike(search)}%`),
+          ilike(profiles.handle, `%${escapeLike(search)}%`),
+        )
+      : undefined,
   ].filter((condition) => condition !== undefined)
   const rows = await db
     .select(withAuthor)

@@ -95,7 +95,7 @@ function parseResults(body: unknown): ItunesResult[] {
   })
 }
 
-const toPreview = (result: ItunesResult): Preview => ({
+export const toPreview = (result: ItunesResult): Preview => ({
   previewUrl: result.previewUrl as string,
   appleUrl: result.trackViewUrl ?? null,
   title: result.trackName,
