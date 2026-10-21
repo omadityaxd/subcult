@@ -72,3 +72,8 @@ export function focusOf(item: Pick<FeedItem, "meta">): string | undefined {
     ? focusCss({ focusX, focusY })
     : undefined
 }
+
+/** Alt text for an item's image: vision-written when tagged, else decorative (""). */
+export function altOf(item: Pick<FeedItem, "meta">): string {
+  return typeof item.meta.alt === "string" ? item.meta.alt : ""
+}

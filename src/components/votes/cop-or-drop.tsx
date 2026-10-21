@@ -1,8 +1,10 @@
 "use client"
 
+import { motion } from "motion/react"
 import { useEffect, useState } from "react"
 import type { VoteChoice } from "@/db/schema"
 import { track } from "@/lib/analytics"
+import { springs } from "@/lib/design/tokens"
 import type { FeedItem } from "@/lib/feed/types"
 import type { ApiResponse } from "@/lib/request"
 import { cn } from "@/lib/utils"
@@ -61,81 +63,89 @@ export function CopOrDrop({
 
   if (!votable) return null
   const vote = async (choice: Extract<VoteChoice, "cop" | "drop">) => {
+    if (choice === mine) return
     track("cop_or_drop", { choice, kind: item.type })
+    // A tiny buzz where the device supports it: the vote should feel physical.
+    if (typeof navigator !== "undefined" && "vibrate" in navigator) navigator.vibrate(10)
     const counted = await castVote(item.id, choice, item)
     if (counted) setTally(counted)
   }
   const overlay = tone === "overlay"
-  const pill = cn(
-    "rounded-full font-semibold transition-colors active:scale-[0.97]",
-    size === "sm" ? "h-7 px-3 text-caption" : "h-9 flex-1 text-footnote",
-    overlay
-      ? "bg-white/15 text-white backdrop-blur-md hover:bg-white/25"
-      : "border border-border-strong hover:bg-muted",
-  )
+  const voted = mine === "cop" || mine === "drop"
+  const split = voted && tally ? splitOf(tally, "cop") : null
+  const shares = split && split.total > 1 ? { cop: split.pct, drop: 100 - split.pct } : null
 
-  if (mine === "cop" || mine === "drop") {
-    const { pct } = splitOf(tally ?? {}, "cop")
+  const button = (choice: "cop" | "drop") => {
+    const selected = mine === choice
     return (
-      <div className={cn("flex items-center gap-3", className)} data-taste-ignore>
-        <span
-          className={cn(
-            "relative h-1.5 flex-1 overflow-hidden rounded-full",
-            overlay ? "bg-white/25" : "bg-muted",
-          )}
-          aria-hidden
-        >
-          {tally ? (
-            <span
-              className={cn(
-                "absolute inset-y-0 left-0 rounded-full",
-                overlay ? "bg-white" : "bg-foreground",
-              )}
-              style={{ width: `${pct}%` }}
-            />
-          ) : null}
-        </span>
-        <span
-          className={cn(
-            "shrink-0 text-caption font-semibold tabular-nums",
-            overlay ? "text-white" : undefined,
-          )}
-          aria-live="polite"
-        >
-          {tally ? splitLabel(tally, mine) : mine === "cop" ? "Copped" : "Dropped"}
-        </span>
-        <button
-          type="button"
-          onClick={() => void vote(mine === "cop" ? "drop" : "cop")}
-          className={cn(
-            "shrink-0 text-caption underline-offset-2 hover:underline",
-            overlay ? "text-white/70" : "text-muted-foreground",
-          )}
-        >
-          Change
-        </button>
-      </div>
+      <motion.button
+        key={choice}
+        type="button"
+        whileTap={{ scale: 0.92 }}
+        transition={springs.press}
+        onClick={() => void vote(choice)}
+        aria-pressed={selected}
+        aria-label={`${choice === "cop" ? "Cop" : "Drop"}: ${item.title}`}
+        className={cn(
+          "inline-flex items-center justify-center gap-1.5 rounded-full font-semibold transition-colors",
+          size === "sm" ? "h-7 px-3 text-caption" : "h-10 flex-1 text-footnote",
+          selected
+            ? overlay
+              ? "bg-white text-black"
+              : "bg-foreground text-background"
+            : overlay
+              ? "bg-white/15 text-white backdrop-blur-md hover:bg-white/25"
+              : "border border-border-strong hover:bg-muted",
+          voted && !selected && "opacity-70",
+        )}
+      >
+        {choice === "cop" ? "Cop" : "Drop"}
+        {shares ? <span className="font-normal tabular-nums">{shares[choice]}%</span> : null}
+      </motion.button>
     )
   }
 
   return (
-    <div className={cn("flex gap-2", className)} data-taste-ignore>
-      <button
-        type="button"
-        onClick={() => void vote("cop")}
-        className={pill}
-        aria-label={`Cop: ${item.title}`}
-      >
-        Cop
-      </button>
-      <button
-        type="button"
-        onClick={() => void vote("drop")}
-        className={pill}
-        aria-label={`Drop: ${item.title}`}
-      >
-        Drop
-      </button>
+    <div className={cn("space-y-1.5", className)} data-taste-ignore>
+      <div className="flex gap-2">
+        {button("cop")}
+        {button("drop")}
+      </div>
+      {voted ? (
+        <div className="flex items-center gap-2" aria-live="polite">
+          {shares ? (
+            <span
+              aria-hidden
+              className={cn(
+                "relative h-1 flex-1 overflow-hidden rounded-full",
+                overlay ? "bg-white/25" : "bg-muted",
+              )}
+            >
+              <span
+                className={cn(
+                  "absolute inset-y-0 left-0 rounded-full transition-[width] duration-500",
+                  overlay ? "bg-white" : "bg-foreground",
+                )}
+                style={{ width: `${shares.cop}%` }}
+              />
+            </span>
+          ) : null}
+          <span
+            className={cn(
+              "shrink-0 text-caption tabular-nums",
+              overlay ? "text-white/80" : "text-muted-foreground",
+            )}
+          >
+            {shares && split
+              ? `${split.total} votes`
+              : tally && mine
+                ? splitLabel(tally, mine)
+                : mine === "cop"
+                  ? "Copped"
+                  : "Dropped"}
+          </span>
+        </div>
+      ) : null}
     </div>
   )
 }

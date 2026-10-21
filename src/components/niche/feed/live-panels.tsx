@@ -42,6 +42,8 @@ import { focusCss } from "@/lib/images/curate"
 import { imageFactsFor } from "@/lib/images/facts-server"
 import { type MosaicTile, mosaicPicks } from "@/lib/images/mosaic"
 import { dedupeMusic } from "@/lib/feed/dedupe-music"
+import { FewCards } from "./few-cards"
+import { FEW_CARDS } from "@/lib/feed/few"
 
 const MOSAIC_MEASURED = 24
 const MOSAIC_BUDGET_MS = 1500
@@ -64,6 +66,7 @@ function Masonry({
   now: number
   className?: string
 }) {
+  if (items.length <= FEW_CARDS) return <FewCards items={items} now={now} />
   return (
     <ProgressiveList
       className={cn("columns-1 gap-5 sm:columns-2 xl:columns-3", className)}
@@ -373,6 +376,22 @@ export async function ArchiveGrails({ profile }: { profile: NicheProfile }) {
 }
 
 const LOOKS_UNTIL = 6
+
+/** How to shoot a fit worth posting: shown while a niche has none yet. */
+const FIT_TIPS = [
+  {
+    title: "Head to shoes",
+    body: "The whole fit in frame, phone at chest height, not tilted down.",
+  },
+  {
+    title: "Daylight, no flash",
+    body: "Face a window or step outside: true colours, real texture.",
+  },
+  {
+    title: "Quiet background",
+    body: "A plain wall or an empty street. Let the fit be the loudest thing.",
+  },
+] as const
 const LOOKS = 12
 
 /** Fits tab: people's fits for this niche, with the way in to posting one. */
@@ -419,6 +438,17 @@ export async function LiveFits({ profile }: { profile: NicheProfile }) {
           >
             Post your first fit
           </Link>
+          <ol className="mx-auto mt-8 grid max-w-2xl gap-4 text-left sm:grid-cols-3">
+            {FIT_TIPS.map((tip, i) => (
+              <li key={tip.title} className="rounded-2xl bg-muted/60 p-4">
+                <span className="font-serif text-title-3 text-muted-foreground italic tabular-nums">
+                  {i + 1}
+                </span>
+                <p className="mt-1 text-footnote font-semibold">{tip.title}</p>
+                <p className="mt-1 text-caption text-muted-foreground">{tip.body}</p>
+              </li>
+            ))}
+          </ol>
         </div>
       )}
       {looks.length > 0 ? (

@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { MediaImage } from "@/components/ds/media-image"
+import { altOf } from "@/lib/images/curate"
 import type { FeedItem } from "@/lib/feed/types"
 import type { Pin, PinSource } from "@/lib/moodboard/types"
 import { ArtistSheet } from "@/components/niche/artists-row"
@@ -46,7 +47,7 @@ export function PinCard({ item }: { item: FeedItem }) {
           backgroundColor: pin.color ?? undefined,
         }}
       >
-        <MediaImage src={pin.imageUrl} alt="" sizes="(max-width: 640px) 100vw, 33vw" />
+        <MediaImage src={pin.imageUrl} alt={altOf(item)} sizes="(max-width: 640px) 100vw, 33vw" />
       </button>
       {artistSlug ? (
         <SceneCaption

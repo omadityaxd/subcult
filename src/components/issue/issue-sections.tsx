@@ -14,6 +14,8 @@ import { GrailCatalog } from "./grail-catalog"
 import { CopOrDrop } from "@/components/votes/cop-or-drop"
 import { IssueSectionHeader } from "./issue-section-header"
 import { TeaSpread } from "./tea-spread"
+import { FewCards } from "@/components/niche/feed/few-cards"
+import { FEW_CARDS } from "@/lib/feed/few"
 
 const KICKERS: Record<SectionId, string> = {
   tea: "News",
@@ -65,6 +67,19 @@ export function IssueSection({
 }
 
 function CardGrid({ items, now }: { items: readonly FeedItem[]; now: number }) {
+  if (items.length <= FEW_CARDS) {
+    return (
+      <FewCards
+        items={items}
+        now={now}
+        wrap={(item, node) => (
+          <TasteCard item={item} niche={null} reason={null}>
+            {node}
+          </TasteCard>
+        )}
+      />
+    )
+  }
   return (
     <ul className="columns-2 gap-4 md:gap-5 xl:columns-3">
       {items.map((item) => (

@@ -23,6 +23,8 @@ function Tile({ tile }: { tile: CollageTile }) {
           alt=""
           sizes="(max-width: 768px) 50vw, 25vw"
           focus={tile.focus ?? undefined}
+          // Above the fold on every screen: these are often the page's largest paint.
+          priority
         />
       )}
       <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 to-transparent p-3 pt-8 text-white">

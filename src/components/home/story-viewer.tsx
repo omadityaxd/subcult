@@ -19,7 +19,7 @@ import { MusicSticker } from "./music-sticker"
 import { useStoryMusic } from "./use-story-music"
 import { CopOrDrop } from "@/components/votes/cop-or-drop"
 import { PollFrame } from "@/components/votes/poll-frame"
-import { focusOf } from "@/lib/images/curate"
+import { altOf, focusOf } from "@/lib/images/curate"
 import { stickerFor } from "@/lib/feed/story-mix"
 
 const OPEN_LABEL: Record<FeedItem["source"], string> = {
@@ -59,6 +59,14 @@ export function StoryViewer({ niches, startIndex, onSeen, onClose }: StoryViewer
   const frames = items[niche.slug]
   const current = frames?.[frame]
   const music = useStoryMusic(niche.slug, paused)
+  // Keyboard users land inside the dialog (arrows step, space pauses, Escape closes),
+  // and focus returns to where they were when it closes.
+  const closeRef = useRef<HTMLButtonElement>(null)
+  useEffect(() => {
+    const before = document.activeElement as HTMLElement | null
+    closeRef.current?.focus()
+    return () => before?.focus()
+  }, [])
   // A track frame is the music already: no sticker repeating it.
   const sticker = stickerFor(current, music)
   const audio = useAudioState()
@@ -235,6 +243,7 @@ export function StoryViewer({ niches, startIndex, onSeen, onClose }: StoryViewer
             </button>
           ) : null}
           <button
+            ref={closeRef}
             type="button"
             onClick={onClose}
             aria-label="Close stories"
@@ -267,7 +276,7 @@ export function StoryViewer({ niches, startIndex, onSeen, onClose }: StoryViewer
                   focus={focusOf(current)}
                   key={current.id}
                   src={current.imageUrl}
-                  alt=""
+                  alt={altOf(current)}
                   sizes="384px"
                   priority
                   className={youtubeCrop(current.imageUrl, {

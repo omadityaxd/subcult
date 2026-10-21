@@ -92,6 +92,8 @@ export function moodboardFeedItems(pins: readonly Pin[]): FeedItem[] {
           downloadLocation: pin.downloadLocation ?? null,
           artistSlug: pin.source === "artist" ? pin.id.replace(/^artist:/, "") : null,
           fit: isVerifiedFit(pin.vision),
+          // Vision-written alt text, when the image has been tagged.
+          alt: pin.vision?.alt ?? null,
           // An artist photo tagged as an outfit: "seen on <artist>".
           seenOn: pin.source === "artist" && isVerifiedFit(pin.vision) ? (pin.title ?? null) : null,
           note: pin.note ?? null,

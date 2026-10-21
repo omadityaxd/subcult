@@ -5,6 +5,7 @@ import { siteUrl } from "@/lib/env"
 import { THEME_BOOT_SCRIPT } from "@/lib/theme"
 import "./globals.css"
 import { AnalyticsProvider } from "@/components/providers/analytics-provider"
+import { TruncationTitles } from "@/components/a11y/truncation-titles"
 
 const sans = Geist({
   variable: "--font-geist",
@@ -53,6 +54,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body>
         <MotionProvider>{children}</MotionProvider>
         <AnalyticsProvider />
+        <TruncationTitles />
       </body>
     </html>
   )

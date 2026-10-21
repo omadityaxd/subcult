@@ -5,6 +5,8 @@ import type { TagRef, TaggedItem } from "@/lib/taxonomy/tagging"
 import { cn } from "@/lib/utils"
 import { FeedCard } from "./feed-card"
 import { ProgressiveList } from "./progressive-list"
+import { FewCards } from "./few-cards"
+import { FEW_CARDS } from "@/lib/feed/few"
 
 interface TaggedFeedProps {
   items: readonly TaggedItem[]
@@ -39,16 +41,20 @@ export function TaggedFeed({ items, tags, now }: TaggedFeedProps) {
           ))}
         </div>
       ) : null}
-      <ProgressiveList
-        // Remount on filter change so the reveal starts from the top of the new list.
-        key={active ?? "all"}
-        className="columns-1 gap-5 sm:columns-2 xl:columns-3"
-        itemClassName="mb-7 break-inside-avoid"
-        items={visible.map(({ item }) => ({
-          key: item.id,
-          node: <FeedCard item={item} now={now} />,
-        }))}
-      />
+      {visible.length <= FEW_CARDS ? (
+        <FewCards items={visible.map(({ item }) => item)} now={now} />
+      ) : (
+        <ProgressiveList
+          // Remount on filter change so the reveal starts from the top of the new list.
+          key={active ?? "all"}
+          className="columns-1 gap-5 sm:columns-2 xl:columns-3"
+          itemClassName="mb-7 break-inside-avoid"
+          items={visible.map(({ item }) => ({
+            key: item.id,
+            node: <FeedCard item={item} now={now} />,
+          }))}
+        />
+      )}
     </>
   )
 }

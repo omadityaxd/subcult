@@ -12,6 +12,8 @@ import { pageReasons, personalizePage } from "@/lib/taste/rank"
 import { readTasteVector, useSeen, useTasteVector } from "@/lib/taste/store"
 import { dedupeMusic } from "@/lib/feed/dedupe-music"
 import { dedupeImages } from "@/lib/images/curate"
+import { FewCards } from "@/components/niche/feed/few-cards"
+import { FEW_CARDS } from "@/lib/feed/few"
 
 const TASTE_NICHES = 20
 
@@ -116,15 +118,33 @@ export function InfiniteFeed({ initial, now, filter = "all" }: InfiniteFeedProps
           Nothing here yet for this filter.
         </p>
       ) : null}
-      <ul className="columns-1 gap-5 sm:columns-2 xl:columns-3">
-        {items.map(({ item, niche, reason, key }) => (
-          <li key={key} className="mb-7 break-inside-avoid">
-            <TasteCard item={item} niche={niche} reason={reason}>
-              <FeedCard item={item} context={niche.name} now={now} />
-            </TasteCard>
-          </li>
-        ))}
-      </ul>
+      {/* The whole list is in and it's one or two cards: a wide editorial row, not orphan columns. */}
+      {cursor === null && items.length > 0 && items.length <= FEW_CARDS ? (
+        <FewCards
+          items={items.map(({ item }) => item)}
+          now={now}
+          wrap={(item, node) => {
+            const entry = items.find((e) => e.item === item)
+            return entry ? (
+              <TasteCard item={item} niche={entry.niche} reason={entry.reason}>
+                {node}
+              </TasteCard>
+            ) : (
+              node
+            )
+          }}
+        />
+      ) : (
+        <ul className="columns-1 gap-5 sm:columns-2 xl:columns-3">
+          {items.map(({ item, niche, reason, key }) => (
+            <li key={key} className="mb-7 break-inside-avoid">
+              <TasteCard item={item} niche={niche} reason={reason}>
+                <FeedCard item={item} context={niche.name} now={now} />
+              </TasteCard>
+            </li>
+          ))}
+        </ul>
+      )}
       {cursor !== null ? (
         <div
           ref={sentinel}

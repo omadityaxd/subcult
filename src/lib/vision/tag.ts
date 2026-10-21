@@ -37,6 +37,8 @@ export const visionTagSchema = z.object({
   nicheFit: z.number().min(0).max(1),
   /** Up to three dominant colors, lowercase #rrggbb. */
   colors: z.array(z.string().regex(HEX)).max(3),
+  /** One-line alt text for screen readers (optional: tags cached before it have none). */
+  alt: z.string().max(160).optional(),
 })
 export type VisionTag = z.infer<typeof visionTagSchema>
 
@@ -67,7 +69,8 @@ const SYSTEM = [
   "moodboard (a place, texture, object or graphic that sets the mood), or other (memes, screenshots, text, anything else).",
   "quality 1-5: 1 blurry, watermarked or a screenshot; 3 a clear, decent photo; 5 editorial.",
   "nicheFit 0-1: how well it matches the niche described. colors: up to 3 dominant colors as lowercase #rrggbb.",
-  "Judge only what is visible. Never guess who a person is.",
+  "alt: one plain sentence of alt text for a screen reader (what is shown, e.g. clothes, setting), under 120 characters.",
+  "Judge only what is visible. Never guess who a person is, and never name anyone in alt.",
 ].join(" ")
 
 export interface VisionImage {
@@ -127,7 +130,7 @@ export async function tagImageBatch(
   try {
     response = await llm.createMessage({
       model,
-      max_tokens: 200 * images.length,
+      max_tokens: 260 * images.length,
       system: SYSTEM,
       messages: [{ role: "user", content }],
       output_config: { format: OUTPUT_FORMAT, effort: "low" },
