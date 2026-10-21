@@ -1,8 +1,9 @@
 import "server-only"
 import sharp from "sharp"
 
-/** Raw upload ceiling (the client compresses first; this is the hard stop). */
-export const MAX_UPLOAD_BYTES = 8 * 1024 * 1024
+import { MAX_UPLOAD_BYTES, MAX_UPLOAD_LABEL } from "./limits"
+
+export { MAX_UPLOAD_BYTES }
 /** Longest side of the stored image. */
 export const MAX_EDGE = 1440
 /** Refuse decompression bombs: 25 megapixels covers any phone photo. */
@@ -28,7 +29,7 @@ export async function processFitImage(
   bytes: Uint8Array,
 ): Promise<{ data: Buffer; width: number; height: number }> {
   if (bytes.byteLength === 0 || bytes.byteLength > MAX_UPLOAD_BYTES) {
-    throw new FitImageError("Photos can be up to 8 MB.")
+    throw new FitImageError(`Photos can be up to ${MAX_UPLOAD_LABEL}.`)
   }
   const image = sharp(bytes, { limitInputPixels: MAX_INPUT_PIXELS, failOn: "error" })
   const meta = await image.metadata().catch(() => null)

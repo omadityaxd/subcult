@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation"
 import { useEffect, useMemo, useState } from "react"
 import { useTrackPlayer } from "@/components/music/use-track-player"
 import { compressPhoto } from "@/lib/fits/compress"
+import { MAX_UPLOAD_BYTES, MAX_UPLOAD_LABEL } from "@/lib/fits/limits"
 import { FIT_LIMITS } from "@/lib/fits/schema"
 import type { FitSong } from "@/db/schema"
 import type { Soundtrack } from "@/lib/music/soundtrack"
@@ -68,6 +69,12 @@ export function PostFitForm({
     if (!file) return
     setError(null)
     const { blob } = await compressPhoto(file)
+    // Only an undecodable photo (sent as is) can be this big; Vercel would refuse it.
+    if (blob.size > MAX_UPLOAD_BYTES) {
+      return setError(
+        `This photo is over ${MAX_UPLOAD_LABEL} and can't be resized here. Try a JPEG or a screenshot of it.`,
+      )
+    }
     setPhoto({ blob, url: URL.createObjectURL(blob) })
   }
 

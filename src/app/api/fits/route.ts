@@ -1,4 +1,5 @@
 import { FitImageError, MAX_UPLOAD_BYTES } from "@/lib/fits/image"
+import { MAX_UPLOAD_LABEL } from "@/lib/fits/limits"
 import { fitInputSchema } from "@/lib/fits/schema"
 import { FitPostError, postFit } from "@/lib/fits/server"
 import { errorMessage, log } from "@/lib/log"
@@ -21,7 +22,7 @@ export async function POST(request: Request): Promise<Response> {
   // Refuse oversized bodies before reading them (the photo cap plus room for the form).
   const declared = Number(request.headers.get("content-length") ?? NaN)
   if (!Number.isFinite(declared) || declared > MAX_UPLOAD_BYTES + 64 * 1024) {
-    return apiError("Photos can be up to 8 MB.", 413, "too-large")
+    return apiError(`Photos can be up to ${MAX_UPLOAD_LABEL}.`, 413, "too-large")
   }
   const limit = await getLimiter("fit-post", POSTS_PER_DAY, "1 d", { durable: true }).limit(
     viewer.id,
@@ -37,7 +38,8 @@ export async function POST(request: Request): Promise<Response> {
   const photo = form.get("photo")
   if (!(photo instanceof File) || photo.size === 0)
     return apiError("add a photo", 400, "invalid-input")
-  if (photo.size > MAX_UPLOAD_BYTES) return apiError("Photos can be up to 8 MB.", 413, "too-large")
+  if (photo.size > MAX_UPLOAD_BYTES)
+    return apiError(`Photos can be up to ${MAX_UPLOAD_LABEL}.`, 413, "too-large")
 
   let data: unknown
   try {
