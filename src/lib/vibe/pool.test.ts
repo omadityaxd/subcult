@@ -42,6 +42,15 @@ describe("assemblePool", () => {
     expect(grail?.weights).toEqual({ vamp: 3, goth: 1 })
   })
 
+  it("asks plainly on sound cards: a niche's lines describe its look, not a song", () => {
+    const withSound = { ...input, live: [...input.live, ...live("vamp", "sound", 1)] }
+    for (const seed of [1, 2, 3, 4, 5]) {
+      const sound = assemblePool(withSound, seededRandom(seed)).find((c) => c.kind === "sound")
+      expect(sound?.prompt).toBe("Is this your sound?")
+      expect(sound?.credit).toBe("vamp sound 0")
+    }
+  })
+
   it("never repeats a line within a session", () => {
     const prompts = assemblePool(input, seededRandom(3))
       .map((card) => card.prompt)

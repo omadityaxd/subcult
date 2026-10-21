@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useRef } from "react"
+import { track as trackEvent } from "@/lib/analytics"
 import { getAudioEngine } from "@/lib/audio/use-audio"
 import { announceMeaningfulAction } from "@/lib/alerts/client"
 import type { ApiResponse } from "@/lib/request"
@@ -83,7 +84,12 @@ export function TasteTracker({ signedIn }: { signedIn: boolean }) {
     let session: ListenSession | null = null
     let lastShared = 0
     const finish = (done: ListenSession | null) => {
-      if (done) recordSignal(listenSignal(done.seconds), listenEntities(done))
+      if (!done) return
+      const kind = listenSignal(done.seconds)
+      recordSignal(kind, listenEntities(done))
+      // A skip (under 5s) isn't a play.
+      if (kind !== "skip")
+        trackEvent("track_played", { niche: done.niche ?? "none", full: kind === "play_through" })
     }
     const off = getAudioEngine().onListen((track, seconds) => {
       const next = accumulateListen(session, {

@@ -30,6 +30,7 @@ Also worth a trend chart:
 - `today_viewed` by day: daily readers (D1 and D7 return come from PostHog's Retention insight on this event)
 - `poll_voted`
 - `cop_or_drop` broken down by `kind`
+- `track_played` by `niche` (`full` = listened to the end)
 
 ## Alerts
 

@@ -20,6 +20,7 @@ export type AnalyticsEvent =
   | "fit_posted"
   | "cop_or_drop"
   | "poll_voted"
+  | "track_played"
 
 let started = false
 let client: PostHog | null = null

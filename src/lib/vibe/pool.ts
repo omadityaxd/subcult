@@ -101,7 +101,12 @@ export function assemblePool(input: PoolInput, random: () => number): DeckCard[]
         ...base(candidate.niche, candidate.id),
         id: `live-${candidate.id}`,
         kind: candidate.kind,
-        prompt: line(candidate.niche) ?? ASK[candidate.kind],
+        // A niche's lines describe its look ("Your sneaker shelf is a museum"): on a song they
+        // read as a mismatch, so sound cards always ask plainly.
+        prompt:
+          candidate.kind === "sound"
+            ? ASK.sound
+            : (line(candidate.niche) ?? ASK[candidate.kind]),
         imageUrl: candidate.imageUrl,
         crop: candidate.crop ?? false,
         credit: candidate.label,

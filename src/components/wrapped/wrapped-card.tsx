@@ -39,6 +39,11 @@ export function WrappedCard({ niches, artistImages }: WrappedCardProps) {
   const palette = (lead && niches[lead]?.palette) || ["#0a0a0a", "#222", "#555", "#aaa", "#eee"]
   const week = summary.week[0]
   const slides = buildSlides(summary, (name) => artistImages[name] ?? null)
+  // Nothing played yet: talk about what was discovered, never "0 minutes".
+  const minutes = summary.minutesListened > 0 ? `${summary.minutesListened} min listened` : null
+  const discovered = `${summary.nichesDiscovered} ${summary.nichesDiscovered === 1 ? "niche" : "niches"} discovered`
+  const era = summary.era ? `${niches[summary.era.slug]?.name ?? summary.era.slug} era` : null
+  const details = (minutes ? [minutes, discovered, era] : [era]).filter(Boolean).join(" · ")
 
   return (
     <>
@@ -53,17 +58,16 @@ export function WrappedCard({ niches, artistImages }: WrappedCardProps) {
             className="absolute inset-0 rounded-3xl bg-gradient-to-br from-black/50 to-black/20"
           />
           <span className="relative text-overline font-medium text-white/75 uppercase">
-            Your Wrapped · from what you actually played
+            {minutes ? "Your Wrapped · from what you actually played" : "Your Wrapped"}
           </span>
           <span className="relative font-serif text-title-1 leading-none italic">
             {week
               ? `This week you were ${week.percent}% ${niches[week.slug]?.name ?? week.slug}`
-              : `${summary.minutesListened} minutes, ${summary.nichesDiscovered} niches`}
+              : minutes
+                ? `${summary.minutesListened} minutes, ${summary.nichesDiscovered} niches`
+                : discovered.replace(/^./, (c) => c.toUpperCase())}
           </span>
-          <span className="relative text-callout text-white/80">
-            {summary.minutesListened} min listened · {summary.nichesDiscovered} niches discovered
-            {summary.era ? ` · ${niches[summary.era.slug]?.name ?? summary.era.slug} era` : ""}
-          </span>
+          {details ? <span className="relative text-callout text-white/80">{details}</span> : null}
           <span className="relative inline-flex h-11 w-fit items-center gap-2 rounded-full bg-white px-5 text-callout font-semibold text-black transition-transform group-active:scale-[0.97]">
             <Play aria-hidden className="size-4" fill="currentColor" strokeWidth={0} />
             Play your Wrapped
