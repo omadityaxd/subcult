@@ -1,4 +1,6 @@
 import Link from "next/link"
+import { canonicalImage } from "@/lib/images/variants"
+import { buildNicheIssue } from "@/lib/today/server"
 import { connection } from "next/server"
 import { FitGrid } from "@/components/fits/fit-tile"
 import { PinCard } from "@/components/moodboard/pin-card"
@@ -77,12 +79,13 @@ function Masonry({
 
 /** The ranked feed, with the niche's tag chips (only those that match something) as filters. */
 export async function LiveForYou({ profile }: { profile: NicheProfile }) {
-  const [feed, soundtrack, board, archives, fits] = await Promise.all([
+  const [feed, soundtrack, board, archives, fits, issue] = await Promise.all([
     getNicheFeed(profile),
     getSoundtrack(profile.slug),
     getMoodboard(profile.slug),
     getArchive(profile.slug),
     nicheFits(profile.slug, 12),
+    buildNicheIssue(profile.slug).catch(() => null),
   ])
   // Every kind of content, interleaved to the niche's target mix.
   const items = buildForYou(profile.slug, feed, {
@@ -91,8 +94,17 @@ export async function LiveForYou({ profile }: { profile: NicheProfile }) {
     // People's fits lead the fashion share, then live archive pieces.
     fashion: [...fitFeedItems(fits), ...archiveFeedItems(archives ?? [])],
   })
-  if (items.length === 0) return null
-  const tagged = tagFeedItems(items, TAXONOMY.tagsOf(profile.slug))
+  // The issue above already printed some of these: never twice on one page.
+  const inIssue = issue
+    ? [...issue.sections.flatMap((s) => s.items), issue.copOrDrop].filter((i) => i !== null)
+    : []
+  const ids = new Set(inIssue.map((i) => i.id))
+  const pictures = new Set(inIssue.flatMap((i) => (i.imageUrl ? [canonicalImage(i.imageUrl)] : [])))
+  const fresh = items.filter(
+    (item) => !ids.has(item.id) && !(item.imageUrl && pictures.has(canonicalImage(item.imageUrl))),
+  )
+  if (fresh.length === 0) return null
+  const tagged = tagFeedItems(fresh, TAXONOMY.tagsOf(profile.slug))
   return (
     <section className="mt-10">
       <SectionHeader overline="Ranked for you" title="Latest" />

@@ -333,7 +333,7 @@ export function StoryViewer({ niches, startIndex, onSeen, onClose }: StoryViewer
             ) : null}
             <CopOrDrop key={current.id} item={current} tone="overlay" />
             {current.source === "spotify" ? (
-              <StoryTrackActions key={current.id} item={current} />
+              <StoryTrackActions key={`${current.id}:play`} item={current} />
             ) : (
               <a
                 href={current.url}

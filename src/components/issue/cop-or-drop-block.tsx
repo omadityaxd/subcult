@@ -4,6 +4,7 @@ import { MediaImage } from "@/components/ds/media-image"
 import { CopOrDrop } from "@/components/votes/cop-or-drop"
 import type { FeedItem } from "@/lib/feed/types"
 import { altOf, focusOf } from "@/lib/images/curate"
+import { youtubeCrop } from "@/lib/images/youtube-crop"
 
 /**
  * The issue's last word, after The Scene: one fit or grail it hasn't shown
@@ -31,6 +32,11 @@ export function CopOrDropBlock({ item }: { item: FeedItem }) {
             alt={altOf(item)}
             focus={focusOf(item)}
             sizes="(min-width: 768px) 384px, 90vw"
+            // A Short's thumbnail is mostly blurred side bars: zoom to the video.
+            className={youtubeCrop(item.imageUrl, {
+              short: item.meta.short === true,
+              frame: "portrait",
+            })}
           />
         </div>
         <figcaption className="mt-3 text-center">
@@ -41,9 +47,7 @@ export function CopOrDropBlock({ item }: { item: FeedItem }) {
             </p>
           ) : null}
         </figcaption>
-        <div className="mt-3 flex justify-center">
-          <CopOrDrop item={item} />
-        </div>
+        <CopOrDrop item={item} className="mt-3" />
       </figure>
     </section>
   )

@@ -19,6 +19,7 @@ import { sinceLabel } from "@/lib/today/edition"
 import { keepIssue, useIssueArchive } from "@/lib/today/issue-store"
 import { issueNumber, localDay } from "@/lib/today/issues"
 import { useLastVisit } from "@/lib/today/use-last-visit"
+import { publishIssueShown } from "@/lib/today/issue-shown"
 import { CopOrDropBlock } from "@/components/issue/cop-or-drop-block"
 
 const ENTITIES_SENT = 40
@@ -162,6 +163,12 @@ export function Today({
     // initial is the server's render for this page view; it never changes after mount.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [attempt, lastVisit])
+
+  // The feed below never repeats what the issue shows.
+  const shownEdition = load.state === "ready" ? load.edition : null
+  useEffect(() => {
+    if (shownEdition) publishIssueShown(shownEdition)
+  }, [shownEdition])
 
   // Keep today's issue in the archive (once per local day); the number derives from it.
   const ready = load.state === "ready" && !load.saved ? load : null

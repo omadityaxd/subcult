@@ -12,6 +12,8 @@ import { pageReasons, personalizePage } from "@/lib/taste/rank"
 import { readTasteVector, useSeen, useTasteVector } from "@/lib/taste/store"
 import { dedupeMusic } from "@/lib/feed/dedupe-music"
 import { dedupeImages } from "@/lib/images/curate"
+import { canonicalImage } from "@/lib/images/variants"
+import { useIssueShown } from "@/lib/today/issue-shown"
 import { FewCards } from "@/components/niche/feed/few-cards"
 import { FEW_CARDS } from "@/lib/feed/few"
 
@@ -47,6 +49,7 @@ export function InfiniteFeed({ initial, now, filter = "all" }: InfiniteFeedProps
   const sentinel = useRef<HTMLDivElement>(null)
   const vector = useTasteVector()
   const seen = useSeen()
+  const issue = useIssueShown()
 
   const loadMore = useCallback(async () => {
     if (cursor === null || loading) return
@@ -86,17 +89,25 @@ export function InfiniteFeed({ initial, now, filter = "all" }: InfiniteFeedProps
     // One song plays once and one picture shows once across every page (a track and its
     // album, or one photo reaching several niches' feeds).
     const heard = new Set<string>()
-    const pictured = { keys: new Set<string>(), hashes: [] as string[] }
+    // Nothing the issue above already showed, and no item twice (a brand card reaches
+    // several niches' feeds).
+    const pictured = {
+      keys: new Set(issue.images.map(canonicalImage)),
+      hashes: [] as string[],
+    }
+    const listed = new Set(issue.ids)
     return pages.flatMap((page) => {
+      const fresh = page.items.filter((item) => !listed.has(item.id))
       const shown = dedupeImages(
         dedupeMusic(
-          applyFilter(personalizePage(page.items, vector, seen, page.niche.slug), filter),
+          applyFilter(personalizePage(fresh, vector, seen, page.niche.slug), filter),
           heard,
         ),
         (item) => item.imageUrl,
         undefined,
         pictured,
       )
+      for (const item of shown) listed.add(item.id)
       const reasons = pageReasons(shown, vector, page.niche.slug, {
         slug: page.niche.slug,
         why: page.why ?? "default",
@@ -109,7 +120,7 @@ export function InfiniteFeed({ initial, now, filter = "all" }: InfiniteFeedProps
         key: `${page.niche.slug}:${item.id}`,
       }))
     })
-  }, [pages, vector, seen, filter])
+  }, [pages, vector, seen, filter, issue])
 
   return (
     <>

@@ -1,4 +1,5 @@
 import "server-only"
+import { cache } from "react"
 import { featuredOrder } from "@/lib/feed/featured"
 import { appFeedDeps } from "@/lib/feed/app-deps"
 import { buildNicheFeed } from "@/lib/feed/feed"
@@ -20,6 +21,7 @@ import { momentumReason } from "@/lib/rising/momentum"
 import { pickRising } from "@/lib/rising/pick"
 import { getRisingSnapshot } from "@/lib/rising/server"
 import { type FactsMap, fitsSlot } from "@/lib/images/curate"
+import { canonicalImage } from "@/lib/images/variants"
 import { imageFactsFor, youtubeMaxres } from "@/lib/images/facts-server"
 import { friendsInto } from "@/lib/social/server"
 import { archiveFeedItems, getArchive } from "@/lib/shop/server"
@@ -365,7 +367,7 @@ export async function buildToday(req: TodayRequest, now = Date.now()): Promise<T
     // A cover is printed big: measured ≥1200px wide, and never a vertical Short.
     coverOk: (item) => item.meta.short !== true && fitsSlot(item.imageUrl, "cover", facts),
   })
-  const art = edition.cover.item ? null : await coverArt(niches, curated, now)
+  const art = edition.cover.item ? null : await coverArt(niches, curated, now, edition)
   return { ...edition, cover: { ...edition.cover, palette: lead?.palette ?? null, art } }
 }
 
@@ -378,12 +380,20 @@ async function coverArt(
   niches: readonly string[],
   curated: Candidates,
   now: number,
+  edition: TodayEdition,
 ): Promise<CoverArt | null> {
+  // Never a picture the issue already prints (a Tea story can borrow an artist's photo).
+  const used = new Set(
+    [...edition.sections.flatMap((s) => s.items), edition.copOrDrop].flatMap((item) =>
+      item?.imageUrl ? [canonicalImage(item.imageUrl)] : [],
+    ),
+  )
+  const unused = (url: string) => !used.has(canonicalImage(url))
   const seen = new Set<string>()
   const portraits = niches
     .flatMap((slug) => nicheArtistsLeadFirst(slug).slice(0, 3))
     .flatMap((artist) =>
-      artist.imageUrl && !seen.has(artist.slug) && seen.add(artist.slug)
+      artist.imageUrl && unused(artist.imageUrl) && !seen.has(artist.slug) && seen.add(artist.slug)
         ? [{ imageUrl: artist.imageUrl, label: artist.name }]
         : [],
     )
@@ -394,17 +404,18 @@ async function coverArt(
   ).catch((): FactsMap => new Map())
   // Square album art makes the best mosaic tiles.
   const pictures = [...curated.drops, ...curated.soundPicks].flatMap((item) =>
-    item.imageUrl ? [item.imageUrl] : [],
+    item.imageUrl && unused(item.imageUrl) ? [item.imageUrl] : [],
   )
   return chooseCoverArt(portraits, pictures, facts, Math.floor(now / DAY))
 }
 
 /**
  * Fit videos tried at YouTube's 1280px thumbnail, the only sharp one: the
- * ones the issue will show (newest first), cover included. Shorts too: their
+ * ones the issue will show (newest first), cover and Cop or Drop included. Shorts too: their
  * video column is 405px there against 202px in the default thumbnail.
  */
-const MAXRES_TRIES = SECTION_CAPS.fit + 1
+// The Fit, the cover, and the Cop or Drop pick (usually the next fit after the section).
+const MAXRES_TRIES = SECTION_CAPS.fit + 2
 /** Images measured per issue (cached for a month, so mostly instant). */
 const MEASURED = 80
 
@@ -435,16 +446,17 @@ async function withImageQuality(c: Candidates): Promise<{ curated: Candidates; f
   return { curated: curateCandidates({ ...c, fits }, facts), facts }
 }
 
-/** "The <niche> issue": Today's sections for one scene, read as someone who only follows it. */
-export function buildNicheIssue(slug: string, now = Date.now()): Promise<TodayEdition> {
-  return buildToday(
-    {
-      entities: [{ ref: `niche:${slug}`, score: 1 }],
-      brands: [],
-      lastVisit: null,
-      timeZone: "UTC",
-      scopeNiche: slug,
-    },
-    now,
-  )
-}
+/**
+ * "The <niche> issue": Today's sections for one scene, read as someone who
+ * only follows it. Memoized per request: the niche page's feed reads it too,
+ * to leave out what the issue already shows.
+ */
+export const buildNicheIssue = cache((slug: string): Promise<TodayEdition> =>
+  buildToday({
+    entities: [{ ref: `niche:${slug}`, score: 1 }],
+    brands: [],
+    lastVisit: null,
+    timeZone: "UTC",
+    scopeNiche: slug,
+  }),
+)

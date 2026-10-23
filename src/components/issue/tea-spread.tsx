@@ -119,7 +119,7 @@ export function TeaSpread({ items, now }: { items: readonly FeedItem[]; now: num
           />
           <div className="absolute inset-x-0 bottom-0 p-5 text-white md:p-8">
             <Byline item={lead} now={now} className="mb-2 tracking-wide uppercase" />
-            <h4 className="max-w-3xl font-serif text-[30px] leading-[1.05] text-balance italic group-hover:underline md:text-[52px]">
+            <h4 className="line-clamp-5 max-w-3xl font-serif text-[30px] leading-[1.05] text-balance italic group-hover:underline md:line-clamp-4 md:text-[52px]">
               {lead.title}
             </h4>
           </div>
