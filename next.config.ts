@@ -20,6 +20,10 @@ const nextConfig: NextConfig = {
     "/api/wrapped/**": ["./src/assets/fonts/**/*"],
   },
   partialPrefetching: true,
+  experimental: {
+    // `next upgrade` keeps this app on security releases.
+    agentUpgrade: "security",
+  },
   turbopack: {
     rules: {
       "*.css": {
