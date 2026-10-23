@@ -25,7 +25,6 @@ import { TAXONOMY, findPreset } from "@/lib/niches/catalog"
 import { buildForYou, withVideoNiches } from "@/lib/feed/for-you"
 import { tagFeedItems } from "@/lib/taxonomy/tagging"
 import { cn } from "@/lib/utils"
-import { LinkList } from "../link-card"
 import { NicheAutoplay } from "@/components/music/niche-autoplay"
 import { type ShelfNiche, SoundtrackShelf } from "@/components/music/soundtrack-shelf"
 import { PlayableList, SoundtrackHeader, TrackList } from "@/components/music/track-list"
@@ -114,7 +113,8 @@ export async function LiveSounds({ profile }: { profile: NicheProfile }) {
     name,
     imageUrl,
   }))
-  if (!soundtrack || soundtrack.tracks.length === 0) return <SoundsSection profile={profile} />
+  if (!soundtrack || soundtrack.tracks.length === 0)
+    return <SoundsSection profile={profile} artists={artists} />
   const shelf = soundtrackShelf(profile.slug)
 
   return (
@@ -191,16 +191,14 @@ export async function LiveTea({ profile }: { profile: NicheProfile }) {
           Quiet week: no fresh headlines about this scene yet.
         </p>
       ) : null}
-      <section>
-        <SectionHeader title="Keep digging" />
-        <LinkList
-          links={profile.newsQueries.map((query) => ({
-            title: query,
-            href: googleNews.search(query),
-            meta: "Google News",
-          }))}
-        />
-      </section>
+      <ExternalChips
+        label="Keep digging"
+        links={profile.newsQueries.map((query) => ({
+          title: query,
+          href: googleNews.search(query),
+          site: "Google News",
+        }))}
+      />
     </div>
   )
 }
@@ -223,16 +221,14 @@ export async function LiveWatch({ profile }: { profile: NicheProfile }) {
           </ul>
         </section>
       ) : null}
-      <section>
-        <SectionHeader title="More to watch" />
-        <LinkList
-          links={profile.youtubeQueries.map((query) => ({
-            title: query,
-            href: youtube.search(query),
-            meta: "YouTube",
-          }))}
-        />
-      </section>
+      <ExternalChips
+        label="More on YouTube"
+        links={profile.youtubeQueries.map((query) => ({
+          title: query,
+          href: youtube.search(query),
+          site: "YouTube",
+        }))}
+      />
     </div>
   )
 }

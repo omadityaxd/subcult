@@ -1,6 +1,6 @@
 "use client"
 
-import { Pause, Play } from "lucide-react"
+import { ChevronRight, Pause, Play } from "lucide-react"
 import { CdnImage } from "@/components/ds/cdn-image"
 import Link from "next/link"
 import { type CSSProperties, useEffect, useState } from "react"
@@ -74,6 +74,73 @@ export function ArtistsRow({
         />
       ) : null}
     </section>
+  )
+}
+
+/**
+ * Verified artists as rows (photo, name, why they matter). Every row opens
+ * the in-app artist sheet with their top tracks; nothing here leaves the app.
+ */
+export function ArtistList({
+  artists,
+  themeStyle,
+}: {
+  artists: readonly (ArtistRef & { why?: string | null })[]
+  themeStyle?: CSSProperties
+}) {
+  const [open, setOpen] = useState<ArtistRef | null>(null)
+  if (artists.length === 0) return null
+  return (
+    <>
+      <ul className="-ml-2 divide-y divide-border">
+        {artists.map((artist) => (
+          <li key={artist.slug}>
+            <button
+              type="button"
+              onClick={() => setOpen(artist)}
+              className="flex w-full items-center gap-3 rounded-xl px-2 py-2.5 text-left transition-colors hover:bg-muted"
+            >
+              <span className="relative size-12 shrink-0 overflow-hidden rounded-full bg-muted">
+                {artist.imageUrl ? (
+                  <CdnImage
+                    src={artist.imageUrl}
+                    alt=""
+                    fill
+                    sizes="48px"
+                    className="object-cover"
+                  />
+                ) : (
+                  <span className="grid size-full place-items-center font-serif text-title-3 italic">
+                    {artist.name.charAt(0)}
+                  </span>
+                )}
+              </span>
+              <span className="min-w-0 flex-1">
+                <span className="block truncate text-callout font-semibold">{artist.name}</span>
+                {artist.why ? (
+                  <span className="block truncate text-footnote text-muted-foreground">
+                    {artist.why}
+                  </span>
+                ) : null}
+              </span>
+              <ChevronRight
+                aria-hidden
+                className="size-4 shrink-0 text-subtle"
+                strokeWidth={1.75}
+              />
+            </button>
+          </li>
+        ))}
+      </ul>
+      {open ? (
+        <ArtistSheet
+          key={open.slug}
+          artist={open}
+          themeStyle={themeStyle}
+          onClose={() => setOpen(null)}
+        />
+      ) : null}
+    </>
   )
 }
 
