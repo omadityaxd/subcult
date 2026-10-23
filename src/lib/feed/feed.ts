@@ -4,6 +4,7 @@ import { type Logger, errorMessage } from "@/lib/log"
 import { type CleanContext, cleanFeed } from "./clean"
 import { type CacheState, type CacheStore, cached } from "./cache"
 import { interleave, nicheKeywords, rankFeed } from "./rank"
+import { QuotaExhaustedError } from "./quota"
 import type { FeedItem, FeedSource, Fetcher } from "./types"
 
 /** Per-fetcher budget: a slow source is dropped, never waited on. */
@@ -81,7 +82,9 @@ export async function buildNicheFeed(profile: NicheProfile, deps: FeedDeps): Pro
     const { source } = deps.fetchers[index]
     if (result.status === "rejected") {
       const error = errorMessage(result.reason)
-      deps.logger.warn("feed.fetcher.error", { source, slug: profile.slug, error })
+      // Our own daily cap running out is expected, not a fault.
+      const level = result.reason instanceof QuotaExhaustedError ? "info" : "warn"
+      deps.logger[level]("feed.fetcher.error", { source, slug: profile.slug, error })
       statuses.push({ source, state: "error", count: 0, cache: null, error })
       return
     }

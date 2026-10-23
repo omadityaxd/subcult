@@ -288,7 +288,14 @@ export async function HeroMosaic({ profile }: { profile: NicheProfile }) {
             index % 3 === 1 && "translate-y-3 md:translate-y-5",
           )}
         >
-          <MediaImage src={item.imageUrl} alt="" sizes="160px" focus={item.focus} />
+          <MediaImage
+            src={item.imageUrl}
+            alt=""
+            sizes="160px"
+            focus={item.focus}
+            // The hero is above the fold: its first row is the page's largest paint.
+            priority={index < 3}
+          />
         </li>
       ))}
     </ul>

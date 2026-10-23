@@ -18,7 +18,7 @@ import type { TodayEdition } from "@/lib/today/edition"
 import { sinceLabel } from "@/lib/today/edition"
 import { keepIssue, useIssueArchive } from "@/lib/today/issue-store"
 import { issueNumber, localDay } from "@/lib/today/issues"
-import { touchVisit } from "@/lib/today/visits"
+import { useLastVisit } from "@/lib/today/use-last-visit"
 
 const ENTITIES_SENT = 40
 const BRAND_SAVE = /^subcult:brand:([a-z0-9-]+)$/
@@ -127,8 +127,8 @@ export function Today({
   const [attempt, setAttempt] = useState(0)
   const archive = useIssueArchive()
   const vector = useTasteVector()
-  // The visit marker moves once per mount, not per retry.
-  const [lastVisit] = useState(() => (typeof window === "undefined" ? null : touchVisit()))
+  // Read after hydration (undefined until then), once per page load, not per retry.
+  const lastVisit = useLastVisit()
 
   // Built once per visit (and per retry): the issue doesn't reshuffle while you read it.
   useEffect(() => {
@@ -143,6 +143,7 @@ export function Today({
       })
       return
     }
+    if (lastVisit === undefined) return // wait for the device's visit marker
     void requestEdition(lastVisit).then((result) => {
       if (cancelled) return
       setLoad(result)
@@ -188,7 +189,7 @@ export function Today({
 
   const { edition, timeZone, saved } = load
   const fresh = (item: FeedItem) =>
-    lastVisit !== null && item.publishedAt !== null && Date.parse(item.publishedAt) > lastVisit
+    lastVisit != null && item.publishedAt !== null && Date.parse(item.publishedAt) > lastVisit
   const newCount = edition.sections.flatMap((s) => s.items).filter(fresh).length
   const date = dateLabel(edition.generatedAt, timeZone)
   // The device's archive is the source of truth once it has loaded; the cookie-based guess before.
@@ -206,7 +207,7 @@ export function Today({
           <span className="font-semibold text-foreground">{MODE_LINE[edition.mode]}</span>
           {saved
             ? ` · saved copy from ${formatAge(new Date(edition.generatedAt).toISOString(), new Date())} ago`
-            : lastVisit !== null
+            : lastVisit != null
               ? ` · ${newCount > 0 ? `${newCount} new` : "nothing new"} ${sinceLabel(lastVisit, edition.generatedAt, timeZone)}`
               : null}
         </p>

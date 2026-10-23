@@ -31,7 +31,9 @@ export function MediaImage({ src, alt, sizes, className, priority, focus }: Medi
         alt={alt}
         fill
         sizes={sizes}
-        priority={priority}
+        // Next 16: priority is deprecated; above-the-fold images load eagerly at high priority.
+        loading={priority ? "eager" : undefined}
+        fetchPriority={priority ? "high" : undefined}
         onLoad={() => setLoaded(true)}
         style={focus ? { objectPosition: focus } : undefined}
         className={cn(
