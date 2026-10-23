@@ -78,10 +78,28 @@ describe("the issue", () => {
     more: many("more", 30),
   }
 
+  it("ends with a Cop or Drop: a fit or grail with a picture that isn't already in the issue", () => {
+    const issue = assembleEdition(full, opts)
+    const shown = new Set([
+      issue.cover.item?.id,
+      ...issue.sections.flatMap((s) => s.items.map((i) => i.id)),
+    ])
+    const pick = issue.copOrDrop
+    expect(pick).not.toBeNull()
+    expect(["fit", "product"]).toContain(pick?.type)
+    expect(pick?.imageUrl).toBeTruthy()
+    expect(shown.has(pick!.id)).toBe(false)
+  })
+
+  it("skips Cop or Drop when there's nothing new with a picture to vote on", () => {
+    const issue = assembleEdition({ ...full, fits: [], archive: [] }, opts)
+    expect(issue.copOrDrop).toBeNull()
+  })
+
   it("runs in magazine order and is finite", () => {
     for (const mode of ["morning", "day", "night", "weekend"] as const) {
       const issue = assembleEdition(full, { ...opts, mode })
-      expect(issue.sections.map((s) => s.id)).toEqual(["tea", "fit", "grail", "sound", "scene"])
+      expect(issue.sections.map((s) => s.id)).toEqual(["tea", "sound", "fit", "grail", "scene"])
       expect(issue.count).toBeLessThanOrEqual(TODAY_MAX)
     }
   })

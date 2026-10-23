@@ -19,7 +19,7 @@ placeholder comment in the README with `![subcult demo](docs/demo.gif)`.
 | 2   | 4–12s  | Vibe check    | Swipe the rest of the deck (fit right, grail left, a "this or that"); speed up 4× in the edit. | It learns from swipes           |
 | 3   | 12–17s | Result        | The result card animates in with the niche mix percentages. Pause 1s.                          | A shareable identity            |
 | 4   | 17–22s | `/` (For you) | Tap For you. The cover loads with "No. 001" and the date.                                      | A personal, numbered magazine   |
-| 5   | 22–30s | The issue     | Scroll slowly: The Tea → The Fit → The Grail → The Sound. Tap play on one track.               | Sections in magazine order      |
+| 5   | 22–30s | The issue     | Scroll slowly: The Tea → The Sound (tap play on one track) → The Fit → The Grail.              | Sections in magazine order      |
 | 6   | 30–35s | Mini player   | The mini player slides up; open it full screen for 1s, then close.                             | In-app playback                 |
 | 7   | 35–40s | Niche page    | Tap a niche chip (rage). Hero mosaic; switch tabs: Fits → Archive → Scene.                     | Depth per scene                 |
 | 8   | 40–45s | ⌘K search     | Open search, type "carti". Artists, tracks and headlines group in; end there.                  | Everything is connected         |

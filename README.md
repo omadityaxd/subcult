@@ -18,8 +18,8 @@ the sounds and what's rising, all linking out to where the content lives.
 
 ## What it does
 
-- **The issue:** each person's daily edition, in magazine order (The Tea, The Fit, The Grail,
-  The Sound, The Scene), with a cover, a lead story and a back page. Every issue is numbered and
+- **The issue:** each person's daily edition, in magazine order (The Tea, The Sound, The Fit,
+  The Grail, The Scene, then a Cop or Drop), with a cover, a lead story and a back page. Every issue is numbered and
   kept.
 - **Vibe check:** a swipe deck of real content from today. A couple of minutes of swiping becomes a taste profile
   and a shareable result card.

@@ -2,11 +2,12 @@ import { connection } from "next/server"
 import { errorMessage, log } from "@/lib/log"
 import type { TodayEdition } from "@/lib/today/edition"
 import { buildNicheIssue } from "@/lib/today/server"
+import { CopOrDropBlock } from "./cop-or-drop-block"
 import { IssueSection } from "./issue-sections"
 
 /**
  * A niche page as "the <niche> issue": the same sections as Today (Tea,
- * Fit, Grail, Sound, Scene) scoped to this one scene. The niche hero is
+ * Sound, Fit, Grail, Scene, then Cop or Drop) scoped to this one scene. The niche hero is
  * its cover.
  */
 export async function NicheIssue({ slug }: { slug: string }) {
@@ -23,6 +24,7 @@ export async function NicheIssue({ slug }: { slug: string }) {
       {edition.sections.map((section, i) => (
         <IssueSection key={section.id} section={section} index={i + 1} now={edition.generatedAt} />
       ))}
+      {edition.copOrDrop ? <CopOrDropBlock item={edition.copOrDrop} /> : null}
     </div>
   )
 }

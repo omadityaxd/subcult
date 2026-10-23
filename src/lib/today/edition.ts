@@ -7,13 +7,13 @@ import type { FeedItem } from "@/lib/feed/types"
  * Today is an Issue: each person's daily subculture magazine. Pure: the
  * server gathers candidates, this decides the cover, what makes each
  * section, and the back page. Sections run in magazine order, always:
- * The Tea, The Fit, The Grail, The Sound, The Scene.
+ * The Tea, The Sound, The Fit, The Grail, The Scene, then one Cop or Drop.
  */
 
 export const TODAY_MIN = 15
 export const TODAY_MAX = 25
 
-export const SECTION_IDS = ["tea", "fit", "grail", "sound", "scene"] as const
+export const SECTION_IDS = ["tea", "sound", "fit", "grail", "scene"] as const
 export type SectionId = (typeof SECTION_IDS)[number]
 
 export type TodayMode = "morning" | "day" | "night" | "weekend"
@@ -63,6 +63,8 @@ export interface TodayEdition {
   cold: boolean
   cover: IssueCover
   sections: TodaySection[]
+  /** One more fit or grail to vote on after The Scene (never one already in the issue). */
+  copOrDrop: FeedItem | null
   /** "Watching tomorrow: …", only from real momentum (never an invented release). */
   backPage: { teaser: string | null }
   /** Items in the issue (chips count once each; the cover counts). */
@@ -229,8 +231,6 @@ export function assembleEdition(
     }
   }
   push("tea", take([...candidates.digest, ...candidates.headlines], SECTION_CAPS.tea))
-  push("fit", take([...candidates.fits].sort(newestFirst), SECTION_CAPS.fit))
-  push("grail", take(candidates.archive, SECTION_CAPS.grail))
   const lateNight = mode === "night" || mode === "weekend" ? candidates.lateNight : []
   push(
     "sound",
@@ -239,6 +239,8 @@ export function assembleEdition(
       SECTION_CAPS.sound,
     ),
   )
+  push("fit", take([...candidates.fits].sort(newestFirst), SECTION_CAPS.fit))
+  push("grail", take(candidates.archive, SECTION_CAPS.grail))
 
   const rising = candidates.rising.slice(0, Math.min(SECTION_CAPS.scene, TODAY_MAX - count))
   count += rising.length
@@ -255,6 +257,12 @@ export function assembleEdition(
   }
   push("scene", more, { rising, friends })
 
+  // Cop or Drop closes the issue: something new to judge, so it never repeats a page.
+  const copOrDrop =
+    [...candidates.fits, ...candidates.archive].find(
+      (item) => item.imageUrl && !used.has(item.id),
+    ) ?? null
+
   const headline =
     coverItem?.title ?? (nicheName ? `Today in ${nicheName}` : "Today in your scenes")
   const watching =
@@ -265,6 +273,7 @@ export function assembleEdition(
     cold,
     cover: { item: coverItem, headline, lines: coverLines(candidates, coverItem).slice(0, 3) },
     sections,
+    copOrDrop,
     backPage: {
       teaser: watching
         ? `Watching tomorrow: ${watching.label} (${watching.ratio}× this week)`

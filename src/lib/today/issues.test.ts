@@ -32,6 +32,7 @@ const edition: TodayEdition = {
       })),
     },
   ],
+  copOrDrop: null,
   backPage: { teaser: null },
   count: 5,
 }

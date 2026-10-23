@@ -19,6 +19,7 @@ import { sinceLabel } from "@/lib/today/edition"
 import { keepIssue, useIssueArchive } from "@/lib/today/issue-store"
 import { issueNumber, localDay } from "@/lib/today/issues"
 import { useLastVisit } from "@/lib/today/use-last-visit"
+import { CopOrDropBlock } from "@/components/issue/cop-or-drop-block"
 
 const ENTITIES_SENT = 40
 const BRAND_SAVE = /^subcult:brand:([a-z0-9-]+)$/
@@ -107,8 +108,8 @@ function dateLabel(now: number, timeZone: string): string {
 
 /**
  * Today is an Issue: the reader's daily subculture magazine, numbered from
- * their first visit. Cover, then The Tea, The Fit, The Grail, The Sound,
- * The Scene, then the back page.
+ * their first visit. Cover, then The Tea, The Sound, The Fit, The Grail,
+ * The Scene, Cop or Drop, then the back page.
  */
 export function Today({
   coldExtras,
@@ -235,6 +236,8 @@ export function Today({
             </SectionBoundary>
           </Fragment>
         ))}
+        {/* Saved issues from before Cop or Drop existed have no pick. */}
+        {edition.copOrDrop ? <CopOrDropBlock item={edition.copOrDrop} /> : null}
       </div>
 
       <BackPage count={edition.count} teaser={edition.backPage.teaser} />
