@@ -55,10 +55,11 @@ function TrackCard({ item, meta }: { item: FeedItem; meta: string }) {
           {item.imageUrl ? <MediaImage src={item.imageUrl} alt="" sizes="48px" /> : null}
           <span
             className={cn(
-              "absolute inset-0 grid place-items-center bg-black/35 text-white transition-opacity",
+              // Always visible: phones have no hover, and the art is the play button.
+              "absolute inset-0 grid place-items-center text-white transition-colors",
               current || pendingId === item.id
-                ? "opacity-100"
-                : "opacity-0 group-hover:opacity-100",
+                ? "bg-black/45"
+                : "bg-black/20 group-hover:bg-black/40",
             )}
           >
             {pendingId === item.id ? (

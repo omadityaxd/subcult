@@ -19,7 +19,7 @@ const item = (id: string, imageUrl: string | null, meta: FeedItem["meta"] = {}):
 
 const empty: Candidates = {
   digest: [],
-  lateNight: [],
+  soundPicks: [],
   drops: [],
   headlines: [],
   archive: [],

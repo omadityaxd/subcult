@@ -120,7 +120,7 @@ export const SECTION_CAPS: Record<SectionId, number> = {
 
 export interface Candidates {
   digest: FeedItem[]
-  lateNight: FeedItem[]
+  soundPicks: FeedItem[]
   drops: FeedItem[]
   headlines: FeedItem[]
   archive: FeedItem[]
@@ -231,11 +231,12 @@ export function assembleEdition(
     }
   }
   push("tea", take([...candidates.digest, ...candidates.headlines], SECTION_CAPS.tea))
-  const lateNight = mode === "night" || mode === "weekend" ? candidates.lateNight : []
+  // The newest drop leads; taste-ranked picks from the reader's scenes follow, any time of day.
+  const [newest, ...olderDrops] = [...candidates.drops].sort(newestFirst)
   push(
     "sound",
     take(
-      dedupeMusic([...[...candidates.drops].sort(newestFirst), ...lateNight]),
+      dedupeMusic([...(newest ? [newest] : []), ...candidates.soundPicks, ...olderDrops]),
       SECTION_CAPS.sound,
     ),
   )

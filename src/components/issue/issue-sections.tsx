@@ -1,21 +1,21 @@
 "use client"
 
-import { Play, TrendingUp } from "lucide-react"
+import { TrendingUp } from "lucide-react"
 import Link from "next/link"
-import { MediaImage } from "@/components/ds/media-image"
 import { FeedCard } from "@/components/niche/feed/feed-card"
 import { TasteCard } from "@/components/taste/taste-card"
-import { getAudioEngine } from "@/lib/audio/use-audio"
 import type { FeedItem } from "@/lib/feed/types"
 import { formatAge } from "@/lib/time"
 import type { RisingChip, SectionId, TodaySection } from "@/lib/today/edition"
 import { FitEditorial } from "./fit-editorial"
 import { GrailCatalog } from "./grail-catalog"
-import { CopOrDrop } from "@/components/votes/cop-or-drop"
 import { IssueSectionHeader } from "./issue-section-header"
 import { TeaSpread } from "./tea-spread"
 import { FewCards } from "@/components/niche/feed/few-cards"
 import { FEW_CARDS } from "@/lib/feed/few"
+import { type ListTrack, PlayableList } from "@/components/music/track-list"
+import { spotify } from "@/lib/links"
+import { useMemo } from "react"
 
 const KICKERS: Record<SectionId, string> = {
   tea: "News",
@@ -95,83 +95,36 @@ function CardGrid({ items, now }: { items: readonly FeedItem[]; now: number }) {
 
 const KIND_LABEL: Record<string, string> = { single: "Single", ep: "EP", album: "Album" }
 
-/** The Sound: at most five tracks, compact rows. A magazine's music page, not a player. */
+/** The Sound: 3–5 tracks that play right here (the shared list every track uses). */
 function SoundList({ items, now }: { items: readonly FeedItem[]; now: number }) {
-  return (
-    <ol className="divide-y divide-border">
-      {items.map((item, i) => {
-        const preview = typeof item.meta.previewUrl === "string" ? item.meta.previewUrl : null
-        const meta =
-          item.type === "release"
-            ? [
-                KIND_LABEL[String(item.meta.kind)] ?? "Release",
-                formatAge(item.publishedAt, new Date(now)),
-              ]
-            : [item.subtitle]
-        return (
-          <li key={item.id} className="flex items-center gap-3 py-2.5">
-            <span className="w-5 text-right font-serif text-callout text-subtle italic tabular-nums">
-              {i + 1}
-            </span>
-            <span className="relative size-12 shrink-0 overflow-hidden rounded-md bg-muted">
-              {item.imageUrl ? <MediaImage src={item.imageUrl} alt="" sizes="48px" /> : null}
-            </span>
-            <span className="min-w-0 flex-1">
-              <span className="block truncate text-callout font-semibold">{item.title}</span>
-              <span className="block truncate text-caption text-muted-foreground">
-                {[item.type === "release" ? item.subtitle : null, ...meta]
-                  .filter(Boolean)
-                  .join(" · ")}
-              </span>
-              <CopOrDrop item={item} size="sm" className="mt-1.5" />
-            </span>
-            {preview ? (
-              <button
-                type="button"
-                aria-label={`Play ${item.title}`}
-                onClick={() =>
-                  getAudioEngine().playQueue(
-                    [
-                      {
-                        id: item.id,
-                        src: preview,
-                        title: item.title,
-                        artist: item.subtitle ?? "",
-                        artworkUrl: item.imageUrl,
-                        spotifyUrl: item.url,
-                        appleUrl:
-                          typeof item.meta.appleUrl === "string" ? item.meta.appleUrl : null,
-                        niche: typeof item.meta.niche === "string" ? item.meta.niche : null,
-                      },
-                    ],
-                    0,
-                    { owner: "player", context: "Today" },
-                  )
-                }
-                className="grid size-9 shrink-0 place-items-center rounded-full border border-border-strong"
-              >
-                <Play
-                  aria-hidden
-                  className="size-3.5 translate-x-px"
-                  fill="currentColor"
-                  strokeWidth={0}
-                />
-              </button>
-            ) : item.url ? (
-              <a
-                href={item.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="shrink-0 text-caption font-semibold text-muted-foreground underline-offset-2 hover:underline"
-              >
-                Listen
-              </a>
-            ) : null}
-          </li>
-        )
-      })}
-    </ol>
-  )
+  const tracks = useMemo(() => items.map((item) => soundTrack(item, now)), [items, now])
+  return <PlayableList tracks={tracks} context="The Sound" />
+}
+
+const metaString = (value: unknown) => (typeof value === "string" ? value : null)
+
+function soundTrack(item: FeedItem, now: number): ListTrack {
+  const artist = item.subtitle ?? ""
+  return {
+    id: item.id,
+    title: item.title,
+    artist,
+    artworkUrl: item.imageUrl,
+    // Releases link to Apple; Spotify gets a search for the same song as its secondary link.
+    spotifyUrl: item.source === "spotify" ? item.url : spotify.search(`${artist} ${item.title}`),
+    previewUrl: metaString(item.meta.previewUrl),
+    appleUrl: metaString(item.meta.appleUrl) ?? (item.type === "release" ? item.url || null : null),
+    niche: metaString(item.meta.niche),
+    detail:
+      item.type === "release"
+        ? [
+            KIND_LABEL[String(item.meta.kind)] ?? "Release",
+            formatAge(item.publishedAt, new Date(now)),
+          ]
+            .filter(Boolean)
+            .join(" · ")
+        : null,
+  }
 }
 
 /** The Scene: what's moving (rising entities, friends) and more from your niches. */

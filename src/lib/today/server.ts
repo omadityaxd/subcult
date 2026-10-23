@@ -243,7 +243,8 @@ async function newFits(niches: readonly string[], since: number): Promise<FeedIt
   )
 }
 
-async function lateNight(niches: readonly string[]): Promise<FeedItem[]> {
+/** The Sound's picks: the reader's top scenes' soundtracks, interleaved strongest scene first. */
+async function soundPicks(niches: readonly string[]): Promise<FeedItem[]> {
   const tracks = await Promise.all(
     niches.slice(0, 3).map(async (slug) => {
       const soundtrack = await getSoundtrack(slug)
@@ -320,12 +321,12 @@ export async function buildToday(req: TodayRequest, now = Date.now()): Promise<T
   const brands = new Set([...req.brands, ...strongest(req, "brand")].slice(0, BRANDS * 2))
   const since = req.lastVisit ?? now - FIT_DAYS * DAY
 
-  const [dropItems, news, archive, fits, night, rising] = await Promise.all([
+  const [dropItems, news, archive, fits, picks, rising] = await Promise.all([
     settle("drops", drops(artists, now)),
     settle("news", nicheNews(niches)),
     settle("archive", listings(niches, brands, now)),
     settle("fits", newFits(niches, Math.max(since, now - FIT_DAYS * DAY))),
-    settle("late-night", lateNight(niches)),
+    settle("sound-picks", soundPicks(niches)),
     settle(
       "rising",
       risingChips(
@@ -342,7 +343,7 @@ export async function buildToday(req: TodayRequest, now = Date.now()): Promise<T
   const headlines = news.filter((item) => ageMs(item, now) <= HEADLINE_HOURS * HOUR)
   const candidates: Candidates = {
     digest: headlines.filter((item) => ageMs(item, now) <= DIGEST_HOURS * HOUR),
-    lateNight: night,
+    soundPicks: picks,
     drops: dropItems,
     headlines,
     archive,
@@ -388,7 +389,7 @@ async function withImageQuality(c: Candidates): Promise<{ curated: Candidates; f
     const better = upgrades.get(item.id)
     return better ? { ...item, imageUrl: better } : item
   })
-  const pictured = [fits, c.archive, c.headlines, c.drops, c.lateNight, c.more]
+  const pictured = [fits, c.archive, c.headlines, c.drops, c.soundPicks, c.more]
     .flat()
     .map((item) => item.imageUrl)
     .slice(0, MEASURED)

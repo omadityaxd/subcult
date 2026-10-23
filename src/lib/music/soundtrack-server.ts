@@ -14,21 +14,35 @@ import { getCacheStore } from "./server"
  * limited, and Spotify search links land on the song anyway.
  */
 const SOUNDTRACK_POLICY = { freshSeconds: 7 * 24 * 3600, staleSeconds: 30 * 24 * 3600 }
+/** An empty build (iTunes throttled or down) is retried after this, never cached for a week. */
+const EMPTY_RETRY_SECONDS = 3600
+
+class EmptySoundtrack extends Error {}
 
 /** "This is rage": the niche's verified artists' songs, as 30s previews. Memoized per request. */
 export const getSoundtrack = cache(async (slug: string): Promise<Soundtrack | null> => {
   const profile = findSeedProfile(slug)
   if (!profile) return null
+  const store = getCacheStore()
+  const missKey = `subcult:soundtrack:empty:${slug}`
   try {
+    if (await store.get(missKey).catch(() => null)) throw new EmptySoundtrack()
     const { value } = await cached(
-      getCacheStore(),
-      `subcult:soundtrack:v1:${slug}`,
+      store,
+      `subcult:soundtrack:v2:${slug}`,
       SOUNDTRACK_POLICY,
-      () =>
-        buildSoundtrack({
+      async () => {
+        const tracks = await buildSoundtrack({
           artists: nicheArtistsLeadFirst(slug),
           songsFor: (artist) => findArtistSongs(artist.name, SONGS_PER_ARTIST),
-        }),
+        })
+        // Never store "no songs": serve the last good copy, retry within the hour.
+        if (tracks.length === 0) {
+          await store.set(missKey, 1, EMPTY_RETRY_SECONDS).catch(() => undefined)
+          throw new EmptySoundtrack()
+        }
+        return tracks
+      },
       {
         onStoreError: (operation, error) =>
           log.warn("music.soundtrack_cache_error", { operation, error: errorMessage(error) }),
@@ -36,7 +50,9 @@ export const getSoundtrack = cache(async (slug: string): Promise<Soundtrack | nu
     )
     return { slug, title: `This is ${profile.name}`, tracks: value }
   } catch (error) {
-    log.warn("music.soundtrack_failed", { slug, error: errorMessage(error) })
+    if (!(error instanceof EmptySoundtrack)) {
+      log.warn("music.soundtrack_failed", { slug, error: errorMessage(error) })
+    }
     return { slug, title: `This is ${profile.name}`, tracks: [] }
   }
 })

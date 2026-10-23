@@ -30,7 +30,7 @@ const many = (prefix: string, n: number, over: Partial<FeedItem> = {}) =>
 
 const empty: Candidates = {
   digest: [],
-  lateNight: [],
+  soundPicks: [],
   drops: [],
   headlines: [],
   archive: [],
@@ -62,7 +62,7 @@ describe("time of day", () => {
 describe("the issue", () => {
   const full: Candidates = {
     digest: many("digest", 3, { imageUrl: "https://img/news.jpg" }),
-    lateNight: many("night", 10, { source: "spotify", type: "track" }),
+    soundPicks: many("night", 10, { source: "spotify", type: "track" }),
     drops: many("drop", 10, { source: "subcult", type: "release" }),
     headlines: many("news", 10),
     archive: many("listing", 10, {
@@ -108,7 +108,7 @@ describe("the issue", () => {
     expect(pickCover(full)?.id).toBe("fit-0")
     expect(pickCover({ ...full, fits: [] })?.id).toBe("listing-0")
     expect(pickCover({ ...full, fits: [], archive: [] })?.id).toBe("digest-0")
-    expect(pickCover({ ...empty, lateNight: full.lateNight, drops: full.drops })).toBeNull()
+    expect(pickCover({ ...empty, soundPicks: full.soundPicks, drops: full.drops })).toBeNull()
   })
 
   it("never covers with, or leads the cover lines with, heavy news", () => {
@@ -145,6 +145,23 @@ describe("the issue", () => {
       "New: drop-0",
       "Destroy Lonely is up 2.3× this week",
     ])
+  })
+
+  it("The Sound: the newest drop first, then taste-ranked picks, at any time of day", () => {
+    const drops = [
+      item("old-drop", { source: "subcult", type: "release", publishedAt: "2026-10-01T00:00:00Z" }),
+      item("new-drop", { source: "subcult", type: "release", publishedAt: "2026-10-20T00:00:00Z" }),
+    ]
+    const picks = many("pick", 6, { source: "spotify", type: "track" })
+    const issue = assembleEdition({ ...empty, drops, soundPicks: picks }, { ...opts, mode: "day" })
+    const ids = issue.sections.find((s) => s.id === "sound")?.items.map((i) => i.id)
+    expect(ids).toEqual(["new-drop", "pick-0", "pick-1", "pick-2", "pick-3"])
+  })
+
+  it("The Sound plays what it has: picks alone, no drop needed", () => {
+    const picks = many("pick", 3, { source: "spotify", type: "track" })
+    const issue = assembleEdition({ ...empty, soundPicks: picks }, opts)
+    expect(issue.sections.find((s) => s.id === "sound")?.items).toHaveLength(3)
   })
 
   it("caps The Sound at five tracks: a magazine, not a playlist", () => {

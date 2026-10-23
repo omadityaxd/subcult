@@ -3,7 +3,7 @@ import type { FeedItem } from "@/lib/feed/types"
 import type { Candidates } from "./edition"
 
 /** Lists that carry pictures, in the order they claim one (the cover comes from the first). */
-const ORDER = ["fits", "archive", "digest", "headlines", "drops", "lateNight", "more"] as const
+const ORDER = ["fits", "archive", "digest", "headlines", "drops", "soundPicks", "more"] as const
 
 /**
  * One issue never shows the same picture twice: across every section, a

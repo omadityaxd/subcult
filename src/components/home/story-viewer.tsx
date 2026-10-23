@@ -16,6 +16,7 @@ import { youtubeCrop } from "@/lib/images/youtube-crop"
 import type { ApiResponse } from "@/lib/request"
 import { cn } from "@/lib/utils"
 import { MusicSticker } from "./music-sticker"
+import { StoryTrackActions } from "./story-track-actions"
 import { useStoryMusic } from "./use-story-music"
 import { CopOrDrop } from "@/components/votes/cop-or-drop"
 import { PollFrame } from "@/components/votes/poll-frame"
@@ -23,7 +24,7 @@ import { altOf, focusOf } from "@/lib/images/curate"
 import { stickerFor } from "@/lib/feed/story-mix"
 
 const OPEN_LABEL: Record<FeedItem["source"], string> = {
-  spotify: "Listen on Spotify",
+  spotify: "Open in Spotify",
   youtube: "Watch on YouTube",
   news: "Read the story",
   arena: "Open on Are.na",
@@ -331,15 +332,19 @@ export function StoryViewer({ niches, startIndex, onSeen, onClose }: StoryViewer
               <MusicSticker music={sticker} playing={audio.playing && !audio.muted} />
             ) : null}
             <CopOrDrop key={current.id} item={current} tone="overlay" />
-            <a
-              href={current.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-white text-callout font-semibold text-black active:scale-[0.98]"
-            >
-              {OPEN_LABEL[current.source]}
-              <ArrowUpRight aria-hidden className="size-4" strokeWidth={1.75} />
-            </a>
+            {current.source === "spotify" ? (
+              <StoryTrackActions key={current.id} item={current} />
+            ) : (
+              <a
+                href={current.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-white text-callout font-semibold text-black active:scale-[0.98]"
+              >
+                {OPEN_LABEL[current.source]}
+                <ArrowUpRight aria-hidden className="size-4" strokeWidth={1.75} />
+              </a>
+            )}
           </div>
         ) : null}
       </motion.div>
