@@ -1,6 +1,6 @@
 "use client"
 
-import { ChevronDown, ChevronUp, Volume2, VolumeX, X } from "lucide-react"
+import { ArrowUpRight, ChevronDown, ChevronUp, Volume2, VolumeX, X } from "lucide-react"
 import Link from "next/link"
 import { useEffect, useId, useRef, useState } from "react"
 import { createPortal } from "react-dom"
@@ -135,16 +135,30 @@ function Slide({
 }) {
   const videoId = youtubeIdOf(item)
   const related = decodeRelatedNiches(item.meta.niches)
+  // Embedding refused, blocked or stuck: the thumbnail stays, with YouTube as the way out.
+  const [failed, setFailed] = useState(false)
   return (
     <section
       aria-label={item.title}
       className="flex h-full snap-start snap-always flex-col justify-center gap-5 px-4 pt-16 pb-[calc(env(safe-area-inset-bottom)+1.5rem)] md:px-24"
     >
       <div className="relative mx-auto aspect-video max-h-[60dvh] min-h-[200px] w-full max-w-4xl bg-black">
-        {active && videoId ? (
-          <ReelPlayer videoId={videoId} muted={muted} />
-        ) : item.imageUrl ? (
-          <MediaImage src={item.imageUrl} alt="" sizes="100vw" />
+        {item.imageUrl ? <MediaImage src={item.imageUrl} alt="" sizes="100vw" /> : null}
+        {active && videoId && !failed ? (
+          <ReelPlayer videoId={videoId} muted={muted} onFail={() => setFailed(true)} />
+        ) : null}
+        {failed || !videoId ? (
+          <span className="absolute inset-0 grid place-items-center bg-black/40">
+            <a
+              href={item.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex h-9 items-center gap-1 rounded-full bg-white/15 px-4 text-footnote font-medium backdrop-blur-md hover:bg-white/25"
+            >
+              Watch on YouTube
+              <ArrowUpRight aria-hidden className="size-3.5" strokeWidth={1.75} />
+            </a>
+          </span>
         ) : null}
       </div>
       <div className="mx-auto flex w-full max-w-4xl items-start gap-3">
@@ -197,7 +211,22 @@ function Slide({
 }
 
 /** The active slide's player: autoplays (opened by a tap), sound per the viewer's mute toggle. */
-function ReelPlayer({ videoId, muted }: { videoId: string; muted: boolean }) {
+/** How long a player may take to start before the slide falls back to the thumbnail. */
+const START_TIMEOUT_MS = 12_000
+
+function ReelPlayer({
+  videoId,
+  muted,
+  onFail,
+}: {
+  videoId: string
+  muted: boolean
+  onFail: () => void
+}) {
+  const failRef = useRef(onFail)
+  useEffect(() => {
+    failRef.current = onFail
+  }, [onFail])
   const host = useRef<HTMLDivElement>(null)
   const player = useRef<YtPlayer | null>(null)
   const mutedRef = useRef(muted)
@@ -207,12 +236,25 @@ function ReelPlayer({ videoId, muted }: { videoId: string; muted: boolean }) {
     const container = host.current
     if (!container) return
     let disposed = false
+    let started = false
     let unregister = () => {}
+    const fail = () => {
+      if (!disposed && !started) failRef.current()
+    }
+    const timer = window.setTimeout(fail, START_TIMEOUT_MS)
     createYouTubePlayer(container, {
       videoId,
       playerVars: { autoplay: 1, controls: 1, playsinline: 1, rel: 0 },
       events: {
+        // 2 bad id, 5 HTML5 error, 100 removed, 101/150 embedding disabled.
+        onError: () => {
+          window.clearTimeout(timer)
+          failRef.current()
+        },
         onReady: ({ target }) => {
+          // Loaded: from here only onError counts (autoplay may be blocked, not broken).
+          started = true
+          window.clearTimeout(timer)
           if (disposed) return target.destroy()
           player.current = target
           if (mutedRef.current) target.mute()
@@ -221,11 +263,16 @@ function ReelPlayer({ videoId, muted }: { videoId: string; muted: boolean }) {
           unregister = registerExternalPlayer(id, { pause: () => target.pauseVideo() })
         },
         onStateChange: ({ data, target }) => {
+          if (data === YT_STATE.PLAYING) {
+            started = true
+            window.clearTimeout(timer)
+          }
           if (data === YT_STATE.PLAYING && !target.isMuted()) externalPlaybackStarted(id)
         },
       },
-    }).catch(() => undefined)
+    }).catch(fail)
     return () => {
+      window.clearTimeout(timer)
       disposed = true
       unregister()
       player.current?.destroy()

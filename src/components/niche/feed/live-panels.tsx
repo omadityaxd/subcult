@@ -289,8 +289,8 @@ export async function HeroMosaic({ profile }: { profile: NicheProfile }) {
             alt=""
             sizes="160px"
             focus={item.focus}
-            // The hero is above the fold: its first row is the page's largest paint.
-            priority={index < 3}
+            // The whole hero is above the fold (six small tiles): any of them can be the LCP.
+            priority
           />
         </li>
       ))}
