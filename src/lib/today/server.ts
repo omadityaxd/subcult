@@ -10,6 +10,7 @@ import { soundtrackFeedItems } from "@/lib/music/soundtrack"
 import { getSoundtrack } from "@/lib/music/soundtrack-server"
 import { TAXONOMY, findPreset, findSeedProfile, nicheArtistsLeadFirst } from "@/lib/niches/catalog"
 import { containsTerm, isAmbiguous } from "@/lib/feed/relevance"
+import { type CoverArt, chooseCoverArt } from "./cover-art"
 import { curateCandidates } from "./curate"
 import { isHeavy } from "./heavy"
 import { entityPhoto, withTeaImage } from "./tea-image"
@@ -364,7 +365,38 @@ export async function buildToday(req: TodayRequest, now = Date.now()): Promise<T
     // A cover is printed big: measured ≥1200px wide, and never a vertical Short.
     coverOk: (item) => item.meta.short !== true && fitsSlot(item.imageUrl, "cover", facts),
   })
-  return { ...edition, cover: { ...edition.cover, palette: lead?.palette ?? null } }
+  const art = edition.cover.item ? null : await coverArt(niches, curated, now)
+  return { ...edition, cover: { ...edition.cover, palette: lead?.palette ?? null, art } }
+}
+
+/** Portraits measured for a cover: the lead scenes' first few verified artists. */
+const COVER_PORTRAITS = 6
+const COVER_ART_BUDGET_MS = 1500
+
+/** No fit or grail cover: the best artist portrait, else a mosaic, else the palette. */
+async function coverArt(
+  niches: readonly string[],
+  curated: Candidates,
+  now: number,
+): Promise<CoverArt | null> {
+  const seen = new Set<string>()
+  const portraits = niches
+    .flatMap((slug) => nicheArtistsLeadFirst(slug).slice(0, 3))
+    .flatMap((artist) =>
+      artist.imageUrl && !seen.has(artist.slug) && seen.add(artist.slug)
+        ? [{ imageUrl: artist.imageUrl, label: artist.name }]
+        : [],
+    )
+    .slice(0, COVER_PORTRAITS)
+  const facts = await imageFactsFor(
+    portraits.map((p) => p.imageUrl),
+    COVER_ART_BUDGET_MS,
+  ).catch((): FactsMap => new Map())
+  // Square album art makes the best mosaic tiles.
+  const pictures = [...curated.drops, ...curated.soundPicks].flatMap((item) =>
+    item.imageUrl ? [item.imageUrl] : [],
+  )
+  return chooseCoverArt(portraits, pictures, facts, Math.floor(now / DAY))
 }
 
 /**

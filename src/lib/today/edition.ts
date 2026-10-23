@@ -1,6 +1,7 @@
 import { isYouTubeThumb, videoFrameWidth } from "@/lib/images/youtube-crop"
 import { dedupeMusic } from "@/lib/feed/dedupe-music"
 import type { RisingScope } from "@/lib/rising/pick"
+import type { CoverArt } from "./cover-art"
 import type { FeedItem } from "@/lib/feed/types"
 
 /**
@@ -54,6 +55,8 @@ export interface IssueCover {
   lines: string[]
   /** The lead niche's palette, for the cover when there's no image (set by the server). */
   palette?: readonly string[] | null
+  /** No fit or grail cover: an artist portrait or a mosaic (set by the server). */
+  art?: CoverArt | null
 }
 
 export interface TodayEdition {
@@ -175,17 +178,39 @@ function coverWorthy(item: FeedItem): boolean {
   )
 }
 
+const COVER_LINES = 3
+
+/**
+ * Three cover lines: the lead story, the newest drop, what's rising. A day
+ * missing one tops up from real content (a track from The Sound, then more
+ * stories), never an invented line.
+ */
 function coverLines(c: Candidates, cover: FeedItem | null): string[] {
-  const lead = [...c.digest, ...c.headlines].find(
-    (item) => item.id !== cover?.id && !isGossip(item) && item.meta.heavy !== true,
+  const stories = [...c.digest, ...c.headlines].filter(
+    (item, i, all) =>
+      item.id !== cover?.id &&
+      !isGossip(item) &&
+      item.meta.heavy !== true &&
+      all.findIndex((other) => other.id === item.id) === i,
   )
   const drop = [...c.drops].sort(newestFirst)[0]
   const rising = c.rising[0]
-  return [
-    lead?.title,
+  const lines = [
+    stories[0]?.title,
     drop ? `New: ${drop.title}${drop.subtitle ? ` from ${drop.subtitle}` : ""}` : undefined,
     rising ? `${rising.label} is up ${rising.ratio}× this week` : undefined,
   ].filter((line): line is string => Boolean(line))
+  // Variety first: with no drop, a track from The Sound before a second story.
+  const pick = drop ? undefined : c.soundPicks[0]
+  const extra = [
+    pick ? `On repeat: ${pick.title}${pick.subtitle ? ` by ${pick.subtitle}` : ""}` : undefined,
+    ...stories.slice(1).map((item) => item.title),
+  ].filter((line): line is string => Boolean(line))
+  for (const line of extra) {
+    if (lines.length >= COVER_LINES) break
+    if (!lines.includes(line)) lines.push(line)
+  }
+  return lines
 }
 
 /** A hero this wide (measured) prints sharp at the hero tile's size. */

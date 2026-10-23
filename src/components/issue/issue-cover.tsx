@@ -29,6 +29,7 @@ export function IssueCover({
   debut?: boolean
 }) {
   const image = cover.item?.imageUrl ?? null
+  const art = image ? null : (cover.art ?? null)
   const enter = (delay: string) =>
     debut
       ? `animate-in fade-in slide-in-from-bottom-3 fill-mode-both duration-700 ease-out motion-reduce:animate-none ${delay}`
@@ -48,6 +49,11 @@ export function IssueCover({
         </span>
       </div>
       <div>
+        {art?.kind === "portrait" ? (
+          <p className="mb-2 text-caption font-semibold tracking-[0.18em] text-white/80 uppercase">
+            On the cover · {art.label}
+          </p>
+        ) : null}
         <h2
           data-testid="issue-headline"
           className={`max-w-3xl font-serif text-[44px] leading-[0.95] text-balance italic md:text-[84px] ${enter("delay-300")}`}
@@ -95,6 +101,37 @@ export function IssueCover({
           />
           <div className="absolute inset-0">{body}</div>
         </>
+      ) : art ? (
+        <>
+          {art.kind === "portrait" ? (
+            <MediaImage
+              src={art.imageUrl}
+              alt={art.label}
+              sizes="(max-width: 768px) 100vw, 1100px"
+              priority
+              // Faces sit high in artist photos: keep them in frame on a wide crop.
+              focus="50% 25%"
+            />
+          ) : (
+            <div className="absolute inset-0 grid grid-cols-2 grid-rows-2 gap-0.5 bg-black">
+              {art.images.map((src, i) => (
+                <span key={src} className={i === 0 ? "relative row-span-2" : "relative"}>
+                  <MediaImage
+                    src={src}
+                    alt=""
+                    sizes="(max-width: 768px) 50vw, 550px"
+                    priority={i === 0}
+                  />
+                </span>
+              ))}
+            </div>
+          )}
+          <span
+            aria-hidden
+            className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/15 to-black/80"
+          />
+          <div className="absolute inset-0">{body}</div>
+        </>
       ) : (
         <Cover
           palette={cover.palette ?? FALLBACK_PALETTE}
@@ -131,7 +168,9 @@ export function ShareCoverButton({
           headline: cover.headline,
           lines: cover.lines.join("\n"),
         })
-        if (cover.item?.imageUrl) params.set("img", cover.item.imageUrl)
+        const shareImage =
+          cover.item?.imageUrl ?? (cover.art?.kind === "portrait" ? cover.art.imageUrl : null)
+        if (shareImage) params.set("img", shareImage)
         if (cover.palette) params.set("palette", cover.palette.join(","))
         try {
           const response = await fetch(`/issue/card?${params}`)

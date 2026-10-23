@@ -256,6 +256,21 @@ describe("sinceLabel", () => {
 })
 
 describe("cover editorial rules", () => {
+  it("fills three cover lines from real content when there's no drop or rising chip", () => {
+    const headlines = [item("First story"), item("Second story"), item("Third story")]
+    const picks = [
+      item("track", {
+        source: "spotify",
+        type: "track",
+        title: "ALL RED",
+        subtitle: "Playboi Carti",
+      }),
+    ]
+    const lines = assembleEdition({ ...empty, headlines, soundPicks: picks }, opts).cover.lines
+    expect(lines).toHaveLength(3)
+    expect(lines).toEqual(["First story", "On repeat: ALL RED by Playboi Carti", "Second story"])
+  })
+
   it("keeps gossip off the cover and the cover lines", () => {
     const gossip = item("g", {
       title: "Violet Myers Calls Out OsamaSon on Instagram",
