@@ -164,6 +164,53 @@ describe("the issue", () => {
     expect(issue.sections.find((s) => s.id === "sound")?.items).toHaveLength(3)
   })
 
+  it("leads The Fit with a sharp picture: the hero is printed big", () => {
+    const fits = [
+      item("blurry-new", {
+        type: "fit",
+        imageUrl: "https://img/a.jpg",
+        publishedAt: "2026-10-20T00:00:00Z",
+        meta: { imgW: 480 },
+      }),
+      item("sharp-older", {
+        type: "fit",
+        imageUrl: "https://img/b.jpg",
+        publishedAt: "2026-10-18T00:00:00Z",
+        meta: { imgW: 1280 },
+      }),
+      item("blurry-old", {
+        type: "fit",
+        imageUrl: "https://img/c.jpg",
+        publishedAt: "2026-10-17T00:00:00Z",
+        meta: { imgW: 480 },
+      }),
+    ]
+    const issue = assembleEdition({ ...empty, fits }, opts)
+    const ids = issue.sections.find((s) => s.id === "fit")?.items.map((i) => i.id)
+    expect(ids?.[0]).toBe("sharp-older")
+  })
+
+  it("without a 1200px picture, the sharpest fit still leads", () => {
+    const fits = [
+      item("new", {
+        type: "fit",
+        imageUrl: "https://img/a.jpg",
+        publishedAt: "2026-10-20T00:00:00Z",
+        meta: { imgW: 480 },
+      }),
+      item("old", {
+        type: "fit",
+        imageUrl: "https://img/b.jpg",
+        publishedAt: "2026-10-18T00:00:00Z",
+        meta: { imgW: 600 },
+      }),
+    ]
+    const ids = assembleEdition({ ...empty, fits }, opts)
+      .sections.find((s) => s.id === "fit")
+      ?.items.map((i) => i.id)
+    expect(ids?.[0]).toBe("old")
+  })
+
   it("caps The Sound at five tracks: a magazine, not a playlist", () => {
     const issue = assembleEdition(full, { ...opts, mode: "night" })
     expect(issue.sections.find((s) => s.id === "sound")?.items).toHaveLength(SECTION_CAPS.sound)

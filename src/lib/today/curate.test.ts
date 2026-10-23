@@ -38,6 +38,46 @@ const facts = (hash: string): ImageFacts => ({
 })
 
 describe("curateCandidates", () => {
+  const video = (id: string, videoId: string, thumb = videoId): FeedItem => ({
+    ...item(id, `https://i.ytimg.com/vi/${thumb}/maxresdefault.jpg`),
+    source: "youtube",
+    type: "video",
+    url: `https://www.youtube.com/watch?v=${videoId}`,
+  })
+
+  it("keeps one copy of a video that arrives twice under different ids", () => {
+    const fits = [
+      video("youtube:fit:abc", "abc"),
+      { ...video("youtube:abc", "abc"), imageUrl: null },
+    ]
+    const out = curateCandidates(
+      { ...empty, fits, more: [video("more:abc", "abc", "other")] },
+      new Map(),
+    )
+    expect(out.fits.map((i) => i.id)).toEqual(["youtube:fit:abc"])
+    expect(out.more).toHaveLength(0)
+  })
+
+  it("treats re-uploads of the same footage as one video (thumbnails 11 bits apart)", () => {
+    const a = video("a", "aaa")
+    const b = video("b", "bbb")
+    const known = new Map([
+      [a.imageUrl!, facts("0d8c0c0f0d9d9596")],
+      [b.imageUrl!, facts("8d8d4d0d8d850796")],
+    ])
+    expect(curateCandidates({ ...empty, fits: [a, b] }, known).fits.map((i) => i.id)).toEqual(["a"])
+  })
+
+  it("keeps photos 11 bits apart: only video thumbnails get the looser match", () => {
+    const a = item("a", "https://img.example/a.jpg")
+    const b = item("b", "https://img.example/b.jpg")
+    const known = new Map([
+      [a.imageUrl!, facts("0d8c0c0f0d9d9596")],
+      [b.imageUrl!, facts("8d8d4d0d8d850796")],
+    ])
+    expect(curateCandidates({ ...empty, more: [a, b] }, known).more).toHaveLength(2)
+  })
+
   it("shows each picture once across the whole issue", () => {
     const album = "https://i.scdn.co/image/ab67616d0000b2734eba3a1d0a6f9a7a1b2c3d4e"
     const albumSmall = "https://i.scdn.co/image/ab67616d00001e024eba3a1d0a6f9a7a1b2c3d4e"

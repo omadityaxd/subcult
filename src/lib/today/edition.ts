@@ -1,4 +1,4 @@
-import { isYouTubeThumb } from "@/lib/images/youtube-crop"
+import { isYouTubeThumb, videoFrameWidth } from "@/lib/images/youtube-crop"
 import { dedupeMusic } from "@/lib/feed/dedupe-music"
 import type { RisingScope } from "@/lib/rising/pick"
 import type { FeedItem } from "@/lib/feed/types"
@@ -132,7 +132,7 @@ export interface Candidates {
   more: FeedItem[]
 }
 
-const newestFirst = (a: FeedItem, b: FeedItem) =>
+export const newestFirst = (a: FeedItem, b: FeedItem) =>
   Date.parse(b.publishedAt ?? "0") - Date.parse(a.publishedAt ?? "0")
 
 const withImage = (item: FeedItem) => Boolean(item.imageUrl)
@@ -188,6 +188,28 @@ function coverLines(c: Candidates, cover: FeedItem | null): string[] {
   ].filter((line): line is string => Boolean(line))
 }
 
+/** A hero this wide (measured) prints sharp at the hero tile's size. */
+const HERO_WIDTH = 1200
+
+/**
+ * The Fit's first picture is its tall hero: the newest one that's at least
+ * HERO_WIDTH wide leads, else the sharpest. The rest keep newest-first.
+ */
+function sharpestFirst(items: FeedItem[]): FeedItem[] {
+  // Sharpness is the width that's actually picture (a Short's thumbnail is mostly side bars).
+  const width = (item: FeedItem) =>
+    videoFrameWidth({
+      imageUrl: item.imageUrl,
+      short: item.meta.short === true,
+      width: typeof item.meta.imgW === "number" ? item.meta.imgW : 0,
+    })
+  const sharp = items.find((item) => width(item) >= HERO_WIDTH)
+  const best =
+    sharp ??
+    items.reduce<FeedItem | undefined>((a, b) => (a && width(a) >= width(b) ? a : b), undefined)
+  return best ? [best, ...items.filter((item) => item !== best)] : items
+}
+
 /**
  * Builds the issue: the cover, then the sections in magazine order, each
  * capped, nothing shown twice, at most TODAY_MAX items. Items arrive
@@ -240,7 +262,7 @@ export function assembleEdition(
       SECTION_CAPS.sound,
     ),
   )
-  push("fit", take([...candidates.fits].sort(newestFirst), SECTION_CAPS.fit))
+  push("fit", sharpestFirst(take([...candidates.fits].sort(newestFirst), SECTION_CAPS.fit)))
   push("grail", take(candidates.archive, SECTION_CAPS.grail))
 
   const rising = candidates.rising.slice(0, Math.min(SECTION_CAPS.scene, TODAY_MAX - count))

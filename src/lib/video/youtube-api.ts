@@ -81,15 +81,5 @@ export async function createYouTubePlayer(
   })
 }
 
-/** "youtube:video:abc" / watch URLs → the 11-char video id. */
-export function youtubeIdOf(item: { id: string; url: string }): string | null {
-  const fromId = item.id.match(/^youtube:video:([\w-]{11})$/)?.[1]
-  if (fromId) return fromId
-  try {
-    const url = new URL(item.url)
-    if (url.hostname === "youtu.be") return url.pathname.slice(1, 12) || null
-    return url.searchParams.get("v")
-  } catch {
-    return null
-  }
-}
+// Pure, so server code imports it from youtube-id directly; re-exported for the players.
+export { youtubeIdOf } from "./youtube-id"

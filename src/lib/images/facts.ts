@@ -30,6 +30,12 @@ export function hammingDistance(a: string, b: string): number {
   return bits
 }
 
-export function isSameImage(a: string, b: string): boolean {
-  return hammingDistance(a, b) <= DUPLICATE_DISTANCE
+/**
+ * Video thumbnails of re-uploads of the same footage drift a little further
+ * (recompression, overlays): a slightly looser match, only between videos.
+ */
+export const VIDEO_DUPLICATE_DISTANCE = 12
+
+export function isSameImage(a: string, b: string, maxDistance = DUPLICATE_DISTANCE): boolean {
+  return hammingDistance(a, b) <= maxDistance
 }

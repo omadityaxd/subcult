@@ -37,6 +37,7 @@ import {
   type TodayEdition,
   assembleEdition,
   localClock,
+  newestFirst,
   todayMode,
 } from "./edition"
 
@@ -366,8 +367,12 @@ export async function buildToday(req: TodayRequest, now = Date.now()): Promise<T
   return { ...edition, cover: { ...edition.cover, palette: lead?.palette ?? null } }
 }
 
-/** Regular (not Short) fit videos tried at YouTube's 1280px thumbnail: the only sharp one. */
-const MAXRES_TRIES = 3
+/**
+ * Fit videos tried at YouTube's 1280px thumbnail, the only sharp one: the
+ * ones the issue will show (newest first), cover included. Shorts too: their
+ * video column is 405px there against 202px in the default thumbnail.
+ */
+const MAXRES_TRIES = SECTION_CAPS.fit + 1
 /** Images measured per issue (cached for a month, so mostly instant). */
 const MEASURED = 80
 
@@ -377,8 +382,9 @@ const MEASURED = 80
  * budget), repeats removed across sections and subjects located.
  */
 async function withImageQuality(c: Candidates): Promise<{ curated: Candidates; facts: FactsMap }> {
-  const videos = c.fits
-    .filter((item) => item.source === "youtube" && item.meta.short !== true && item.imageUrl)
+  const videos = [...c.fits]
+    .sort(newestFirst)
+    .filter((item) => item.source === "youtube" && item.imageUrl)
     .slice(0, MAXRES_TRIES)
   const upgrades = new Map(
     await Promise.all(

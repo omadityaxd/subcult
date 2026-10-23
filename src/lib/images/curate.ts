@@ -1,5 +1,5 @@
 import type { FeedItem } from "@/lib/feed/types"
-import { type ImageFacts, isSameImage } from "./facts"
+import { type ImageFacts, VIDEO_DUPLICATE_DISTANCE, isSameImage } from "./facts"
 import { type ImageSlot, MIN_WIDTH, canonicalImage, knownWidth } from "./variants"
 
 /** Facts we've analyzed, by image URL (null = tried and failed). */
@@ -27,17 +27,26 @@ export function dedupeImages<T>(
   items: readonly T[],
   imageOf: (item: T) => string | null,
   facts: FactsMap = EMPTY,
-  seen: { keys: Set<string>; hashes: string[] } = { keys: new Set(), hashes: [] },
+  seen: { keys: Set<string>; hashes: string[]; videoHashes?: string[] } = {
+    keys: new Set(),
+    hashes: [],
+  },
 ): T[] {
+  const videoHashes = (seen.videoHashes ??= [])
   return items.filter((item) => {
     const url = imageOf(item)
     if (!url) return true
     const key = canonicalImage(url)
     const hash = facts.get(url)?.hash ?? null
+    const video = key.startsWith("youtube:")
     if (seen.keys.has(key)) return false
     if (hash && seen.hashes.some((other) => isSameImage(hash, other))) return false
+    if (hash && video && videoHashes.some((o) => isSameImage(hash, o, VIDEO_DUPLICATE_DISTANCE))) {
+      return false
+    }
     seen.keys.add(key)
     if (hash) seen.hashes.push(hash)
+    if (hash && video) videoHashes.push(hash)
     return true
   })
 }
