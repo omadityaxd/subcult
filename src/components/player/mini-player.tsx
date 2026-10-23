@@ -13,8 +13,13 @@ import { ProgressBar } from "./progress-bar"
 
 const COLLAPSE_AFTER_PX = 160
 const SCROLL_JITTER_PX = 8
+/** Matches the md breakpoint where the player docks in its own bar. */
+const DOCKED_QUERY = "(min-width: 768px)"
 
-/** Collapsed while scrolling down the page, open again on the way up (or at the top). */
+/**
+ * Phones: collapsed while scrolling down the page, open again on the way up
+ * (or at the top). Docked on desktop it covers nothing, so it stays open.
+ */
 function useCollapsedOnScroll(): boolean {
   const [collapsed, setCollapsed] = useState(false)
   useEffect(() => {
@@ -25,7 +30,8 @@ function useCollapsedOnScroll(): boolean {
       frame = requestAnimationFrame(() => {
         const y = window.scrollY
         if (Math.abs(y - last) < SCROLL_JITTER_PX) return
-        setCollapsed(y > last && y > COLLAPSE_AFTER_PX)
+        const docked = window.matchMedia(DOCKED_QUERY).matches
+        setCollapsed(!docked && y > last && y > COLLAPSE_AFTER_PX)
         last = y
       })
     }
@@ -53,10 +59,11 @@ export function MiniPlayer() {
   const track = state.owner === "player" && engaged ? state.track : null
   const accent = useArtworkColor(track?.artworkUrl)
 
-  // Reserve a little space so the pill never covers the end of a page.
+  // Reserve the player's room so it never covers the end of a page (or, docked on desktop,
+  // anything at all): --player-space is read by page padding and sticky rails.
   useEffect(() => {
     const root = document.documentElement
-    if (track) root.style.setProperty("--player-space", "4rem")
+    if (track) root.style.setProperty("--player-space", "var(--player-dock)")
     else root.style.removeProperty("--player-space")
   }, [track])
 
@@ -92,7 +99,12 @@ export function MiniPlayer() {
   return (
     <>
       <div
-        className="pointer-events-none fixed inset-x-3 bottom-[calc(var(--tab-bar-height)+env(safe-area-inset-bottom)+0.5rem)] z-40 flex justify-end md:right-6 md:bottom-6 md:left-auto"
+        className={cn(
+          "pointer-events-none fixed inset-x-3 bottom-[calc(var(--tab-bar-height)+env(safe-area-inset-bottom)+0.5rem)] z-40 flex justify-end",
+          // Desktop: docked in its own bar along the content column (the page reserves its
+          // height, --player-space), so it never floats over text or the right rail.
+          "md:inset-x-auto md:right-0 md:bottom-0 md:left-(--rail-width) md:h-(--player-dock) md:items-center md:border-t md:border-border md:bg-background/90 md:px-6 md:backdrop-blur-xl xl:left-(--sidebar-width)",
+        )}
         style={{ "--accent": accent } as React.CSSProperties}
       >
         {collapsed ? (

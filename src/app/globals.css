@@ -48,6 +48,8 @@
   --nav-bar-height: 3rem;
   --rail-width: 4.5rem;
   --sidebar-width: 15.25rem;
+  /* The mini-player's room: a floating pill on phones, a docked bar from md up. */
+  --player-dock: 4rem;
   --content-max: 75rem;
   --gutter: 1rem;
 
