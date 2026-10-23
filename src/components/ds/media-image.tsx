@@ -35,6 +35,8 @@ export function MediaImage({ src, alt, sizes, className, priority, focus }: Medi
         loading={priority ? "eager" : undefined}
         fetchPriority={priority ? "high" : undefined}
         onLoad={() => setLoaded(true)}
+        // Failed: stop the shimmer; the container's own background shows.
+        onError={() => setLoaded(true)}
         style={focus ? { objectPosition: focus } : undefined}
         className={cn(
           "object-cover transition-opacity duration-300 ease-out",

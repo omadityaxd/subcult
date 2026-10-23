@@ -13,6 +13,7 @@
 import { readFileSync, writeFileSync } from "node:fs"
 import { join } from "node:path"
 import { z } from "zod"
+import { isPlaceholderImage } from "../src/lib/images/analyze"
 import { SEED_PROFILES } from "../src/lib/niches/catalog"
 import {
   type SpotifyClient,
@@ -193,6 +194,9 @@ async function main(): Promise<void> {
   })
 
   const artists = [...byId.values()].sort((a, b) => a.slug.localeCompare(b.slug))
+  // Spotify answers "no photo" with a placeholder image: never store it as the artist's face.
+  const placeholders = await dropPlaceholderImages(artists)
+  if (placeholders.length > 0) console.log(`placeholder images dropped: ${placeholders.join(", ")}`)
   writeFileSync(join(DATA_DIR, "artists.json"), `${JSON.stringify(artists, null, 2)}\n`)
 
   console.log(
@@ -208,3 +212,23 @@ main().catch((error: unknown) => {
   console.error(error)
   process.exitCode = 1
 })
+
+/** Clears image URLs that are Spotify's placeholder or a flat fill (checked on the 160px variant). */
+async function dropPlaceholderImages(artists: { slug: string; imageUrl: string | null }[]) {
+  const dropped: string[] = []
+  for (const artist of artists) {
+    if (!artist.imageUrl) continue
+    try {
+      const small = artist.imageUrl.replace("ab6761610000e5eb", "ab6761610000f178")
+      const response = await fetch(small)
+      if (!response.ok) continue
+      if (await isPlaceholderImage(Buffer.from(await response.arrayBuffer()))) {
+        artist.imageUrl = null
+        dropped.push(artist.slug)
+      }
+    } catch {
+      // Unreachable image: keep the URL; the next run checks again.
+    }
+  }
+  return dropped
+}

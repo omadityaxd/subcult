@@ -1,6 +1,6 @@
 import sharp from "sharp"
 import { describe, expect, it } from "vitest"
-import { analyzeImage, hammingDistance, isSameImage } from "./analyze"
+import { analyzeImage, hammingDistance, isPlaceholderImage, isSameImage } from "./analyze"
 
 /** A dark canvas with a bright square: a stand-in for "a subject in a frame". */
 async function picture(
@@ -54,5 +54,21 @@ describe("hammingDistance", () => {
     expect(hammingDistance("0000000000000000", "0000000000000000")).toBe(0)
     expect(hammingDistance("0000000000000000", "000000000000000f")).toBe(4)
     expect(hammingDistance("ffffffffffffffff", "0000000000000000")).toBe(64)
+  })
+})
+
+describe("isPlaceholderImage", () => {
+  it("flags a flat fill (no photo at all)", async () => {
+    const flat = await sharp({
+      create: { width: 160, height: 160, channels: 3, background: "#000" },
+    })
+      .jpeg()
+      .toBuffer()
+    expect(await isPlaceholderImage(flat)).toBe(true)
+  })
+
+  it("keeps a real picture", async () => {
+    const photo = await picture(160, 160, { left: 30, top: 20, size: 70, color: "#f0e0d0" })
+    expect(await isPlaceholderImage(photo)).toBe(false)
   })
 })

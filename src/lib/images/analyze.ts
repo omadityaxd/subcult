@@ -1,5 +1,5 @@
 import sharp from "sharp"
-import type { ImageFacts } from "./facts"
+import { DUPLICATE_DISTANCE, type ImageFacts, hammingDistance } from "./facts"
 
 export type { ImageFacts } from "./facts"
 export { DUPLICATE_DISTANCE, hammingDistance, isSameImage } from "./facts"
@@ -53,4 +53,21 @@ export async function analyzeImage(input: Buffer): Promise<ImageFacts> {
   if (width === 0 || height === 0) throw new Error("not an image")
   const [hash, focus] = await Promise.all([differenceHash(input), focusPoint(input, width, height)])
   return { width, height, hash, ...focus }
+}
+
+/** Spotify's "no photo" artist image (a line-drawn person and note on grey), as a dHash. */
+export const SPOTIFY_PLACEHOLDER_HASH = "0010084c44140800"
+/** Below this greyscale spread an image is a flat fill, not a photo. */
+const FLAT_STDEV = 4
+
+/**
+ * Is this "photo" really a stand-in (Spotify's placeholder, or a flat fill)?
+ * Those never become avatars or covers: the generative niche cover shows instead.
+ */
+export async function isPlaceholderImage(input: Buffer): Promise<boolean> {
+  const [hash, stats] = await Promise.all([differenceHash(input), sharp(input).greyscale().stats()])
+  return (
+    hammingDistance(hash, SPOTIFY_PLACEHOLDER_HASH) <= DUPLICATE_DISTANCE ||
+    (stats.channels[0]?.stdev ?? 0) < FLAT_STDEV
+  )
 }
