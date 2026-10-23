@@ -134,6 +134,41 @@ async function seed(tx: Database): Promise<Seed> {
 
 /** Seeds A, B and C, runs the test, then rolls everything back. */
 async function scenario(test: (s: Seed, tx: Database) => Promise<void>): Promise<void> {
+  for (let attempt = 1; ; attempt++) {
+    try {
+      await runScenario(test)
+      return
+    } catch (error) {
+      // The pooler sometimes drops a long-lived connection mid-suite: one retry, after a pause.
+      if (attempt > RETRIES || !isDroppedConnection(error)) throw error
+      await new Promise((resolve) => setTimeout(resolve, RETRY_BACKOFF_MS * attempt))
+    }
+  }
+}
+
+const RETRIES = 1
+const RETRY_BACKOFF_MS = 2_000
+
+/** Network-level failures (not assertion or SQL errors): safe to run the scenario again. */
+function isDroppedConnection(error: unknown): boolean {
+  const code = (error as { code?: unknown })?.code
+  const message = error instanceof Error ? error.message : String(error)
+  return (
+    (typeof code === "string" &&
+      [
+        "CONNECTION_CLOSED",
+        "CONNECTION_ENDED",
+        "CONNECTION_DESTROYED",
+        "CONNECT_TIMEOUT",
+        "ECONNRESET",
+        "ETIMEDOUT",
+        "EPIPE",
+      ].includes(code)) ||
+    /CONNECTION_CLOSED|ECONNRESET|socket hang up|Connection terminated/i.test(message)
+  )
+}
+
+async function runScenario(test: (s: Seed, tx: Database) => Promise<void>): Promise<void> {
   try {
     await base!.db.transaction(async (tx) => {
       state.db = tx
