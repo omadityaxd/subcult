@@ -1,6 +1,7 @@
 "use client"
 
 import { useOverlay } from "@/lib/ui/overlays"
+import { usePageHidden } from "@/lib/ui/page-visibility"
 import { ArrowUpRight, Volume2, VolumeX, X } from "lucide-react"
 import { motion, type PanInfo, useReducedMotion } from "motion/react"
 import Link from "next/link"
@@ -57,11 +58,15 @@ export function StoryViewer({ niches, startIndex, onSeen, onClose }: StoryViewer
   const holdTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const held = useRef(false)
   const reduceMotion = useReducedMotion()
+  // A hidden page (app switcher, locked phone) holds the story and its music,
+  // and on return the frame carries on where it was instead of jumping ahead.
+  const hidden = usePageHidden()
+  const halted = paused || hidden
 
   const niche = niches[nicheIndex]
   const frames = items[niche.slug]
   const current = frames?.[frame]
-  const music = useStoryMusic(niche.slug, paused)
+  const music = useStoryMusic(niche.slug, halted)
   // Keyboard users land inside the dialog (arrows step, space pauses, Escape closes),
   // and focus returns to where they were when it closes.
   const closeRef = useRef<HTMLButtonElement>(null)
@@ -120,7 +125,7 @@ export function StoryViewer({ niches, startIndex, onSeen, onClose }: StoryViewer
   // a ref and next() runs from the loop, never inside a state updater, which
   // React may call twice (that used to skip a whole niche).
   useEffect(() => {
-    if (!frames || frames.length === 0 || paused) return
+    if (!frames || frames.length === 0 || halted) return
     let raf = 0
     let last = performance.now()
     const tick = (time: number) => {
@@ -135,7 +140,7 @@ export function StoryViewer({ niches, startIndex, onSeen, onClose }: StoryViewer
     }
     raf = requestAnimationFrame(tick)
     return () => cancelAnimationFrame(raf)
-  }, [frames, paused, next])
+  }, [frames, halted, next])
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {

@@ -20,6 +20,7 @@ import type { Answer } from "@/lib/vibe/score"
 import { cn } from "@/lib/utils"
 import { isAnythingPlaying } from "@/lib/audio/handoff"
 import { getAudioEngine, useAudioState } from "@/lib/audio/use-audio"
+import { usePageHidden } from "@/lib/ui/page-visibility"
 
 const SWIPE_DISTANCE = 110
 const SWIPE_VELOCITY = 600
@@ -294,6 +295,12 @@ function SoundPreview({ src, title }: { src: string; title: string }) {
       if (now.owner === "preview" && now.track?.id === id) engine.stop("preview")
     }
   }, [id, play])
+
+  // Switching away stops it: a sample shouldn't play on in the background.
+  const hidden = usePageHidden()
+  useEffect(() => {
+    if (hidden && playing) getAudioEngine().stop("preview")
+  }, [hidden, playing])
 
   // Five seconds from when it actually starts (on its own or tapped later), not from the card.
   useEffect(() => {
