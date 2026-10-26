@@ -16,6 +16,7 @@ export type AnalyticsEvent =
   | "alert_opt_in"
   | "grail_hunt_saved"
   | "vibe_check_completed"
+  | "vibe_check_kept"
   | "vibe_match_shared"
   | "fit_posted"
   | "cop_or_drop"

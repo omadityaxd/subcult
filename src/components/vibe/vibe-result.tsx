@@ -18,6 +18,8 @@ interface VibeResultProps {
   shift?: string | null
   /** Shown on the result right after the quiz; hidden on someone else's shared link. */
   onRetake?: () => void
+  /** First run after sign-up: the next step keeps the onboarding marker. */
+  firstRun?: boolean
   /** A visitor viewing a shared result gets "take your own" instead of share. */
   shared?: boolean
   /** Rendered in the hero's top-right corner (e.g. a close button). */
@@ -25,7 +27,15 @@ interface VibeResultProps {
 }
 
 /** The hero moment: big serif type, the niche covers and percentages counting up. */
-export function VibeResult({ mix, blurb, shift, onRetake, shared, corner }: VibeResultProps) {
+export function VibeResult({
+  mix,
+  blurb,
+  shift,
+  onRetake,
+  shared,
+  corner,
+  firstRun = false,
+}: VibeResultProps) {
   const [top] = mix
   const reduceMotion = useReducedMotion()
   if (!top) return null
@@ -109,7 +119,7 @@ export function VibeResult({ mix, blurb, shift, onRetake, shared, corner }: Vibe
         </div>
         {shared ? null : (
           <Link
-            href={`/start?mix=${mix.map((niche) => niche.slug).join(",")}`}
+            href={`/start?mix=${mix.map((niche) => niche.slug).join(",")}${firstRun ? "&first=1" : ""}`}
             className="mt-8 flex h-14 w-full items-center justify-between rounded-2xl bg-foreground px-5 text-callout font-semibold text-background transition-transform active:scale-[0.99] sm:w-auto sm:min-w-80"
           >
             Set up my feed

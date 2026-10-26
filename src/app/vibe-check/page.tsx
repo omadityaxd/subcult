@@ -2,7 +2,12 @@ import { X } from "lucide-react"
 import type { Metadata } from "next"
 import Link from "next/link"
 import { connection } from "next/server"
+import { redirect } from "next/navigation"
 import { Suspense } from "react"
+import { getDb } from "@/db"
+import { createTasteRepository } from "@/db/taste-repository"
+import { authEnabled, getViewer } from "@/lib/supabase/server"
+import { latestVibeMix } from "@/lib/vibe/account-mix"
 import { Screen } from "@/components/shell/screen"
 import { type NicheInfo, VibeCheckFlow } from "@/components/vibe/vibe-check-flow"
 import { TAXONOMY, findPreset } from "@/lib/niches/catalog"
@@ -14,9 +19,18 @@ export const metadata: Metadata = {
   description: "10 to 16 swipes, one brutally accurate niche mix. Never the same deck twice.",
 }
 
-/** Today's live pool, picked per request (inside Suspense: the page shell paints first). */
-async function VibeDeckLoader() {
+/**
+ * Today's live pool, picked per request (inside Suspense: the page shell paints first).
+ * First run after sign-up (?first=1): an account that already has a result goes
+ * straight on to picking niches with it.
+ */
+async function VibeDeckLoader({ searchParams }: Pick<PageProps<"/vibe-check">, "searchParams">) {
   await connection()
+  const firstRun = (await searchParams).first === "1"
+  if (firstRun) {
+    const mix = await accountVibeMix()
+    if (mix) redirect(`/start?mix=${mix.join(",")}&first=1`)
+  }
   const { cards, seed } = await vibeSession()
   const reachable = new Set(
     cards.flatMap((card) => [
@@ -45,7 +59,26 @@ async function VibeDeckLoader() {
     }),
   )
 
-  return <VibeCheckFlow cards={cards} seed={seed} niches={niches} blurbs={VIBE_BLURBS} />
+  return (
+    <VibeCheckFlow
+      cards={cards}
+      seed={seed}
+      niches={niches}
+      blurbs={VIBE_BLURBS}
+      firstRun={firstRun}
+    />
+  )
+}
+
+/** The signed-in account's latest vibe check (synced taste signals), if any. */
+async function accountVibeMix(): Promise<string[] | null> {
+  const viewer = authEnabled ? await getViewer().catch(() => null) : null
+  const db = getDb()
+  if (!viewer || !db) return null
+  const signals = await createTasteRepository(db)
+    .recent(viewer.id)
+    .catch(() => [])
+  return latestVibeMix(signals)
 }
 
 function DeckSkeleton() {
@@ -59,7 +92,7 @@ function DeckSkeleton() {
 }
 
 /** Full-screen flow (no tab bar): the adaptive swipe deck, then the result. */
-export default function VibeCheckPage() {
+export default function VibeCheckPage({ searchParams }: PageProps<"/vibe-check">) {
   return (
     <Screen withTabBar={false} className="flex h-dvh flex-col">
       <header className="flex h-(--nav-bar-height) shrink-0 items-center justify-between px-4 pt-safe">
@@ -81,7 +114,7 @@ export default function VibeCheckPage() {
       </header>
       <div className="min-h-0 flex-1 overflow-y-auto">
         <Suspense fallback={<DeckSkeleton />}>
-          <VibeDeckLoader />
+          <VibeDeckLoader searchParams={searchParams} />
         </Suspense>
       </div>
     </Screen>

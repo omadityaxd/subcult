@@ -10,7 +10,7 @@ import { followItem } from "@/lib/follows"
 import type { NichePreset } from "@/lib/niches/catalog"
 import type { ApiResponse } from "@/lib/request"
 import { setSaved } from "@/lib/saves"
-import { recordSignal } from "@/lib/taste/store"
+import { recordSignal, syncTasteCookieNow } from "@/lib/taste/store"
 import { cn } from "@/lib/utils"
 import { track } from "@/lib/analytics"
 
@@ -256,7 +256,13 @@ export function OnboardingFlow({
           <div className="mt-8 flex flex-col items-center gap-3">
             <button
               type="button"
-              onClick={() => router.push("/")}
+              onClick={() => {
+                // The issue is built on the server from the taste cookie: write it now so the
+                // first issue reflects the vibe check and picks, then fetch it fresh.
+                syncTasteCookieNow()
+                router.push("/")
+                router.refresh()
+              }}
               className="inline-flex h-12 items-center gap-2 rounded-full bg-foreground px-8 text-callout font-semibold text-background"
             >
               Open Today <ArrowRight aria-hidden className="size-4" />

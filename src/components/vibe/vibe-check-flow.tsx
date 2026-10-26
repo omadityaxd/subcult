@@ -6,7 +6,8 @@ import type { DeckCard, MixNiche } from "@/lib/vibe/data"
 import { type Answer, type Blurbs, scoreVibe, templateBlurb, topMix } from "@/lib/vibe/score"
 import { eraShift } from "@/lib/vibe/era"
 import { saveVibeResult, useVibeResult } from "@/lib/vibe/storage"
-import { recordVibeCheck } from "@/lib/taste/store"
+import { hasVibeSignals, recordVibeCheck } from "@/lib/taste/store"
+import Link from "next/link"
 import { VibeDeck } from "./vibe-deck"
 import { VibeResult } from "./vibe-result"
 import { track } from "@/lib/analytics"
@@ -27,13 +28,21 @@ interface VibeCheckFlowProps {
   /** Every niche the deck can land on. */
   niches: Readonly<Record<string, NicheInfo>>
   blurbs: Blurbs
+  /** First run after sign-up: a result from before signing in can be kept. */
+  firstRun?: boolean
 }
 
 /**
  * Deck → result. The template blurb shows instantly; if the server has an
  * Anthropic key and budget, a personalized one replaces it.
  */
-export function VibeCheckFlow({ cards, seed, niches, blurbs }: VibeCheckFlowProps) {
+export function VibeCheckFlow({
+  cards,
+  seed,
+  niches,
+  blurbs,
+  firstRun = false,
+}: VibeCheckFlowProps) {
   const [result, setResult] = useState<{
     mix: MixNiche[]
     blurb: string
@@ -41,6 +50,8 @@ export function VibeCheckFlow({ cards, seed, niches, blurbs }: VibeCheckFlowProp
   } | null>(null)
   const [round, setRound] = useState(0)
   const previous = useVibeResult()
+  // First run with a result from before signing in: keep it, or retake.
+  const [deciding, setDeciding] = useState(true)
 
   const finish = (steps: readonly { card: DeckCard; answer: Answer }[]) => {
     const answers = Object.fromEntries(steps.map((step) => [step.card.id, step.answer]))
@@ -84,6 +95,18 @@ export function VibeCheckFlow({ cards, seed, niches, blurbs }: VibeCheckFlowProp
     setRound((value) => value + 1)
   }
 
+  if (firstRun && previous && deciding && !result) {
+    return (
+      <KeepOrRetake
+        mix={previous.mix.map((share) => ({
+          ...share,
+          name: niches[share.slug]?.name ?? share.slug,
+        }))}
+        onRetake={() => setDeciding(false)}
+      />
+    )
+  }
+
   if (result && result.mix.length === 0) {
     return (
       <div className="flex h-full flex-col items-center justify-center px-6 text-center">
@@ -103,12 +126,69 @@ export function VibeCheckFlow({ cards, seed, niches, blurbs }: VibeCheckFlowProp
   }
   if (result) {
     return (
-      <VibeResult mix={result.mix} blurb={result.blurb} shift={result.shift} onRetake={retake} />
+      <VibeResult
+        mix={result.mix}
+        blurb={result.blurb}
+        shift={result.shift}
+        onRetake={retake}
+        firstRun={firstRun}
+      />
     )
   }
   return (
     <div className="mx-auto h-full w-full max-w-md px-4 pb-6 md:pt-6">
       <VibeDeck key={round} pool={cards} seed={seed + round * 7919} onComplete={finish} />
+    </div>
+  )
+}
+
+/** "You already took it": keep the guest result (it's already in your taste) or retake. */
+function KeepOrRetake({
+  mix,
+  onRetake,
+}: {
+  mix: readonly { slug: string; name: string; percent: number }[]
+  onRetake: () => void
+}) {
+  const keep = () => {
+    // The result seeds the taste vector; a guest's may predate this device's taste.
+    if (!hasVibeSignals()) recordVibeCheck(mix)
+    track("vibe_check_kept", { top: mix[0]?.slug ?? "" })
+  }
+  return (
+    <div className="mx-auto flex h-full w-full max-w-md flex-col justify-center px-6">
+      <p className="text-overline font-medium text-muted-foreground uppercase">Your vibe check</p>
+      <h1 className="mt-2 font-serif text-title-1 italic">You already took it</h1>
+      <p className="mt-2 text-callout text-muted-foreground">
+        From before you signed in. Keep it for your account, or take it again.
+      </p>
+      <ul className="mt-6 space-y-2">
+        {mix.map((niche) => (
+          <li
+            key={niche.slug}
+            className="flex items-baseline justify-between rounded-2xl bg-card px-4 py-3"
+          >
+            <span className="font-serif text-title-3 italic">{niche.name}</span>
+            <span className="text-footnote text-muted-foreground tabular-nums">
+              {niche.percent}%
+            </span>
+          </li>
+        ))}
+      </ul>
+      <Link
+        href={`/start?mix=${mix.map((niche) => niche.slug).join(",")}&first=1`}
+        onClick={keep}
+        className="mt-8 flex h-14 items-center justify-center rounded-2xl bg-foreground text-callout font-semibold text-background"
+      >
+        Keep this result
+      </Link>
+      <button
+        type="button"
+        onClick={onRetake}
+        className="mt-3 h-12 rounded-2xl border border-border-strong text-callout font-semibold"
+      >
+        Retake
+      </button>
     </div>
   )
 }

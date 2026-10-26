@@ -7,8 +7,11 @@ import type { ApiResponse } from "@/lib/request"
 /** First post: pick the public handle fits are credited to (never the email). */
 export function HandleForm({
   intro = "First, pick the handle your fits show up under.",
+  next,
 }: {
   intro?: string
+  /** Where to go once the handle is saved (first sign-in: the vibe check). Default: stay. */
+  next?: string
 }) {
   const router = useRouter()
   const [handle, setHandle] = useState("")
@@ -27,8 +30,9 @@ export function HandleForm({
     })
     const body = (await response.json()) as ApiResponse<{ handle: string }>
     setBusy(false)
-    if (body.success) router.refresh()
-    else setError(body.error)
+    if (!body.success) setError(body.error)
+    else if (next) router.push(next)
+    else router.refresh()
   }
 
   return (

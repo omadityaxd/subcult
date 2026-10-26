@@ -1,5 +1,7 @@
 "use client"
 
+import { usePathname } from "next/navigation"
+import { isOnboarding } from "@/lib/onboarding"
 import { useEffect, useState } from "react"
 import { ResponsiveSheet } from "@/components/ds/responsive-sheet"
 import { Button } from "@/components/ds/button"
@@ -28,6 +30,7 @@ function recentlyDismissed(): boolean {
  * account. On an iPhone outside the Home Screen app it explains the install.
  */
 export function PushPromptHost({ vapidPublicKey }: { vapidPublicKey: string | null }) {
+  const pathname = usePathname()
   const [reason, setReason] = useState<"grail" | "follow" | null>(null)
   const [state, setState] = useState<PushState>("off")
   const [busy, setBusy] = useState(false)
@@ -61,7 +64,9 @@ export function PushPromptHost({ vapidPublicKey }: { vapidPublicKey: string | nu
     setReason(null)
   }
 
-  if (!reason || !vapidPublicKey) return null
+  // Never in the middle of onboarding (picking niches counts as following): it waits until
+  // the first issue is on screen.
+  if (!reason || !vapidPublicKey || isOnboarding(pathname)) return null
   return (
     <ResponsiveSheet
       open

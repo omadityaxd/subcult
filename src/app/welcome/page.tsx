@@ -36,7 +36,8 @@ async function Welcome({ searchParams }: Pick<PageProps<"/welcome">, "searchPara
   if (!viewer) redirect(`/login?next=${encodeURIComponent("/welcome")}`)
   const db = getDb()
   const profile = db ? await getProfile(db, viewer.id) : null
-  if (profile || !db) redirect(next === "/" ? "/vibe-check" : next)
+  // A handle already: a returning sign-in, so straight to where they were going.
+  if (profile || !db) redirect(next)
   return (
     <div className="w-full max-w-sm py-16">
       <p className="font-serif text-[30px] leading-none italic">subcult</p>
@@ -49,7 +50,11 @@ async function Welcome({ searchParams }: Pick<PageProps<"/welcome">, "searchPara
       </ol>
       <h1 className="mt-6 font-serif text-title-1 italic">Pick your handle</h1>
       <div className="mt-4">
-        <HandleForm intro="It's how friends find you and how your fits are credited. Never your email." />
+        {/* First sign-in continues: handle → vibe check → niches → a fresh personal issue. */}
+        <HandleForm
+          intro="It's how friends find you and how your fits are credited. Never your email."
+          next="/vibe-check?first=1"
+        />
       </div>
     </div>
   )

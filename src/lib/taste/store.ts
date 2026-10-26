@@ -142,6 +142,11 @@ export function recordItemSignal(
 }
 
 /** The vibe check seeds taste: each niche in the result, weighted by its share. */
+/** Has this device recorded a vibe check in its taste yet? */
+export function hasVibeSignals(): boolean {
+  return load().signals.some((signal) => signal.kind === "vibe_check")
+}
+
 export function recordVibeCheck(
   mix: readonly { slug: string; name: string; percent: number }[],
 ): void {
