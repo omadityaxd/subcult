@@ -37,7 +37,10 @@ export default function TabsLayout({ children }: LayoutProps<"/">) {
       </Suspense>
       <CommandPalette presets={NICHE_PRESETS} />
       <PwaShell />
-      <PushPromptHost vapidPublicKey={env.NEXT_PUBLIC_VAPID_PUBLIC_KEY ?? null} />
+      {/* Reads the URL (it waits out onboarding), so it gets its own boundary. */}
+      <Suspense fallback={null}>
+        <PushPromptHost vapidPublicKey={env.NEXT_PUBLIC_VAPID_PUBLIC_KEY ?? null} />
+      </Suspense>
     </div>
   )
 }
