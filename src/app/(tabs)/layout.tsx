@@ -7,6 +7,7 @@ import { TasteTracker } from "@/components/taste/taste-tracker"
 import { WrappedTracker } from "@/components/wrapped/trackers"
 import { PushPromptHost } from "@/components/alerts/push-prompt"
 import { PwaShell } from "@/components/pwa/pwa-shell"
+import { SignedOutRestoreGuard } from "@/components/me/sign-out-button"
 import { env } from "@/lib/env"
 import { Sidebar, SidebarView } from "@/components/shell/sidebar"
 import { TabBar, TabBarView } from "@/components/shell/tab-bar"
@@ -37,6 +38,7 @@ export default function TabsLayout({ children }: LayoutProps<"/">) {
       </Suspense>
       <CommandPalette presets={NICHE_PRESETS} />
       <PwaShell />
+      <SignedOutRestoreGuard />
       {/* Reads the URL (it waits out onboarding), so it gets its own boundary. */}
       <Suspense fallback={null}>
         <PushPromptHost vapidPublicKey={env.NEXT_PUBLIC_VAPID_PUBLIC_KEY ?? null} />

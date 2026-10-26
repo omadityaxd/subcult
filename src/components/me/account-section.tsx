@@ -7,6 +7,7 @@ import { myFits } from "@/lib/fits/server"
 import { postingEnabled } from "@/lib/supabase/admin"
 import { authEnabled, getViewer } from "@/lib/supabase/server"
 import { HandleForm } from "@/app/(tabs)/fits/new/handle-form"
+import { SignOutButton } from "@/components/me/sign-out-button"
 
 /** Me: who you are, your fits and the fits you saved; or the way in. */
 export async function AccountSection() {
@@ -54,14 +55,7 @@ export async function AccountSection() {
               {posted.length} {posted.length === 1 ? "fit" : "fits"}
             </p>
           </div>
-          <form action="/auth/signout" method="post">
-            <button
-              type="submit"
-              className="h-9 rounded-full border border-border-strong px-3 text-footnote font-medium hover:bg-muted"
-            >
-              Sign out
-            </button>
-          </form>
+          <SignOutButton />
         </div>
         {/* The one place to pick a handle (fits, friends and invites all wait on it). */}
         {profile ? null : (
