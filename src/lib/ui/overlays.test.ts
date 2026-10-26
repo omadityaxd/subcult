@@ -45,7 +45,9 @@ describe("leaving an overlay by a link", () => {
   })
 
   it("ignores taps that don't navigate this tab", () => {
-    expect(isInAppNavigation({ ...tap, href: "https://open.spotify.com/artist/1" }, here)).toBe(false)
+    expect(isInAppNavigation({ ...tap, href: "https://open.spotify.com/artist/1" }, here)).toBe(
+      false,
+    )
     expect(isInAppNavigation({ ...tap, href: "/n/vamp", target: "_blank" }, here)).toBe(false)
     expect(isInAppNavigation({ ...tap, href: "/n/vamp", modified: true }, here)).toBe(false)
     expect(isInAppNavigation({ ...tap, href: "/n/vamp", button: 1 }, here)).toBe(false)

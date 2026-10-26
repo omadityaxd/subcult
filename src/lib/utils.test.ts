@@ -7,7 +7,9 @@ describe("cn", () => {
     expect(cn("bg-foreground text-background", "h-10 text-callout")).toBe(
       "bg-foreground text-background h-10 text-callout",
     )
-    expect(cn("text-muted-foreground text-footnote")).toBe("text-muted-foreground text-footnote")
+    // Kept out of the cn(...) call so the class sorter can't reorder the input under test.
+    const colourThenSize = "text-muted-foreground text-footnote"
+    expect(cn(colourThenSize)).toBe(colourThenSize)
   })
 
   it("still lets a later size or colour win over an earlier one", () => {

@@ -50,14 +50,19 @@ export function isInAppNavigation(click: LinkClick, current: URL): boolean {
   if (!click.href || click.download || click.button !== 0 || click.modified) return false
   if (click.target && click.target !== "_self") return false
   const to = new URL(click.href, current)
-  return to.origin === current.origin && to.pathname + to.search !== current.pathname + current.search
+  return (
+    to.origin === current.origin && to.pathname + to.search !== current.pathname + current.search
+  )
 }
 
 /**
  * A navigation leaving an overlay's history entry takes that entry's place,
  * so Back from the new page returns straight to the page under the overlay.
  */
-export function shouldReplaceOverlayEntry(state: unknown, url: string | URL | null | undefined): boolean {
+export function shouldReplaceOverlayEntry(
+  state: unknown,
+  url: string | URL | null | undefined,
+): boolean {
   return (
     url != null &&
     url !== "" &&
