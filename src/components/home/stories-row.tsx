@@ -63,7 +63,9 @@ export function StoriesRow({ niches, day }: { niches: readonly HomeNiche[]; day:
                 getAudioEngine().unlock()
                 setOpenAt(index)
               }}
-              className="group block w-full text-center"
+              // relative: the screen-reader label below is absolutely positioned and must stay
+              // inside this horizontally scrolling rail (it widened the whole page on phones).
+              className="group relative block w-full text-center"
             >
               <NicheAvatar
                 slug={niche.slug}
