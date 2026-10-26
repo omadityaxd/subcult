@@ -73,8 +73,11 @@ async function Stories() {
 async function HomeFeed() {
   await connection()
   const now = new Date()
-  // The infinite feed below Today loads on scroll: the first paint is Today's alone.
-  const picks = await getDailyPicks(now)
+  // Started here, awaited below the cover: the issue (and its cover, the LCP)
+  // streams as soon as it's built instead of waiting on the day's picks.
+  const picks = getDailyPicks(now)
+  // Not every issue shows them; a failure surfaces where they're awaited, if anywhere.
+  picks.catch(() => undefined)
   return (
     <ForYouFeed
       initial={null}
@@ -85,19 +88,34 @@ async function HomeFeed() {
             coldExtras={
               <>
                 <VibeCheckCard />
-                <DailyPicks
-                  look={picks.look}
-                  brand={picks.brand}
-                  grail={picks.grail ? <GrailOfTheDay item={picks.grail} /> : null}
-                />
+                <Suspense fallback={null}>
+                  <Picks picks={picks} />
+                </Suspense>
               </>
             }
           />
         </Suspense>
       }
-      spinning={<NowSpinning tracks={picks.spinning} />}
+      spinning={
+        <Suspense fallback={null}>
+          <Spinning picks={picks} />
+        </Suspense>
+      }
     />
   )
+}
+
+type PicksPromise = ReturnType<typeof getDailyPicks>
+
+async function Picks({ picks }: { picks: PicksPromise }) {
+  const { look, brand, grail } = await picks
+  return (
+    <DailyPicks look={look} brand={brand} grail={grail ? <GrailOfTheDay item={grail} /> : null} />
+  )
+}
+
+async function Spinning({ picks }: { picks: PicksPromise }) {
+  return <NowSpinning tracks={(await picks).spinning} />
 }
 
 function StoriesSkeleton() {
