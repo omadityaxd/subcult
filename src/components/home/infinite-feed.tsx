@@ -159,6 +159,7 @@ export function InfiniteFeed({ initial, now, filter = "all" }: InfiniteFeedProps
       {cursor !== null ? (
         <div
           ref={sentinel}
+          role="status"
           aria-busy={loading}
           aria-label="Loading more"
           className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3"

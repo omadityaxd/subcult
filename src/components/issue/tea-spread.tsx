@@ -38,7 +38,7 @@ function Byline({ item, now, className }: { item: FeedItem; now: number; classNa
   return (
     <p className={cn("text-caption", className)}>
       <span className="font-semibold">{outletOf(item)}</span>
-      {age ? <span className="opacity-70"> · {age}</span> : null}
+      {age ? <span> · {age}</span> : null}
     </p>
   )
 }

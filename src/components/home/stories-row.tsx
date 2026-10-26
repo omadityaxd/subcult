@@ -64,7 +64,6 @@ export function StoriesRow({ niches, day }: { niches: readonly HomeNiche[]; day:
                 setOpenAt(index)
               }}
               className="group block w-full text-center"
-              aria-label={`${niche.name} story`}
             >
               <NicheAvatar
                 slug={niche.slug}
@@ -76,6 +75,8 @@ export function StoriesRow({ niches, day }: { niches: readonly HomeNiche[]; day:
               />
               <span className="mt-1.5 block truncate text-caption text-muted-foreground">
                 {niche.name}
+                {/* The accessible name starts with the visible label: "rage story". */}
+                <span className="sr-only"> story</span>
               </span>
             </button>
           </li>
