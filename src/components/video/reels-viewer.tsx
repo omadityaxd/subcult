@@ -14,21 +14,15 @@ import {
 } from "@/lib/audio/handoff"
 import { decodeRelatedNiches } from "@/lib/feed/related-niches"
 import type { FeedItem } from "@/lib/feed/types"
-import { type ReelsState, closeReels, useReels } from "@/lib/video/reels-store"
+import { type ReelsState, closeReels } from "@/lib/video/reels-store"
 import { YT_STATE, type YtPlayer, createYouTubePlayer, youtubeIdOf } from "@/lib/video/youtube-api"
-
-/** Mounted once in the tabs layout; renders when a video card opens it. */
-export function ReelsHost() {
-  const reels = useReels()
-  return reels ? <ReelsViewer key={`${reels.items[0]?.id}:${reels.index}`} reels={reels} /> : null
-}
 
 /**
  * Full-screen, swipe-up/down video viewer. Only the slide in view has a
  * player (one playing YouTube player at a time); controls live outside the
  * player frame. Sound on pauses the music.
  */
-function ReelsViewer({ reels }: { reels: ReelsState }) {
+export function ReelsViewer({ reels }: { reels: ReelsState }) {
   useOverlay(true, closeReels)
   const scroller = useRef<HTMLDivElement>(null)
   const [index, setIndex] = useState(reels.index)

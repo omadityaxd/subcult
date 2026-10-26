@@ -4,7 +4,13 @@ import { useState, useSyncExternalStore } from "react"
 import { NicheAvatar } from "@/components/ds/niche-avatar"
 import { getAudioEngine } from "@/lib/audio/use-audio"
 import type { HomeNiche } from "@/lib/feed/featured"
-import { StoryViewer } from "./story-viewer"
+import dynamic from "next/dynamic"
+import { preloadWhenIdle } from "@/lib/ui/when-idle"
+
+// Opens on a tap: its code loads when the page is idle, not with the first paint.
+const loadStoryViewer = () => import("./story-viewer").then((m) => m.StoryViewer)
+const StoryViewer = dynamic(loadStoryViewer, { ssr: false })
+preloadWhenIdle(loadStoryViewer)
 
 const SEEN_KEY = "subcult-stories-seen-v1"
 const listeners = new Set<() => void>()

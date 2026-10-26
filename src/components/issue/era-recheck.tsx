@@ -2,16 +2,17 @@
 
 import { ArrowRight, Sparkles } from "lucide-react"
 import Link from "next/link"
-import { findPreset } from "@/lib/niches/catalog"
+import { useEffect, useState } from "react"
 import { recheckDue } from "@/lib/vibe/era"
 import { useVibeResult } from "@/lib/vibe/storage"
 
 /** The issue's weekly "re-check your era" card (or the first vibe check, if never taken). */
 export function EraRecheck({ now }: { now: number }) {
   const result = useVibeResult()
-  if (!recheckDue(result?.takenAt ?? null, now)) return null
-  const top = result?.mix[0]
-  const name = top ? (findPreset(top.slug)?.name ?? top.slug) : null
+  const due = recheckDue(result?.takenAt ?? null, now)
+  const top = due ? result?.mix[0] : undefined
+  const name = useNicheName(top?.slug ?? null)
+  if (!due) return null
   return (
     <Link
       href="/vibe-check"
@@ -38,4 +39,28 @@ export function EraRecheck({ now }: { now: number }) {
       />
     </Link>
   )
+}
+
+/**
+ * The niche's display name. The catalog is large (every niche's queries and
+ * artists), so it loads only for the few readers due a re-check, never with
+ * the issue; until then the slug stands in.
+ */
+function useNicheName(slug: string | null): string | null {
+  const [loaded, setLoaded] = useState<{ slug: string; name: string } | null>(null)
+  useEffect(() => {
+    if (!slug) return
+    let live = true
+    import("@/lib/niches/catalog")
+      .then(({ findPreset }) => {
+        const name = findPreset(slug)?.name
+        if (live && name) setLoaded({ slug, name })
+      })
+      .catch(() => undefined)
+    return () => {
+      live = false
+    }
+  }, [slug])
+  if (!slug) return null
+  return loaded?.slug === slug ? loaded.name : slug.replace(/-/g, " ")
 }

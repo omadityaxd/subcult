@@ -7,7 +7,14 @@ import { buildSlides } from "@/lib/wrapped/slides"
 import { summarize } from "@/lib/wrapped/stats"
 import { useClientNow } from "@/lib/use-client-now"
 import { useWrappedData } from "@/lib/wrapped/store"
-import { type WrappedNiche, WrappedStory } from "./wrapped-story"
+import dynamic from "next/dynamic"
+import { preloadWhenIdle } from "@/lib/ui/when-idle"
+import type { WrappedNiche } from "./wrapped-story"
+
+// Opens on a tap: its code loads when the page is idle, not with the first paint.
+const loadWrappedStory = () => import("./wrapped-story").then((m) => m.WrappedStory)
+const WrappedStory = dynamic(loadWrappedStory, { ssr: false })
+preloadWhenIdle(loadWrappedStory)
 
 interface WrappedCardProps {
   niches: Readonly<Record<string, WrappedNiche>>

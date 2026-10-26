@@ -1,7 +1,7 @@
 import { Suspense } from "react"
 import { MiniPlayer } from "@/components/player/mini-player"
-import { ReelsHost } from "@/components/video/reels-viewer"
-import { CommandPalette } from "@/components/shell/command-palette"
+import { ReelsHost } from "@/components/video/reels-host"
+import { CommandPaletteHost } from "@/components/shell/command-palette-host"
 import { TasteTrackerForViewer } from "@/components/taste/taste-tracker-server"
 import { TasteTracker } from "@/components/taste/taste-tracker"
 import { WrappedTracker } from "@/components/wrapped/trackers"
@@ -36,7 +36,7 @@ export default function TabsLayout({ children }: LayoutProps<"/">) {
       <Suspense fallback={<TasteTracker signedIn={false} />}>
         <TasteTrackerForViewer />
       </Suspense>
-      <CommandPalette presets={NICHE_PRESETS} />
+      <CommandPaletteHost presets={NICHE_PRESETS} />
       <PwaShell />
       <SignedOutRestoreGuard />
       {/* Reads the URL (it waits out onboarding), so it gets its own boundary. */}

@@ -1,6 +1,7 @@
 import { isExcludedContent } from "@/lib/feed/excluded"
 import { z } from "zod"
 import { TAXONOMY, findPreset } from "@/lib/niches/catalog"
+import { REPORT_REASONS } from "./report-reasons"
 
 /** What a fit post may carry. Everything is validated server-side; the form only helps. */
 export const FIT_LIMITS = {
@@ -85,14 +86,7 @@ export const fitInputSchema = z.object({
 
 export type FitInput = z.infer<typeof fitInputSchema>
 
-export const REPORT_REASONS = [
-  "not a fit",
-  "nudity",
-  "harassment",
-  "spam",
-  "stolen photo",
-  "other",
-] as const
+export { REPORT_REASONS }
 export const reportSchema = z.object({ reason: z.enum(REPORT_REASONS) })
 
 /**

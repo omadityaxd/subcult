@@ -9,9 +9,15 @@ import { getAudioEngine, useAudioState } from "@/lib/audio/use-audio"
 import { cn } from "@/lib/utils"
 import { useKeyboardOpen } from "@/lib/ui/keyboard"
 import { useAnyOverlayOpen } from "@/lib/ui/overlays"
-import { NowPlaying } from "./now-playing"
 import { SpotifyFallbackSheet } from "./spotify-fallback-sheet"
 import { ProgressBar } from "./progress-bar"
+import dynamic from "next/dynamic"
+import { preloadWhenIdle } from "@/lib/ui/when-idle"
+
+// Opens on a tap: its code loads when the page is idle, not with the first paint.
+const loadNowPlaying = () => import("./now-playing").then((m) => m.NowPlaying)
+const NowPlaying = dynamic(loadNowPlaying, { ssr: false })
+preloadWhenIdle(loadNowPlaying)
 
 const COLLAPSE_AFTER_PX = 160
 const SCROLL_JITTER_PX = 8

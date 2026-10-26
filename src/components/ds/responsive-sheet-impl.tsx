@@ -7,7 +7,7 @@ import type { CSSProperties, ReactNode } from "react"
 import { Drawer } from "vaul"
 import { useMediaQuery } from "@/lib/design/use-media-query"
 
-interface ResponsiveSheetProps {
+export interface ResponsiveSheetProps {
   open: boolean
   onOpenChange: (open: boolean) => void
   title: string
@@ -17,8 +17,8 @@ interface ResponsiveSheetProps {
   themeStyle?: CSSProperties
 }
 
-/** Bottom sheet on phones (drag to dismiss), centered modal on tablet and desktop. */
-export function ResponsiveSheet(props: ResponsiveSheetProps) {
+/** The sheet itself (loaded on demand by ResponsiveSheet in ./responsive-sheet). */
+export function ResponsiveSheetImpl(props: ResponsiveSheetProps) {
   const isDesktop = useMediaQuery("(min-width: 768px)")
   // The mini-player hides while a sheet is up, so it never covers the sheet's buttons.
   useOverlay(props.open, () => props.onOpenChange(false))

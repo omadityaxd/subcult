@@ -100,14 +100,21 @@ function EntryVisual({ entry }: { entry: Entry }) {
  * listings and an alert shortcut), playable tracks, fits and headlines,
  * plus recent and trending searches. Or summon a brand-new niche.
  */
-export function CommandPalette({ presets }: { presets: readonly NichePreset[] }) {
+export function CommandPalette({
+  presets,
+  defaultOpen = false,
+}: {
+  presets: readonly NichePreset[]
+  /** Opened before this code had loaded (see CommandPaletteHost): open on mount. */
+  defaultOpen?: boolean
+}) {
   const router = useRouter()
   // Marked first, so closing the palette doesn't step back over the navigation.
   const go = (href: string) => {
     markNavigation()
     router.push(href)
   }
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(defaultOpen)
   useOverlay(open, () => setOpen(false))
   const visibleHeight = useVisibleHeight()
   const [query, setQuery] = useState("")

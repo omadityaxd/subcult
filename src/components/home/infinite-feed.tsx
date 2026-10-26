@@ -1,6 +1,7 @@
 "use client"
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
+import { whenIdle } from "@/lib/ui/when-idle"
 import { FeedCard } from "@/components/niche/feed/feed-card"
 import { TasteCard } from "@/components/taste/taste-card"
 import { Skeleton } from "@/components/ui/skeleton"
@@ -50,6 +51,10 @@ export function InfiniteFeed({ initial, now, filter = "all" }: InfiniteFeedProps
   const vector = useTasteVector()
   const seen = useSeen()
   const issue = useIssueShown()
+  // Before the page has loaded, the sentinel can sit "near" (the issue is still streaming in):
+  // the feed waits for idle so its first page never competes with the cover.
+  const [ready, setReady] = useState(false)
+  useEffect(() => whenIdle(() => setReady(true)), [])
 
   const loadMore = useCallback(async () => {
     if (cursor === null || loading) return
@@ -74,7 +79,7 @@ export function InfiniteFeed({ initial, now, filter = "all" }: InfiniteFeedProps
   }, [cursor, loading, taste])
 
   useEffect(() => {
-    if (cursor === null || failed || !sentinel.current) return
+    if (!ready || cursor === null || failed || !sentinel.current) return
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries.some((entry) => entry.isIntersecting)) void loadMore()
@@ -83,7 +88,7 @@ export function InfiniteFeed({ initial, now, filter = "all" }: InfiniteFeedProps
     )
     observer.observe(sentinel.current)
     return () => observer.disconnect()
-  }, [cursor, failed, loadMore])
+  }, [ready, cursor, failed, loadMore])
 
   const items = useMemo(() => {
     // One song plays once and one picture shows once across every page (a track and its

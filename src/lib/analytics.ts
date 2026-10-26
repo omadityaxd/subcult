@@ -1,5 +1,6 @@
 "use client"
 
+import { whenIdle } from "@/lib/ui/when-idle"
 import type { PostHog, PostHogConfig } from "posthog-js"
 
 /**
@@ -32,7 +33,7 @@ const withClient = (fn: (ph: PostHog) => void) => {
   else if (started) queue.push(fn)
 }
 
-/** Loads PostHog after the page is idle: it never competes with first paint. */
+/** Loads PostHog once the page has loaded and gone idle: never before the cover paints. */
 export function initAnalytics(key: string | undefined, host: string | undefined): void {
   if (started || !key || typeof window === "undefined") return
   started = true
@@ -44,8 +45,7 @@ export function initAnalytics(key: string | undefined, host: string | undefined)
         for (const fn of queue.splice(0)) fn(posthog)
       })
       .catch(() => undefined)
-  if ("requestIdleCallback" in window) window.requestIdleCallback(load, { timeout: 4000 })
-  else setTimeout(load, 2000)
+  whenIdle(load)
 }
 
 function analyticsConfig(host: string | undefined): Partial<PostHogConfig> {
@@ -55,6 +55,8 @@ function analyticsConfig(host: string | undefined): Partial<PostHogConfig> {
     capture_pageview: "history_change",
     capture_pageleave: true,
     disable_session_recording: true,
+    // No surveys in this app: skip the extra script PostHog would fetch for them.
+    disable_surveys: true,
     capture_exceptions: true,
     person_profiles: "identified_only",
     persistence: "localStorage",
