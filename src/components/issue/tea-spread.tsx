@@ -48,26 +48,9 @@ function Byline({ item, now, className }: { item: FeedItem; now: number; classNa
  * already appears elsewhere in the issue shows its niche palette instead:
  * never the same picture twice, never text-only.
  */
-function Picture({
-  item,
-  sizes,
-  priority = false,
-}: {
-  item: FeedItem
-  sizes: string
-  /** The lead story: often the largest thing on screen when the issue opens. */
-  priority?: boolean
-}) {
+function Picture({ item, sizes }: { item: FeedItem; sizes: string }) {
   if (item.imageUrl) {
-    return (
-      <MediaImage
-        src={item.imageUrl}
-        alt=""
-        sizes={sizes}
-        focus={focusOf(item)}
-        priority={priority}
-      />
-    )
+    return <MediaImage src={item.imageUrl} alt="" sizes={sizes} focus={focusOf(item)} />
   }
   const palette = overlayPalette({ ...item, meta: { ...item.meta, imageFallback: true } })
   return palette ? <Cover palette={palette} seed={item.id} className="absolute inset-0" /> : null
@@ -111,7 +94,8 @@ export function TeaSpread({ items, now }: { items: readonly FeedItem[]; now: num
     <div className="space-y-8">
       <Story item={lead} className="-mx-(--gutter) md:mx-0">
         <div className="relative aspect-[4/5] overflow-hidden bg-muted md:aspect-[16/9] md:rounded-3xl">
-          <Picture item={lead} sizes="(max-width: 768px) 100vw, 1100px" priority />
+          {/* Below the cover (the page's LCP): it loads lazily and never competes with it. */}
+          <Picture item={lead} sizes="(max-width: 768px) 100vw, 1100px" />
           <PaletteTint item={lead} />
           <span
             aria-hidden

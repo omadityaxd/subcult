@@ -43,7 +43,6 @@ export function DailyPicks({
               src={look.pin.largeUrl}
               alt=""
               sizes="(max-width: 768px) 100vw, 60vw"
-              priority
               className="transition-transform duration-700 group-hover:scale-[1.02]"
             />
             <span

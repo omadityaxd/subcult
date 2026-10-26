@@ -56,8 +56,12 @@ export function NicheAvatar({
             <CdnImage
               src={imageUrl}
               alt=""
-              width={PIXELS[size] * 2}
-              height={PIXELS[size] * 2}
+              // Display size: next/image adds the 2x candidate. (Doubling it here fetched
+              // Spotify's 320px variant, ~28KB, for a 64px ring; 160px is ~8KB.)
+              width={PIXELS[size]}
+              height={PIXELS[size]}
+              // Story rings sit above the cover: they mustn't compete with it for bandwidth.
+              fetchPriority="low"
               className="absolute inset-0 size-full object-cover"
             />
           ) : null}
