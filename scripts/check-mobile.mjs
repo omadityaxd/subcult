@@ -1,6 +1,7 @@
 // Mobile layout guard: every page at 390px must be exactly as wide as the screen.
 // A wider document (e.g. an absolutely positioned child escaping a horizontal
 // scroller) makes phones zoom out or scroll sideways and puts taps in the wrong place.
+// Every tappable element must also opt out of double-tap zoom (touch-action).
 // Usage: node scripts/check-mobile.mjs [baseUrl] [path ...]
 // Base URL defaults to http://localhost:3000; paths default to the main pages.
 import { chromium } from "playwright-core"
@@ -53,10 +54,15 @@ try {
         .map((el) => `${el.tagName.toLowerCase()}.${String(el.className).split(" ").slice(0, 4).join(".")}`)
       return { width, culprits }
     })
-    const ok = report.width <= 391
+    const zoomable = await page.evaluate(() => {
+      const tappable = [...document.querySelectorAll("a[href], button, input, select, textarea, [role=button]")]
+      const bad = tappable.filter((el) => getComputedStyle(el).touchAction === "auto")
+      return { total: tappable.length, bad: bad.length, sample: bad.slice(0, 3).map((el) => el.outerHTML.slice(0, 80)) }
+    })
+    const ok = report.width <= 391 && zoomable.bad === 0
     if (!ok) failures++
-    console.log(`${ok ? "ok  " : "FAIL"} ${path} width=${report.width}`)
-    for (const c of report.culprits) console.log(`       ${c}`)
+    console.log(`${ok ? "ok  " : "FAIL"} ${path} width=${report.width} double-tap-zoomable=${zoomable.bad}/${zoomable.total}`)
+    for (const c of [...report.culprits, ...zoomable.sample]) console.log(`       ${c}`)
     await page.close()
   }
 } finally {

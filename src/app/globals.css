@@ -315,6 +315,11 @@
     overscroll-behavior-y: none;
     font-feature-settings: "ss01", "cv11";
   }
+  /* No double-tap zoom on anything tappable (quick taps were zooming the page on
+     iPhone, and Android delayed them). Pinch-zoom and panning still work. */
+  :where(a, button, input, select, textarea, label, summary, [role="button"], [role="tab"], [role="switch"], [role="option"], [role="slider"]) {
+    touch-action: manipulation;
+  }
   :focus-visible {
     outline: 2px solid var(--ring);
     outline-offset: 2px;
