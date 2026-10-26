@@ -22,7 +22,7 @@ export function TabBarView({ pathname }: { pathname: string | null }) {
     <nav
       aria-label="Main"
       style={{ viewTransitionName: "tab-bar" }}
-      className="fixed inset-x-0 bottom-0 z-40 glass pb-safe hairline-t md:hidden"
+      className="fixed inset-x-0 bottom-0 z-(--z-tabbar) glass pb-safe hairline-t md:hidden"
     >
       <ul className="mx-auto grid h-(--tab-bar-height) max-w-md grid-cols-4">
         {NAV_ITEMS.map((item) => (

@@ -26,7 +26,7 @@ export function LargeTitle({ title, subtitle, overline, trailing }: LargeTitlePr
       <motion.header
         aria-hidden
         style={{ opacity: compactOpacity }}
-        className="pointer-events-none fixed inset-x-0 top-0 z-30 pt-safe md:hidden"
+        className="pointer-events-none fixed inset-x-0 top-0 z-(--z-sticky) pt-safe md:hidden"
       >
         <div className="grid h-(--nav-bar-height) place-items-center glass hairline-b">
           <span className="text-headline font-semibold">{title}</span>

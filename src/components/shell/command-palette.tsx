@@ -1,5 +1,6 @@
 "use client"
 
+import { useOverlay } from "@/lib/ui/overlays"
 import { Dialog } from "@base-ui/react/dialog"
 import {
   Bell,
@@ -101,6 +102,7 @@ function EntryVisual({ entry }: { entry: Entry }) {
 export function CommandPalette({ presets }: { presets: readonly NichePreset[] }) {
   const router = useRouter()
   const [open, setOpen] = useState(false)
+  useOverlay(open)
   const [query, setQuery] = useState("")
   const [active, setActive] = useState(0)
   const [status, setStatus] = useState<string | null>(null)
@@ -222,8 +224,8 @@ export function CommandPalette({ presets }: { presets: readonly NichePreset[] })
     <>
       <Dialog.Root open={open} onOpenChange={(next) => (next ? setOpen(true) : close())}>
         <Dialog.Portal>
-          <Dialog.Backdrop className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm transition-opacity duration-150 data-[ending-style]:opacity-0 data-[starting-style]:opacity-0" />
-          <Dialog.Popup className="fixed top-[10vh] left-1/2 z-50 w-[min(94vw,40rem)] -translate-x-1/2 overflow-hidden rounded-2xl border border-border bg-elevated shadow-pop transition-[opacity,scale] duration-150 outline-none data-[ending-style]:scale-[0.98] data-[ending-style]:opacity-0 data-[starting-style]:scale-[0.98] data-[starting-style]:opacity-0">
+          <Dialog.Backdrop className="fixed inset-0 z-(--z-sheet) bg-black/50 backdrop-blur-sm transition-opacity duration-150 data-[ending-style]:opacity-0 data-[starting-style]:opacity-0" />
+          <Dialog.Popup className="fixed top-[10vh] left-1/2 z-(--z-sheet) w-[min(94vw,40rem)] -translate-x-1/2 overflow-hidden rounded-2xl border border-border bg-elevated shadow-pop transition-[opacity,scale] duration-150 outline-none data-[ending-style]:scale-[0.98] data-[ending-style]:opacity-0 data-[starting-style]:scale-[0.98] data-[starting-style]:opacity-0">
             <Dialog.Title className="sr-only">Search subcult</Dialog.Title>
             <div className="flex items-center gap-3 border-b border-border px-4">
               {loading ? (

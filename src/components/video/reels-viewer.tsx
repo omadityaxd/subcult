@@ -1,5 +1,6 @@
 "use client"
 
+import { useOverlay } from "@/lib/ui/overlays"
 import { ArrowUpRight, ChevronDown, ChevronUp, Volume2, VolumeX, X } from "lucide-react"
 import Link from "next/link"
 import { useEffect, useId, useRef, useState } from "react"
@@ -28,6 +29,7 @@ export function ReelsHost() {
  * player frame. Sound on pauses the music.
  */
 function ReelsViewer({ reels }: { reels: ReelsState }) {
+  useOverlay(true)
   const scroller = useRef<HTMLDivElement>(null)
   const [index, setIndex] = useState(reels.index)
   const [muted, setMuted] = useState(false)
@@ -63,7 +65,7 @@ function ReelsViewer({ reels }: { reels: ReelsState }) {
       role="dialog"
       aria-modal="true"
       aria-label="Videos"
-      className="fixed inset-0 z-[80] bg-black text-white"
+      className="fixed inset-0 z-(--z-reels) bg-black text-white"
     >
       <div
         ref={scroller}

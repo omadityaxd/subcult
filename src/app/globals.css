@@ -51,6 +51,24 @@
   --sidebar-width: 15.25rem;
   /* The mini-player's room: a floating pill on phones, a docked bar from md up. */
   --player-dock: 4rem;
+  /*
+   * Phones stack fixed UI from the bottom up: the tab bar, a page's own fixed
+   * footer (it sets --footer-space while mounted), the mini-player
+   * (--player-space while showing), then floating prompts. Each layer sits on
+   * the ones below, so nothing covers another's buttons.
+   */
+  --footer-space: 0px;
+
+  /* One z-index scale for everything fixed or floating, back to front. */
+  --z-sticky: 20;
+  --z-footer: 30;
+  --z-tabbar: 40;
+  --z-player: 45;
+  --z-float: 50;
+  --z-sheet: 60;
+  --z-fullscreen: 70;
+  --z-reels: 80;
+  --z-banner: 90;
   --content-max: 75rem;
   --gutter: 1rem;
 
@@ -211,10 +229,11 @@
 /* Clears the tab bar and, while it's showing, the mini-player (--player-space). */
 @utility pb-tab-bar {
   padding-bottom: calc(
-    var(--tab-bar-height) + env(safe-area-inset-bottom) + 2rem + var(--player-space, 0px)
+    var(--tab-bar-height) + env(safe-area-inset-bottom) + 2rem + var(--footer-space, 0px) +
+      var(--player-space, 0px)
   );
   @media (min-width: 768px) {
-    padding-bottom: calc(4rem + var(--player-space, 0px));
+    padding-bottom: calc(4rem + var(--footer-space, 0px) + var(--player-space, 0px));
   }
 }
 

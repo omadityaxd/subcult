@@ -43,7 +43,7 @@ export function PullToRefresh({ children }: { children: ReactNode }) {
         aria-hidden={!isPending}
         role="status"
         className={cn(
-          "pointer-events-none fixed inset-x-0 top-[calc(env(safe-area-inset-top)+0.75rem)] z-50 flex justify-center transition-opacity md:hidden",
+          "pointer-events-none fixed inset-x-0 top-[calc(env(safe-area-inset-top)+0.75rem)] z-(--z-float) flex justify-center transition-opacity md:hidden",
           visible ? "opacity-100" : "opacity-0",
         )}
         style={{ transform: `translateY(${isPending ? 8 : pull * 0.4}px)` }}

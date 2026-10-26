@@ -1,5 +1,6 @@
 "use client"
 
+import { useOverlay } from "@/lib/ui/overlays"
 import { Download, X } from "lucide-react"
 import { motion, useReducedMotion } from "motion/react"
 import Image from "next/image"
@@ -29,6 +30,7 @@ interface WrappedStoryProps {
 
 /** Wrapped as a story: tap through, hold to pause, save any slide as a 1080×1920 image. */
 export function WrappedStory({ slides, niches, leadNiche, onClose }: WrappedStoryProps) {
+  useOverlay(true)
   const [index, setIndex] = useState(0)
   const [paused, setPaused] = useState(false)
   const [progress, setProgress] = useState(0)
@@ -117,7 +119,7 @@ export function WrappedStory({ slides, niches, leadNiche, onClose }: WrappedStor
       role="dialog"
       aria-modal="true"
       aria-label="Your Wrapped"
-      className="fixed inset-0 z-[70] bg-black text-white"
+      className="fixed inset-0 z-(--z-fullscreen) bg-black text-white"
       initial={reduceMotion ? false : { opacity: 0, scale: 0.97 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={springs.gentle}

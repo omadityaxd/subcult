@@ -28,7 +28,7 @@ export function SidebarView({ pathname }: { pathname: string | null }) {
     <aside
       style={{ viewTransitionName: "sidebar" }}
       className={cn(
-        "fixed inset-y-0 left-0 z-40 hidden flex-col border-r border-border bg-background py-6 transition-[width] duration-300 ease-out md:flex",
+        "fixed inset-y-0 left-0 z-(--z-tabbar) hidden flex-col border-r border-border bg-background py-6 transition-[width] duration-300 ease-out md:flex",
         expanded ? "w-(--sidebar-width) shadow-pop" : "w-(--rail-width) xl:w-(--sidebar-width)",
       )}
     >

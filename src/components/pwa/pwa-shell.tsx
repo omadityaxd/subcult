@@ -93,14 +93,14 @@ export function PwaShell() {
       {online ? null : (
         <div
           role="status"
-          className="fixed inset-x-0 top-0 z-50 flex items-center justify-center gap-2 bg-foreground px-4 pt-[calc(env(safe-area-inset-top)+0.5rem)] pb-2 text-footnote font-semibold text-background"
+          className="fixed inset-x-0 top-0 z-(--z-banner) flex items-center justify-center gap-2 bg-foreground px-4 pt-[calc(env(safe-area-inset-top)+0.5rem)] pb-2 text-footnote font-semibold text-background"
         >
           <WifiOff aria-hidden className="size-4" strokeWidth={2} />
           You&apos;re offline. Showing what was saved on this device.
         </div>
       )}
       {install ? (
-        <div className="fixed inset-x-3 bottom-[calc(var(--tab-bar-height)+env(safe-area-inset-bottom)+0.75rem)] z-40 flex items-center gap-3 rounded-2xl border border-border bg-elevated p-3 shadow-pop md:right-6 md:bottom-6 md:left-auto md:w-96">
+        <div className="fixed inset-x-3 bottom-[calc(var(--tab-bar-height)+env(safe-area-inset-bottom)+var(--footer-space,0px)+var(--player-space,0px)+0.75rem)] z-(--z-float) flex items-center gap-3 rounded-2xl border border-border bg-elevated p-3 shadow-pop md:right-6 md:bottom-[calc(1.5rem+var(--footer-space,0px)+var(--player-space,0px))] md:left-auto md:w-96">
           <span className="min-w-0 flex-1 text-footnote">
             {install === "ios" ? (
               <>

@@ -1,5 +1,6 @@
 "use client"
 
+import { useOverlay } from "@/lib/ui/overlays"
 import { ArrowUpRight, Volume2, VolumeX, X } from "lucide-react"
 import { motion, type PanInfo, useReducedMotion } from "motion/react"
 import Link from "next/link"
@@ -46,6 +47,7 @@ interface StoryViewerProps {
  * swipe down (or Esc) to close. Each frame links out to its source.
  */
 export function StoryViewer({ niches, startIndex, onSeen, onClose }: StoryViewerProps) {
+  useOverlay(true)
   const [nicheIndex, setNicheIndex] = useState(startIndex)
   const [frame, setFrame] = useState(0)
   const [items, setItems] = useState<Record<string, FeedItem[]>>({})
@@ -178,7 +180,7 @@ export function StoryViewer({ niches, startIndex, onSeen, onClose }: StoryViewer
       role="dialog"
       aria-modal="true"
       aria-label={`${niche.name} story`}
-      className="fixed inset-0 z-[60] bg-black text-white"
+      className="fixed inset-0 z-(--z-fullscreen) bg-black text-white"
       initial={reduceMotion ? false : { opacity: 0, scale: 0.96 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={springs.gentle}

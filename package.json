@@ -14,6 +14,7 @@
     "test:watch": "vitest",
     "test:security": "vitest run --config vitest.security.config.mts",
     "check:mobile": "node scripts/check-mobile.mjs",
+    "check:player": "node scripts/check-player-cover.mjs",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:studio": "drizzle-kit studio",

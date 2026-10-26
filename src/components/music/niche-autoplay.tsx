@@ -56,7 +56,7 @@ export function NicheAutoplay({ soundtrack }: { soundtrack: Soundtrack }) {
         playSoundtrack(soundtrack, 0)
         setOffer(false)
       }}
-      className="fixed bottom-[calc(var(--tab-bar-height)+env(safe-area-inset-bottom)+0.75rem+var(--player-space,0px))] left-1/2 z-40 inline-flex h-12 -translate-x-1/2 items-center gap-2 rounded-full bg-niche px-5 text-callout font-semibold whitespace-nowrap text-niche-foreground shadow-pop transition-transform active:scale-95 md:bottom-[calc(1.5rem+var(--player-space,0px))] md:left-[calc(50%+var(--rail-width)/2)] xl:left-[calc(50%+var(--sidebar-width)/2)]"
+      className="fixed bottom-[calc(var(--tab-bar-height)+env(safe-area-inset-bottom)+0.75rem+var(--footer-space,0px)+var(--player-space,0px))] left-1/2 z-(--z-float) inline-flex h-12 -translate-x-1/2 items-center gap-2 rounded-full bg-niche px-5 text-callout font-semibold whitespace-nowrap text-niche-foreground shadow-pop transition-transform active:scale-95 md:bottom-[calc(1.5rem+var(--footer-space,0px)+var(--player-space,0px))] md:left-[calc(50%+var(--rail-width)/2)] xl:left-[calc(50%+var(--sidebar-width)/2)]"
     >
       <Play aria-hidden className="size-4" fill="currentColor" strokeWidth={0} />
       Tap to play the vibe

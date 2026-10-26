@@ -3,7 +3,7 @@
 import { ArrowRight, Check } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import { MediaImage } from "@/components/ds/media-image"
 import type { StartSuggestion } from "@/app/api/start/route"
 import { followItem } from "@/lib/follows"
@@ -282,12 +282,36 @@ export function OnboardingFlow({
   )
 }
 
+/** A fixed footer: it reserves its height (--footer-space) so the mini-player stacks above it. */
 function BottomBar({ children }: { children: React.ReactNode }) {
+  const ref = useFooterSpace()
   return (
-    <div className="fixed inset-x-0 bottom-[calc(var(--tab-bar-height)+env(safe-area-inset-bottom))] z-30 border-t border-border bg-background/90 pb-3 backdrop-blur-xl md:bottom-0 md:left-(--rail-width) md:pb-[calc(env(safe-area-inset-bottom)+0.75rem)] xl:left-(--sidebar-width)">
+    <div
+      ref={ref}
+      className="fixed inset-x-0 bottom-[calc(var(--tab-bar-height)+env(safe-area-inset-bottom))] z-(--z-footer) border-t border-border bg-background/90 pb-3 backdrop-blur-xl md:bottom-0 md:left-(--rail-width) md:pb-[calc(env(safe-area-inset-bottom)+0.75rem)] xl:left-(--sidebar-width)"
+    >
       <div className="container-page flex max-w-3xl items-center justify-between gap-3 pt-3">
         {children}
       </div>
     </div>
   )
+}
+
+/** Publishes the footer's height as --footer-space while it's mounted. */
+function useFooterSpace() {
+  const ref = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    const element = ref.current
+    if (!element) return
+    const root = document.documentElement
+    const update = () => root.style.setProperty("--footer-space", `${element.offsetHeight}px`)
+    update()
+    const observer = new ResizeObserver(update)
+    observer.observe(element)
+    return () => {
+      observer.disconnect()
+      root.style.removeProperty("--footer-space")
+    }
+  }, [])
+  return ref
 }

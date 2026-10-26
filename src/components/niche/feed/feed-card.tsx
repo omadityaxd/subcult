@@ -165,7 +165,7 @@ function ExternalCard({ item, context, now }: FeedCardProps) {
           <PreviewCard.Root>
             <PreviewCard.Trigger delay={650} render={card} />
             <PreviewCard.Portal>
-              <PreviewCard.Positioner side="right" sideOffset={16} className="z-50">
+              <PreviewCard.Positioner side="right" sideOffset={16} className="z-(--z-float)">
                 <PreviewCard.Popup className="w-80 rounded-2xl border border-border bg-elevated p-3 shadow-pop transition-[opacity,scale] duration-150 data-[ending-style]:scale-95 data-[ending-style]:opacity-0 data-[starting-style]:scale-95 data-[starting-style]:opacity-0">
                   <PeekBody item={item} meta={meta} />
                 </PreviewCard.Popup>

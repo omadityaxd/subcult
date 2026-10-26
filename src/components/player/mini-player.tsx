@@ -7,6 +7,8 @@ import { useArtworkColor } from "@/lib/audio/artwork-color"
 import { usePlayerEngaged } from "@/lib/audio/player"
 import { getAudioEngine, useAudioState } from "@/lib/audio/use-audio"
 import { cn } from "@/lib/utils"
+import { useKeyboardOpen } from "@/lib/ui/keyboard"
+import { useAnyOverlayOpen } from "@/lib/ui/overlays"
 import { NowPlaying } from "./now-playing"
 import { SpotifyFallbackSheet } from "./spotify-fallback-sheet"
 import { ProgressBar } from "./progress-bar"
@@ -57,6 +59,10 @@ export function MiniPlayer() {
   const collapsed = useCollapsedOnScroll()
   const [open, setOpen] = useState(false)
   const track = state.owner === "player" && engaged ? state.track : null
+  // Out of the way (still playing) while a sheet, dialog, story, Reels or the keyboard is up.
+  const overlayOpen = useAnyOverlayOpen()
+  const keyboardOpen = useKeyboardOpen()
+  const hidden = overlayOpen || keyboardOpen
   const accent = useArtworkColor(track?.artworkUrl)
 
   // Reserve the player's room so it never covers the end of a page (or, docked on desktop,
@@ -100,12 +106,15 @@ export function MiniPlayer() {
     <>
       <div
         className={cn(
-          "pointer-events-none fixed inset-x-3 bottom-[calc(var(--tab-bar-height)+env(safe-area-inset-bottom)+0.5rem)] z-40 flex justify-end",
+          "pointer-events-none fixed inset-x-3 bottom-[calc(var(--tab-bar-height)+env(safe-area-inset-bottom)+var(--footer-space,0px)+0.5rem)] z-(--z-player) flex justify-end",
           // Desktop: docked in its own bar along the content column (the page reserves its
           // height, --player-space), so it never floats over text or the right rail.
-          "md:inset-x-auto md:right-0 md:bottom-0 md:left-(--rail-width) md:h-(--player-dock) md:items-center md:border-t md:border-border md:bg-background/90 md:px-6 md:backdrop-blur-xl xl:left-(--sidebar-width)",
+          "transition-[opacity,translate] duration-200",
+          hidden && "invisible translate-y-4 opacity-0",
+          "md:inset-x-auto md:right-0 md:bottom-(--footer-space) md:left-(--rail-width) md:h-(--player-dock) md:items-center md:border-t md:border-border md:bg-background/90 md:px-6 md:backdrop-blur-xl xl:left-(--sidebar-width)",
         )}
         style={{ "--accent": accent } as React.CSSProperties}
+        aria-hidden={hidden || undefined}
       >
         {collapsed ? (
           <button
