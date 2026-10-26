@@ -1,6 +1,7 @@
 import "server-only"
 import { createServerClient } from "@supabase/ssr"
 import { cookies } from "next/headers"
+import { connection } from "next/server"
 import { env } from "@/lib/env"
 
 /** True when Supabase Auth is configured; every auth surface hides otherwise. */
@@ -44,6 +45,9 @@ export interface Viewer {
  * signature; getSession alone would trust whatever the cookie says).
  */
 export async function getViewer(): Promise<Viewer | null> {
+  // Request-time only: checking the token reads the clock (expiry), which a
+  // prerender must never do (Next flagged every signed-in page in dev).
+  await connection()
   const supabase = await createSupabaseServer()
   if (!supabase) return null
   const { data, error } = await supabase.auth.getClaims()
