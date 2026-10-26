@@ -267,18 +267,28 @@
   }
 }
 
-/* Shimmer skeleton surface. */
-@utility shimmer {
+/* Shimmer skeleton surface. Not named "shimmer": shadcn/tailwind.css ships a text-shimmer
+   utility under that name, and the two merged (background-clip: text hid the skeletons,
+   and its background-position animation repainted them every frame: about half the main
+   thread's work on a throttled phone). The sweep is a layer moved with transform instead. */
+@utility skeleton-shimmer {
   background-color: var(--muted);
-  background-image: linear-gradient(
-    100deg,
-    transparent 20%,
-    rgb(255 255 255 / 0.06) 40%,
-    rgb(255 255 255 / 0.1) 50%,
-    transparent 70%
-  );
-  background-size: 200% 100%;
-  animation: var(--animate-shimmer);
+  overflow: hidden;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(
+      100deg,
+      transparent 20%,
+      rgb(255 255 255 / 0.06) 40%,
+      rgb(255 255 255 / 0.1) 50%,
+      transparent 70%
+    );
+    transform: translateX(-100%);
+    animation: var(--animate-shimmer);
+    will-change: transform;
+  }
 }
 
 @utility text-balance {
@@ -315,9 +325,26 @@
     overscroll-behavior-y: none;
     font-feature-settings: "ss01", "cv11";
   }
+  /* The shimmer's sweep layer needs a positioned box; an absolute/fixed utility still wins. */
+  :where(.skeleton-shimmer) {
+    position: relative;
+  }
   /* No double-tap zoom on anything tappable (quick taps were zooming the page on
      iPhone, and Android delayed them). Pinch-zoom and panning still work. */
-  :where(a, button, input, select, textarea, label, summary, [role="button"], [role="tab"], [role="switch"], [role="option"], [role="slider"]) {
+  :where(
+    a,
+    button,
+    input,
+    select,
+    textarea,
+    label,
+    summary,
+    [role="button"],
+    [role="tab"],
+    [role="switch"],
+    [role="option"],
+    [role="slider"]
+  ) {
     touch-action: manipulation;
   }
   :focus-visible {
@@ -333,10 +360,10 @@
 
 @keyframes shimmer {
   from {
-    background-position: 150% 0;
+    transform: translateX(-100%);
   }
   to {
-    background-position: -50% 0;
+    transform: translateX(100%);
   }
 }
 
@@ -448,7 +475,7 @@
     animation-duration: 0s !important;
     animation-delay: 0s !important;
   }
-  .shimmer,
+  .skeleton-shimmer::after,
   .eq-bar,
   [class*="animate-"] {
     animation: none !important;

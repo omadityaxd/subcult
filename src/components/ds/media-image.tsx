@@ -25,7 +25,7 @@ export function MediaImage({ src, alt, sizes, className, priority, focus }: Medi
   const [loaded, setLoaded] = useState(Boolean(priority))
   return (
     <>
-      {!loaded ? <span aria-hidden className="absolute inset-0 shimmer" /> : null}
+      {!loaded ? <span aria-hidden className="skeleton-shimmer absolute inset-0" /> : null}
       <CdnImage
         src={src}
         alt={alt}
