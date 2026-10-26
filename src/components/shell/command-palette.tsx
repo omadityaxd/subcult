@@ -1,5 +1,6 @@
 "use client"
 
+import { useVisibleHeight } from "@/lib/ui/keyboard"
 import { markNavigation, useOverlay } from "@/lib/ui/overlays"
 import { Dialog } from "@base-ui/react/dialog"
 import {
@@ -108,6 +109,7 @@ export function CommandPalette({ presets }: { presets: readonly NichePreset[] })
   }
   const [open, setOpen] = useState(false)
   useOverlay(open, () => setOpen(false))
+  const visibleHeight = useVisibleHeight()
   const [query, setQuery] = useState("")
   const [active, setActive] = useState(0)
   const [status, setStatus] = useState<string | null>(null)
@@ -258,7 +260,17 @@ export function CommandPalette({ presets }: { presets: readonly NichePreset[] })
                 esc
               </kbd>
             </div>
-            <ul id="cmd-results" role="listbox" className="max-h-[60vh] overflow-y-auto p-2">
+            <ul
+              id="cmd-results"
+              role="listbox"
+              className="max-h-[60vh] overflow-y-auto overscroll-contain p-2"
+              // On phones the keyboard covers the bottom of the screen: the list ends above it.
+              style={
+                visibleHeight
+                  ? { maxHeight: `min(60vh, calc(${visibleHeight}px - 10vh - 5.5rem))` }
+                  : undefined
+              }
+            >
               {entries.map((entry, index) => (
                 <li key={entry.id} role="presentation">
                   {index === 0 || entries[index - 1]?.group !== entry.group ? (

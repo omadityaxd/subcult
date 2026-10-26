@@ -38,3 +38,13 @@ function subscribe(listener: () => void): () => void {
 export function useKeyboardOpen(): boolean {
   return useSyncExternalStore(subscribe, snapshot, () => false)
 }
+
+const visibleHeight = () => Math.round(window.visualViewport?.height ?? window.innerHeight)
+
+/**
+ * The height left above the on-screen keyboard (the visual viewport). vh and
+ * dvh ignore the keyboard on iPhone, so a list sized with them runs under it.
+ */
+export function useVisibleHeight(): number | null {
+  return useSyncExternalStore(subscribe, visibleHeight, () => null)
+}
