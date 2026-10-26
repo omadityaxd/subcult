@@ -1,6 +1,10 @@
 "use client"
 
-import { externalPlaybackStarted, registerExternalPlayer } from "@/lib/audio/handoff"
+import {
+  externalPlaybackStarted,
+  externalPlaybackStopped,
+  registerExternalPlayer,
+} from "@/lib/audio/handoff"
 import { getAccessToken } from "./session"
 
 /**
@@ -80,6 +84,7 @@ function getDevice() {
         player.addListener("player_state_changed", (state) => {
           const nowPaused = state?.paused ?? true
           if (paused && !nowPaused) externalPlaybackStarted("spotify-sdk")
+          if (!paused && nowPaused) externalPlaybackStopped("spotify-sdk")
           paused = nowPaused
         })
         registerExternalPlayer("spotify-sdk", { pause: () => void player.pause() })

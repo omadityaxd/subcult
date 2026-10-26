@@ -24,7 +24,7 @@ export interface AudioTrack {
   niche?: string | null
 }
 
-export type AudioOwner = "story" | "player"
+export type AudioOwner = "story" | "player" | "preview"
 
 export interface AudioState {
   track: AudioTrack | null

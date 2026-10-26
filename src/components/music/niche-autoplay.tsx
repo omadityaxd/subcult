@@ -8,6 +8,7 @@ import {
   isSoundtrackLoaded,
   playSoundtrack,
 } from "@/lib/audio/player"
+import { isAnythingPlaying } from "@/lib/audio/handoff"
 import { getAudioEngine, useAudioState } from "@/lib/audio/use-audio"
 import type { Soundtrack } from "@/lib/music/soundtrack"
 
@@ -28,8 +29,10 @@ export function NicheAutoplay({ soundtrack }: { soundtrack: Soundtrack }) {
   useEffect(() => {
     if (soundtrack.tracks.length === 0 || isSoundtrackLoaded(soundtrack.slug)) return
     const engine = getAudioEngine()
-    // A story playing over the page keeps priority.
-    if (engine.getState().owner === "story" || !autoplayEnabled()) return
+    if (!autoplayEnabled()) return
+    // Never interrupt something chosen: a loaded track (playing or paused), a story,
+    // a preview or an embed. Autoplay only fills silence.
+    if (engine.getState().track || isAnythingPlaying()) return
     const tryAutoplay = hasUserActivation()
     if (tryAutoplay) playSoundtrack(soundtrack, 0)
     const timer = setTimeout(

@@ -18,6 +18,8 @@ import { MAX_CARDS, MIN_CARDS, nextCard, seededRandom } from "@/lib/vibe/adaptiv
 import type { DeckCard, PairSide } from "@/lib/vibe/data"
 import type { Answer } from "@/lib/vibe/score"
 import { cn } from "@/lib/utils"
+import { isAnythingPlaying } from "@/lib/audio/handoff"
+import { getAudioEngine, useAudioState } from "@/lib/audio/use-audio"
 
 const SWIPE_DISTANCE = 110
 const SWIPE_VELOCITY = 600
@@ -256,7 +258,7 @@ function CardFace({ card }: { card: DeckCard }) {
         </span>
       ) : null}
       {card.kind === "sound" && card.previewUrl ? (
-        <SoundPreview key={card.id} src={card.previewUrl} />
+        <SoundPreview key={card.id} src={card.previewUrl} title={card.credit ?? card.prompt} />
       ) : null}
       <p className="absolute inset-x-6 bottom-7 font-serif text-title-1 text-balance text-white italic">
         {card.prompt}
@@ -265,42 +267,53 @@ function CardFace({ card }: { card: DeckCard }) {
   )
 }
 
-/** Five seconds of the track, starting on its own when the browser allows it. */
-function SoundPreview({ src }: { src: string }) {
-  const audio = useRef<HTMLAudioElement | null>(null)
-  const [playing, setPlaying] = useState(false)
+/**
+ * Five seconds of the track, through the app's one audio engine (so it can
+ * never play over the player, a story or an embed). It starts on its own
+ * only when nothing else is playing and the browser allows it; otherwise
+ * the button is the "tap to play" state.
+ */
+function SoundPreview({ src, title }: { src: string; title: string }) {
+  const state = useAudioState()
+  const id = `preview:${src}`
+  const playing = state.owner === "preview" && state.track?.id === id && state.playing
 
   const play = useCallback(() => {
-    const element = audio.current ?? new Audio(src)
-    audio.current = element
-    element.currentTime = 0
-    void element
-      .play()
-      .then(() => setPlaying(true))
-      .catch(() => setPlaying(false))
-  }, [src])
+    getAudioEngine().play({ id, src, title, artist: "" }, { owner: "preview" })
+  }, [id, src, title])
 
   useEffect(() => {
-    play()
-    const stop = setTimeout(() => {
-      audio.current?.pause()
-      setPlaying(false)
-    }, PREVIEW_MS)
+    // Only an earlier preview may be interrupted on its own: anything else was chosen.
+    const engine = getAudioEngine()
+    const current = engine.getState()
+    const previewOnly = current.owner === "preview" || !current.playing
+    if (previewOnly && !isAnythingPlayingExceptEngine()) play()
+    // Leaving the card stops its preview.
     return () => {
-      clearTimeout(stop)
-      audio.current?.pause()
+      const now = engine.getState()
+      if (now.owner === "preview" && now.track?.id === id) engine.stop("preview")
     }
-  }, [play])
+  }, [id, play])
+
+  // Five seconds from when it actually starts (on its own or tapped later), not from the card.
+  useEffect(() => {
+    if (!playing) return
+    const timer = setTimeout(() => {
+      const engine = getAudioEngine()
+      const now = engine.getState()
+      if (now.owner === "preview" && now.track?.id === id) engine.stop("preview")
+    }, PREVIEW_MS)
+    return () => clearTimeout(timer)
+  }, [playing, id])
 
   return (
     <button
       type="button"
       onPointerDown={(event) => event.stopPropagation()}
       onClick={() => {
-        if (playing) {
-          audio.current?.pause()
-          setPlaying(false)
-        } else play()
+        getAudioEngine().unlock()
+        if (playing) getAudioEngine().stop("preview")
+        else play()
       }}
       aria-label={playing ? "Pause preview" : "Play 5-second preview"}
       className="absolute top-1/2 left-1/2 grid size-20 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-white/90 text-black shadow-pop"
@@ -312,6 +325,11 @@ function SoundPreview({ src }: { src: string }) {
       )}
     </button>
   )
+}
+
+/** An embed (Spotify, YouTube) is sounding: a preview must not start on its own. */
+function isAnythingPlayingExceptEngine(): boolean {
+  return isAnythingPlaying() && !getAudioEngine().getState().playing
 }
 
 /** "This or that": two looks side by side, tap the one that's more you. */

@@ -6,7 +6,11 @@ import { useEffect, useId, useRef, useState } from "react"
 import { createPortal } from "react-dom"
 import { MediaImage } from "@/components/ds/media-image"
 import { SaveButton } from "@/components/ds/save-button"
-import { externalPlaybackStarted, registerExternalPlayer } from "@/lib/audio/handoff"
+import {
+  externalPlaybackStarted,
+  externalPlaybackStopped,
+  registerExternalPlayer,
+} from "@/lib/audio/handoff"
 import { decodeRelatedNiches } from "@/lib/feed/related-niches"
 import type { FeedItem } from "@/lib/feed/types"
 import { type ReelsState, closeReels, useReels } from "@/lib/video/reels-store"
@@ -268,6 +272,7 @@ function ReelPlayer({
             window.clearTimeout(timer)
           }
           if (data === YT_STATE.PLAYING && !target.isMuted()) externalPlaybackStarted(id)
+          if (data === YT_STATE.PAUSED || data === YT_STATE.ENDED) externalPlaybackStopped(id)
         },
       },
     }).catch(fail)

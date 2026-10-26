@@ -1,7 +1,11 @@
 "use client"
 
 import { useEffect, useId, useRef, useState } from "react"
-import { externalPlaybackStarted, registerExternalPlayer } from "@/lib/audio/handoff"
+import {
+  externalPlaybackStarted,
+  externalPlaybackStopped,
+  registerExternalPlayer,
+} from "@/lib/audio/handoff"
 import {
   type EmbedController,
   type PlaybackUpdate,
@@ -66,6 +70,7 @@ export function SpotifyEmbed({
           })
           created.addListener("playback_update", ({ data }) => {
             if (paused && !data.isPaused) externalPlaybackStarted(id)
+            if (!paused && data.isPaused) externalPlaybackStopped(id)
             paused = data.isPaused
             callbacks.current.onUpdate?.(data)
           })
