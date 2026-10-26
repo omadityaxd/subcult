@@ -1,6 +1,6 @@
 "use client"
 
-import { useOverlay } from "@/lib/ui/overlays"
+import { markNavigation, useOverlay } from "@/lib/ui/overlays"
 import { Dialog } from "@base-ui/react/dialog"
 import {
   Bell,
@@ -101,8 +101,13 @@ function EntryVisual({ entry }: { entry: Entry }) {
  */
 export function CommandPalette({ presets }: { presets: readonly NichePreset[] }) {
   const router = useRouter()
+  // Marked first, so closing the palette doesn't step back over the navigation.
+  const go = (href: string) => {
+    markNavigation()
+    router.push(href)
+  }
   const [open, setOpen] = useState(false)
-  useOverlay(open)
+  useOverlay(open, () => setOpen(false))
   const [query, setQuery] = useState("")
   const [active, setActive] = useState(0)
   const [status, setStatus] = useState<string | null>(null)
@@ -149,7 +154,7 @@ export function CommandPalette({ presets }: { presets: readonly NichePreset[] })
       })
       const body = (await response.json()) as ApiResponse<{ slug: string }>
       if (body.success) {
-        router.push(`/n/${body.data.slug}`)
+        go(`/n/${body.data.slug}`)
         close()
       } else setStatus(body.error)
     } catch {
@@ -171,10 +176,10 @@ export function CommandPalette({ presets }: { presets: readonly NichePreset[] })
     switch (entry.kind) {
       case "niche":
         logSearch("niche", entry.preset.slug)
-        router.push(`/n/${entry.preset.slug}`)
+        go(`/n/${entry.preset.slug}`)
         break
       case "page":
-        router.push(entry.href)
+        go(entry.href)
         break
       case "artist":
         logSearch("artist", entry.artist.slug)
@@ -198,7 +203,7 @@ export function CommandPalette({ presets }: { presets: readonly NichePreset[] })
         break
       }
       case "fit":
-        router.push(`/fits/${entry.fit.id}`)
+        go(`/fits/${entry.fit.id}`)
         break
       case "headline":
         window.open(entry.headline.url, "_blank", "noopener,noreferrer")

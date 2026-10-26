@@ -1,5 +1,6 @@
 "use client"
 
+import { useOverlay } from "@/lib/ui/overlays"
 import { ChevronDown, SkipBack, SkipForward } from "lucide-react"
 import { type PanInfo, motion, useReducedMotion } from "motion/react"
 import Image from "next/image"
@@ -19,6 +20,8 @@ import { useFullSong } from "./use-full-song"
 
 /** Full-screen Now Playing: big art over a drifting generative field, the queue, save and links. */
 export function NowPlaying({ accent, onClose }: { accent: string; onClose: () => void }) {
+  // Back closes Now Playing instead of leaving the page.
+  useOverlay(true, onClose)
   const state = useAudioState()
   const reduceMotion = useReducedMotion()
   const track = state.track

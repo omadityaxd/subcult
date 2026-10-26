@@ -47,7 +47,7 @@ interface StoryViewerProps {
  * swipe down (or Esc) to close. Each frame links out to its source.
  */
 export function StoryViewer({ niches, startIndex, onSeen, onClose }: StoryViewerProps) {
-  useOverlay(true)
+  useOverlay(true, onClose)
   const [nicheIndex, setNicheIndex] = useState(startIndex)
   const [frame, setFrame] = useState(0)
   const [items, setItems] = useState<Record<string, FeedItem[]>>({})

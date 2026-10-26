@@ -30,7 +30,7 @@ interface WrappedStoryProps {
 
 /** Wrapped as a story: tap through, hold to pause, save any slide as a 1080×1920 image. */
 export function WrappedStory({ slides, niches, leadNiche, onClose }: WrappedStoryProps) {
-  useOverlay(true)
+  useOverlay(true, onClose)
   const [index, setIndex] = useState(0)
   const [paused, setPaused] = useState(false)
   const [progress, setProgress] = useState(0)

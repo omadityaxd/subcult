@@ -29,7 +29,7 @@ export function ReelsHost() {
  * player frame. Sound on pauses the music.
  */
 function ReelsViewer({ reels }: { reels: ReelsState }) {
-  useOverlay(true)
+  useOverlay(true, closeReels)
   const scroller = useRef<HTMLDivElement>(null)
   const [index, setIndex] = useState(reels.index)
   const [muted, setMuted] = useState(false)

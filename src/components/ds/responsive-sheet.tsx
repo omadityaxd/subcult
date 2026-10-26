@@ -21,7 +21,7 @@ interface ResponsiveSheetProps {
 export function ResponsiveSheet(props: ResponsiveSheetProps) {
   const isDesktop = useMediaQuery("(min-width: 768px)")
   // The mini-player hides while a sheet is up, so it never covers the sheet's buttons.
-  useOverlay(props.open)
+  useOverlay(props.open, () => props.onOpenChange(false))
   return isDesktop ? <Modal {...props} /> : <BottomSheet {...props} />
 }
 
