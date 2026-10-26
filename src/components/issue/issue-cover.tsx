@@ -4,6 +4,7 @@ import { Share } from "lucide-react"
 import { useState } from "react"
 import { Cover } from "@/components/ds/cover"
 import { MediaImage } from "@/components/ds/media-image"
+import { CoverImage } from "./cover-image"
 import { youtubeCrop } from "@/lib/images/youtube-crop"
 import type { IssueCover as IssueCoverData } from "@/lib/today/edition"
 import { formatIssueNo } from "@/lib/today/issues"
@@ -30,9 +31,11 @@ export function IssueCover({
 }) {
   const image = cover.item?.imageUrl ?? null
   const art = image ? null : (cover.art ?? null)
-  const enter = (delay: string) =>
+  // The masthead and headline paint as text at once, before the image: they only rise
+  // into place. A fade from transparent would hold back the first paint; the lines still fade.
+  const enter = (delay: string, fade = false) =>
     debut
-      ? `animate-in fade-in slide-in-from-bottom-3 fill-mode-both duration-700 ease-out motion-reduce:animate-none ${delay}`
+      ? `animate-in ${fade ? "fade-in" : ""} slide-in-from-bottom-3 fill-mode-both duration-700 ease-out motion-reduce:animate-none ${delay}`
       : ""
   const body = (
     <div className="relative flex h-full flex-col justify-between p-5 text-white md:p-10">
@@ -62,7 +65,7 @@ export function IssueCover({
         </h2>
         {cover.lines.length > 0 ? (
           <ul
-            className={`mt-5 max-w-xl space-y-1.5 text-callout font-medium text-white/90 ${enter("delay-700")}`}
+            className={`mt-5 max-w-xl space-y-1.5 text-callout font-medium text-white/90 ${enter("delay-700", true)}`}
           >
             {cover.lines.map((line) => (
               <li key={line} className="flex gap-2">
@@ -84,12 +87,11 @@ export function IssueCover({
     >
       {image ? (
         <>
-          <MediaImage
+          <CoverImage
             focus={cover.item ? focusOf(cover.item) : undefined}
             src={image}
             alt=""
-            sizes="(max-width: 768px) 100vw, 1100px"
-            priority
+            blur={cover.blur}
             className={youtubeCrop(image, {
               short: cover.item?.meta.short === true,
               frame: "portrait-then-landscape",
@@ -104,11 +106,10 @@ export function IssueCover({
       ) : art ? (
         <>
           {art.kind === "portrait" ? (
-            <MediaImage
+            <CoverImage
               src={art.imageUrl}
               alt={art.label}
-              sizes="(max-width: 768px) 100vw, 1100px"
-              priority
+              blur={cover.blur}
               // Faces sit high in artist photos: keep them in frame on a wide crop.
               focus="50% 25%"
             />

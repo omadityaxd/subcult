@@ -57,6 +57,8 @@ export interface IssueCover {
   palette?: readonly string[] | null
   /** No fit or grail cover: an artist portrait or a mosaic (set by the server). */
   art?: CoverArt | null
+  /** Tiny inline placeholder for the cover image while it loads (set by the server). */
+  blur?: string | null
 }
 
 export interface TodayEdition {

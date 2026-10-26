@@ -1,5 +1,6 @@
 import { cookies, headers } from "next/headers"
 import type { ReactNode } from "react"
+import { coverBlur } from "@/lib/images/cover-blur"
 import { errorMessage, log } from "@/lib/log"
 import { getViewer } from "@/lib/supabase/server"
 import {
@@ -40,13 +41,17 @@ export async function TodayServer({ coldExtras }: { coldExtras: ReactNode }) {
   let initial: TodayEdition | null = null
   try {
     const viewer = await getViewer().catch(() => null)
-    initial = await buildToday({
+    const edition = await buildToday({
       entities: parseTasteCookie(decode(TASTE_COOKIE)),
       brands: [],
       lastVisit,
       timeZone,
       viewerId: viewer?.id ?? null,
     })
+    const { cover } = edition
+    const coverImage =
+      cover.item?.imageUrl ?? (cover.art?.kind === "portrait" ? cover.art.imageUrl : null)
+    initial = { ...edition, cover: { ...cover, blur: await coverBlur(coverImage) } }
   } catch (error) {
     log.warn("today.ssr_failed", { error: errorMessage(error) })
   }

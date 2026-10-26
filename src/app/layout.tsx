@@ -53,6 +53,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="en" className={`dark ${sans.variable} ${serif.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: THEME_BOOT_SCRIPT }} />
+        {/* Story rings and artwork above the fold come from Spotify's image CDN: open the
+            connection while the HTML is still arriving. (The cover is same-origin.) */}
+        <link rel="preconnect" href="https://i.scdn.co" />
       </head>
       <body>
         <MotionProvider>{children}</MotionProvider>
