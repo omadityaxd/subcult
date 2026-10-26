@@ -138,3 +138,33 @@ export async function findRecentReleases(
   if (!response.ok) throw new Error(`iTunes lookup ${response.status}`)
   return pickRecentReleases(await response.json(), now, days, artist)
 }
+
+const songSchema = z.object({
+  wrapperType: z.literal("track"),
+  previewUrl: z.string().url(),
+  trackTimeMillis: z.number().optional(),
+})
+
+/** A release's playable 30s preview: its first song that has one. */
+export function pickCollectionPreview(
+  json: unknown,
+): { previewUrl: string; durationMs: number | null } | null {
+  const song = parse(songSchema, json)[0]
+  return song ? { previewUrl: song.previewUrl, durationMs: song.trackTimeMillis ?? null } : null
+}
+
+/**
+ * Looks a release up by its Apple collection id. Search can miss a brand-new
+ * single entirely; the release's own track list always has its preview.
+ */
+export async function findCollectionPreview(
+  collectionId: string,
+  { fetchImpl = fetch, timeoutMs = 6000 }: FetchOptions = {},
+): Promise<{ previewUrl: string; durationMs: number | null } | null> {
+  const query = new URLSearchParams({ id: collectionId, entity: "song", country: "US" })
+  const response = await fetchImpl(`${LOOKUP_URL}?${query}`, {
+    signal: AbortSignal.timeout(timeoutMs),
+  })
+  if (!response.ok) throw new Error(`iTunes lookup ${response.status}`)
+  return pickCollectionPreview(await response.json())
+}

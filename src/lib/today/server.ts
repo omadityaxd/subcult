@@ -6,7 +6,7 @@ import { buildNicheFeed } from "@/lib/feed/feed"
 import type { FeedItem } from "@/lib/feed/types"
 import { fitFeedItems, nicheFits } from "@/lib/fits/server"
 import { errorMessage, log } from "@/lib/log"
-import { artistReleases } from "@/lib/music/releases-server"
+import { artistReleases, releasePreview } from "@/lib/music/releases-server"
 import { soundtrackFeedItems } from "@/lib/music/soundtrack"
 import { getSoundtrack } from "@/lib/music/soundtrack-server"
 import { TAXONOMY, findPreset, findSeedProfile, nicheArtistsLeadFirst } from "@/lib/niches/catalog"
@@ -100,25 +100,28 @@ async function drops(artists: readonly string[], now: number): Promise<FeedItem[
     artists.map(async (slug) => {
       const artist = TAXONOMY.artist(slug)
       if (!artist) return []
-      const releases = await artistReleases(slug, artist.name)
-      return releases
-        .filter((r) => now - Date.parse(r.releasedAt) <= DROP_DAYS * DAY)
-        .map((r): FeedItem => ({
-          id: `subcult:release:${r.id}`,
-          source: "subcult",
-          type: "release",
-          title: r.title,
-          subtitle: r.artist,
-          imageUrl: r.artworkUrl,
-          url: r.appleUrl ?? "",
-          publishedAt: r.releasedAt,
-          score: 1,
-          meta: {
-            kind: r.kind,
-            artistSlug: slug,
-            entities: encodeEntities([{ ref: `artist:${slug}`, label: artist.name }]),
-          },
-        }))
+      const releases = (await artistReleases(slug, artist.name)).filter(
+        (r) => now - Date.parse(r.releasedAt) <= DROP_DAYS * DAY,
+      )
+      // A brand-new single can be missing from iTunes search: its own track list has the preview.
+      const previews = await Promise.all(releases.map((r) => releasePreview(r.id)))
+      return releases.map((r, i): FeedItem => ({
+        id: `subcult:release:${r.id}`,
+        source: "subcult",
+        type: "release",
+        title: r.title,
+        subtitle: r.artist,
+        imageUrl: r.artworkUrl,
+        url: r.appleUrl ?? "",
+        publishedAt: r.releasedAt,
+        score: 1,
+        meta: {
+          kind: r.kind,
+          previewUrl: previews[i] ?? null,
+          artistSlug: slug,
+          entities: encodeEntities([{ ref: `artist:${slug}`, label: artist.name }]),
+        },
+      }))
     }),
   )
   return lists.flat()

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest"
-import { pickArtistId, pickRecentReleases } from "./releases"
+import { pickArtistId, pickRecentReleases, pickCollectionPreview } from "./releases"
 
 const NOW = Date.parse("2026-10-16T12:00:00Z")
 
@@ -61,5 +61,32 @@ describe("pickRecentReleases", () => {
       ],
     }
     expect(pickRecentReleases(json, NOW, 14, "Frédéric Chopin")).toEqual([])
+  })
+})
+
+describe("pickCollectionPreview", () => {
+  it("takes the first song with a preview from a collection lookup", () => {
+    const json = {
+      results: [
+        { wrapperType: "collection", collectionId: 1, collectionName: "room service - Single" },
+        { wrapperType: "track", kind: "song", trackName: "intro", previewUrl: null },
+        {
+          wrapperType: "track",
+          kind: "song",
+          trackName: "room service",
+          previewUrl: "https://audio-ssl.itunes.apple.com/x.m4a",
+          trackTimeMillis: 140000,
+        },
+      ],
+    }
+    expect(pickCollectionPreview(json)).toEqual({
+      previewUrl: "https://audio-ssl.itunes.apple.com/x.m4a",
+      durationMs: 140000,
+    })
+  })
+
+  it("is null when nothing in it can play", () => {
+    expect(pickCollectionPreview({ results: [{ wrapperType: "collection" }] })).toBeNull()
+    expect(pickCollectionPreview("garbage")).toBeNull()
   })
 })
