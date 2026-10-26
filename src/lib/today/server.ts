@@ -2,17 +2,20 @@ import "server-only"
 import { cache } from "react"
 import { featuredOrder } from "@/lib/feed/featured"
 import { appFeedDeps } from "@/lib/feed/app-deps"
+import { cached } from "@/lib/feed/cache"
 import { buildNicheFeed } from "@/lib/feed/feed"
 import type { FeedItem } from "@/lib/feed/types"
 import { fitFeedItems, nicheFits } from "@/lib/fits/server"
 import { errorMessage, log } from "@/lib/log"
 import { artistReleases, releasePreview } from "@/lib/music/releases-server"
 import { soundtrackFeedItems } from "@/lib/music/soundtrack"
+import { getCacheStore } from "@/lib/music/server"
 import { getSoundtrack } from "@/lib/music/soundtrack-server"
 import { TAXONOMY, findPreset, findSeedProfile, nicheArtistsLeadFirst } from "@/lib/niches/catalog"
 import { containsTerm, isAmbiguous } from "@/lib/feed/relevance"
 import { type CoverArt, chooseCoverArt } from "./cover-art"
 import { curateCandidates } from "./curate"
+import { GUEST_ISSUE_POLICY, guestIssueKey, isGuestRequest } from "./guest-issue"
 import { isHeavy } from "./heavy"
 import { entityPhoto, withTeaImage } from "./tea-image"
 import { moodboardFeedItems } from "@/lib/moodboard/board"
@@ -303,7 +306,32 @@ const settle = async <T>(label: string, work: Promise<T[]>): Promise<T[]> => {
  * local moment. Cold start (no taste yet) uses today's featured niches and
  * global rising, and the client nudges toward the vibe check.
  */
+/**
+ * Today's issue. First-time visitors (no account, taste, brands or past
+ * visit) share one cached edition per time zone and edition for a few
+ * minutes; everyone else gets theirs built fresh.
+ */
 export async function buildToday(req: TodayRequest, now = Date.now()): Promise<TodayEdition> {
+  if (!isGuestRequest(req)) return buildIssue(req, now)
+  try {
+    const { value } = await cached(
+      getCacheStore(),
+      guestIssueKey(req.timeZone, now),
+      GUEST_ISSUE_POLICY,
+      () => buildIssue(req, now),
+      {
+        onStoreError: (operation, error) =>
+          log.warn("today.guest_cache_error", { operation, error: errorMessage(error) }),
+      },
+    )
+    return value
+  } catch (error) {
+    log.warn("today.guest_cache_failed", { error: errorMessage(error) })
+    return buildIssue(req, now)
+  }
+}
+
+async function buildIssue(req: TodayRequest, now: number): Promise<TodayEdition> {
   const known = (slug: string) => findSeedProfile(slug) !== undefined
   const myNiches = strongest(req, "niche").filter(known).slice(0, NICHES)
   const myArtists = strongest(req, "artist").filter((slug) => TAXONOMY.artist(slug))
